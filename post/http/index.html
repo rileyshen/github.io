@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | Using HttpSession in a Shopping Cart Application </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.5e496fea98063f0f4e4bec6d20c35f8f071dc78c6385e9ec1041fc8419946fd6.css" integrity="sha256-Xklv6pgGPw9OS&#43;xtIMNfjwcdx4xjhensEEH8hBmUb9Y="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/http/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Using HttpSession in a Shopping Cart Application"/>
+<meta name="twitter:description" content="create product class package appShop; public class Product { private int id;// productid 	private String name;// 	private String description;// 	private float price;// 	public Product(int id,String name,String description,float price){ this."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/RileyCode-hash" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>Using HttpSession in a Shopping Cart Application</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Aug 28, 2020
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">3-minute read</span>
+            </div>
+            
+        </div>
+
+        <h2 id="create-product-class">create product class</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">appShop</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span><span class="c1">// productid
+</span><span class="c1"></span>	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span><span class="c1">//
+</span><span class="c1"></span>	<span class="kd">private</span> <span class="n">String</span> <span class="n">description</span><span class="o">;</span><span class="c1">//
+</span><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">price</span><span class="o">;</span><span class="c1">//
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="nf">Product</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span><span class="n">String</span> <span class="n">description</span><span class="o">,</span><span class="kt">float</span> <span class="n">price</span><span class="o">){</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">setDescription</span><span class="o">(</span><span class="n">description</span><span class="o">);</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">price</span><span class="o">);</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getDescription</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">description</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDescription</span><span class="o">(</span><span class="n">String</span> <span class="n">description</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">description</span> <span class="o">=</span> <span class="n">description</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">float</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><h2 id="create-shoppingitem-class">create shoppingItem class</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">appshop</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShoppingItem</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Product</span> <span class="n">product</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">quantity</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ShoppingItem</span><span class="o">(</span><span class="n">Product</span> <span class="n">product</span><span class="o">,</span> <span class="kt">int</span> <span class="n">quantity</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">setProduct</span><span class="o">(</span><span class="n">product</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">setQuantity</span><span class="o">(</span><span class="n">quantity</span><span class="o">);</span>
+<span class="o">}</span>
+    <span class="kd">public</span> <span class="n">Product</span> <span class="nf">getProduct</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">product</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setProduct</span><span class="o">(</span><span class="n">Product</span> <span class="n">product</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">product</span> <span class="o">=</span> <span class="n">product</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getQuantity</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">quantity</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setQuantity</span><span class="o">(</span><span class="kt">int</span> <span class="n">quantity</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">quantity</span> <span class="o">=</span> <span class="n">quantity</span><span class="o">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="err">```</span><span class="n">java</span>
+<span class="kn">package</span> <span class="nn">appShop</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.PrintWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.text.NumberFormat</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Locale</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.servlet.ServletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.annotation.WebServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServlet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.servlet.http.HttpSession</span><span class="o">;</span>
+<span class="nd">@WebServlet</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;ShoppingCartServlet&#34;</span><span class="o">,</span><span class="n">urlPatterns</span><span class="o">={</span><span class="s">&#34;/products&#34;</span><span class="o">,</span><span class="s">&#34;/viewProductDetails&#34;</span><span class="o">,</span><span class="s">&#34;/addToCart&#34;</span><span class="o">,</span><span class="s">&#34;/viewCart&#34;</span><span class="o">})</span>
+
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShoppingCartServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">CART_ATTRIBUTE</span> <span class="o">=</span> <span class="s">&#34;cart&#34;</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="n">products</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;();</span>
+    <span class="kd">private</span> <span class="n">NumberFormat</span> <span class="n">currencyFormat</span> <span class="o">=</span> <span class="n">NumberFormat</span><span class="o">.</span><span class="na">getCurrencyInstance</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">US</span><span class="o">);</span>
+
+    <span class="c1">//init four productions with details
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+        <span class="n">products</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Product</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;A&#34;</span><span class="o">,</span><span class="s">&#34;XXXXX&#34;</span><span class="o">,</span><span class="n">1000$</span><span class="o">));</span>
+		<span class="n">products</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Product</span><span class="o">(</span><span class="n">2</span><span class="o">,</span><span class="s">&#34;B&#34;</span><span class="o">,</span><span class="s">&#34;XXXX&#34;</span><span class="o">,</span><span class="n">2000$</span><span class="o">));</span>
+		<span class="n">products</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Product</span><span class="o">(</span><span class="n">3</span><span class="o">,</span><span class="s">&#34;C&#34;</span><span class="o">,</span><span class="s">&#34;XXXXXX&#34;</span><span class="o">,</span><span class="n">3000$</span><span class="o">));</span>
+		<span class="n">products</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Product</span><span class="o">(</span><span class="n">4</span><span class="o">,</span><span class="s">&#34;D&#34;</span><span class="o">,</span><span class="s">&#34;XXX&#34;</span><span class="o">,</span><span class="n">40000$</span><span class="o">));</span>
+	<span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>//URL doGet method,</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span>
+			<span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">uri</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">();</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&#34;/products&#34;</span><span class="o">)){</span>
+			<span class="n">sendProductList</span><span class="o">(</span><span class="n">resp</span><span class="o">);</span>
+		<span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&#34;/viewProductDetails&#34;</span><span class="o">)){</span>
+			<span class="n">sendProductDetails</span><span class="o">(</span><span class="n">req</span><span class="o">,</span><span class="n">resp</span><span class="o">);</span>
+		<span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">uri</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&#34;/viewCart&#34;</span><span class="o">)){</span>
+			<span class="n">showCart</span><span class="o">(</span><span class="n">req</span><span class="o">,</span><span class="n">resp</span><span class="o">);</span>
+		<span class="o">}</span>
+
+	<span class="o">}</span>
+</code></pre></div><p>// when clients click <code>buy</code>, get those request, add product and quantity into cart</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doPost</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span>
+			<span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">productId</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">productId</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+            <span class="n">quantity</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;quantity&#34;</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">){</span>  <span class="o">}</span>
+
+        <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">getProduct</span><span class="o">(</span><span class="n">productId</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">product</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">quantity</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ShoppingItem</span> <span class="n">shoppingItem</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShoppingItem</span><span class="o">(</span><span class="n">product</span><span class="o">,</span> <span class="n">quantity</span><span class="o">);</span>
+            <span class="n">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">ShoppingItem</span><span class="o">&gt;</span> <span class="n">cart</span> <span class="o">=</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ShoppingItem</span><span class="o">)</span><span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">CART_ATTRIBUTE</span><span class="o">);</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">cart</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+				<span class="n">cart</span><span class="o">=</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">ShoppingItem</span><span class="o">&gt;();</span>
+				<span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">CART_ATTRIBUTE</span><span class="o">,</span> <span class="n">cart</span><span class="o">);</span>
+			<span class="o">}</span>
+			<span class="n">cart</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">shoppingItem</span><span class="o">);</span>
+		<span class="o">}</span>
+
+        <span class="c1">// if the product is null, then send the productlist
+</span><span class="c1"></span>       <span class="n">sendProductList</span><span class="o">(</span><span class="n">resp</span><span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>//send the productList</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">sendProductList</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">getContentType</span><span class="o">(</span><span class="s">&#34;text/html&#34;</span><span class="o">);</span>
+    <span class="n">PrintWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+    <span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;html&gt;&lt;head&gt;&lt;title&gt;Products&lt;/title&gt;&#34;</span><span class="o">+</span>
+		<span class="s">&#34;&lt;/head&gt;&lt;body&gt;&lt;h2&gt;Products&lt;/h2&gt;&#34;</span><span class="o">);</span>
+	<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;ul&gt;&#34;</span><span class="o">);</span>
+<span class="c1">//list product list
+</span><span class="c1"></span><span class="k">for</span> <span class="o">(</span><span class="n">Product</span> <span class="n">product</span> <span class="o">:</span> <span class="n">products</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;li&gt;&#34;</span><span class="o">+</span><span class="n">product</span><span class="o">.</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;(&#34;</span><span class="o">+</span><span class="n">currencyFormat</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">getPrice</span><span class="o">())</span>
+					<span class="o">+</span><span class="s">&#34;) (&#34;</span><span class="o">+</span><span class="s">&#34;&lt;a href=&#39;viewProductDetails?id=&#34;</span><span class="o">+</span><span class="n">product</span><span class="o">.</span><span class="na">getId</span><span class="o">()+</span><span class="s">&#34;&#39;&gt;Details&lt;/a&gt;)&#34;</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/ul&gt;&#34;</span><span class="o">);</span>
+		<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;a href=&#39;viewCart&#39;&gt;View Cart&lt;/a&gt;&#34;</span><span class="o">);</span>
+		<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/body&gt;&lt;/html&gt;&#34;</span><span class="o">);</span>
+
+	<span class="o">}</span>
+    <span class="kd">private</span> <span class="n">Product</span> <span class="nf">getProduct</span><span class="o">(</span><span class="kt">int</span> <span class="n">productId</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="n">Product</span> <span class="n">product</span><span class="o">:</span><span class="n">products</span><span class="o">){</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">getId</span><span class="o">()==</span><span class="n">productId</span><span class="o">){</span>
+				<span class="k">return</span> <span class="n">product</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+</code></pre></div><p>// send the productdetails</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="c1">//发送产品描述
+</span><span class="c1"></span>	<span class="kd">private</span> <span class="kt">void</span> <span class="nf">sendProductDetails</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span>
+			<span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+		<span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;text/html&#34;</span><span class="o">);</span>
+		<span class="n">PrintWriter</span> <span class="n">write</span><span class="o">=</span><span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+		<span class="kt">int</span> <span class="n">productId</span><span class="o">=</span><span class="n">0</span><span class="o">;</span>
+		<span class="k">try</span><span class="o">{</span>
+			<span class="n">productId</span><span class="o">=</span><span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+
+		<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">){}</span>
+
+		<span class="n">Product</span> <span class="n">product</span> <span class="o">=</span><span class="n">getProduct</span><span class="o">(</span><span class="n">productId</span><span class="o">);</span>
+
+		<span class="k">if</span><span class="o">(</span><span class="n">product</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;html&gt;&lt;head&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;title&gt;Product Details&lt;/title&gt;&lt;/head&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;body&gt;&lt;h2&gt;Product Details&lt;/h2&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;form method=&#39;post&#39; action=&#39;addToCart&#39;&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;input type=&#39;hidden&#39; name=&#39;id&#39; &#34;</span>
+					<span class="o">+</span><span class="s">&#34;value=&#39; &#34;</span><span class="o">+</span><span class="n">productId</span><span class="o">+</span><span class="s">&#34; &#39;/&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;table&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&lt;td&gt;Name:&lt;/td&gt;&lt;td&gt;&#34;</span>
+					<span class="o">+</span><span class="n">product</span><span class="o">.</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;&lt;/td&gt;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&lt;td&gt;Description:&lt;/td&gt;&lt;td&gt;&#34;</span>
+					<span class="o">+</span><span class="n">product</span><span class="o">.</span><span class="na">getDescription</span><span class="o">()+</span><span class="s">&#34;&lt;/td&gt;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&#34;</span><span class="o">+</span><span class="s">&#34;&lt;tr&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;td&gt;&lt;input name=&#39;quantity&#39; &gt;&lt;/td&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;td&gt;&lt;input type=&#39;submit&#39; value=&#39;buy&#39;&gt;&lt;/td&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&lt;td colspan=&#39;2&#39;&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;a href=&#39;products&#39;&gt;Product List&lt;/a&gt;&#34;</span>
+					<span class="o">+</span><span class="s">&#34;&lt;/td&gt;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/table&gt;&#34;</span><span class="o">);</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/form&gt;&lt;/body&gt;&#34;</span><span class="o">);</span>
+
+		<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+			<span class="n">write</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;No product found&#34;</span><span class="o">);</span>
+		<span class="o">}</span>
+
+
+
+	<span class="o">}</span>
+</code></pre></div><p>//show the shopping cart</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">showCart</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+	     <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;text/html&#34;</span><span class="o">);</span>
+	     <span class="n">PrintWriter</span> <span class="n">writer</span><span class="o">=</span><span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">();</span>
+	     <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;html&gt;&lt;head&gt;&lt;title&gt;Shopping Cart&lt;/title&gt;&lt;/head&gt;&#34;</span><span class="o">);</span>
+	     <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;body&gt;&lt;a href=&#39;products&#39;&gt;Product List&lt;/a&gt;&#34;</span><span class="o">);</span>
+	     <span class="n">HttpSession</span> <span class="n">session</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+	     <span class="n">List</span><span class="o">&lt;</span><span class="n">ShoppingItem</span><span class="o">&gt;</span> <span class="n">cart</span><span class="o">=(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ShoppingItem</span><span class="o">&gt;)</span>
+	    		 <span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">CART_ATTRIBUTE</span><span class="o">);</span>
+	     <span class="k">if</span><span class="o">(</span><span class="n">cart</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+	    	 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;table&gt;&#34;</span><span class="o">);</span>
+	    	 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&#34;</span>
+	    	 		 <span class="o">+</span><span class="s">&#34;&lt;td style=&#39;width:150px&#39;&gt;Quantity&lt;/td&gt;&#34;</span>
+	    			 <span class="o">+</span><span class="s">&#34;&lt;td style=&#39;width:150px&#39;&gt;Product&lt;/td&gt; &#34;</span>
+	    			 <span class="o">+</span><span class="s">&#34;&lt;td style=&#39;width:150px&#39;&gt;Price&lt;/td&gt;&#34;</span>
+	    			 <span class="o">+</span><span class="s">&#34;&lt;td&gt;Amount&lt;/td&gt;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+	    	 <span class="kt">double</span> <span class="n">total</span><span class="o">=</span><span class="n">0</span><span class="o">.</span><span class="na">0</span><span class="o">;</span>
+	    	 <span class="k">for</span><span class="o">(</span><span class="n">ShoppingItem</span> <span class="n">shoppingItem</span><span class="o">:</span><span class="n">cart</span><span class="o">){</span>
+	    		 <span class="n">Product</span> <span class="n">product</span><span class="o">=</span><span class="n">shoppingItem</span><span class="o">.</span><span class="na">getProduct</span><span class="o">();</span>
+	    		 <span class="kt">int</span> <span class="n">quantity</span><span class="o">=</span><span class="n">shoppingItem</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">();</span>
+	    		 <span class="k">if</span><span class="o">(</span><span class="n">quantity</span><span class="o">!=</span><span class="n">0</span><span class="o">){</span>
+	    			 <span class="kt">float</span> <span class="n">price</span><span class="o">=</span><span class="n">product</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
+	    			 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&#34;</span>
+	    					 <span class="o">+</span><span class="s">&#34;&lt;td&gt;&#34;</span><span class="o">+</span><span class="n">quantity</span><span class="o">+</span><span class="s">&#34;&lt;/td&gt;&#34;</span>
+	    					 <span class="o">+</span><span class="s">&#34;&lt;td&gt;&#34;</span><span class="o">+</span><span class="n">product</span><span class="o">.</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;&lt;/td&gt;&#34;</span>
+	    					 <span class="o">+</span><span class="s">&#34;&lt;td&gt;&#34;</span><span class="o">+</span><span class="n">currencyFormat</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">price</span><span class="o">)+</span><span class="s">&#34;&lt;/td&gt;&#34;</span><span class="o">);</span>
+	    			 <span class="kt">double</span> <span class="n">subtotal</span><span class="o">=</span><span class="n">price</span><span class="o">*</span><span class="n">quantity</span><span class="o">;</span>
+	    			 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;td&gt;&#34;</span><span class="o">+</span><span class="n">currencyFormat</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">subtotal</span><span class="o">));</span>
+	    			 <span class="n">total</span><span class="o">+=</span><span class="n">subtotal</span><span class="o">;</span>
+	    			 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+	    		 <span class="o">}</span>
+	    	 <span class="o">}</span>
+	    	 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;tr&gt;&lt;td colspan=&#39;4&#39;&gt;&#34;</span>
+	    			 <span class="o">+</span><span class="s">&#34;style=&#39;text-align:right&#39;&gt;&#34;</span>
+	    			 <span class="o">+</span><span class="s">&#34;Total:&#34;</span>
+	    			 <span class="o">+</span><span class="n">currencyFormat</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">total</span><span class="o">)</span>
+	    			 <span class="o">+</span><span class="s">&#34;&lt;/td&gt;&lt;/tr&gt;&#34;</span><span class="o">);</span>
+	    	 <span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/table&gt;&#34;</span><span class="o">);</span>
+
+	     <span class="o">}</span>
+		<span class="n">writer</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;&#34;</span><span class="o">);</span>
+	<span class="o">}</span>
+
+
+</code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/servlet/">Servlet</a><a class="tag" href="/tags/httpsession/">HttpSession</a><a class="tag" href="/tags/web-eshopping/">web eshopping</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script></body>
+
+</html>
