@@ -14,7 +14,54 @@
       
       <guid>https://rileyshen.github.io/post/using-git-in-the-real-life-for-beginners-2/</guid>
       
-        <description>&lt;p&gt;Here I am going to focus on git stash, very useful commend.&lt;/p&gt;</description>
+        <description>&lt;p&gt;Here I am going to focus on git stash, very useful commend.&lt;/p&gt;
+&lt;h3 id=&#34;3bugs-need-to-fix&#34;&gt;3.Bugs need to fix()&lt;/h3&gt;
+&lt;p&gt;😼😼😼😼&lt;/p&gt;
+&lt;p&gt;Suddenly the team need you to fix a urgent bug on the master branch.  But it&amp;rsquo;s not yet to commit your local modifications.&lt;/p&gt;
+&lt;p&gt;Then you try to git checkout master, get an error said&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Your local changes to the following files would be overwritten by checkout, Please commit your changes or stash them before you switch branches.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That&amp;rsquo;s because it&amp;rsquo;s a team work, the master branch get samething new  that I d&lt;/p&gt;
+&lt;p&gt;Use git stash, very handy, you will love it.&lt;/p&gt;
+&lt;p&gt;The &amp;ldquo;git stash&amp;rdquo; command can help you to (temporarily but safely) store your uncommitted local changes。&lt;/p&gt;
+&lt;p&gt;below is the rules:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;save modified codes in branch A&lt;/li&gt;
+&lt;li&gt;run git stash&lt;/li&gt;
+&lt;li&gt;git checkout branch B&lt;/li&gt;
+&lt;li&gt;fix bugs in branch B&lt;/li&gt;
+&lt;li&gt;commit and push to remote&lt;/li&gt;
+&lt;li&gt;git checkout A&lt;/li&gt;
+&lt;li&gt;git stash pop&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stash&lt;/span&gt; 
+&lt;span class=&#34;nx&#34;&gt;Saved&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;working&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;directory&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;state&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;WIP&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;master&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;d7435644&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Feat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;configure&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;graphql&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;endpoint&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;normally, git stash stores staged and uncommitted files, and ignore untracted files.&lt;/p&gt;
+&lt;p&gt;But you can use below option to deal with the untract files&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;u&lt;/span&gt; 
+&lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;includ&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;untracked&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// stash is to stash the untracked files as well as the tracked ones.
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;或&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// stores staged and uncommitted files, also inclue the untracted files。
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now This is our file status:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;M&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;html&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;M&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;lib&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;simplegit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you already forget &amp;ldquo;M&amp;rdquo; means, right click &lt;a href=&#34;https://rileyshen.github.io/post/using-git-in-the-real-life-for-beginners-1/&#34; &gt;git1&lt;/a&gt; for a quite review.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;stash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;keep&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// not only include all staged content in the stash being created,
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Saved&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;working&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;directory&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;state&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;WIP&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;master&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;b65b17&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;added&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;file&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;HEAD&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;now&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;at&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;b65b17&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;added&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;file&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// but simultaneously leave it in the index
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;M&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;html&lt;/span&gt;   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After you finish fixing the bugs, you can use &amp;ldquo;git stash appy&amp;rdquo; or &amp;ldquo;git stash pop&amp;rdquo; to go back the place you were working on.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;&amp;ldquo;git stash appy&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; restore your stashed files and keep them&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;&amp;ldquo;git stash pop&amp;rdquo;&lt;/strong&gt;&lt;/em&gt; restore and delete them from your stashed place&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Use git stash pop to deledte those stashed filed is a good working habit.&lt;/p&gt;
+&lt;h4 id=&#34;ok-its-time-for-git-3hahahugoshortcode-s1-hbhb&#34;&gt;Ok, It&amp;rsquo;s time for &lt;a href=&#34;https://rileyshen.github.io/post/using-git-in-the-real-life-for-beginners-3/&#34; &gt;Git 3&lt;/a&gt;&lt;/h4&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/using-git-in-the-real-life-for-beginners-1/&#34; &gt;Git1&lt;/a&gt;&lt;/p&gt;</description>
       
     </item>
     

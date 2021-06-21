@@ -15,7 +15,124 @@
       <guid>https://rileyshen.github.io/post/using-git-in-the-real-life-for-beginners-1/</guid>
       
         <description>&lt;p&gt;This tutorial is for newbies who want to learn git in real life and easy way.
-此篇教程献给学了点线面没学骨架的我，另外我学习的逻辑其实是骨架到面线点。&lt;/p&gt;</description>
+此篇教程献给学了点线面没学骨架的我，另外我学习的逻辑其实是骨架到面线点。&lt;/p&gt;
+&lt;p&gt;I use git basic for a while, like copy and paste &lt;mark&gt;&lt;code&gt;git init&lt;/code&gt;&lt;/mark&gt;, &lt;mark&gt; &lt;code&gt;git add&lt;/code&gt;&lt;/mark&gt;, then push.  something even forgets &lt;mark&gt;&lt;code&gt;add&lt;/code&gt;&lt;/mark&gt; before &lt;mark&gt;&lt;code&gt;commit&lt;/code&gt;&lt;/mark&gt;, but whenever I go through the &lt;a href=&#34;https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell&#34;  target=&#34;_blank&#34; &gt;git tutorial&lt;/a&gt;, I just get bored.&lt;/p&gt;
+&lt;p&gt;But hey, I have to adapt git during working, now I decide to share my learning note to make newbies feel more comfortable to use git.&lt;/p&gt;
+&lt;p&gt;git 真是让我头疼，学了很多指令，结果遇到一堆问题，只能边google答案边解决。后面发现一开始使用逻辑都没弄对，所以学习git之前先弄明白使用逻辑，从逻辑框架中去学，比一堆什么basic指令啊，merge怎么用有效的多。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;file-status&#34;&gt;File Status&lt;/h2&gt;
+&lt;p&gt;First, let&amp;rsquo;s make three concepts clear.
+Imagine you are a Prop Maker working in an Entertainment Industry, your job is making, preparing the props according to the script, then carry them to shooting setup.&lt;/p&gt;
+&lt;p&gt;首先，先理清我们的工作逻辑：工作区（Working Directory）、 版本库（commit History）和 暂存区（stage or index）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Working Directory&lt;/strong&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;it&amp;rsquo;s like your own department or backstage, contains tons of props, tools, and other material; &lt;strong&gt;It&amp;rsquo;s a place where you make props&lt;/strong&gt;.  For me, I would like to have some Markdown files on my current IDEA project, then I can easily write down any problem-solving steps.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&#34;right&#34;&gt;&lt;img src=&#34;https://github.com/RileyCode-hash/image/blob/master/1%20%282%29.png?raw=true&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;p&gt;commit-history&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;stage or index&lt;/strong&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It is the &lt;strong&gt;prop list&lt;/strong&gt;,  This helps organize what props to attain, what characteristics they have, any changes needed, and where to place them.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;commit History&lt;/strong&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;every commit is like you taking a picture of what you have done so far, keep hanging them in a certain direction, then when you mess up by accident, you can just choose a picture then return to the specific time you want. Yeah, we are talking about the Time machine.
+&lt;br&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Branch&lt;/strong&gt;: just like the pictures below, you or your teammate work on the different stage designs for the film shoot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://github.com/RileyCode-hash/image/blob/master/scrnli_2021_6_11%E4%B8%8B%E5%8D%882-31-25.png?raw=true&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;p&gt;BranchABC&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Now it&amp;rsquo;s time for the real-life case:
+The first week the tech Managers set up a meeting,  a working schedule&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Usually, every company would have different Branch models according to the projects.&lt;/p&gt;
+&lt;p&gt;Now the leader has set up a project repositor, including several branches:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;Develop Branch&lt;/strong&gt;&lt;/em&gt;: team members need pull/fetch and push code in time&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;Test Branch&lt;/strong&gt;&lt;/em&gt;: files need to be pushed to the test branch after finished&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;Release Branch&lt;/strong&gt;&lt;/em&gt;: depends on your Tech Leader&amp;rsquo;s plan&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;Master Branch&lt;/strong&gt;&lt;/em&gt;: once pass the test, the test/managing team will publish this branch, and have &lt;em&gt;&lt;strong&gt;tag&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;if there are some bugs during the test process, create a &lt;em&gt;&lt;strong&gt;bug branch&lt;/strong&gt;&lt;/em&gt; bash on the release branch&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;grab-a-coffee-lets-work&#34;&gt;Grab a coffee, let&amp;rsquo;s work.☕☕☕☕&lt;/h4&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;1remote-to-local&#34;&gt;1.remote to local&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git clone &lt;a href=&#34;https://github.com/xxxxxx/projectxx&#34;&gt;https://github.com/xxxxxx/projectxx&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;That creates a directory named projectxx, initializes a .git directory&lt;/p&gt;
+&lt;h3 id=&#34;2working-on-your-develop-branch&#34;&gt;2.working on your Develop branch&lt;/h3&gt;
+&lt;p&gt;Coding&amp;hellip;Coding&amp;hellip;Coding&amp;hellip;&lt;/p&gt;
+&lt;p&gt;finish &lt;strong&gt;xx.md&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git add xx&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;you add &lt;strong&gt;xx&lt;/strong&gt; file on the &lt;strong&gt;staged&lt;/strong&gt;, just like you create a new prop, then update the prop list.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git add *&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;add every untracked/modified filed to the stage area
+your new prop, which has never been in the prop list would be called untracked.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git add ./readme.md/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;add readme file inside a folder&lt;/p&gt;
+&lt;p&gt;Now let&amp;rsquo;s know more details about our remake prop, prop list items, new prop things.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git status&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;it&amp;rsquo;s a  more simplified output to find out your files in untracked or staged status. I use it a lot.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git status -s&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;??&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;newFiles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;txt&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;A&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;lib&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rb&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;M&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;lib&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;staged&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;rb&lt;/span&gt;
+ &lt;span class=&#34;nx&#34;&gt;M&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;MM&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;twice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;??&lt;/code&gt; means New files that aren’t tracked (your new prop has not been put into the prop list yet)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;A .&lt;/code&gt;&lt;/strong&gt; means new files that have been added to the staging area have an A&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;M .&lt;/code&gt;&lt;/strong&gt;  modified and staged&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;. M&lt;/code&gt;&lt;/strong&gt; modified files but not yet staged (tricky one, your prop has been in the prop list, but it need modified, you finish modifying)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MM&lt;/code&gt;  modified, staged, and then modified again, so there are changes to it that are both staged and unstaged.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sometimes if the git status command is too vague for you — you want to know exactly what you changed,
+use &lt;code&gt;git diff&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;git diff : &lt;strong&gt;Working Directory&lt;/strong&gt; VS &lt;strong&gt;stage or index&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;git diff &amp;ndash;cached :&lt;strong&gt;stage or index&lt;/strong&gt; VS &lt;strong&gt;commit History&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;git diff HEAD : &lt;strong&gt;Working Directory&lt;/strong&gt; VS &lt;strong&gt;commit History&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;git diff origin/branchname..branchname  &lt;strong&gt;origin/branchname&lt;/strong&gt; VS &lt;strong&gt;branchnam&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;time to take the picture and leave for the day.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;git commit -m &amp;ldquo;cell&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;ok-its-time-for-git-2hahahugoshortcode-s2-hbhb&#34;&gt;Ok, It&amp;rsquo;s time for &lt;a href=&#34;https://rileyshen.github.io/post/using-git-in-the-real-life-for-beginners-2/&#34; &gt;Git 2&lt;/a&gt;&lt;/h4&gt;</description>
       
     </item>
     

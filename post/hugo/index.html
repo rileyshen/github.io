@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen | Hugo </title>
+    <title> Riley Shen | Hugo博客发布篇 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -12,6 +12,8 @@ She shares her weekly learnings
 because &#34;if you can&#39;t explain it simply,
 it means you didn&#39;t understand it well enough&#34;.
 ">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
 
     
     
@@ -51,7 +53,7 @@ it means you didn&#39;t understand it well enough&#34;.
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content="Hugo"/>
+<meta name="twitter:title" content="Hugo博客发布篇"/>
 <meta name="twitter:description" content="在 GitHub 创建个人主页仓库，仓库名称必须设置为 .github.io，这个仓库仅存放生成的静态内容。与你github账号名字相同最好，我不一样时候出现错误好几次，比如网址特别长的问题。
 在 GitHub 创建一个项目仓库 hugo-blog 并添加为我们本地项目文件夹的远程仓库。这个仓库用来维护站点配置和原始的文章内容。
 假设我们在已经通过上文的步骤在 public 文件夹中生成了想发布的静态内容，运行："/>
@@ -82,7 +84,7 @@ it means you didn&#39;t understand it well enough&#34;.
             </li>
         
             <li>
-                <a href="https://github.com/RileyCode-hash" rel="me" aria-label="GitHub">
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
                     <i class="fab fa-github fa-2x" aria-hidden="true"></i>
                 </a>
             </li>
@@ -137,12 +139,12 @@ it means you didn&#39;t understand it well enough&#34;.
     <div class="post-content">
         
         <div class="post-title">
-            <h2>Hugo</h2>
+            <h2>Hugo博客发布篇</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
                 <span class="date">
-                    Sat, Jun 19, 2021
+                    Fri, Jun 19, 2020
                     </span>
                 <em class="fas fa-stopwatch"></em>
                 <span class="reading-time">2-minute read</span>
@@ -186,135 +188,76 @@ git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span cla
 git push origin main
 
 <span class="nb">cd</span> ..
-</code></pre></div><p>配置公钥和私钥到仓库。这一步是为了使用Git Action自动构建，自动部署，每次只需上传源文件到<YOUR-PROJECT>仓库即会自动部署到<USERNAME>.github.io仓库。首先在本地博客根目录打开Git Bash，输入以下命令生产密钥对。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># 修改 username 为你自己的 GitHub 用户名
-ssh-keygen -t rsa -b 4096 -C &#34;username@users.noreply.github.com&#34;
-# 注意：这次不要直接回车，以免覆盖之前生成的,改个名字即可
-
-</code></pre></div><p>将生成的密钥对分别添加到：</p>
-<p>公钥(.pub后缀，如id_rsa.pub)</p>
-<p>前往<USERNAME>.github.io，Settings &gt; Deploy keys &gt; Add deploy key，复制到对应框中。</p>
-<p>名字随意，但务必勾选Allow write access。</p>
-<p>私钥(无后缀，如id_rsa)</p>
-<p>前往<YOUR-PROJECT>仓库，Settings &gt; Secrets &gt; New secret，复制到对应框中。</p>
-<p>此时名字必须为DEPLOY_KEY，这是为了与后面的Action脚本里环境变量名字对应。</p>
-<h2 id="直接取名字就可以不需要自己来个后缀会自己生成在你的这个git-bash文件夹">直接取名字就可以，不需要自己来个后缀，会自己生成在你的这个git bash文件夹</h2>
-<p>在本地博客根目录下创建.github/workflows/build.yml，在里面填入：</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># .github/workflows/build.yml
-    
-name: CI #自动化的名称
+</code></pre></div><p>将如上内容保存到 deploy.sh 文件中，并执行 chmod +x deploy.sh 为其添加可执行权限。接着执行部署脚本：</p>
+<blockquote>
+<p>./deploy.sh</p>
+</blockquote>
+<p>大功告成！稍等几分钟就可以在 https://<USERNAME>.github.io 看到我们的个人博客了。</p>
+<h4 id="通过-github-actions-自动部署">通过 GitHub Actions 自动部署</h4>
+<p>目前我们的「创作-发布」流程如下：</p>
+<p>在项目仓库编辑原始内容并进行版本管理。</p>
+<p>执行自动脚本生成静态站点并推送到个人主页仓库完成发布。</p>
+<p>这套流程已经很流畅，但还有一些改进空间：我们可以使用 GitHub Actions，在每次向远程的项目仓库推送原始内容更改时自动执行第 2 步进行发布。</p>
+<p>GitHub 上有许多这类自动化部署任务的开源 Actions 项目，我们选择了其中一个简单易用的 GitHub Actions for Hugo。具体的操作步骤截图和详细配置项可以查看该项目的 README。下面简单介绍下配置过程：</p>
+<p>在项目文件夹中添加目录和文件：.github/workflows/gh-pages.yml，gh-pages.yml 文件内容如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">name: github pages
+   
 on:
-  push: # push的时候触发
-    branches: # 那些分支需要触发
-      - main
+  push:
+    branches:
+      - main  # 每次推送到 main 分支都会触发部署任务
+   
 jobs:
-  build:
-    runs-on: ubuntu-latest # 镜像市场
+  deploy:
+    runs-on: ubuntu-18.04
     steps:
-      - name: checkout # 步骤的名称
-        uses: actions/checkout@v2.3.4 #软件市场的名称
-        with: # 参数
-          submodules: true
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2.4.13
+      - uses: actions/checkout@v2
         with:
-          hugo-version: &#39;0.78.1&#39; #填写本地使用的Hugo版本
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+   
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: &#39;0.79.1&#39;
           extended: true
+   
       - name: Build
         run: hugo --minify
+   
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2.5.1
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-          EXTERNAL_REPOSITORY: username/username.github.io
-          PUBLISH_BRANCH: main
-          PUBLISH_DIR: ./public
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: &lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io  # 替换成上文所创建的个人主页仓库
+          publish_branch: main
+          publish_dir: ./public
+</code></pre></div><p>这个文件所定义的 workflow 基于项目仓库运行，但我们需要将运行过程生成的静态文件推送到个人主页仓库 <USERNAME>.github.io 完成发布，因此在 Deploy 任务中按照文档的 Deploy to external repository external_repository 一节做了专门的配置。</p>
+<p>在本地生成 SSH 部署密钥：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">ssh-keygen -t rsa -b 4096 -C &#34;username@users.noreply.github.com&#34;
+# 将在当前目录生成如下密钥文件:
+#   gh-pages.pub (公钥)
+#   gh-pages     (私钥)
 
-</code></pre></div><p>这里需要改四处地方：</p>
-<p>Line7，填写放置源文件仓库的分支。
-Line19，hugo-version填写本地使用的Hugo版本。
-Line27，EXTERNAL_REPOSITORY填写部署GitHub Pages的仓库。
-Line28，PUBLISH_BRANCH填写部署GitHub Pages仓库的分支。</p>
-<p>创建一个.gitignore文件，并在其中添加下面的内容：</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### Hugo ###
-# Generated files by hugo
-/resources/_gen/
-.env
-public/
-# /themes/
-    
-# Executable may be added to repository
-hugo.exe
-hugo.darwin
-hugo.linux
-    
-# OSX
-.DS_Store
-
-</code></pre></div><p>绑定存放源文件的远程仓库</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@github.com</span><span class="o">:</span><span class="n">username</span><span class="o">/&lt;</span><span class="n">YOUR</span><span class="o">-</span><span class="n">PROJECT</span><span class="o">&gt;.</span><span class="na">git</span>
-</code></pre></div><p>使用脚本自动上传。创建一个upload.sh脚本，用chmod +x upload.sh将其设为可执行文件。</p>
-<p>首次上传建议将以下脚本手动输入一次，特别是第13行应换成git push -u origin main，跟之后的上传有略微区别。如果不让push，先使用git pull再push即可。</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span><span class="c1"># If a command fails then the update stops</span>
-<span class="nb">set</span> -e
-    
-git add .
-<span class="c1"># Commit changes.</span>
-<span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;rebuilding site </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&#34;</span>
-<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span>
-<span class="k">fi</span>
-git commit -m <span class="s2">&#34;</span><span class="nv">$msg</span><span class="s2">&#34;</span>
-    
-git push
-</code></pre></div><p>此后使用./upload.sh &ldquo;Your optional commit message&quot;便会提交源文件到<YOUR-PROJECT>上。在该仓库的Actions处可以看到部署进度，大约等一分钟Action运行成功后，从浏览器访问https://<USERNAME>.github.io便可以查看博客内容了。</p>
-<p>添加域名
-不同域名服务商略有区别，但原理是一样的，从国外域名服务商购买域名配置简单些。</p>
-<p>购买域名后，找到配置DNS的界面，添加几条A记录和CNAME记录：</p>
-<p>Type	Host	Value
-A	@	185.199.108.153
-A	@	185.199.109.153
-A	@	185.199.110.153
-A	@	185.199.111.153
-CNAME	www	username.github.io
-在本地博客的static目录下创建名为CNAME的文件，里面填入域名，如xxx.com。</p>
-<p>接下来去GitHub配置，在<USERNAME>.github.io仓库点击Settings &gt; Options，下拉找到：</p>
-<p>在Custom domain填入注册的域名后，等待一段时间生成证书，然后勾选Enforce HTTPS，进度会在上方显示(Your site is published at xxx那里)。部署成功的图如上所示。 同时，可以发现在该仓库多了一个名为CNAME的文件，里面记录的就是刚刚绑定的域名，之后就可以通过该域名访问博客了。</p>
-<p>同时部署到多个Pages服务
-打开博客根目录隐藏文件夹.git下的config文件，添加url源</p>
-<p>1
-2
-3
-4
-[remote &ldquo;origin&rdquo;]
-url = <a href="mailto:git@github.com">git@github.com</a>:<USERNAME>/<USERNAME>.github.io.git
-url = <a href="mailto:git@e.coding.net">git@e.coding.net</a>:<USERNAME>/hugo-deploy/hugo-deploy.git #这个是添加的url源
-fetch = +refs/heads/<em>:refs/remotes/origin/</em>
-此后每次执行git push origin main就会推送到多个远程库。</p>
+</code></pre></div><p>公钥(.pub后缀，如id_rsa.pub)</p>
+<p>前往<USERNAME>.github.io，Settings &gt; Deploy keys &gt; Add deploy key，复制到对应框中。</p>
+<p>名字随意，但务必勾选Allow write access。</p>
 <p>在新的环境继续工作
 新的电脑上工作就可以把之前同步到GitHub上的博客源文件同步下来继续工作。</p>
 <p>在安装好环境(Go+git+Hugo)后，在终端进入想要放置博客的目录，使用git命令拉去远程仓库，将submodule初始化并更新。</p>
-<p>1
-2
-3
-git clone <YOUR-PROJECT-URL> &amp;&amp; cd <YOUR-PROJECT>
+<p>git clone <YOUR-PROJECT-URL> &amp;&amp; cd <YOUR-PROJECT>
 git submodule init
 git submodule update
 在新的环境中，两个子模块的仓库不在任何分支上，需要进入到对应的目录，然后使用git checkout main将分支切换到main上面。</p>
-<p>1
-2
-3
-4
-cd public
+<p>cd public
 git checkout main
 cd ../themes/<YOURTHEME>
 git checkout main
 接下来就可以在新的环境继续工作了。</p>
-<p>主题客制化
-#免费图标 <a href="http://www.fontawesome.com.cn/">http://www.fontawesome.com.cn/</a></p>
-<p>#压缩SVG <a href="https://jakearchibald.github.io/svgomg/">https://jakearchibald.github.io/svgomg/</a></p>
-<p>#制作图标 <a href="https://realfavicongenerator.net/">https://realfavicongenerator.net/</a></p>
+<p>主题客制化</p>
+<h5 id="免费图标-httpwwwfontawesomecomcn">免费图标 <a href="http://www.fontawesome.com.cn/">http://www.fontawesome.com.cn/</a></h5>
+<h5 id="压缩svg-httpsjakearchibaldgithubiosvgomg">压缩SVG <a href="https://jakearchibald.github.io/svgomg/">https://jakearchibald.github.io/svgomg/</a></h5>
+<h5 id="制作图标-httpsrealfavicongeneratornet">制作图标 <a href="https://realfavicongenerator.net/">https://realfavicongenerator.net/</a></h5>
 </div>
     <div class="post-footer">
         <div class="info">
@@ -334,6 +277,10 @@ git checkout main
 <script type="text/javascript"
         src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
         integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
-        crossorigin="anonymous"></script></body>
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
 
 </html>
