@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | MyBatis-Plus for Beginners 1 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="MyBatis-Plus简易教程">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/mybatis1/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="MyBatis-Plus for Beginners 1"/>
+<meta name="twitter:description" content="MyBatis-Plus简易教程"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>MyBatis-Plus for Beginners 1</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Jan 15, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">2-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>This tutorial is for newbies who want to learn MyBatis-Plus in a quite easy way.</p>
+<h2 id="mybatis-plus启动">MyBatis-plus启动</h2>
+<p><strong>1.1启动mysql-plus</strong></p>
+<p><strong>1.2创建User表</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">USER</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w"> </span><span class="kt">BIGINT</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;主键ID&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">NAME</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;姓名&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">age</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;年龄&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">email</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;邮箱&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>使用mysqlplus workbench时候，点击table-user</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mybatis_plus</span><span class="p">.</span><span class="k">user</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Jone&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test1@baomidou.com&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Jack&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test2@baomidou.com&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test3@baomidou.com&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sandy&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test4@baomidou.com&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Billie&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test5@baomidou.com&#39;</span><span class="p">);</span><span class="o">`</span><span class="w">
+</span></code></pre></div><p><strong>1.3创建IDE项目</strong></p>
+<ul>
+<li>添加实体entity（dao)User.java</li>
+<li>添加mapper</li>
+</ul>
+<blockquote>
+<p>public interface UserMapper extends BaseMapper<User> {
+}</p>
+</blockquote>
+<p><em><strong>方法一：</strong></em>
+<em><strong>注意：
+IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动态创建的，但是程序可以正确的执行。
+为了避免报错，可以在 dao 层 的接口上添加 @Repository 注
+通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写！</strong></em></p>
+<p><em><strong>方法二：</strong></em></p>
+<!-- 可以在 dao 层 的接口上添加 @Repository 注 -->
+<p>在<em><strong>test</strong></em>上 <em><strong>@Autowired</strong></em>这边改为 <em><strong>@Resource</strong></em></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">MybatisPlusApplicationTests</span> <span class="o">{</span>
+
+	<span class="c1">//@Autowired //默认按类型装配。是spring的注解
+</span><span class="c1"></span>	<span class="nd">@Resource</span> <span class="c1">//默认按名称装配，找不到与名称匹配的bean，则按照类型装配。是J2EE的注解
+</span><span class="c1"></span>	<span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+	<span class="nd">@Test</span>
+	<span class="kt">void</span> <span class="nf">testSelectList</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">//selectList()方法的参数：封装了查询条件
+</span><span class="c1"></span>		<span class="c1">//null：无任何查询条件
+</span><span class="c1"></span>		<span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+		<span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span> <span class="c1">// soutc
+</span><span class="c1"></span>	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="通过以上几个简单的步骤我们就实现了-user-表的-crud-功能甚至连-xml-文件都不用编写">通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写</h3>
+<p><strong>1.4查看sql输出日志</strong></p>
+<p>配置文件中application.properties:</p>
+<p>mybatis日志</p>
+<blockquote>
+<p>mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl</p>
+</blockquote>
+<h3 id="通用mapper">通用Mapper</h3>
+<h3 id="mp中的基本crud在内置的basemapper中都已得到了实现">MP中的基本CRUD在内置的BaseMapper中都已得到了实现。</h3>
+<ul>
+<li>
+<h4 id="插入操作create">插入操作Create</h4>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="o">{</span>
+<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;lucy&#34;</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
+<span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">&#34;1243@qq.com&#34;</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">insert</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">user</span><span class="o">);</span> <span class="c1">//影响的行数
+</span><span class="c1"></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">insert</span><span class="o">);</span> <span class="c1">// 
+</span><span class="c1"></span><span class="o">}</span>
+
+</code></pre></div><ul>
+<li>
+<h4 id="retrieve">Retrieve</h4>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelect</span><span class="o">(){</span>
+
+    <span class="c1">//按id查询
+</span><span class="c1"></span>    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+
+    <span class="c1">//按id列表查询
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectBatchIds</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">));</span>
+    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+    <span class="c1">//按条件查询
+</span><span class="c1"></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="s">&#34;Helen&#34;</span><span class="o">);</span> <span class="c1">//注意此处是表中的列名，不是类中的属性名
+</span><span class="c1"></span>    <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">18</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users1</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectByMap</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+    <span class="n">users1</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>
+<h4 id="update">Update</h4>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">(){</span>
+
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">28</span><span class="o">);</span>
+
+    <span class="c1">//注意：update时生成的sql自动是动态sql
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;影响的行数：&#34;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>
+<h4 id="delete">Delete</h4>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">(){</span>
+
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">5</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;影响的行数：&#34;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<h3 id="通用service">通用Service</h3>
+<h4 id="创建service接口">创建Service接口</h4>
+<p>创建 service 包，创建 UserService，继承 IService</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus.service</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="kd">extends</span> <span class="n">IService</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+<span class="o">}</span>
+</code></pre></div><h4 id="创建service实现类">创建Service实现类</h4>
+<h4 id="创建-impl-包创建-userserviceimpl继承-serviceimpl实现-userservice">创建 impl 包，创建 UserServiceImpl，继承 ServiceImpl，实现 UserService</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus.service.impl</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserServiceImpl</span> <span class="kd">extends</span> <span class="n">ServiceImpl</span><span class="o">&lt;</span><span class="n">UserMapper</span><span class="o">,</span> <span class="n">User</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">UserService</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div><h4 id="创建测试类">创建测试类</h4>
+<p>创建ServiceTests</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus</span><span class="o">;</span>
+
+<span class="nd">@SpringBootTest</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceTests</span> <span class="o">{</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div><h4 id="测试记录数">测试记录数</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCount</span><span class="o">(){</span>
+
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">count</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总记录数：&#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="测试批量插入">测试批量插入</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSaveBatch</span><span class="o">(){</span>
+
+    <span class="c1">// SQL长度有限制，海量数据插入单条SQL无法实行，
+</span><span class="c1"></span>    <span class="c1">// 因此MP将批量插入放在了通用Service中实现，而不是通用Mapper
+</span><span class="c1"></span>    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;Helen&#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">10</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">userService</span><span class="o">.</span><span class="na">saveBatch</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="自定义mapper">自定义Mapper</h3>
+<h4 id="当通用mapper无法满足我们的需求时我们可以自定义基于mapper接口的xml文件并在xml文件中配置sql语句">当通用Mapper无法满足我们的需求时，我们可以自定义基于Mapper接口的xml文件，并在xml文件中配置SQL语句</h4>
+<ol>
+<li>接口方法定义</li>
+</ol>
+<p>在UserMapper接口中定义如下方法</p>
+<blockquote>
+<p>List<User> selectAllByName(String name);</p>
+</blockquote>
+<ol start="2">
+<li>创建xml文件
+在resources目录中创建mapper目录，创建UserMapper.xml</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+<span class="cp">&lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.atguigu.mybatisplus.mapper.UserMapper&#34;</span><span class="nt">&gt;</span>
+
+   <span class="nt">&lt;sql</span> <span class="na">id=</span><span class="s">&#34;Base_Column_List&#34;</span><span class="nt">&gt;</span>
+       id, name, age, email
+   <span class="nt">&lt;/sql&gt;</span>
+
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selectAllByName&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.atguigu.mybatisplus.entity.User&#34;</span><span class="nt">&gt;</span>
+        select
+        <span class="nt">&lt;include</span> <span class="na">refid=</span><span class="s">&#34;Base_Column_List&#34;</span><span class="nt">/&gt;</span>
+        from user
+        where
+        name = #{name}
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><p><em><strong>注意：MP中mapper目录是持久层映射文件的默认目录，如果是其他目录，需要配置mapper-locations，例如：</strong></em></p>
+<blockquote>
+<p>mybatis-plus.mapper-locations=classpath:xml/*.xml</p>
+</blockquote>
+<h3 id="自定义service">自定义Service</h3>
+<ol>
+<li>接口方法定义</li>
+</ol>
+<p>UserService中添加接口方法</p>
+<blockquote>
+<p>List<User> listAllByName(String name);</p>
+</blockquote>
+<ol start="2">
+<li>实现接口方法</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">listAllByName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//注入userMap的时候
+</span><span class="c1"></span>    <span class="c1">// 方法1：@Resource
+</span><span class="c1"></span>    <span class="c1">// private UserMapper userMapper
+</span><span class="c1"></span>
+    <span class="c1">// @Override
+</span><span class="c1"></span>    <span class="c1">// public List&lt;User&gt; listAllByName(String name) {
+</span><span class="c1"></span>    <span class="c1">//     return userMapper.selectAllByname(name);
+</span><span class="c1"></span>    <span class="c1">// }
+</span><span class="c1"></span>
+
+    <span class="c1">//方法2 baseMapper对象指向当前业务的mapper对象
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">baseMapper</span><span class="o">.</span><span class="na">selectAllByName</span><span class="o">(</span><span class="s">&#34;Helen&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>测试</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testListAllByName</span><span class="o">(){</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">listAllByName</span><span class="o">(</span><span class="s">&#34;Helen&#34;</span><span class="o">);</span>
+    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div><h4 id="以上同一个test里面return可以用注入usermapper或者直接用basemapper">以上同一个Test里面return可以用注入userMapper或者直接用baseMapper</h4>
+<h4 id="ok-its-time-for-mybatis2hahahugoshortcode-s0-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></h4></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/mybatis-plus/">MyBatis-Plus</a><a class="tag" href="/tags/crud/">CRUD</a><a class="tag" href="/tags/mapper/">mapper</a><a class="tag" href="/tags/service/">service</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

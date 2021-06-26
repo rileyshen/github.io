@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | java volatile 可见行(Visibility)，原子性(Atomicity)，有序性(Ordering) </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="code explain what is Volatile in java is">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/%E6%9C%AA%E5%AE%8C%E6%88%90volatile/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="java volatile 可见行(Visibility)，原子性(Atomicity)，有序性(Ordering)"/>
+<meta name="twitter:description" content="code explain what is Volatile in java is"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>java volatile 可见行(Visibility)，原子性(Atomicity)，有序性(Ordering)</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Tue, Feb 16, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">2-minute read</span>
+            </div>
+            
+        </div>
+
+        <h3 id="prove-java-volatile-visibility">prove java volatile visibility</h3>
+<figure><img src="/images/java1.png"
+         alt="image"/><figcaption>
+            <h4>Volatile</h4>
+        </figcaption>
+</figure>
+
+<p>1.1 assume int number = 0;  add volatile keyword before changing value of number</p>
+<p><a href="https://github.com/rileyshen/JAVAInterview/commit/02f00a235d25bf50944975e79078bc034a9666d6#diff-85a8c91591a2cb86e1034f8886ed4eca73addf1dfcd222c13a1ca24f1189a252"  target="_blank" >code:before add volatile keyword</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.exa.study.thread</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">MyData</span> <span class="o">{</span>
+
+    <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addTo60</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">60</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> *1.prove java volatile visibility
+</span><span class="cm"> * 1.1 assume int number = 0;  add volatile keyword before changing value of number
+</span><span class="cm"> */</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VolatileDemo</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">MyData</span> <span class="n">myData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyData</span><span class="o">();</span>
+
+        <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;\t come in&#34;</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">myData</span><span class="o">.</span><span class="na">addTo60</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;\t update number&#34;</span><span class="o">+</span> <span class="n">myData</span><span class="o">.</span><span class="na">number</span><span class="o">);</span>
+        <span class="o">},</span> <span class="s">&#34;AAA&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">// the second main thread
+</span><span class="c1"></span>        <span class="k">while</span><span class="o">(</span><span class="n">myData</span><span class="o">.</span><span class="na">number</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+            <span class="c1">// main thread would be waiting until number is not 0
+</span><span class="c1"></span>        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()+</span><span class="s">&#34;\t umission is over&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><blockquote>
+<p>AAA	 come in
+AAA	 update number60</p>
+</blockquote>
+<p>It shows main thread doesnot know the number has updated to 60.</p>
+<p><a href="https://github.com/rileyshen/JAVAInterview/blob/5af64bc79122fe0a2a818411209e96243bbae5e0/src/main/java/com/exa/study/thread/VolatileDemo.java"  target="_blank" >code：add volatile keyword</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">MyData</span> <span class="o">{</span>                  
+                                
+    <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>    
+                                
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addTo60</span><span class="o">()</span> <span class="o">{</span>     
+        <span class="k">this</span><span class="o">.</span><span class="na">number</span> <span class="o">=</span> <span class="n">60</span><span class="o">;</span>       
+    <span class="o">}</span>                           
+<span class="o">}</span>                                                               
+</code></pre></div><figure><img src="/images/VolatileDemo.png"
+         alt="image"/><figcaption>
+            <h4>Volatile</h4>
+        </figcaption>
+</figure>
+
+<h3 id="java-volatile-keyword-doesnt-means-atomic">Java volatile keyword doesn&rsquo;t means atomic</h3>
+<p>2.1 atomic :</p>
+<ul>
+<li>An atomic operation is one that cannot be interrupted by the thread</li>
+<li>method was executed successfully or failure</li>
+</ul>
+<p><a href="https://github.com/rileyshen/JAVAInterview/blob/307784dc5c2671d1cefbd670ccd331d41f4b82b1/src/main/java/com/exa/study/thread/VolatileDemo.java"  target="_blank" >code：java volatile ≠ atomic</a></p>
+<figure><img src="/images/VolatileDemo2.png"
+         alt="image"/><figcaption>
+            <h4>Volatile</h4>
+        </figcaption>
+</figure>
+
+<p>atomic means the result would be 20000</p>
+<p>However, when run the method twice, we can get two different result, means it is actually making non-atomic operation.</p>
+<figure><img src="/images/VolatileDemo3.png"
+         alt="image"/><figcaption>
+            <h4>Volatile</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/VolatileDemo4.png"
+         alt="image"/><figcaption>
+            <h4>Volatile</h4>
+        </figcaption>
+</figure>
+
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/volatile/">Volatile</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

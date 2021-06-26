@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | MyBatis-Plus for Beginners 2 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="MyBatis-Plus简易教程">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/mybatis2/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="MyBatis-Plus for Beginners 2"/>
+<meta name="twitter:description" content="MyBatis-Plus简易教程"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>MyBatis-Plus for Beginners 2</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Jan 15, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">2-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>常用注解</p>
+<h2 id="mybatis-plus-annotation">MyBatis-plus Annotation</h2>
+<h3 id="tablename">@TableName</h3>
+<p>实体类的名字是User，数据库表名是t_user</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@TableName</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;t_user&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+</code></pre></div><p>业务规模的不断扩大，需要选择合适的方案去应对数据规模的增长，以应对逐渐增长的访问压力和数据量。</p>
+<p>单表数据拆分有两种方式：垂直分表和水平分表.</p>
+<p>水平分表用主键自增的方法：</p>
+<ul>
+<li>主键自增：</li>
+</ul>
+<p>以最常见的用户 ID 为例，可以按照 1000000 的范围大小进行分段，1 ~ 999999 放到表 1中，1000000 ~ 1999999 放到表2中，以此类推。</p>
+<p>复杂点：分段大小的选取。分段太小会导致切分后子表数量过多，增加维护复杂度；分段太大可能会导致单表依然存在性能问题，一般建议分段大小在 100 万至 2000 万之间，具体需要根据业务选取合适的分段大小。</p>
+<p>优点：可以随着数据的增加平滑地扩充新的表。例如，现在的用户是 100 万，如果增加到 1000 万，只需要增加新的表就可以了，原有的数据不需要动。</p>
+<p>缺点：分布不均匀。假如按照 1000 万来进行分表，有可能某个分段实际存储的数据量只有 1 条，而另外一个分段实际存储的数据量有 1000 万条。</p>
+<ul>
+<li>Hash ：</li>
+</ul>
+<p>同样以用户 ID 为例，假如我们一开始就规划了 10 个数据库表，可以简单地用 user_id % 10 的值来表示数据所属的数据库表编号，ID 为 985 的用户放到编号为 5 的子表中，ID 为 10086 的用户放到编号为 6 的子表中。</p>
+<p>复杂点：初始表数量的确定。表数量太多维护比较麻烦，表数量太少又可能导致单表性能存在问题。</p>
+<p>优点：表分布比较均匀。</p>
+<p>缺点：扩充新的表很麻烦，所有数据都要重分布。</p>
+<ul>
+<li>雪花算法：</li>
+</ul>
+<p>雪花算法是由Twitter公布的分布式主键生成算法，它能够保证不同表的主键的不重复性，以及相同表的主键的有序性。</p>
+<p>核心思想：</p>
+<p>长度共64bit（一个long型）。</p>
+<p>首先是一个符号位，1bit标识，由于long基本类型在Java中是带符号的，最高位是符号位，正数是0，负数是1，所以id一般是正数，最高位是0。</p>
+<p>41bit时间截(毫秒级)，存储的是时间截的差值（当前时间截 - 开始时间截)，结果约等于69.73年。</p>
+<p>10bit作为机器的ID（5个bit是数据中心，5个bit的机器ID，可以部署在1024个节点）。</p>
+<p>12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID）。</p>
+<p>注意：数据库插入id值默认为：全局唯一id
+生成：id
+1369843034785845250	lucy	20	1243@qq.com`</p>
+<h3 id="20主键策略">2.0主键策略</h3>
+<h3 id="21assign_idtableid">2.1ASSIGN_ID&amp;@TableId**</h3>
+<p>MyBatis-Plus默认的主键策略是：ASSIGN_ID （使用了雪花算法）</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">String</span> <span class="n">uid</span><span class="o">;</span>
+
+</code></pre></div><h4 id="1当数据库中id不是默认id而是比如tiduid那实体类也必须保持一定但是无法识别uid生成雪花算法id">1.当数据库中id不是默认id，而是比如tid，uid，那实体类也必须保持一定，但是无法识别uid生成雪花算法id，</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@TableId</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">uid</span><span class="o">;</span>
+</code></pre></div><p>这样就能解决问题</p>
+<h4 id="2实体类的属性名是-id数据库的列名是-uid此时使用-value-属性将属性名映射到列名">2.实体类的属性名是 id，数据库的列名是 uid，此时使用 value 属性将属性名映射到列名</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@TableId</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;uid&#34;</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>
+</code></pre></div><p>雪花算法：分布式ID生成器``````</p>
+<p>生成19位随机值，比如上面那个lucy的id号19位</p>
+<h3 id="22-type属性">2.2 type属性</h3>
+<p>type属性用来定义主键策略</p>
+<h3 id="idtypeassign_id使用基于雪花算法的策略生成数据id">IdType.ASSIGN_ID：使用基于雪花算法的策略生成数据id</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@TableId</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">IdType</span><span class="o">.</span><span class="na">ASSIGN_ID</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+
+</code></pre></div><p><em><strong>注意：当对象的id被明确赋值时，不会使用雪花算法</strong></em></p>
+<h3 id="idtypeauto使用数据库的自增策略">IdType.AUTO：使用数据库的自增策略</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+<span class="nd">@TableId</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">IdType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">email</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div><p><em><strong>注意：该类型请确保数据库设置了 ID自增 否则无效</strong></em></p>
+<h3 id="全局设置主键生成策略">全局设置主键生成策略</h3>
+<blockquote>
+<p>mybatis-plus.global-config.db-config.id-type=auto</p>
+</blockquote>
+<h3 id="30-tablefield">3.0 @TableField</h3>
+<blockquote>
+<p>@TableField(value = &ldquo;数据库名字&rdquo;) // 当数据库除了id列别的field名字和实体类名字不一致时</p>
+</blockquote>
+<p>注意：MP会自动将数据库中的下划线命名风格转化为实体类中的驼峰命名风格</p>
+<p>在User表中右键添加datetime类型的新的字段 create_time、update_time</p>
+<ul>
+<li>
+<p>java.util.Date的大多数方法已经过时</p>
+</li>
+<li>
+<p>LocalDateTime 对应的格式化类DateTimeFormatter是线程安全的</p>
+</li>
+</ul>
+<h4 id="需求描述">需求描述：</h4>
+<p>项目中经常会遇到一些数据，每次都使用相同的方式填充，例如记录的创建时间，更新时间等。</p>
+<h3 id="1-只在数据库操作不在业务层操作">1. 只在数据库操作，不在业务层操作</h3>
+<p>我们可以使用MyBatis Plus的自动填充功能，完成这些字段的赋值工作</p>
+<p>在mybatis-plus表create_time, update_time增加CURRENT_TIMESTAMP, 只勾选update_time这里的</p>
+<blockquote>
+<p>根据当前的时间戳更新</p>
+</blockquote>
+<blockquote>
+<p>CURRENT_TIMESTAMP</p>
+</blockquote>
+<figure><img src="/images/s1.png"
+         alt="image"/>
+</figure>
+
+<h3 id="2-不在数据库操作在业务层操作因为数据库类型很多的时候">2. 不在数据库操作，在业务层操作，因为数据库类型很多的时候</h3>
+<h4 id="step-21添加-fill-属性">step 2.1：添加 fill 属性</h4>
+<p>实体上增加字段并添加自动填充注解</p>
+<ul>
+<li>
+<p>@TableField(fill = FieldFill.INSERT)</p>
+</li>
+<li>
+<p>@TableField(fill = FieldFill.INSERT_UPDATE)</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Data</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="nd">@TableId</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">IdType</span><span class="o">.</span><span class="na">ASSIGN_ID</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nd">@TableField</span><span class="o">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">email</span><span class="o">;</span>
+
+    <span class="nd">@TableField</span><span class="o">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">createTime</span><span class="o">;;</span> <span class="c1">//create_time
+</span><span class="c1"></span>    
+    <span class="nd">@TableField</span><span class="o">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">FieldFill</span><span class="o">.</span><span class="na">INSERT_UPDATE</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">updateTime</span><span class="o">;</span> 
+
+<span class="o">}</span>
+</code></pre></div><h4 id="33实现元对象处理器接口--创建handler包创建mymetaobjecthandler类">3.3实现元对象处理器接口-&gt; 创建handler包，创建MyMetaObjectHandler类</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Slf4j</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyMetaObjectHandler</span> <span class="kd">implements</span> <span class="n">MetaObjectHandler</span> <span class="o">{</span>
+
+    <span class="c1">//mp执行添加操作，这个方法执行
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insertFill</span><span class="o">(</span><span class="n">MetaObject</span> <span class="n">metaObject</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;start insert fill ....&#34;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">strictInsertFill</span><span class="o">(</span><span class="n">metaObject</span><span class="o">,</span> <span class="s">&#34;createTime&#34;</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">strictInsertFill</span><span class="o">(</span><span class="n">metaObject</span><span class="o">,</span> <span class="s">&#34;updateTime&#34;</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+
+        <span class="c1">// 可以看有没有author属性，有true
+</span><span class="c1"></span>        <span class="kt">boolean</span> <span class="n">hasAuthor</span> <span class="o">=</span> <span class="n">metaObject</span><span class="o">.</span><span class="na">hasSetter</span><span class="o">(</span><span class="s">&#34;author&#34;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">hasAuthor</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;insert author ....&#34;</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">strictInsertFill</span><span class="o">(</span><span class="n">metaObject</span><span class="o">,</span> <span class="s">&#34;author&#34;</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;stone&#34;</span><span class="o">);</span>
+        <span class="o">}</span>  
+    <span class="o">}</span>
+
+    <span class="c1">// 给用户填充年龄，第一步是填上注解，如果业务层没有赋值，就用自动填充，如果有，就不去执行自动填充（其实有，自动填充也是不起作用的）
+</span><span class="c1"></span>    <span class="n">Object</span> <span class="n">age</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getFieldValByName</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">metaObject</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;insert age atribute&#34;</span><span class="o">)</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">strictInsertFill</span><span class="o">(</span><span class="n">metaObject</span><span class="o">,</span> <span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">3</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+
+    <span class="c1">//mp执行修改操作，这个方法执行
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateFill</span><span class="o">(</span><span class="n">MetaObject</span> <span class="n">metaObject</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;start update fill ....&#34;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">strictInsertFill</span><span class="o">(</span><span class="n">metaObject</span><span class="o">,</span> <span class="s">&#34;updateTime&#34;</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="注意不要忘记添加-component-注解-是告诉spring交给它来处理_">注意：不要忘记添加 @Component 注解 是告诉spring交给它来处理_</h4>
+<h4 id="要做一个自动填充比如author属性先判断有没有没有就不加">要做一个自动填充，比如author属性，先判断有没有，没有就不加</h4>
+<h4 id="age属性也要在业务层做一个自动填充结论要先判断当前对象自动属性是否已经进行了赋值">age属性也要在业务层做一个自动填充,结论要先判断当前对象自动属性是否已经进行了赋值</h4>
+<h4 id="所以自动填充不是针对个性化的属性个性化年龄等直接在业务层解决了set">所以自动填充不是针对个性化的属性，个性化年龄等直接在业务层解决了，set</h4>
+<p>业务层现在不需要加setCreatime方法：</p>
+<figure><img src="/images/s2.png"
+         alt="image"/>
+</figure>
+
+<h3 id="建议每个数据库表必须要有create_time-和-update_time字段我们可以使用自动填充功能维护这两个字段">建议每个数据库表必须要有create_time 和 update_time字段，我们可以使用自动填充功能维护这两个字段</h3>
+<h3 id="40-tablelogic">4.0 @TableLogic</h3>
+<h4 id="41-逻辑删除">4.1 逻辑删除</h4>
+<p>物理删除：真实删除，将对应数据从数据库中删除，之后查询不到此条被删除的数据</p>
+<p>逻辑删除：假删除，将对应数据中代表是否被删除字段的状态修改为“被删除状态”，之后在数据库中仍旧能看到此条数据记录</p>
+<p>使用场景：可以进行数据恢复</p>
+<h4 id="42-实现逻辑删除">4.2 实现逻辑删除</h4>
+<ul>
+<li>
+<p>step1：数据库中创建逻辑删除状态列</p>
+</li>
+<li>
+<p>step2：实体类中添加逻辑删除属性</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+<span class="nd">@TableLogic</span>
+<span class="nd">@TableField</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;is_deleted&#34;</span><span class="o">)</span>
+<span class="kd">private</span> <span class="n">Boolean</span> <span class="n">deleted</span><span class="o">;</span>
+<span class="c1">// private Integer deleted;也可以写Integer
+</span></code></pre></div><h4 id="公司里规范数据库是is_deleted-业务层-boolean后写-deleted">公司里规范数据库是is_deleted, 业务层 Boolean后写 deleted；</h4>
+<hr>
+<p><a href="https://rileyshen.github.io/post/mybatis1/" >mybatis1</a></p></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/mybatis-plus/">MyBatis-Plus</a><a class="tag" href="/tags/annotation/">Annotation</a><a class="tag" href="/tags/tablelogic/">TableLogic</a><a class="tag" href="/tags/mybatisx%E5%A1%AB%E5%85%85%E6%B3%A8%E8%A7%A3/">mybatisX填充注解</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>
