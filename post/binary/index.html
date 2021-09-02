@@ -139,7 +139,7 @@
                     Tue, Feb 16, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">One-minute read</span>
+                <span class="reading-time">2-minute read</span>
             </div>
             
         </div>
@@ -192,11 +192,77 @@
         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre></div><h3 id="bfs-level-order">BFS: level order</h3>
+<h3 id="bfs-shortest-path">BFS: shortest path</h3>
+<p>also a grid search</p>
+<h3 id="dfs-grid-struction-island">DFS: grid struction: island</h3>
+<h4 id="1-dfs-basic-structure">1. DFS basic structure</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// base case
+</span><span class="c1"></span>   <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="c1">// 
+</span><span class="c1"></span>   <span class="n">traverse</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+   <span class="n">traverse</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></div><p><em><strong>grid (r, c) , its neigbor: (r -1, c), (r + 1, c), (r, c - 1), (r, c + 1)</strong></em></p>
+<h4 id="2-dfs-grid-basic-structure">2. DFS grid basic structure</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+   <span class="c1">// base case, (r, c)exceed the board
+</span><span class="c1"></span>   <span class="k">if</span> <span class="o">(!</span><span class="n">inArea</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span><span class="o">))</span> <span class="o">{</span>
+       <span class="k">return</span><span class="o">;</span>
+   <span class="o">}</span>
+   <span class="c1">// 
+</span><span class="c1"></span>  <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+  <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+  <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+  <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kt">boolean</span> <span class="nf">inArea</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> 
+   <span class="o">&amp;&amp;</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><h4 id="3-record-the-visited-grid">3. record the visited grid</h4>
+<ul>
+<li>0 &ndash;occean</li>
+<li>1 &ndash;island (unvisited)</li>
+<li>2 &ndash;island (visited)</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// base case, (r, c)exceed the board
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(!</span><span class="n">inArea</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+     <span class="k">if</span> <span class="o">(</span><span class="n">grid</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">!=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">grid</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">=</span> <span class="n">2</span>
+    <span class="c1">// 
+</span><span class="c1"></span>   <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+   <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+   <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+   <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kt">boolean</span> <span class="nf">inArea</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> 
+    <span class="o">&amp;&amp;</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><p>LeetCode Max Area of Island 
+LeetCode  Making A Large Island 
+LeetCode Island Perimeter</p>
+</div>
     <div class="post-footer">
         <div class="info">
             
-            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java%E9%9D%A2%E8%AF%95/">java面试</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/binary-tree/">Binary Tree</a></span>
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java%E9%9D%A2%E8%AF%95/">java面试</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/binary-tree/">Binary Tree</a><a class="tag" href="/tags/bfs/">BFS</a></span>
         </div>
     </div>
 

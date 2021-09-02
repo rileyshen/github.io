@@ -166,7 +166,7 @@ Thus having an interface with a field would effectively be coding to an implemen
     <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getRes</span><span class="o">(</span><span class="kt">double</span> <span class="n">numberA</span><span class="o">,</span> <span class="kt">double</span> <span class="n">numberB</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div><p>more to refer<a href="https://rileyshen.github.io/post/interface/" >interface</a></p>
-<h3 id="v11-add-a-new-operation-sqrt-">v1.1: add a new operation &ldquo;sqrt&rdquo;? .</h3>
+<h3 id="v11-add-a-new-operation-sqrt">v1.1: add a new operation &ldquo;sqrt&rdquo;</h3>
 <p>so basicly, you are not just adding sqrt in the OperationFactory,</p>
 <p>but return to a new factory: <strong>OperationAdd()</strong>;</p>
 <p>if you want to add more operator, would be:</p>
@@ -227,7 +227,7 @@ System.out.println(res);</p>
 </figure>
 
 <p><em><strong>woo, every time we need a new operator, we also need a related factory.</strong></em></p>
-<h3 id="3-factory-method-design-a-customer-loyalty-program-include--coupon-goods-gift-card">3. (factory method) design a &ldquo;Customer loyalty program&rdquo;, include : coupon, goods, gift card:</h3>
+<h3 id="3-factory-method-design-a-customer-loyalty-program-include--coupon-goods-gift-card">3. (factory method) design a &ldquo;Customer loyalty program&rdquo;, include : coupon, goods, gift card</h3>
 <p>3 interface:</p>
 <ol>
 <li>
@@ -306,7 +306,7 @@ System.out.println(res);</p>
     <span class="o">}</span>
 
 </code></pre></div><hr>
-<h3 id="4-design-a-basic-database-program">4. design a basic DataBase program.</h3>
+<h3 id="4-design-a-basic-database-program">4. design a basic DataBase program</h3>
 <p>You offer the client two options: sqlServer, AccessService. 
 Both realize the function  &ldquo;insert&rdquo;, &ldquo;GetUser&rdquo;. 
 the User class, you only need two fields: ID, Name &quot;</p>
@@ -327,7 +327,7 @@ the User class, you only need two fields: ID, Name &quot;</p>
 <p>IUser iu = factory.CreateUser();</p>
 </blockquote>
 <p><em><strong>This is the decouple of Moder layer and Controller layer</strong></em></p>
-<h3 id="5-add-a-department-form-to-the-basic-database-program">5. add a department form to the basic DataBase program.</h3>
+<h3 id="5-add-a-department-form-to-the-basic-database-program">5. add a department form to the basic DataBase program</h3>
 <p>lots of work to do 😅 😅 😅</p>
 <p><em><strong>IFactory</strong></em> =&gt;<strong>IUser</strong> + <strong>IDepartment</strong></p>
 <ul>
@@ -374,7 +374,7 @@ IUser iUser = IFactory.CreateUser();
 iUser.insert(user);</p>
 </blockquote>
 <p><strong>There is no SQL server or Access in Client view.</strong></p>
-<h3 id="6-interface-and-abstract-factory-in-abstract-factory">6. interface and abstract factory in abstract factory.</h3>
+<h3 id="6-interface-and-abstract-factory-in-abstract-factory">6. interface and abstract factory in abstract factory</h3>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IFactory</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">db</span> <span class="o">=</span> <span class="s">&#34;SqlServer&#34;</span><span class="o">;</span>
@@ -384,7 +384,7 @@ iUser.insert(user);</p>
        <span class="n">IUser</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
        <span class="k">switch</span><span class="o">(</span><span class="n">db</span><span class="o">)</span> <span class="o">{</span>
 </code></pre></div><p><em><strong>all fields in Interfaces is public static final type, cannot assign a value to final variable</strong></em></p>
-<h3 id="7-now-our-client-want-to-use-oracle-database">7. now our client want to use Oracle database.</h3>
+<h3 id="7-now-our-client-want-to-use-oracle-database">7. now our client want to use Oracle database</h3>
 <p>When our code is in this structure:</p>
 <p><strong>IFactory</strong> =&gt; (2 methods)</p>
 <ul>
@@ -412,7 +412,7 @@ iUser.insert(user);</p>
 <p>and the later execution according to the db name?</p>
 <p><strong>reflection</strong> can do that:</p>
 <p><em><strong>Class.forName(className).newInstance()</strong></em></p>
-<h5 id="using-class">Using class:</h5>
+<h5 id="using-class">Using class</h5>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IFactory</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">db</span> <span class="o">=</span> <span class="s">&#34;SqlServer&#34;</span><span class="o">;</span>
@@ -461,7 +461,7 @@ iUser.insert(user);</p>
 <blockquote>
 <p>static IProject CreatePro() {\</p>
 </blockquote>
-<h3 id="8-using-properties-to-fix-the-problem-that-you-need-modify-in-the-ifactory">8. Using properties to fix the problem that you need modify in the IFactory.</h3>
+<h3 id="8-using-properties-to-fix-the-problem-that-you-need-modify-in-the-ifactory">8. Using properties to fix the problem that you need modify in the IFactory</h3>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IFactory</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DB</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>

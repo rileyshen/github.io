@@ -56,6 +56,126 @@
 &lt;li&gt;HTTP 500 &amp;ndash;..JSONObject[&amp;quot;name&amp;quot;] not found.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;解决办法：&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;replay a new client id. 😅 😅 😅&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;Postman??  IDEA offers better options: Tools -&amp;gt; HttpClient&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/twich2.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Tomcat Configurations&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;GET &lt;a href=&#34;https://api.twitch.tv/helix/streams?game_id=12924&#34;&gt;https://api.twitch.tv/helix/streams?game_id=12924&lt;/a&gt;
+Authorization: Bearer jo3r1bpdgk5gx41zx2wuajygdb1d8b
+Client-Id: t5bc5a4tab71mqgs1f880ent6cx8j4&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Authorization, Client-Id is refer to your own data under the postman headers tab&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;lombok and Builder pattern&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/twich3.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Tomcat Configurations&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Without the lombok, the code would be like below:&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/twich4.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Tomcat Configurations&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/twich5.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Tomcat Configurations&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/twich6.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Tomcat Configurations&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;you need use delombok to find the problem:&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/twich7.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Tomcat Configurations&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/lombok/&#34; &gt;Lombok&lt;/a&gt;&lt;/p&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Jackson tutorial &lt;a href=&#34;https://rileyshen.github.io/post/lombok/&#34; &gt;Jackson&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;nd&#34;&gt;@JsonProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;thumbnail_url&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;thumbnailUrl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ &lt;span class=&#34;c1&#34;&gt;// Convert JSON format data returned from Twitch to an Arraylist of Game objects
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ObjectMapper&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ObjectMapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;asList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Game&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[].&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>SSM Java project</title>
+      <link>https://rileyshen.github.io/post/ssm/</link>
+      <pubDate>Fri, 16 Apr 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/ssm/</guid>
+      
+        <description>&lt;h3 id=&#34;key-point&#34;&gt;key point:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Pagination&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Front-End jquery Verification&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Back-End JSR303 Verification&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Ajax&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;REST URI&lt;/strong&gt;&lt;/em&gt;(GET, POST, PUT, DELETE)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;***SSM Framework ***&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;***MySQL ***&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;***Bootstrap ***&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;***Maven ***&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;***pagehelper ***&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;***Reverse Engineering ByBatis Generator ***&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;create maven project:    &lt;packaging&gt;war&lt;/packaging&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;web&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dependencies : spring-webmvc, spring-jdbc, spring-aspects, mybatis, mybatis-spring, c3p0, &amp;gt;mysql-connector-java&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
       
     </item>

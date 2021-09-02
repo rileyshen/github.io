@@ -186,7 +186,70 @@
 <li>HTTP 500 &ndash;..JSONObject[&quot;name&quot;] not found.</li>
 </ol>
 <p><em><strong>解决办法：</strong></em></p>
-</div>
+<p>replay a new client id. 😅 😅 😅</p>
+<ol start="5">
+<li>Postman??  IDEA offers better options: Tools -&gt; HttpClient</li>
+</ol>
+<figure><img src="/images/twich2.png"
+         alt="image"/><figcaption>
+            <h4>Tomcat Configurations</h4>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>GET <a href="https://api.twitch.tv/helix/streams?game_id=12924">https://api.twitch.tv/helix/streams?game_id=12924</a>
+Authorization: Bearer jo3r1bpdgk5gx41zx2wuajygdb1d8b
+Client-Id: t5bc5a4tab71mqgs1f880ent6cx8j4</p>
+</blockquote>
+<p>Authorization, Client-Id is refer to your own data under the postman headers tab</p>
+<ol start="6">
+<li>lombok and Builder pattern</li>
+</ol>
+<figure><img src="/images/twich3.png"
+         alt="image"/><figcaption>
+            <h4>Tomcat Configurations</h4>
+        </figcaption>
+</figure>
+
+<p>Without the lombok, the code would be like below:</p>
+<figure><img src="/images/twich4.png"
+         alt="image"/><figcaption>
+            <h4>Tomcat Configurations</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/twich5.png"
+         alt="image"/><figcaption>
+            <h4>Tomcat Configurations</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/twich6.png"
+         alt="image"/><figcaption>
+            <h4>Tomcat Configurations</h4>
+        </figcaption>
+</figure>
+
+<p>you need use delombok to find the problem:</p>
+<figure><img src="/images/twich7.png"
+         alt="image"/><figcaption>
+            <h4>Tomcat Configurations</h4>
+        </figcaption>
+</figure>
+
+<p><a href="https://rileyshen.github.io/post/lombok/" >Lombok</a></p>
+<ol start="7">
+<li>Jackson tutorial <a href="https://rileyshen.github.io/post/lombok/" >Jackson</a></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@JsonProperty</span><span class="o">(</span><span class="s">&#34;thumbnail_url&#34;</span><span class="o">)</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">thumbnailUrl</span><span class="o">;</span>
+ <span class="c1">// Convert JSON format data returned from Twitch to an Arraylist of Game objects
+</span><span class="c1"></span> <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">mapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="n">Game</span><span class="o">[].</span><span class="na">class</span><span class="o">));</span>
+
+
+</code></pre></div></div>
     <div class="post-footer">
         <div class="info">
             
