@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen | index </title>
+    <title> Riley Shen | java reflection </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="description"
-        content="
-Riley likes to push her limits 
-and always keep learning new things. 
-She shares her weekly learnings 
-because &#34;if you can&#39;t explain it simply,
-it means you didn&#39;t understand it well enough&#34;.
-">
+        content="jave reflection review">
     <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
     
 
@@ -35,15 +29,13 @@ it means you didn&#39;t understand it well enough&#34;.
     <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
 
-    <link rel="canonical" href="/tags/index/">
+    <link rel="canonical" href="/post/reflect/">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
 
 
     
-    
-    <link rel="alternate" type="application/rss+xml" href="/tags/index/index.xml" title="Website of Riley" />
     
     
     
@@ -55,14 +47,8 @@ it means you didn&#39;t understand it well enough&#34;.
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content="index"/>
-<meta name="twitter:description" content="
-Riley likes to push her limits 
-and always keep learning new things. 
-She shares her weekly learnings 
-because &#34;if you can&#39;t explain it simply,
-it means you didn&#39;t understand it well enough&#34;.
-"/>
+<meta name="twitter:title" content="java reflection"/>
+<meta name="twitter:description" content="jave reflection review"/>
 
 
     
@@ -141,24 +127,72 @@ it means you didn&#39;t understand it well enough&#34;.
 
     <div class="autopagerize_page_element">
         <div class="content">
-    <div class="archive  animated fadeInDown ">
-        <ul class="list-with-title">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>java reflection</h2>
             
-                <div class="listing-title">2021</div>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/post/" title="Posts">Posts</a>
-                                <div class="post-time"><span class="date"> 
-                                                                            Aug 16
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Mon, Aug 16, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">One-minute read</span>
+            </div>
             
-        </ul>
+        </div>
+
+        <h3 id="q1-reflection-vs-encapsulation">Q1. reflection vs encapsulation</h3>
+<ul>
+<li>Reflection breaks encapsulation principles by giving access to private fields and methods, encapsulation is only a technique, one that makes designing behaviour easier, provided consumers agree use an API you have defined. If somebody chooses to circumvent your API using reflection or any other technique</li>
+</ul>
+<h3 id="q2-reflection-vs-new-object-in-the-real-left">Q2. reflection vs new object in the real left</h3>
+<ul>
+<li>prefer new object directly</li>
+</ul>
+<h3 id="q3-javalangclass">Q3. java.lang.Class</h3>
+<ul>
+<li>类的加载过程
+<ul>
+<li>程序经过javac.exe命令后，生成一个或多个字节码文件.class, 用java.exe对某个字节码文件进行解释运行。 加载到内存中的类，为运行时序.</li>
+<li>获取class实例 ：</li>
+<li>method1：调用运行时类的属性： .class</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">clazz1</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</code></pre></div><ul>
+<li>method2：调用运行时类的对象：</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+<span class="n">Class</span> <span class="n">clazz2</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+</code></pre></div><ul>
+<li>method3：调用class的静态方法：for Name(String classPath)</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Class</span> <span class="n">clazz3</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.exa.java.Person&#34;</span><span class="o">);</span>
+<span class="n">clazz3</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
+</code></pre></div><ul>
+<li>method4：类的加载器 ClassLoader</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ClassLoader</span> <span class="n">classLoader</span> <span class="o">=</span> <span class="n">ReflectionTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">();</span>
+<span class="n">Class</span> <span class="n">clazz4</span> <span class="o">=</span> <span class="n">classLoader</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="s">&#34;com.exa.java.Person&#34;</span><span class="o">);</span>
+</code></pre></div><ul>
+<li>Class实例对应一个运行时类</li>
+<li>加载到内存中的运行时类，会缓存一定时间，在此时间之类，可以通过不同方式获取此运行时类</li>
+</ul>
+</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/java-reflection/">java reflection</a></span>
+        </div>
     </div>
+
+    
+</div>
+
 
         </div>
     </div>

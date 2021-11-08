@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen | Union Find Set  </title>
+    <title> Riley Shen |  Topological Sorting </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="description"
-        content="Union Find Set ">
+        content="Topological Sorting learning ">
     <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
     
 
@@ -47,8 +47,8 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content="Union Find Set "/>
-<meta name="twitter:description" content="Union Find Set "/>
+<meta name="twitter:title" content=" Topological Sorting"/>
+<meta name="twitter:description" content="Topological Sorting learning "/>
 
 
     
@@ -131,7 +131,7 @@
     <div class="post-content">
         
         <div class="post-title">
-            <h2>Union Find Set </h2>
+            <h2> Topological Sorting</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
@@ -139,16 +139,99 @@
                     Tue, May 4, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">0-minute read</span>
+                <span class="reading-time">2-minute read</span>
             </div>
             
         </div>
 
-        </div>
+        <h3 id="topological-sorting-is-based-on-graph-searching-take-leetcode-below-as-example-to-learn-the-steps-to-solve-a-topological-sorting-related-algorithmn">Topological Sorting is based on graph searching, take leetcode below as example to learn the steps to solve a Topological Sorting related algorithmn</h3>
+<p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.</p>
+<p>For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.</p>
+<p> </p>
+<p>Example 1:</p>
+<p>Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+Example 2:</p>
+<p>Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.</p>
+<h3 id="step1-whether-it-is-a-directed-acyclic-graphpic">step1: whether it is a Directed Acyclic Graphpic</h3>
+<h3 id="step11-build-graphic">step1.1: build graphic</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">buildGraph</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">prerequisites</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// the number of nodes. numCourses = 2, prerequisites = [[1,0],[0,1]]
+</span><span class="c1"></span>  <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;[]</span> <span class="n">graph</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">graph</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span> <span class="c1">// graph[0], graph[1]
+</span><span class="c1"></span>  <span class="o">}</span>
+
+  <span class="c1">// build edge
+</span><span class="c1"></span>  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">edge</span> <span class="o">:</span> <span class="n">preprequisites</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">// edge = [1,0], edge = [0,1]
+</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">from</span> <span class="o">=</span> <span class="n">edge</span><span class="o">[</span><span class="n">1</span><span class="o">];</span> <span class="c1">// edge[1] = 0, egde[1] = 1;
+</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">to</span> <span class="o">=</span> <span class="n">edge</span><span class="o">[</span><span class="n">0</span><span class="o">];</span> <span class="c1">//edge[0] = 1, edge[0] = 0;
+</span><span class="c1"></span>       <span class="n">graph</span><span class="o">[</span><span class="n">from</span><span class="o">].</span><span class="na">add</span><span class="o">(</span><span class="n">to</span><span class="o">);</span> <span class="c1">// graph[0].add(1); //graph[0] = [1, 0]; graph[1] = [1, 0];
+</span><span class="c1"></span>  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">graph</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="step12-dfs-to-traverse">step1.2: DFS to traverse</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">boolean</span><span class="o">[]</span> <span class="n">visited</span><span class="o">;</span>
+
+<span class="kt">boolean</span> <span class="nf">canFinish</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">prerequisites</span><span class="o">)</span> <span class="o">{</span>
+
+  <span class="c1">// the number of nodes. numCourses = 2, prerequisites = [[1,0],[0,1]]
+</span><span class="c1"></span>  <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;[]</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">buildGraph</span><span class="o">(</span><span class="n">num</span><span class="o">,</span> <span class="n">prerequisites</span><span class="o">);</span>
+
+  <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+  
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span> <span class="c1">// graph[0], graph[1]
+</span><span class="c1"></span>  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;[]</span> <span class="n">graph</span><span class="o">,</span> <span class="kt">int</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">visited</span><span class="o">[</span><span class="n">s</span><span class="o">])</span> <span class="o">{</span>
+    <span class="k">return</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="n">visited</span><span class="o">[</span><span class="n">s</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">:</span> <span class="n">graph</span><span class="o">[</span><span class="n">s</span><span class="o">])</span> <span class="o">{</span>
+    <span class="n">traberse</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="n">t</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+  
+</code></pre></div><h3 id="step13-record-the-traverse-path">step1.3: record the traverse path</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">boolean</span><span class="o">[]</span> <span class="n">onPath</span><span class="o">;</span>
+
+<span class="kt">boolean</span> <span class="n">hasCycle</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="kt">boolean</span><span class="o">[]</span> <span class="n">visited</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;[]</span> <span class="n">graph</span><span class="o">,</span> <span class="kt">int</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">onPath</span><span class="o">(</span><span class="n">s</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">hasCycle</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">visited</span><span class="o">[</span><span class="n">s</span><span class="o">])</span> <span class="o">{</span>
+    <span class="k">return</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="n">visited</span><span class="o">[</span><span class="n">s</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="n">onPath</span><span class="o">[</span><span class="n">s</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">:</span> <span class="n">graph</span><span class="o">[</span><span class="n">s</span><span class="o">])</span> <span class="o">{</span>
+    <span class="n">traberse</span><span class="o">(</span><span class="n">graph</span><span class="o">,</span> <span class="n">t</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="n">onPath</span><span class="o">[</span><span class="n">s</span><span class="o">]</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+  
+</code></pre></div></div>
     <div class="post-footer">
         <div class="info">
             
-            <span class="separator"><a class="tag" href="/tags/union-find-set/">Union Find Set </a><a class="tag" href="/tags/leetcode/">leetcode</a><a class="tag" href="/tags/algorithmm/">Algorithmm</a></span>
+            <span class="separator"><a class="tag" href="/tags/topological-sorting/">Topological Sorting </a><a class="tag" href="/tags/leetcode/">leetcode</a><a class="tag" href="/tags/algorithmn/">Algorithmn</a></span>
         </div>
     </div>
 
