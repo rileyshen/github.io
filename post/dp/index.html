@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about Dynamic Programming </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/dp/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about Dynamic Programming"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about Dynamic Programming</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">9-minute read</span>
+            </div>
+            
+        </div>
+
+        <h2 id="steps-to-solve-a-dynamic-programming-problems">steps to solve a dynamic programming problems</h2>
+<h3 id="sp1-dp-table-and-index-meaning">sp1. dp table and index meaning</h3>
+<h3 id="sp2-recurrence-formula">sp2. recurrence formula</h3>
+<h3 id="sp3-initial-values">sp3. initial values</h3>
+<h3 id="sp4-literacy-directions">sp4. literacy directions</h3>
+<h3 id="sp5-cases">sp5. cases</h3>
+<h4 id="q1-climbing-stairs">Q.1: Climbing Stairs</h4>
+<p><a href="https://leetcode-cn.com/problems/climbing-stairs/">https://leetcode-cn.com/problems/climbing-stairs/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are climbing a staircase. It takes n steps to reach the top.
+
+Each <span class="nb">time</span> you can either climb <span class="m">1</span> or <span class="m">2</span> steps. In how many distinct ways can you climb to the top?
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i]: reach to the ith stairs, have dp[i] methods</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i - 1], reach to the i - 1 th stairs, take one step = dp[i]</p>
+</blockquote>
+<blockquote>
+<p>dp[i - 2], reach to the i - 2 th stairs, take two steps at onece = dp[i]</p>
+</blockquote>
+<blockquote>
+<p>dp[i] = dp[i - 1] + dp[i -2]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[1] = 1, dp[2] = 2, //here dp[0] has no meaning</p>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>front to back</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>n = 5</p>
+</blockquote>
+<blockquote>
+<p>i :   1   2   3   4   5<br>
+dp[i]: 1   2   3   5   8</p>
+</blockquote>
+<h4 id="q2-min-cost-climbing-stairs">Q.2: Min Cost Climbing Stairs</h4>
+<p><a href="https://leetcode-cn.com/problems/min-cost-climbing-stairs/">https://leetcode-cn.com/problems/min-cost-climbing-stairs/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an integer array cost where cost<span class="o">[</span>i<span class="o">]</span> is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+
+You can either start from the step with index 0, or the step with index 1.
+
+Return the minimum cost to reach the top of the floor.
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i]: reach to the ith stairs, have the least costs dp[i]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i - 1] or dp[i - 2] 2 choices</p>
+</blockquote>
+<blockquote>
+<p>dp[i] = min(dp[i - 1],  dp[i -2]) + cost[i];</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[0] = cost[0], dp[1] =  cost[1]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>front to back</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>cpst = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]</p>
+</blockquote>
+<blockquote>
+<p>i :   0   1    2   3   4   5   6   7   8   9<br>
+dp[i]: 1   100  2   3   3  103  4   5  104   6</p>
+</blockquote>
+<h4 id="q3-unique-paths">Q.3: Unique Paths</h4>
+<p><a href="https://leetcode-cn.com/problems/unique-paths/">https://leetcode-cn.com/problems/unique-paths/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">A robot is located at the top-left corner of a m x n grid <span class="o">(</span>marked <span class="s1">&#39;Start&#39;</span> in the diagram below<span class="o">)</span>.
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid <span class="o">(</span>marked <span class="s1">&#39;Finish&#39;</span> in the diagram below<span class="o">)</span>.
+
+How many possible unique paths are there?
+
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[m][n]: reach to the (i, j) stairs, have dp[m][n] choices</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[m][n] = dp[m - 1][n] + dp[m][n -1]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i][0] = 1; from(0, 0) to (i, 0) has only one path; for (int i = 0; i &lt; m; i++)&gt;)</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>dp[0][j] = 1; from(0, 0) to (0, j) has only one path;</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>left to right</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>m = 3, n = 7,</p>
+</blockquote>
+<blockquote>
+<p>:   1   1    1   1   1   1   1</p>
+</blockquote>
+<blockquote>
+<p>:   1   2    3   4   5   6   7</p>
+</blockquote>
+<blockquote>
+<p>:   1   3    6   10  15  21  28</p>
+</blockquote>
+<p>O(M*N),
+O(N)</p>
+<p><strong>reducing space complexity</strong></p>
+<blockquote>
+<p>dp[i][j] = dp[i - 1][j] + dp[i][j - 1]</p>
+</blockquote>
+<blockquote>
+<p>dp[j] = dp[j] + dp[j - 1]</p>
+</blockquote>
+<p>O(M*N),
+O(N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">uniquePaths</span><span class="o">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//一维空间，其大小为 n
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">dp</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="o">++</span><span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//等式右边的 dp[j]是上一次计算后的，加上左边的dp[j-1]即为当前结果
+</span><span class="c1"></span>                <span class="n">dp</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">dp</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">dp</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="o">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
+    <span class="o">}</span>   
+<span class="o">}</span>
+
+</code></pre></div><h4 id="q4unique-paths-ii">Q.4:Unique Paths II</h4>
+<p><a href="https://leetcode-cn.com/problems/unique-paths-ii/">https://leetcode-cn.com/problems/unique-paths-ii/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">A robot is located at the top-left corner of a m x n grid <span class="o">(</span>marked <span class="s1">&#39;Start&#39;</span> in the diagram below<span class="o">)</span>.
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid <span class="o">(</span>marked <span class="s1">&#39;Finish&#39;</span> in the diagram below<span class="o">)</span>.
+
+Now consider <span class="k">if</span> some obstacles are added to the grids. How many unique paths would there be?
+
+An obstacle and space is marked as <span class="m">1</span> and <span class="m">0</span> respectively in the grid.
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[m][n]: reach to the (i, j) stairs, have dp[m][n] choices</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>if (obstacleGrid[i][j] == 0) {
+dp[i][j] = dp[i - 1][j] + dp[i][j -1]
+}</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i][0] = 1; from(0, 0) to (i, 0) has only one path; for (int i = 0; i &lt; m &amp;&amp; obstacleGrid[i][0] == 0; i++)&gt;)</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>dp[0][j] = 1; from(0, 0) to (0, j) has only one path; for (int i = 0; i &lt; n &amp;&amp; obstacleGrid[0][i] == 0; i++)</p>
+</blockquote>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>left to right</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>m = 3, n = 7,</p>
+</blockquote>
+<blockquote>
+<p>:   1   1    1</p>
+</blockquote>
+<blockquote>
+<p>:   1   0    1</p>
+</blockquote>
+<blockquote>
+<p>:   1   1    2</p>
+</blockquote>
+<figure><img src="/images/dp1.png"
+         alt="image"/><figcaption>
+            <h4>Unique Paths II</h4>
+        </figcaption>
+</figure>
+
+<h4 id="q5integer-break">Q.5:Integer Break</h4>
+<p><a href="https://leetcode-cn.com/problems/integer-break/">https://leetcode-cn.com/problems/integer-break/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer n, <span class="nb">break</span> it into the sum of k positive integers, where k &gt;<span class="o">=</span> 2, and maximize the product of those integers.
+
+Return the maximum product you can get.
+
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i]: number i, get maximize result dp[i]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>j * (i -j)</p>
+</blockquote>
+<blockquote>
+<p>j * dp[i - j]</p>
+</blockquote>
+<p>dp[i] = max(dp[i], max((i - j) * j, dp[i - j]* j));</p>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[2] = 1</p>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>front to back</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>n = 10</p>
+</blockquote>
+<blockquote>
+<p>i     :   2   3   4   5   6   7   8   9   10</p>
+</blockquote>
+<blockquote>
+<p>dp[i] :   1   2   4   6</p>
+</blockquote>
+<h4 id="q6backpack">Q.6:BackPack</h4>
+<p>return the max value of the backpack</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">maxweight</span> <span class="o">=</span> <span class="m">4</span>
+
+items:    weight   value
+item0:       <span class="m">1</span>      <span class="m">15</span>
+item1:       <span class="m">3</span>      <span class="m">20</span>
+item2:       <span class="m">4</span>      <span class="m">30</span>
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i][j]: [0-i]items, put in j weight backpack, return a max value</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>no more item: dp[i][j] = dp[i -1][j]</p>
+</blockquote>
+<blockquote>
+<p>add item i: dp[i][j] = dp[i -1][j - weight[i]] + value[i]</p>
+</blockquote>
+<p>dp[i] = max(dp[i -1][j], dp[i - 1][j - weight[i] + value[i]]);</p>
+<ul>
+<li><em><strong>sp3. initial values</strong></em> 
+backpack weight: j
+dp[i][j]</li>
+</ul>
+<p>if j = 0, and j &lt; weight[0], dp[i][0] = 0, because no items can put in the backpack
+if i = 0, jfor (int j = weight[0]; j &lt;= bagWeight; j++) ;  dp[0][j] = value[0];</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">        <span class="m">0</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">3</span>   <span class="m">4</span>   
+item0:  <span class="m">0</span>   <span class="m">15</span>  <span class="m">15</span>  <span class="m">15</span>  <span class="m">15</span>       
+item1:  <span class="m">0</span>    
+item2:  <span class="m">0</span>   
+</code></pre></div><ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>front to back</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">
+<span class="nv">maxweight</span> <span class="o">=</span> <span class="m">4</span>
+
+items:    weight   value
+item0:       <span class="m">1</span>      <span class="m">15</span>
+item1:       <span class="m">3</span>      <span class="m">20</span>
+item2:       <span class="m">4</span>      <span class="m">30</span>
+
+
+        <span class="m">0</span>   <span class="m">1</span>   <span class="m">2</span>   <span class="m">3</span>   <span class="m">4</span>   
+item0:  <span class="m">0</span>   <span class="m">15</span>  <span class="m">15</span>  <span class="m">15</span>  <span class="m">15</span>       
+item1:  <span class="m">0</span>   <span class="m">15</span>  <span class="m">15</span>  <span class="m">20</span>  <span class="m">35</span>   
+item2:  <span class="m">0</span>   <span class="m">15</span>  <span class="m">15</span>  <span class="m">20</span>  <span class="m">35</span> 
+</code></pre></div><p>return dp[2][4]</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">weight</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">value</span> <span class="o">=</span> <span class="o">{</span><span class="n">15</span><span class="o">,</span> <span class="n">20</span><span class="o">,</span> <span class="n">30</span><span class="o">};</span>
+        <span class="kt">int</span> <span class="n">bagSize</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+        <span class="n">testWeightBagProblem</span><span class="o">(</span><span class="n">weight</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">bagSize</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">testWeightBagProblem</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">weight</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">value</span><span class="o">,</span> <span class="kt">int</span> <span class="n">bagSize</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">wLen</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">value0</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">//定义dp数组：dp[i][j]表示背包容量为j时，前i个物品能获得的最大价值
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[][]</span> <span class="n">dp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">wLen</span> <span class="o">+</span> <span class="n">1</span><span class="o">][</span><span class="n">bagSize</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="c1">//初始化：背包容量为0时，能获得的价值都为0
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">wLen</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">value0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">//遍历顺序：先遍历物品，再遍历背包容量
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">wLen</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">bagSize</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">weight</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">]){</span>
+                    <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">dp</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+                <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                    <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">][</span><span class="n">j</span><span class="o">],</span> <span class="n">dp</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">][</span><span class="n">j</span> <span class="o">-</span> <span class="n">weight</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">]]</span> <span class="o">+</span> <span class="n">value</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">]);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">//打印dp数组
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">wLen</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">bagSize</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="s">&#34; &#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><p><strong>reducing space complexity</strong></p>
+<p>dp[j]为 容量为 j 的背包所背的最大价值，那么如何推导 dp[j]呢？</p>
+<p>dp[j]可以通过 dp[j - weight[i]]推导出来，dp[j - weight[i]]表示容量为 j - weight[i]的背包所背的最大价值。</p>
+<p>dp[j - weight[i]] + value[i] 表示 容量为 j - 物品 i 重量 的背包 加上 物品 i 的价值。（也就是容量为 j 的背包，放入物品 i 了之后的价值即：dp[j]）</p>
+<p>此时 dp[j]有两个选择，一个是取自己 dp[j] 相当于 二维 dp 数组中的 dp[i-1][j]，即不放物品 i，一个是取 dp[j - weight[i]] + value[i]，即放物品 i，指定是取最大的，毕竟是求最大价值，</p>
+<blockquote>
+<p>dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">weight</span> <span class="o">=</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">};</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">value</span> <span class="o">=</span> <span class="o">{</span><span class="n">15</span><span class="o">,</span> <span class="n">20</span><span class="o">,</span> <span class="n">30</span><span class="o">};</span>
+        <span class="kt">int</span> <span class="n">bagSize</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+        <span class="n">testWeightBagProblem</span><span class="o">(</span><span class="n">weight</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">bagSize</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">testWeightBagProblem</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">weight</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">value</span><span class="o">,</span> <span class="kt">int</span> <span class="n">bagSize</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">wLen</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">value0</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">//定义dp数组：dp[j]表示背包容量为j时，获得的最大价值
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">bagSize</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+       
+        <span class="c1">//遍历顺序：先遍历物品，再遍历背包容量
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">wLen</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">bagSize</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">weight</span><span class="o">[</span><span class="n">i</span><span class="o">];</span> <span class="n">j</span><span class="o">--){</span>
+                    <span class="n">dp</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">j</span><span class="o">],</span> <span class="n">dp</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">weight</span><span class="o">[</span><span class="n">i</span><span class="o">]]</span> <span class="o">+</span> <span class="n">value</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">//打印dp数组
+</span><span class="c1"></span>   
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">bagWeight</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="s">&#34; &#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><hr>
+<h4 id="q7partition-equal-subset-sum">Q.7:Partition Equal Subset Sum</h4>
+<p><a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">https://leetcode-cn.com/problems/partition-equal-subset-sum/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a non-empty array nums containing only positive integers, find <span class="k">if</span> the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">This is a Knapsack problem, 
+
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i][j]: whether we can sum to j using first i numbers</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[j] = max(dp[j],  dp[j - nums[i]] + nums[i]);</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[0] = 0</p>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>for (int i = 0; i &lt; nums.length(); i++) {
+for (int j = target; j &gt;= nums[i]; j&ndash;) {
+dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+}
+}</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>[1, 5, 11, 5], target = 11</p>
+</blockquote>
+<blockquote>
+<p>nums[0] - 1             {0, 1}</p>
+</blockquote>
+<blockquote>
+<p>nums[1] - 5              {0, 1, 5, 6}</p>
+</blockquote>
+<blockquote>
+<p>nums[2] - 11             {0, 1, 5, 6, 11}</p>
+</blockquote>
+<blockquote>
+<p>nums[3] - 5              {0, 1, 5, 6, 11, 10}</p>
+</blockquote>
+<hr>
+<p>dp table:(front to back, 2d matrix)</p>
+<figure><img src="/images/dp2.png"
+         alt="image"/><figcaption>
+            <h4>Partition Equal Subset Sum </h4>
+        </figcaption>
+</figure>
+
+<hr>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// i = 0, the first item
+</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">dp</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">nums</span><span class="o">[</span><span class="n">0</span><span class="o">]]</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+       
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><hr>
+<p>dp :(back to front, one dimension dp)</p>
+<p><strong>once nums[i] &lt;= j, get to the next loop</strong></p>
+<figure><img src="/images/dp3.png"
+         alt="image"/><figcaption>
+            <h4>Partition Equal Subset Sum </h4>
+        </figcaption>
+</figure>
+
+<hr>
+<p>time：O(n^2)
+space：O(n)</p>
+<h4 id="q8last-stone-weight-ii">Q.8:Last Stone Weight II</h4>
+<p><a href="https://leetcode-cn.com/problems/last-stone-weight-ii/">https://leetcode-cn.com/problems/last-stone-weight-ii/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an array of integers stones where stones<span class="o">[</span>i<span class="o">]</span> is the weight of the ith stone.
+
+We are playing a game with the stones. On each turn, we choose any two stones and smash them together. Suppose the stones have weights x and y with x &lt;<span class="o">=</span> y. The result of this smash is:
+
+If <span class="nv">x</span> <span class="o">==</span> y, both stones are destroyed, and
+If x !<span class="o">=</span> y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+At the end of the game, there is at most one stone left.
+
+Return the smallest possible weight of the left stone. If there are no stones left, <span class="k">return</span> 0.
+
+
+</code></pre></div><ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[i]: number i, get maximize subset sum dp[i]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[j] = max(dp[j],  dp[j - nums[i]] + nums[i]);</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[0] = 0</p>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em></li>
+</ul>
+<blockquote>
+<p>for (int i = 0; i &lt; nums.length(); i++) {
+for (int j = target; j &gt;= nums[i]; j&ndash;) {
+dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+}
+}</p>
+</blockquote>
+<ul>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>[1, 5, 11, 5], target = 11</p>
+</blockquote>
+<blockquote>
+<p>i     :   0   1   2   3   4   5   6   7   8   9   10  11</p>
+</blockquote>
+<blockquote>
+<p>dp[i] :   0   1   1   6</p>
+</blockquote>
+<p>//https://programmercarl.com/0070.%E7%88%AC%E6%A5%BC%E6%A2%AF.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/dynamic-programming/">Dynamic Programming</a><a class="tag" href="/tags/dynamic-programming/">Dynamic Programming</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>
