@@ -139,7 +139,7 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">9-minute read</span>
+                <span class="reading-time">11-minute read</span>
             </div>
             
         </div>
@@ -649,13 +649,13 @@ Return the smallest possible weight of the left stone. If there are no stones le
 <li><em><strong>sp1. dp table and index meaning</strong></em></li>
 </ul>
 <blockquote>
-<p>dp[i]: number i, get maximize subset sum dp[i]</p>
+<p>dp[j]: bag j, get maximize weight dp[j]</p>
 </blockquote>
 <ul>
 <li><em><strong>sp2. recurrence formula</strong></em></li>
 </ul>
 <blockquote>
-<p>dp[j] = max(dp[j],  dp[j - nums[i]] + nums[i]);</p>
+<p>dp[j] = max(dp[j],  dp[j - stones[i]] +  stones[i]);</p>
 </blockquote>
 <ul>
 <li><em><strong>sp3. initial values</strong></em></li>
@@ -667,9 +667,9 @@ Return the smallest possible weight of the left stone. If there are no stones le
 <li><em><strong>sp4. literacy directions</strong></em></li>
 </ul>
 <blockquote>
-<p>for (int i = 0; i &lt; nums.length(); i++) {
-for (int j = target; j &gt;= nums[i]; j&ndash;) {
-dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
+<p>for (int i = 0; i &lt; stones.length(); i++) {
+for (int j = target; j &gt;= stones[i]; j&ndash;) {
+dp[j] = max(dp[j], dp[j - stones[i]] + stones[i]);
 }
 }</p>
 </blockquote>
@@ -677,14 +677,179 @@ dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
 <li><em><strong>sp5. cases</strong></em></li>
 </ul>
 <blockquote>
-<p>[1, 5, 11, 5], target = 11</p>
+<p>[2, 4, 1, 1], target = 4</p>
 </blockquote>
 <blockquote>
-<p>i     :   0   1   2   3   4   5   6   7   8   9   10  11</p>
+<p>j     :   0   1   2   3   4</p>
 </blockquote>
 <blockquote>
-<p>dp[i] :   0   1   1   6</p>
+<p>2     :   0   0   2   2   2</p>
 </blockquote>
+<blockquote>
+<p>4     :   0   0   2   2   4</p>
+</blockquote>
+<blockquote>
+<p>1     :   0   1   2   3   4</p>
+</blockquote>
+<blockquote>
+<p>1     :   0   1   2   3   4</p>
+</blockquote>
+<h4 id="q9target-sum">Q.9:Target Sum</h4>
+<p><a href="https://leetcode-cn.com/problems/target-sum/">https://leetcode-cn.com/problems/target-sum/</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an integer array nums and an integer target.
+
+You want to build an expression out of nums by adding one of the symbols <span class="s1">&#39;+&#39;</span> and <span class="s1">&#39;-&#39;</span> before each integer in nums and <span class="k">then</span> concatenate all the integers.
+
+For example, <span class="k">if</span> <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>2, 1<span class="o">]</span>, you can add a <span class="s1">&#39;+&#39;</span> before <span class="m">2</span> and a <span class="s1">&#39;-&#39;</span> before <span class="m">1</span> and concatenate them to build the expression <span class="s2">&#34;+2-1&#34;</span>.
+Return the number of different expressions that you can build, which evaluates to target.
+
+
+</code></pre></div><p>target = positive sum(left) - negative sum(right);</p>
+<p>left - right = target</p>
+<p>left + right = sum;</p>
+<p>left = (sum + target) / 2</p>
+<ul>
+<li><em><strong>sp1. dp table and index meaning</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[j]: sum j, get maximize method dp[j]</p>
+</blockquote>
+<ul>
+<li><em><strong>sp2. recurrence formula</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[j] += dp[j - nums[i]];</p>
+</blockquote>
+<ul>
+<li><em><strong>sp3. initial values</strong></em></li>
+</ul>
+<blockquote>
+<p>dp[0] = 1,</p>
+</blockquote>
+<ul>
+<li><em><strong>sp4. literacy directions</strong></em>
+use one dimension dp</li>
+<li><em><strong>sp5. cases</strong></em></li>
+</ul>
+<blockquote>
+<p>[1, 1, 1, 1, 1], target = 3, bagsize = (3 + 4) /2 = 4;</p>
+</blockquote>
+<blockquote>
+<p>b    :   0   1   2   3   4   dp[j] += dp[j - nums[i]];  dp[4] += dp[3], dp[3] += dp[2]; dp[2] += dp[1]; dp[1] += dp[0];</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   2   1   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   3   3   1   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   4   6   4   1</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   5   10   10   5</p>
+</blockquote>
+<p>details explains:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">target</span> <span class="o">+</span> <span class="n">sum</span><span class="o">)</span> <span class="o">%</span> <span class="n">2</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="o">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">sum</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">size</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="n">size</span> <span class="o">=</span> <span class="o">-</span><span class="n">size</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">size</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="n">dp</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">size</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span> <span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+                <span class="n">dp</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="o">[</span><span class="n">size</span><span class="o">];</span>
+    <span class="o">}</span>
+</code></pre></div><p>sum = pos_sum + neg_sum;</p>
+<p>(sum - target) % 2 == 0, because the num in nums are all pos_Integer;</p>
+<p>inition:</p>
+<blockquote>
+<p>b    :   0   1   2   3   4</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   0   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   0   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   0   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   0   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   0   0   0   0</p>
+</blockquote>
+<hr>
+<p>after the first row:</p>
+<blockquote>
+<p>b    :   0   1   2   3   4</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0   &lt;&mdash;-</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<hr>
+<p>after the second row:</p>
+<blockquote>
+<p>b    :   0   1   2   3   4</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   2   1   0   0   &lt;&mdash;-</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   2   1   0   0   dp[j]</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   2   1   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   2   1   0   0</p>
+</blockquote>
+<hr>
+<hr>
+<p>after the third row:</p>
+<blockquote>
+<p>b    :   0   1   2   3   4</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   1   0   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   2   1   0   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   3   3   1   0   &lt;&mdash;- dp[j]</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   3   3   1   0</p>
+</blockquote>
+<blockquote>
+<p>1     :   1   3   3   1   0</p>
+</blockquote>
+<hr>
 <p>//https://programmercarl.com/0070.%E7%88%AC%E6%A5%BC%E6%A2%AF.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC</p>
 </div>
     <div class="post-footer">
