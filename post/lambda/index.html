@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | Lambda </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="better understand in Lambda, Method References,Stream API">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/lambda/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Lambda"/>
+<meta name="twitter:description" content="better understand in Lambda, Method References,Stream API"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>Lambda</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Sun, Oct 3, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">4-minute read</span>
+            </div>
+            
+        </div>
+
+        <h3 id="1-无参无返回值">1. 无参，无返回值</h3>
+<p>Runnable r1 = () -&gt; {System.out.println(&ldquo;Hell0 Lambda!&quot;);};</p>
+<h3 id="2-需要一个参数但是没有返回值">2. 需要一个参数，但是没有返回值</h3>
+<p>Consumer<String> con = (String str) -&gt; {System.out.println(str);};</p>
+<h3 id="3-数据类型可以省略因为可由编译器推断得出称为类型推断">3. 数据类型可以省略，因为可由编译器推断得出，称为“类型推断”</h3>
+<p>Consumer<String> con = (str) -&gt; {System.out.println(str);};</p>
+<h3 id="4-lambda-若只需要一个参数时参数的小括号可以省略">4. Lambda 若只需要一个参数时，参数的小括号可以省略</h3>
+<p>Consumer<String> con = str -&gt; {System.out.println(str);};</p>
+<h3 id="5-lambda-需要两个或以上的参数多条执行语句并且可以有返回值">5. Lambda 需要两个或以上的参数，多条执行语句，并且可以有返回值</h3>
+<p>Comparator<Integer> com = (x, y) -&gt; {
+System.out.println(str);
+return Integer.compare(x, y);
+};</p>
+<h3 id="6-当-lambda-体只有一条语句时return-与大括号若有都可以省略">6. 当 Lambda 体只有一条语句时，return 与大括号若有，都可以省略</h3>
+<p>Comparator<Integer> com = (x, y) -&gt; Integer.compare(x, y);
+};</p>
+<hr>
+<h3 id="方法引用">方法引用</h3>
+<p>对象::实例方法名</p>
+<p>类::静态方法名</p>
+<p>类::实例方法名</p>
+<blockquote>
+<p>Consumer<String> con = (x) -&gt; System.out.println(x);</p>
+</blockquote>
+<blockquote>
+<p>Consumer<String> con = System.out::println;</p>
+</blockquote>
+<blockquote>
+<p>Comparator<Integer> com = (x, y) -&gt; Integer.compare(x, y);</p>
+</blockquote>
+<p>System.out.println(com.compare(12, 3));</p>
+<blockquote>
+<p>Comparator<Integer> com = Integer::compare;</p>
+</blockquote>
+<p>System.out.println(com.compare(12, 3));</p>
+<blockquote>
+<p>BiPredicate&lt;String, String&gt; bp = (x, y) -&gt; x.equals(y);</p>
+</blockquote>
+<blockquote>
+<p>BiPredicate&lt;String, String&gt; bp = String::equals;
+boolean flag = bp.test(&ldquo;hello&rdquo;, &ldquo;hi&rdquo;);</p>
+</blockquote>
+<blockquote>
+<p>Function&lt;Double, Long&gt; func1 = d -&gt; Math.round(d);
+func1.apply(12.3);</p>
+</blockquote>
+<blockquote>
+<p>Function&lt;Double, Long&gt; func1 =Math::round;
+func1.apply(12.3);</p>
+</blockquote>
+<hr>
+<h3 id="构造器引用格式">构造器引用格式</h3>
+<p>类名::new</p>
+<blockquote>
+<p>Supplier<Employee> sup1 = () -&gt; new Employee();
+System.out.println(sup1.get());</p>
+</blockquote>
+<blockquote>
+<p>Supplier<Employee> sup1 = Employee:: new;
+System.out.println(sup1.get());</p>
+</blockquote>
+<hr>
+<h3 id="数组引用格式">数组引用格式</h3>
+<p>数组类型[]::new</p>
+<blockquote>
+<p>Function&lt;Integer, Integer[]&gt; func1 = (n) -&gt; new Integer[n];</p>
+</blockquote>
+<blockquote>
+<p>Function&lt;Integer, Integer[]&gt; func1 = Integer[]:: new</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>Function&lt;Integer, String[]&gt; func1 = length -&gt; new String[length];
+String[] arr1 = func1.apply(5);
+System.out.println(Arrays.toString(arr1));</p>
+</blockquote>
+<blockquote>
+<p>Function&lt;Integer, String[]&gt; func1 = String[]:: new;
+String[] arr1 = func1.apply(10);
+System.out.println(Arrays.toString(arr1));</p>
+</blockquote>
+<hr>
+<h3 id="stream-api">Stream API</h3>
+<h4 id="创建-stream-方式一通过集合">创建 Stream 方式一：通过集合</h4>
+<p><strong>Stream<E> stream() : 返回一个顺序流</strong></p>
+<p>List<Employee> employees = EmployeeData.getEmployees();</p>
+<p>Stream<Employee> stream = employees.stream();</p>
+<p><strong>Stream<E> parallelStream() : 返回一个并行流</strong></p>
+<p>Stream<Employee> stream = employees.parallelStream();</p>
+<h4 id="创建-stream-方式二通过数组">创建 Stream 方式二：通过数组</h4>
+<p><strong>Arrays.stream() 的静态方法  可以获取数组流</strong></p>
+<p>int[] arr = new int[] {1, 2, 3, 4, 5};</p>
+<p>IntStream stream = Arrays.stream(arr);</p>
+<p>Employee e1 = new Employee(1001, &ldquo;Tom&rdquo;);
+Employee e2 = new Employee(1002, &ldquo;Tom2&rdquo;);
+Employee[] arr1 = new Employee[]{e1, e2};
+Stream<Employee> stream = Arrays.stream(arr1);</p>
+<h4 id="创建-stream-方式三通过-stream-的-of">创建 Stream 方式三：通过 Stream 的 of()</h4>
+<p><strong>Stream.of(1, 2, 3, 4, 5) 静态方法 通过显示值创建一个流。它可以接收任意数量的参数</strong></p>
+<p>Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);</p>
+<h4 id="创建-stream-方式四创建无限流">创建 Stream 方式四：创建无限流</h4>
+<p><strong>可以使用静态方法 Stream.iterate() 和 Stream.generate(), 创建无限流。</strong></p>
+<blockquote>
+<p>Stream.iterate(0, t -&gt; t + 2).limit(10).forEach(System.out::println);</p>
+</blockquote>
+<blockquote>
+<p>Stream.generate(Math::random).limit(10).forEach(System.out::println);</p>
+</blockquote>
+<hr>
+<h4 id="stream-的中间操作筛选">Stream 的中间操作:筛选</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span> <span class="s">&#34;aa&#34;</span><span class="o">,</span> <span class="n">11</span><span class="o">,</span> <span class="n">10001</span><span class="o">));</span>
+
+<span class="n">Stream</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+
+<span class="n">stream</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">getSalary</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">8000</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+<span class="n">stream</span><span class="o">.</span><span class="na">limit</span><span class="o">(</span><span class="n">3</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span> <span class="c1">// 错误
+</span><span class="c1"></span>
+<span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">limit</span><span class="o">(</span><span class="n">3</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span> <span class="c1">//重新生成
+</span><span class="c1"></span>
+<span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">skip</span><span class="o">(</span><span class="n">3</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span> <span class="c1">//重新生成
+</span><span class="c1"></span>
+<span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">distinct</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span> <span class="c1">//筛选，通过流所生成元素的 hashCode() 和 equals() 去除重复元素
+</span><span class="c1"></span>
+
+</code></pre></div><h4 id="stream-的中间操作">Stream 的中间操作</h4>
+<h5 id="映-射-map"><strong>映 射 map</strong></h5>
+<p>接收一个函数作为参数，该函数会被应用到每个元
+素上，并将其映射成一个新的元素。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;aa&#34;</span><span class="o">,</span><span class="s">&#34;bb&#34;</span><span class="o">,</span><span class="s">&#34;cc&#34;</span><span class="o">,</span><span class="s">&#34;dd&#34;</span><span class="o">);</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">str</span> <span class="o">-&gt;</span> <span class="n">str</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">()).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</code></pre></div><h5 id="获取员工姓名大于-3-的员工的姓名"><strong>获取员工姓名大于 3 的员工的姓名</strong></h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">String</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">namesStream</span> <span class="o">=</span> <span class="n">e1</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">Employee</span><span class="o">::</span><span class="n">getName</span><span class="o">());</span>
+
+<span class="n">namesStream</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">name</span> <span class="o">-&gt;</span> <span class="n">name</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">3</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+
+</code></pre></div><h5 id="将字符串中多个字符构成的集合转换为对应的-stream-的实例-flatmap"><strong>将字符串中多个字符构成的集合转换为对应的 Stream 的实例 flatmap</strong></h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;aa&#34;</span><span class="o">,</span><span class="s">&#34;bb&#34;</span><span class="o">,</span><span class="s">&#34;cc&#34;</span><span class="o">,</span><span class="s">&#34;dd&#34;</span><span class="o">);</span>
+
+<span class="n">String</span><span class="o">&lt;</span><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Characte</span><span class="o">&gt;&gt;</span> <span class="n">streamStream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">StreamAPITest1</span><span class="o">::</span><span class="n">fromStringToStream</span><span class="o">);</span>
+
+<span class="n">streamStream</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="o">{</span>
+  <span class="n">s</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">});</span>
+  
+<span class="c1">// a a b b c c 
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="nf">fromStringToStream</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+
+
+<span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">Character</span> <span class="n">c</span> <span class="o">:</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
+  <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">return</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>flatmap</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;aa&#34;</span><span class="o">,</span><span class="s">&#34;bb&#34;</span><span class="o">,</span><span class="s">&#34;cc&#34;</span><span class="o">,</span><span class="s">&#34;dd&#34;</span><span class="o">);</span>
+
+<span class="n">Stream</span><span class="o">&lt;</span><span class="n">Characte</span><span class="o">&gt;</span> <span class="n">characterStream</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">flatmap</span><span class="o">(</span><span class="n">StreamAPITest1</span><span class="o">::</span><span class="n">fromStringToStream</span><span class="o">);</span>
+
+<span class="n">characterStream</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+
+<span class="c1">// a a b b c c 
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">Stream</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="nf">fromStringToStream</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+
+
+<span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="n">Character</span> <span class="n">c</span> <span class="o">:</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
+  <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">return</span> <span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="自然排序-sort"><strong>自然排序 sort</strong></h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">12</span><span class="o">,</span> <span class="n">43</span><span class="o">,</span> <span class="n">65</span><span class="o">,</span> <span class="n">23</span><span class="o">,</span> <span class="n">89</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">98</span><span class="o">,</span> <span class="n">7</span><span class="o">);</span>
+
+<span class="n">list</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">sorted</span><span class="o">().</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+</code></pre></div><h5 id="定制排序-sortedcomparator-com"><strong>定制排序 sorted(Comparator com)</strong></h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">e1</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">sorted</span><span class="o">((</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">e1</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">e2</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+<span class="o">}).</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">e1</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">sorted</span><span class="o">((</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">)</span> <span class="o">-&gt;</span>  <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">e1</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">e2</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span> <span class="o">)</span>
+  <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">e1</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">sorted</span><span class="o">((</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+
+<span class="kt">int</span> <span class="n">ageValue</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">e1</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">e2</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">ageValue</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">ageValue</span><span class="o">;</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">Double</span><span class="o">.</span><span class="na">Compare</span><span class="o">(</span><span class="n">e1</span><span class="o">.</span><span class="na">getSalary</span><span class="o">(),</span> <span class="n">e2</span><span class="o">.</span><span class="na">getSalary</span><span class="o">());</span>
+<span class="o">}</span>
+  
+<span class="o">})..</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+</code></pre></div><h5 id="终止操作"><strong>终止操作</strong></h5>
+<p><strong>allMatch</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="n">e1</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">allMatch</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">18</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+</code></pre></div><p><strong>anyMatch 是否存在员工工资大于 8000</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="n">e1</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">anyMatch</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">getSalary</span><span class="o">()</span> <span class="o">&gt;</span>  <span class="n">8000</span><span class="o">);</span>
+
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+</code></pre></div><p><strong>findFirst 第一个元素/任意/个数</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="kt">long</span> <span class="n">count</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">gertSalary</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">5000</span><span class="o">).</span><span class="na">count</span><span class="o">();</span>
+
+</code></pre></div><p><strong>max(Comparator c)返回流中最大值/min</strong></p>
+<p><strong>返回最高的工资</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="kt">long</span> <span class="n">count</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">gertSalary</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">5000</span><span class="o">).</span><span class="na">count</span><span class="o">();</span>
+
+<span class="n">String</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">stream1</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">getSalary</span><span class="o">());</span>
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">max</span> <span class="o">=</span> <span class="n">steam1</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">Double</span><span class="o">::</span><span class="n">compare</span><span class="o">);</span>
+</code></pre></div><p><strong>返回最低的工资的员工</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">min</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">min</span><span class="o">((</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Double</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">e1</span><span class="o">.</span><span class="na">gertSalary</span><span class="o">(),</span> <span class="n">e2</span><span class="o">.</span><span class="na">gertSalary</span><span class="o">());</span>
+
+</code></pre></div><p><strong>归约 1-10 的自然数的和:可以将流中元素反复结合起来，得到一个值返回 T</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Array</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">,</span> <span class="n">6</span><span class="o">,</span> <span class="n">7</span><span class="o">,</span> <span class="n">8</span><span class="o">,</span> <span class="n">9</span><span class="o">,</span> <span class="n">10</span><span class="o">);</span>
+
+<span class="n">Integer</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">reduce</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">Integer</span><span class="o">::</span><span class="n">sum</span><span class="o">);</span> <span class="c1">// 55
+</span><span class="c1"></span>
+<span class="n">Integer</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">reduce</span><span class="o">(</span><span class="n">10</span><span class="o">,</span> <span class="n">Integer</span><span class="o">::</span><span class="n">sum</span><span class="o">);</span> <span class="c1">// 65
+</span></code></pre></div><p><strong>计算公司所有员工工资的总和</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">Optional</span><span class="o">&lt;</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">Employee</span><span class="o">::</span><span class="n">getSalary</span><span class="o">).</span><span class="na">reduce</span><span class="o">(</span><span class="n">Double</span><span class="o">::</span><span class="n">sum</span><span class="o">);</span> 
+
+
+</code></pre></div><p><strong>Collect(Collector c)</strong></p>
+<p>将流转换为其他形式。接收一个 Collector 接口的实现，用于给 Stream 中元素做汇总的方法</p>
+<p><strong>返回工资大于 6000 的员工，返回一个 list 或 set</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">EmployeeData</span><span class="o">.</span><span class="na">getEmployees</span><span class="o">();</span>
+
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">collect</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">gertSalary</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">6000</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span> 
+
+<span class="n">Set</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="n">employees</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">gertSalary</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">6000</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toSet</span><span class="o">());</span> 
+
+<span class="n">collect</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+
+</code></pre></div><hr>
+<h4 id="optional">Optional</h4>
+<h5 id="创建-optional-类对象的方法">创建 Optional 类对象的方法</h5>
+<p><strong>Optional.of(T t) : 创建一个 Optional 实例，t 必须非空</strong></p>
+<p><strong>Optional.empty() : 创建一个空的 Optional 实例</strong></p>
+<p><strong>Optional.ofNullable(T t)：t 可以为 null</strong></p>
+<h5 id="判断-optional-容器中是否包含对象">判断 Optional 容器中是否包含对象</h5>
+<p><strong>boolean isPresent() : 判断是否包含对象</strong></p>
+<p><strong>void ifPresent(Consumer&lt;? super T&gt; consumer) ：如果有值，就执行 Consumer 接口的实现代码，并且该值会作为参数传给它</strong></p>
+<h5 id="获取-optional-容器的对象">获取 Optional 容器的对象</h5>
+<p><strong>T get(): 如果调用对象包含值，返回该值，否则抛异常</strong></p>
+<p><strong>T orElse(T other) ：如果有值则将其返回，否则返回指定的 other 对象</strong></p>
+<p><strong>T orElseGet(Supplier&lt;? extends T&gt; other) ：如果有值则将其返回，否则返回由 Supplier 接口实现提供的对象</strong></p>
+<p><strong>T orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier) ：如果有值则将其返回，否则抛出由 Supplier 接口实现提供的异常</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getGirlName</span><span class="o">(</span><span class="n">Boy</span> <span class="n">boy</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">boy</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Girl</span> <span class="n">girl</span> <span class="o">=</span> <span class="n">boy</span><span class="o">.</span><span class="na">getGirl</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">girl</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">girl</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>Optional 类</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getGirlName</span><span class="o">(</span><span class="n">Boy</span> <span class="n">boy</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Boy</span><span class="o">&gt;</span> <span class="n">boyOptional</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">boy</span><span class="o">);</span>
+  <span class="c1">// boy1一定非空
+</span><span class="c1"></span>  <span class="n">Boy</span> <span class="n">boy1</span> <span class="o">=</span> <span class="n">boyOptional</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="k">new</span> <span class="n">Boy</span><span class="o">(</span><span class="k">new</span> <span class="n">Girl</span><span class="o">(</span><span class="s">&#34;aa&#34;</span><span class="o">)));</span>
+
+  <span class="n">Girl</span> <span class="n">girl</span> <span class="o">=</span> <span class="n">boy1</span><span class="o">.</span><span class="na">getGirl</span><span class="o">();</span>
+
+  <span class="n">Optional</span><span class="o">&lt;</span><span class="n">Girl</span><span class="o">&gt;</span> <span class="n">girlOptional</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">girl</span><span class="o">);</span>
+  <span class="c1">// girl一定非空
+</span><span class="c1"></span>  <span class="n">Girl</span> <span class="n">girl</span> <span class="o">=</span> <span class="n">girlOptional</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="k">new</span> <span class="n">Girl</span><span class="o">(</span><span class="s">&#34;BB&#34;</span><span class="o">));</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/lambda/">Lambda</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/method-references/">Method References</a><a class="tag" href="/tags/stream-api/">Stream API</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

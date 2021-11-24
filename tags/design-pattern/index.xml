@@ -6,13 +6,241 @@
     <description>Recent content in design pattern on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Mar 2021 15:23:47 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/design-pattern/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Apr 2021 15:23:47 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/design-pattern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Builder, Prototype design pattern</title>
+      <link>https://rileyshen.github.io/post/designpattern2/</link>
+      <pubDate>Thu, 01 Apr 2021 15:23:47 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/designpattern2/</guid>
+      
+        <description>&lt;h3 id=&#34;1-builder-design-a-decorationpackage&#34;&gt;1. Builder： design a DecorationPackage&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/builder/src/main/java/apartdeco&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/decopackage1.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Builder&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/decopackage2.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Builder&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;appendCeiling&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;appendFloor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;appendTile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+   &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getDetail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Matter&lt;/strong&gt; =&amp;gt; (interface)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ceiling&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;LevelOneCeiling&lt;/li&gt;
+&lt;li&gt;LevelTwoCeiling&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;floor&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;LevelOneFloor&lt;/li&gt;
+&lt;li&gt;LevelTwoFloor&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tile&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;LevelOneTile&lt;/li&gt;
+&lt;li&gt;LevelTwoTile&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;IMenu&lt;/strong&gt; =&amp;gt; IMenu method(Matter matter)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Imenu appendCeiling(Matter matter);&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imenu appendFloor(Matter matter);&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Imenu appendTile(Matter matter);&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;String getDetail();&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;IMenuImpl&lt;/strong&gt; =&amp;gt; &lt;strong&gt;Deco&lt;/strong&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/decopackage3.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Builder&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;Builder&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;public &lt;strong&gt;Imenu&lt;/strong&gt; packageOne (Double area) {
+&lt;strong&gt;return&lt;/strong&gt; new &lt;strong&gt;Deco&lt;/strong&gt;(area, &amp;ldquo;CLASSIC&amp;rdquo;)
+.appendCeiling(new LevelOneCeiling())
+.appendFloor(new LevelOneFloor())
+.appendTile(new LevelOneTile());
+}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Imenu packageTwo (Double area)&lt;/strong&gt; =&amp;gt; &lt;strong&gt;new Deco(area, &amp;ldquo;MODERN&amp;rdquo;)&lt;/strong&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Imenu packageThree (Double area)&lt;/strong&gt; =&amp;gt; &lt;strong&gt;new Deco(area, &amp;ldquo;ART&amp;rdquo;)&lt;/strong&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-builder-design-a-fast-food-ordering-system&#34;&gt;2. Builder： design a fast food ordering system&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/builder/src/main/java/faststore&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. food&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;// step 1 : Create an interface Item representing food item and packing.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Item&lt;/strong&gt; (Interface) =&amp;gt; &lt;strong&gt;name(), Packing packing(), price()&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Burger (abstract class) =&amp;gt; &lt;strong&gt;Packing packing() =&amp;gt; new Wrapper()&lt;/strong&gt;, &lt;strong&gt;abstract float price()&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;ChickenBurger&lt;/li&gt;
+&lt;li&gt;VegBurger&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ColdDrink (abstract class) =&amp;gt; &lt;strong&gt;Packing packing() =&amp;gt; new Bottle()&lt;/strong&gt;, &lt;strong&gt;abstract float price()&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;Coke&lt;/li&gt;
+&lt;li&gt;Pepsi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2. packing&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Packing&lt;/strong&gt; (Interface) =&amp;gt; &lt;strong&gt;pack()&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bottle  =&amp;gt; &lt;strong&gt;pack() =&amp;gt; &amp;ldquo;Bottle&amp;rdquo;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Wrapper  =&amp;gt; &lt;strong&gt;pack() =&amp;gt; &amp;ldquo;Wrapper&amp;rdquo;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Meal&lt;/strong&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/decopackage4.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Builder&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;MealBuilder&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;public &lt;strong&gt;Meal&lt;/strong&gt; prepareMeal () {
+Meal meal = new Meal();
+meal.addItem(new VegBurger());
+meal.addItem(new Coke());    &lt;br&gt;
+&lt;strong&gt;return&lt;/strong&gt; new &lt;strong&gt;meal&lt;/strong&gt;;
+}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;3-builder-design-a-game-actors-system&#34;&gt;3. Builder： design a game actors system&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/builder/src/main/java/game&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Actor&lt;/strong&gt;  =&amp;gt; &lt;strong&gt;type, sex, face, costume, hairstyle&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+  &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildSex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildFace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildCostume&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildHairstyle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createdActor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;AngleBuilder&lt;/strong&gt;  =&amp;gt; extend &lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;  =&amp;gt; void buildType() =&amp;gt; actor.setType(&amp;ldquo;Angle&amp;rdquo;);&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DevilBuilder&lt;/strong&gt;  =&amp;gt; extend &lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;HeroBuilder&lt;/strong&gt;  =&amp;gt; extend &lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ActorController&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;**&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;constructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActorBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;createActor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Client&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ActorBuilder actorBuilder = new HeroBuilder();&lt;/li&gt;
+&lt;li&gt;ActorController actorController = new ActorController();&lt;/li&gt;
+&lt;li&gt;Actor construct = actorController.construct(actorBuilder);&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;conbine ActorBuilder and ActorController&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+  &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildSex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildFace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildCostume&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildHairstyle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// public Actor createdActor() {
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//     return actor;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// }
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// hooked method
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;isBareHeaded&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;constructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActorBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+    
+    &lt;span class=&#34;c1&#34;&gt;// hooked method
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;isBareHeaded&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildHairstyle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Client&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Actor construct = ActorBuilder.construct(new HeroBuilder());&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;go-back-to-dp1hahahugoshortcode-s4-hbhb&#34;&gt;go back to &lt;a href=&#34;https://rileyshen.github.io/post/designpattern1/&#34; &gt;dp1&lt;/a&gt;&lt;/h4&gt;
+</description>
+      
+    </item>
+    
     <item>
       <title>Simple Factory,Factory method &amp; abstract Factory design pattern</title>
-      <link>https://rileyshen.github.io/post/designpattern/</link>
+      <link>https://rileyshen.github.io/post/designpattern1/</link>
       <pubDate>Mon, 01 Mar 2021 15:23:47 +0800</pubDate>
       
-      <guid>https://rileyshen.github.io/post/designpattern/</guid>
+      <guid>https://rileyshen.github.io/post/designpattern1/</guid>
       
         <description>&lt;h3 id=&#34;1-simple-factory-design-a-calculator-hava-basic-operator-&#34;&gt;1. simple factory： design a calculator, hava basic operator(+-*/)&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/exe-demo-design-1-00/src/main/java/org/exe/demo/simplefac&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
@@ -409,6 +637,8 @@ iUser.insert(user);&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;interface use JDKProxy getProxy&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;ok-its-time-for-dp2hahahugoshortcode-s4-hbhb&#34;&gt;Ok, It&amp;rsquo;s time for &lt;a href=&#34;https://rileyshen.github.io/post/designpattern2/&#34; &gt;dp2&lt;/a&gt;&lt;/h4&gt;
 </description>
       
     </item>
