@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>intern() on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/intern/</link>
+    <description>Recent content in intern() on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 18 Jul 2021 11:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/intern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JVM</title>
+      <link>https://rileyshen.github.io/post/jvm/</link>
+      <pubDate>Sun, 18 Jul 2021 11:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/jvm/</guid>
+      
+        <description>&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#jvm-memory&#34; &gt;JVM memory&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#classloader&#34; &gt;ClassLoader&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#classloader--parent-first&#34; &gt;ClassLoader  parent first&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#java-virtual-machine-stack&#34; &gt;Java Virtual Machine Stack&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#exceptions-in-real-life-%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8%E6%9C%89%E5%93%AA%E4%BA%9B&#34; &gt;exceptions in real life 开发中遇到的异常有哪些&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#method&#34; &gt;method&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#non-virtual-method-in-java&#34; &gt;non virtual method in java&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#invoking-a-java-method&#34; &gt;Invoking a java method&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q1-stackoverflowerror&#34; &gt;Q1： StackOverflowError&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q2-does-garbage-collector-work-on-stack&#34; &gt;Q2： Does garbage collector work on stack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q3-does-local-variables-are-thread-safe-within-a-method&#34; &gt;Q3： Does Local variables are thread safe within a method&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%A0%86%E5%8C%BA%E5%A4%A7%E5%B0%8F--%E9%80%89%E9%A1%B9--xmx-%E5%92%8C--xms-%E8%AE%BE%E7%BD%AE&#34; &gt;堆区大小- 选项 “-Xmx” 和 “-Xms” 设置&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#-xxnewration2%E6%96%B0%E7%94%9F%E4%BB%A3-1-%E8%80%81%E5%B9%B4%E4%BB%A3-2-%E6%96%B0%E7%94%9F%E4%BB%A3%E5%8D%A0%E6%95%B4%E4%B8%AA%E5%A0%86%E7%9A%84-13&#34; &gt;-XX:NewRation=2，新生代 1， 老年代 2， 新生代占整个堆的 1/3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B-%E6%A0%88%E4%B8%8A%E5%88%86%E9%85%8D%E5%A0%86%E5%88%86%E9%85%8D%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%A0%88%E5%88%86%E9%85%8D&#34; &gt;逃逸分析之： 栈上分配：堆分配转化为栈分配&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E4%B9%8B%E5%90%8C%E6%AD%A5%E7%9C%81%E7%95%A5%E6%B6%88%E9%99%A4&#34; &gt;逃逸分析之： 代码优化之同步省略（消除）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B-%E5%88%86%E7%A6%BB%E5%AF%B9%E8%B1%A1%E6%88%96%E6%A0%87%E9%87%8F%E6%9B%BF%E6%8D%A2-%E6%9C%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%AD%98%E5%9C%A8%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%A2%AB%E8%AE%BF%E9%97%AE%E5%88%B0%E9%82%A3%E4%B9%88%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%83%A8%E5%88%86%E6%88%96%E8%80%85%E5%85%A8%E9%83%A8%E5%8F%AF%E4%BB%A5%E5%AD%98%E5%82%A8%E5%9C%A8-cpu-%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD&#34; &gt;逃逸分析之： 分离对象或标量替换： 有的对象可能不需要作为一个连续的内存结构存在也可以被访问到，那么对象的部分或者全部可以存储在 CPU 寄存器中&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#thread-and-runtime-dataareas&#34; &gt;Thread and runtime dataAreas&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q1-jvm-memory-model-how-many-types-of-memory-areas-are-allocated-by-jvm&#34; &gt;Q1： jvm memory model, how many types of memory areas are allocated by JVM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q2-jave-8-memory-model-improve-how-many-types-of-memory-areas-are-allocated-by-jvm&#34; &gt;Q2： Jave 8 memory model improve, how many types of memory areas are allocated by JVM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q3--jvm-memory-model-difference-between-stack-and-heap-heap-structure-why-there-are-two-survivor-space&#34; &gt;Q3：  jvm memory model, difference between stack and heap, heap structure, why there are two survivor space&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q4--why-there-is-yc-and-oc-space-in-jvm&#34; &gt;Q4：  why there is YC and OC space in JVM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q5--talk-about-the-database-when-running-the-jvm&#34; &gt;Q5：  talk about the database when running the jvm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q6--when-the-object-enter-the-tenure-generation-space&#34; &gt;Q6：  when the object enter the Tenure generation space&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q7--eden-and-survior-ratio-why-there-is-yc-oc-persistence-space-why-yc-divided-into-eden-and-survivor&#34; &gt;Q7：  Eden and Survior ratio, why there is YC, OC, persistence space, why YC divided into Eden and Survivor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q8-the-memoro-allocation-in-jvm-does-the-gc-happen-in-persistence-why-yc-oc&#34; &gt;Q8: the memoro allocation in JVM, does the GC happen in persistence? why YC, OC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#objectify&#34; &gt;Objectify&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#create-object-methods-in-java&#34; &gt;create object methods in java&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#steps-of-creating-object-in-java&#34; &gt;steps of creating object in java&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#memory-layout-in-java-objectct&#34; &gt;memory layout in Java objectct&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q1-intern&#34; &gt;Q1： intern&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#stringbuilder-%E6%94%B9%E8%BF%9B%E7%A9%BA%E9%97%B4&#34; &gt;StringBuilder 改进空间&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%BA%95%E5%B1%82%E6%98%AF-16-%E7%9A%84%E5%AE%B9%E9%87%8F-%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%AD%E5%A6%82%E6%9E%9C%E5%9F%BA%E6%9C%AC%E7%A1%AE%E5%AE%9A%E8%A6%81%E5%89%8D%E5%89%8D%E5%90%8E%E5%90%8E%E6%B7%BB%E5%8A%A0%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6%E4%B8%8D%E9%AB%98%E4%BA%8E%E6%9F%90%E4%B8%AA%E9%99%90%E5%AE%9A%E5%80%BC-highlevel%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E6%9E%84%E9%80%A0%E5%99%A8-stringbuilder-s--new-stringbuilderhighlevel&#34; &gt;底层是 16 的容量： 在实际开发中，如果基本确定要前前后后添加的字符串长度不高于某个限定值 highLevel，建议使用构造器 StringBuilder s = new StringBuilderhighLevel&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q1-new-stringab-%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1&#34; &gt;Q1 new String&amp;amp;quot;ab&amp;amp;quot; 会创建几个对象&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q2-new-stringa--new-stringb-%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1&#34; &gt;Q2 new String&amp;amp;quot;a&amp;amp;quot; &amp;#43; new String&amp;amp;quot;b&amp;amp;quot; 会创建几个对象&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q3-intern&#34; &gt;Q3： intern&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q4-intern&#34; &gt;Q4： intern&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;h2 id=&#34;jvm-memory&#34;&gt;JVM memory&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-jvm-memory&#34; name=&#34;jvm-memory&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;classloader&#34;&gt;ClassLoader&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-classloader&#34; name=&#34;classloader&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm1.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;ClassLoader&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;classloader--parent-first&#34;&gt;ClassLoader  parent first&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-classloader--parent-first&#34; name=&#34;classloader--parent-first&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Classes loaded with parent class loader first is the default value for class loading mode. This value is also known as parent first&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm2.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;ClassLoader&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;java-virtual-machine-stack&#34;&gt;Java Virtual Machine Stack&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-java-virtual-machine-stack&#34; name=&#34;java-virtual-machine-stack&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;exceptions-in-real-life-开发中遇到的异常有哪些&#34;&gt;exceptions in real life 开发中遇到的异常有哪些&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-exceptions-in-real-life-%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8%E6%9C%89%E5%93%AA%E4%BA%9B&#34; name=&#34;exceptions-in-real-life-%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%BC%82%E5%B8%B8%E6%9C%89%E5%93%AA%E4%BA%9B&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm3.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;exceptions&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;StackOverflowError&lt;/li&gt;
+&lt;li&gt;OutOfMemoryError、&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;method&#34;&gt;method&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-method&#34; name=&#34;method&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;non-virtual-method-in-java&#34;&gt;non virtual method in java&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-non-virtual-method-in-java&#34; name=&#34;non-virtual-method-in-java&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;non-virtual methods in Java are &lt;strong&gt;private&lt;/strong&gt;, &lt;strong&gt;final&lt;/strong&gt;, &lt;strong&gt;static&lt;/strong&gt;, &lt;strong&gt;constructor&lt;/strong&gt;, non-virtual methods do not need to traverse the method table of the method area according to the specific object, to determine the calling relationship&lt;/p&gt;
+&lt;h4 id=&#34;invoking-a-java-method&#34;&gt;Invoking a java method&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-invoking-a-java-method&#34; name=&#34;invoking-a-java-method&#34;&gt;&lt;/a&gt;
+non-virtual&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;invokestatic&lt;/li&gt;
+&lt;li&gt;invokespecial:
+&lt;ul&gt;
+&lt;li&gt;invocation of instance initialization (&lt;init&gt;) methods&lt;/li&gt;
+&lt;li&gt;invocation of private methods&lt;/li&gt;
+&lt;li&gt;invocation of methods using the super keyword&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;virtual(exception final)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;invokevirtual&lt;/li&gt;
+&lt;li&gt;invokeinterface&lt;/li&gt;
+&lt;li&gt;invokedynamic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;q1-stackoverflowerror&#34;&gt;Q1： StackOverflowError&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q1%EF%BC%9A-stackoverflowerror&#34; name=&#34;q1%EF%BC%9A-stackoverflowerror&#34;&gt;&lt;/a&gt;
+StackOverflowError is an error which Java doesn’t allow to catch, for instance, stack running out of space, as it’s one of the most common runtime errors one can encounter.&lt;/p&gt;
+&lt;p&gt;The main cause of the StackOverflowError is that we haven’t provided the proper terminating condition to our recursive function or template, which means it will turn into an infinite loop&lt;/p&gt;
+&lt;p&gt;For example: Lack of proper or no termination condition. This is mostly the cause of this situation termed as unterminated or infinite recursion.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Java&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;program&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;demonstrate&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// infinite recursion error
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;StackOverflowErrorClass&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+  
+    &lt;span class=&#34;c1&#34;&gt;// Method to print numbers
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;printNumber&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+  
+        &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;printNumber&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+  
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// Recursive call without any
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// terminating condition
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;StackOverflowErrorClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printNumber&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;-Xss&lt;/strong&gt; set up stack&amp;rsquo;s size OOM&lt;/p&gt;
+&lt;h3 id=&#34;q2-does-garbage-collector-work-on-stack&#34;&gt;Q2： Does garbage collector work on stack&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q2%EF%BC%9A-does-garbage-collector-work-on-stack&#34; name=&#34;q2%EF%BC%9A-does-garbage-collector-work-on-stack&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;No,
+Garbage Collector In Java works only on Heap memory and not on stack memory , because of the main principal that stack works on which is&lt;/p&gt;
+&lt;h3 id=&#34;q3-does-local-variables-are-thread-safe-within-a-method&#34;&gt;Q3： Does Local variables are thread safe within a method&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q3%EF%BC%9A-does-local-variables-are-thread-safe-within-a-method&#34; name=&#34;q3%EF%BC%9A-does-local-variables-are-thread-safe-within-a-method&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Local variables are thread safe within a method as long as you don&amp;rsquo;t pass them to other thread. If you do, then it depends. For example, in your code all the threads you create have shared access to outputWindow and threads.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;s1: 如果只有一个线程才可以操作此数据，则必是线程安全&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;s2：多个线程操作此数据，则此数据是共享数据。如果不考虑同步机制的话，会存在线程安全问题&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;StringBuilderTest&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// s1：安全
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;method1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+     &lt;span class=&#34;c1&#34;&gt;// s2：不安全
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;method2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;       
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// s1:有可能是线程不安全的， 返回s1有可能被其他线程使用
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;method3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// s1:线程安全
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;method4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// create a copy,
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;堆区大小--选项--xmx-和--xms-设置&#34;&gt;堆区大小- 选项 “-Xmx” 和 “-Xms” 设置&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E5%A0%86%E5%8C%BA%E5%A4%A7%E5%B0%8F--%E9%80%89%E9%A1%B9-%E2%80%9C-xmx%E2%80%9D-%E5%92%8C-%E2%80%9C-xms%E2%80%9D-%E8%AE%BE%E7%BD%AE&#34; name=&#34;%E5%A0%86%E5%8C%BA%E5%A4%A7%E5%B0%8F--%E9%80%89%E9%A1%B9-%E2%80%9C-xmx%E2%80%9D-%E5%92%8C-%E2%80%9C-xms%E2%80%9D-%E8%AE%BE%E7%BD%AE&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-Xms 等于 -XX:InitialHeapSize&lt;/li&gt;
+&lt;li&gt;-Xmx 等于 -XX:MaxHeapSize&lt;/li&gt;
+&lt;li&gt;通常这两个参数配置相同，目的是为了能够在 java 垃圾回收机制清理完堆区后不需要重新分割计算堆区的大小，从而提高性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;-xxnewration2新生代-1-老年代-2-新生代占整个堆的-13&#34;&gt;-XX:NewRation=2，新生代 1， 老年代 2， 新生代占整个堆的 1/3&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown--xx%3Anewration%3D2%EF%BC%8C%E6%96%B0%E7%94%9F%E4%BB%A3-1%EF%BC%8C-%E8%80%81%E5%B9%B4%E4%BB%A3-2%EF%BC%8C-%E6%96%B0%E7%94%9F%E4%BB%A3%E5%8D%A0%E6%95%B4%E4%B8%AA%E5%A0%86%E7%9A%84-1%2F3&#34; name=&#34;-xx%3Anewration%3D2%EF%BC%8C%E6%96%B0%E7%94%9F%E4%BB%A3-1%EF%BC%8C-%E8%80%81%E5%B9%B4%E4%BB%A3-2%EF%BC%8C-%E6%96%B0%E7%94%9F%E4%BB%A3%E5%8D%A0%E6%95%B4%E4%B8%AA%E5%A0%86%E7%9A%84-1%2F3&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;逃逸分析之-栈上分配堆分配转化为栈分配&#34;&gt;逃逸分析之： 栈上分配：堆分配转化为栈分配&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B%EF%BC%9A-%E6%A0%88%E4%B8%8A%E5%88%86%E9%85%8D%EF%BC%9A%E5%A0%86%E5%88%86%E9%85%8D%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%A0%88%E5%88%86%E9%85%8D&#34; name=&#34;%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B%EF%BC%9A-%E6%A0%88%E4%B8%8A%E5%88%86%E9%85%8D%EF%BC%9A%E5%A0%86%E5%88%86%E9%85%8D%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%A0%88%E5%88%86%E9%85%8D&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;逃逸分析之-代码优化之同步省略消除&#34;&gt;逃逸分析之： 代码优化之同步省略（消除）&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B%EF%BC%9A-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E4%B9%8B%E5%90%8C%E6%AD%A5%E7%9C%81%E7%95%A5%EF%BC%88%E6%B6%88%E9%99%A4%EF%BC%89&#34; name=&#34;%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B%EF%BC%9A-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96%E4%B9%8B%E5%90%8C%E6%AD%A5%E7%9C%81%E7%95%A5%EF%BC%88%E6%B6%88%E9%99%A4%EF%BC%89&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;线程同步的代码是相当高的，同步的后果是降低并发性和性能&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JIT 编译器可以借助逃逸分析来判断同步块所使用的锁对象是否只能够被一个线程访问而没有被发布到起到线程， 那么 JIT 编译器在编译这个同步块的时候就会取消对部分代码的同步， 这样就能大大提高并发性和性能。这个取消同步的过程叫锁消除&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hollis&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;synchronized&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hollis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hollis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hollis&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hollis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;逃逸分析之-分离对象或标量替换-有的对象可能不需要作为一个连续的内存结构存在也可以被访问到那么对象的部分或者全部可以存储在-cpu-寄存器中&#34;&gt;逃逸分析之： 分离对象或标量替换： 有的对象可能不需要作为一个连续的内存结构存在也可以被访问到，那么对象的部分或者全部可以存储在 CPU 寄存器中&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B%EF%BC%9A-%E5%88%86%E7%A6%BB%E5%AF%B9%E8%B1%A1%E6%88%96%E6%A0%87%E9%87%8F%E6%9B%BF%E6%8D%A2%EF%BC%9A-%E6%9C%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%AD%98%E5%9C%A8%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%A2%AB%E8%AE%BF%E9%97%AE%E5%88%B0%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%83%A8%E5%88%86%E6%88%96%E8%80%85%E5%85%A8%E9%83%A8%E5%8F%AF%E4%BB%A5%E5%AD%98%E5%82%A8%E5%9C%A8-cpu-%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD&#34; name=&#34;%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E4%B9%8B%EF%BC%9A-%E5%88%86%E7%A6%BB%E5%AF%B9%E8%B1%A1%E6%88%96%E6%A0%87%E9%87%8F%E6%9B%BF%E6%8D%A2%EF%BC%9A-%E6%9C%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%AD%98%E5%9C%A8%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%A2%AB%E8%AE%BF%E9%97%AE%E5%88%B0%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%83%A8%E5%88%86%E6%88%96%E8%80%85%E5%85%A8%E9%83%A8%E5%8F%AF%E4%BB%A5%E5%AD%98%E5%82%A8%E5%9C%A8-cpu-%E5%AF%84%E5%AD%98%E5%99%A8%E4%B8%AD&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;thread-and-runtime-dataareas&#34;&gt;Thread and runtime dataAreas&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-thread-and-runtime-dataareas&#34; name=&#34;thread-and-runtime-dataareas&#34;&gt;&lt;/a&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm4.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Thread runtime dataAreas&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;q1-jvm-memory-model-how-many-types-of-memory-areas-are-allocated-by-jvm&#34;&gt;Q1： jvm memory model, how many types of memory areas are allocated by JVM&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q1%EF%BC%9A-jvm-memory-model%2C-how-many-types-of-memory-areas-are-allocated-by-jvm&#34; name=&#34;q1%EF%BC%9A-jvm-memory-model%2C-how-many-types-of-memory-areas-are-allocated-by-jvm&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;q2-jave-8-memory-model-improve-how-many-types-of-memory-areas-are-allocated-by-jvm&#34;&gt;Q2： Jave 8 memory model improve, how many types of memory areas are allocated by JVM&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q2%EF%BC%9A-jave-8-memory-model-improve%2C-how-many-types-of-memory-areas-are-allocated-by-jvm&#34; name=&#34;q2%EF%BC%9A-jave-8-memory-model-improve%2C-how-many-types-of-memory-areas-are-allocated-by-jvm&#34;&gt;&lt;/a&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm5.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Jave 8 memory model&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm6.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Jave 8 memory model&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;q3--jvm-memory-model-difference-between-stack-and-heap-heap-structure-why-there-are-two-survivor-space&#34;&gt;Q3：  jvm memory model, difference between stack and heap, heap structure, why there are two survivor space&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q3%EF%BC%9A--jvm-memory-model%2C-difference-between-stack-and-heap%2C-heap-structure%2C-why-there-are-two-survivor-space&#34; name=&#34;q3%EF%BC%9A--jvm-memory-model%2C-difference-between-stack-and-heap%2C-heap-structure%2C-why-there-are-two-survivor-space&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;q4--why-there-is-yc-and-oc-space-in-jvm&#34;&gt;Q4：  why there is YC and OC space in JVM&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q4%EF%BC%9A--why-there-is-yc-and-oc-space-in-jvm&#34; name=&#34;q4%EF%BC%9A--why-there-is-yc-and-oc-space-in-jvm&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;q5--talk-about-the-database-when-running-the-jvm&#34;&gt;Q5：  talk about the database when running the jvm&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q5%EF%BC%9A--talk-about-the-database-when-running-the-jvm&#34; name=&#34;q5%EF%BC%9A--talk-about-the-database-when-running-the-jvm&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;q6--when-the-object-enter-the-tenure-generation-space&#34;&gt;Q6：  when the object enter the Tenure generation space&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q6%EF%BC%9A--when-the-object-enter-the-tenure-generation-space&#34; name=&#34;q6%EF%BC%9A--when-the-object-enter-the-tenure-generation-space&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;q7--eden-and-survior-ratio-why-there-is-yc-oc-persistence-space-why-yc-divided-into-eden-and-survivor&#34;&gt;Q7：  Eden and Survior ratio, why there is YC, OC, persistence space, why YC divided into Eden and Survivor&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q7%EF%BC%9A--eden-and-survior-ratio%2C-why-there-is-yc%2C-oc%2C-persistence-space%2C-why-yc-divided-into-eden-and-survivor&#34; name=&#34;q7%EF%BC%9A--eden-and-survior-ratio%2C-why-there-is-yc%2C-oc%2C-persistence-space%2C-why-yc-divided-into-eden-and-survivor&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;q8-the-memoro-allocation-in-jvm-does-the-gc-happen-in-persistence-why-yc-oc&#34;&gt;Q8: the memoro allocation in JVM, does the GC happen in persistence? why YC, OC&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q8%3A-the-memoro-allocation-in-jvm%2C-does-the-gc-happen-in-persistence%3F-why-yc%2C-oc&#34; name=&#34;q8%3A-the-memoro-allocation-in-jvm%2C-does-the-gc-happen-in-persistence%3F-why-yc%2C-oc&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Q2： 对象头信息里面又什么东西
+Q3： java 对象头里有什么&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;objectify&#34;&gt;Objectify&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-objectify&#34; name=&#34;objectify&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;create-object-methods-in-java&#34;&gt;create object methods in java&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-create-object-methods-in-java&#34; name=&#34;create-object-methods-in-java&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;new&lt;/li&gt;
+&lt;li&gt;Class newInstance()&lt;/li&gt;
+&lt;li&gt;constructor newInstance()&lt;/li&gt;
+&lt;li&gt;clone()&lt;/li&gt;
+&lt;li&gt;deserialization&lt;/li&gt;
+&lt;li&gt;factory method&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;steps-of-creating-object-in-java&#34;&gt;steps of creating object in java&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-steps-of-creating-object-in-java&#34; name=&#34;steps-of-creating-object-in-java&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm7.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;creating object JVM&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ol&gt;
+&lt;li&gt;findout Symbol reference in constant pool, whether it goes through &lt;strong&gt;load&lt;/strong&gt; 、 &lt;strong&gt;link （ verification 、 Get ready 、 analysis ）&lt;/strong&gt;、 &lt;strong&gt;initialization&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If (not), in &lt;strong&gt;parent delegation mode&lt;/strong&gt;, use the current class loader to find the corresponding &lt;strong&gt;.class file&lt;/strong&gt; with &lt;strong&gt;ClassLoader + package name + class name Key&lt;/strong&gt; to complete the loading of the class into memory. In this process, if the JVM cannot find the class to be loaded, it will throw a &lt;strong&gt;ClassNotFoundException exception&lt;/strong&gt;, which means that the class cannot be found to load.&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;a stack memory allocation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Bump the Pointer:Bump allocation is a fast, but limited approach to allocation.(memory is compacted)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FreeList :  It operates by connecting unallocated regions of memory together in a linked list, using the first word of each unallocated region as a pointer to the next. It is most suitable for allocating from a memory pool, where all objects have the same size. (memory is not compacted)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;solves concurrency problems&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;CAS（Compare-and-Swap）&lt;/li&gt;
+&lt;li&gt;TLAB : a single thread can allocate new objects in this area (Eden)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;initialize memory to zero&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;create Java object header&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;JVM calls a special method named &lt;init&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;memory-layout-in-java-objectct&#34;&gt;memory layout in Java objectct&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-memory-layout-in-java-objectct&#34; name=&#34;memory-layout-in-java-objectct&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Object head&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1.1 Mark Word&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.1.1 hashcode&lt;/li&gt;
+&lt;li&gt;1.1.2 GC generation age&lt;/li&gt;
+&lt;li&gt;1.1.3 lock information&lt;/li&gt;
+&lt;li&gt;1.1.4 biased thread ID&lt;/li&gt;
+&lt;li&gt;1.1.5 biased timestamp&lt;/li&gt;
+&lt;li&gt;1.1.6 object generation age&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1.2 Klass Pointer&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Type pointer, through which an object can know which class the object is an instance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1.3 Array Length&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Record the length of the array&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Instance data&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the various attribute values set by the programmer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Padding&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;instance part is not an integer multiple, it is necessary to add a bit of placeholder to meet the requirements&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Q1： how object stored in JVM&lt;/p&gt;
+&lt;p&gt;Q2： 对象头信息里面又什么东西？
+Q3： java 对象头里有什么&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;q1-intern&#34;&gt;Q1： intern()&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q1%EF%BC%9A-intern&#34; name=&#34;q1%EF%BC%9A-intern&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;常量与常量的拼接结果在常量池，原理是编译器优化&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;常量池中不会存在相同内容的常量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;只要其中有一个是变量，结果就是堆中。变量拼接原理是 StringBuilder
+Instance variables are created in the heap&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果拼接结果调用 intern() 方法，则主动将常量池中还没有的字符串对象放入池中，并返回此&lt;strong&gt;对象地址&lt;/strong&gt;
+We know that string literals are created in the String pool, and string objects are created in the heap memory area. We can use the method String.intern() to create string literals for the string objects. When invoked on a string object, method intern() creates an exact copy of a String object in the heap memory and stores it in the String constant pool.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;(&amp;ldquo;a&amp;rdquo; + &amp;ldquo;b&amp;rdquo; + &amp;ldquo;c&amp;rdquo; ).intern() == &amp;ldquo;abc&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;string concatenation operator ( + ) vs append&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentTimeMillis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;method1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;10000&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;//method2(10000);
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentTimeMillis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+   &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;method1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;highLevel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;highLevel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// every time create a stringbuilder, string
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//4014
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;method2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;highLevel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;highLevel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; 
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;StringBuilder 的 append（）效率要原高于拼贴&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;StringBuilder 的 append（）只创造了一个 SB&lt;/li&gt;
+&lt;li&gt;拼贴创造了多个 sb 和 String 的对象&lt;/li&gt;
+&lt;li&gt;拼贴占据了更多的内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;stringbuilder-改进空间&#34;&gt;StringBuilder 改进空间&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-stringbuilder-%E6%94%B9%E8%BF%9B%E7%A9%BA%E9%97%B4&#34; name=&#34;stringbuilder-%E6%94%B9%E8%BF%9B%E7%A9%BA%E9%97%B4&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h5 id=&#34;底层是-16-的容量-在实际开发中如果基本确定要前前后后添加的字符串长度不高于某个限定值-highlevel建议使用构造器-stringbuilder-s--new-stringbuilderhighlevel&#34;&gt;底层是 16 的容量： 在实际开发中，如果基本确定要前前后后添加的字符串长度不高于某个限定值 highLevel，建议使用构造器 StringBuilder s = new StringBuilder(highLevel)&lt;/h5&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E5%BA%95%E5%B1%82%E6%98%AF-16-%E7%9A%84%E5%AE%B9%E9%87%8F%EF%BC%9A-%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%AD%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%9F%BA%E6%9C%AC%E7%A1%AE%E5%AE%9A%E8%A6%81%E5%89%8D%E5%89%8D%E5%90%8E%E5%90%8E%E6%B7%BB%E5%8A%A0%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6%E4%B8%8D%E9%AB%98%E4%BA%8E%E6%9F%90%E4%B8%AA%E9%99%90%E5%AE%9A%E5%80%BC-highlevel%EF%BC%8C%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E6%9E%84%E9%80%A0%E5%99%A8-stringbuilder-s-%3D-new-stringbuilderhighlevel&#34; name=&#34;%E5%BA%95%E5%B1%82%E6%98%AF-16-%E7%9A%84%E5%AE%B9%E9%87%8F%EF%BC%9A-%E5%9C%A8%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%AD%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%9F%BA%E6%9C%AC%E7%A1%AE%E5%AE%9A%E8%A6%81%E5%89%8D%E5%89%8D%E5%90%8E%E5%90%8E%E6%B7%BB%E5%8A%A0%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%95%BF%E5%BA%A6%E4%B8%8D%E9%AB%98%E4%BA%8E%E6%9F%90%E4%B8%AA%E9%99%90%E5%AE%9A%E5%80%BC-highlevel%EF%BC%8C%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E6%9E%84%E9%80%A0%E5%99%A8-stringbuilder-s-%3D-new-stringbuilderhighlevel&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AbstractStringBuilder&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;appendNull&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ensureCapacityInternal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getChars&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;  
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ensureCapacityInternal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minimumCapacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minimumCapacity&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;copyOf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; 
+                &lt;span class=&#34;n&#34;&gt;newCapacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;minimumCapacity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;q1-new-stringab-会创建几个对象&#34;&gt;Q1 new String(&amp;ldquo;ab&amp;rdquo;) 会创建几个对象&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q1-new-string%22ab%22-%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1&#34; name=&#34;q1-new-string%22ab%22-%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2 个： 堆空间 new 一个 Stringbuilder， 在常量池放入 ”ab“ 
+如何证明： 字节码 ldc&lt;/p&gt;
+&lt;h3 id=&#34;q2-new-stringa--new-stringb-会创建几个对象&#34;&gt;Q2 new String(&amp;ldquo;a&amp;rdquo;) + new String(&amp;ldquo;b&amp;rdquo;) 会创建几个对象&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q2-new-string%22a%22-%2B-new-string%22b%22-%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1&#34; name=&#34;q2-new-string%22a%22-%2B-new-string%22b%22-%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%87%A0%E4%B8%AA%E5%AF%B9%E8%B1%A1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Obj 1. new Stringbuidler()&lt;/li&gt;
+&lt;li&gt;Obj 2. new String(a)&lt;/li&gt;
+&lt;li&gt;Obj 3. 常量池中 &amp;ldquo;a&amp;rdquo; // obj2 new String(a)&lt;/li&gt;
+&lt;li&gt;Obj 4. new String(b)&lt;/li&gt;
+&lt;li&gt;Obj 5. 常量池中 &amp;ldquo;b&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;深入：Stringbuidler toString()&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Obj 6. new String(&amp;ldquo;ab&amp;rdquo;) // 此时字符串常量池中不存在 ”ab“&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;q3-intern&#34;&gt;Q3： intern()&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q3%EF%BC%9A-intern&#34; name=&#34;q3%EF%BC%9A-intern&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm8.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm9.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm10.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm11.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;q4-intern&#34;&gt;Q4： intern()&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q4%EF%BC%9A-intern&#34; name=&#34;q4%EF%BC%9A-intern&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm12.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm13.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm14.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;intern()&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/jvm2/&#34; &gt;JVM2&lt;/a&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

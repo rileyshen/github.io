@@ -5,7 +5,7 @@
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="description"
-        content="design small projects(Decoration Package system, fast food ordering system, game actors ) to better understand factory patterns">
+        content="design small projects(Decoration Package system, fast food ordering system, game actors ) to better understand design patterns">
     <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
     
 
@@ -48,7 +48,7 @@
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
 <meta name="twitter:title" content="Builder, Prototype design pattern"/>
-<meta name="twitter:description" content="design small projects(Decoration Package system, fast food ordering system, game actors ) to better understand factory patterns"/>
+<meta name="twitter:description" content="design small projects(Decoration Package system, fast food ordering system, game actors ) to better understand design patterns"/>
 
 
     
@@ -139,7 +139,7 @@
                     Thu, Apr 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">2-minute read</span>
+                <span class="reading-time">5-minute read</span>
             </div>
             
         </div>
@@ -360,7 +360,366 @@ meal.addItem(new Coke());    <br>
 <li>Actor construct = ActorBuilder.construct(new HeroBuilder());</li>
 </ul>
 <hr>
-<h4 id="go-back-to-dp1hahahugoshortcode-s4-hbhb">go back to <a href="https://rileyshen.github.io/post/designpattern1/" >dp1</a></h4>
+<h3 id="1prototype-pattern-design-a-weeklyreport">1.Prototype pattern： design a WeeklyReport</h3>
+<p><a href="https://rileyshen.github.io/post/Prototype/"  target="_blank" >see more details</a></p>
+<p>In Prototype pattern, there are three roles</p>
+<h4 id="1-prototypeparent-for-concreteprototype">1. Prototype(parent for ConcretePrototype)</h4>
+<h4 id="2-concreteprototypeimplement-the-method-in-protype-parent-return-a-cloned-object">2. ConcretePrototype(implement the method in Protype parent, return a cloned object)</h4>
+<h4 id="3-clientobjectify-directly-or-use-factory-method-to-create-a-prototype-object-invoke-the-clone-method-get-multiple-objects">3. Client(objectify directly or use factory method to create a prototype object, invoke the clone method get multiple objects)</h4>
+<h5 id="shallowclone">shallowClone</h5>
+<p><strong>Attachment</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Attachement</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">download</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;the file name is : &#34;</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+</code></pre></div><p><strong>Log</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Log</span> <span class="kd">implements</span> <span class="n">Cloneable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">date</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+
+    <span class="c1">// shallowClone
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Attachement</span> <span class="n">attachement</span><span class="o">;</span>
+    <span class="c1">// shallowClone
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAttachement</span><span class="o">(</span><span class="n">Attachement</span> <span class="n">attachement</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">attachement</span> <span class="o">=</span> <span class="n">attachement</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// shallowClone
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Attachement</span> <span class="nf">getAttachement</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">attachement</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getDate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">date</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDate</span><span class="o">(</span><span class="n">String</span> <span class="n">date</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getContent</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">content</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setContent</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">;</span>
+    <span class="o">}</span>
+
+   
+    <span class="c1">// Clone()
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Log</span> <span class="nf">Clone</span><span class="o">()</span> <span class="n">t</span> <span class="o">{</span>
+
+       <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+       <span class="k">try</span> <span class="o">{</span>
+           <span class="n">obj</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+           <span class="k">return</span> <span class="o">(</span><span class="n">log</span><span class="o">)</span><span class="n">obj</span><span class="o">;</span>
+       <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">CloneNotSupportedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;not support to chone this object: &#34;</span><span class="o">);</span>
+           <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+       <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h5 id="deepclone">deepClone</h5>
+<p><strong>Attachment</strong>
+<figure><img src="/images/Prototype1.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+</p>
+<p><strong>Log</strong></p>
+<figure><img src="/images/Prototype2.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   
+   <span class="c1">//Serialization : put object into stream
+</span><span class="c1"></span>   <span class="n">ByteArrayOutputStream</span> <span class="n">bao</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+   <span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">bao</span><span class="o">);</span>
+   <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+
+        <span class="c1">// read object from strom
+</span><span class="c1"></span>        <span class="n">ByteArrayInputStream</span> <span class="n">bis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">bao</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">());</span>
+        <span class="n">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">bis</span><span class="o">);</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">Log</span><span class="o">)</span><span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</code></pre></div><h5 id="prototype-manager-store-prototype-objects-in-a-set-is-a-factory-inchange-of-choning">Prototype Manager :store prototype objects in a set, is a factory inchange of choning</h5>
+<p><strong>OfficialDocument</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">OfficialDocument</span> <span class="kd">extends</span>  <span class="n">Cloneable</span>
+
+<span class="o">{</span>
+
+       <span class="kd">public</span>  <span class="n">OfficialDocument</span> <span class="nf">clone</span><span class="o">();</span>
+
+       <span class="kd">public</span>  <span class="kt">void</span> <span class="nf">display</span><span class="o">();</span>
+
+<span class="o">}</span>
+</code></pre></div><p><strong>Feasibility Analysis Report</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">FAR</span> <span class="kd">implements</span> <span class="n">OfficialDocument</span>
+
+<span class="o">{</span>
+
+       <span class="kd">public</span>  <span class="n">OfficialDocument</span> <span class="nf">clone</span><span class="o">()</span>
+
+      <span class="o">{</span>
+
+              <span class="n">OfficialDocument</span>  <span class="n">far</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+              <span class="k">try</span>
+
+              <span class="o">{</span>
+
+                     <span class="n">far</span>  <span class="o">=</span> <span class="o">(</span><span class="n">OfficialDocument</span><span class="o">)</span><span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+
+              <span class="o">}</span>
+
+              <span class="k">catch</span><span class="o">(</span><span class="n">CloneNotSupportedException</span>  <span class="n">e</span><span class="o">)</span>
+
+              <span class="o">{</span>
+
+                      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;not support...！&#34;</span><span class="o">);</span>
+
+              <span class="o">}</span>
+
+              <span class="k">return</span>  <span class="n">far</span><span class="o">;</span>
+
+       <span class="o">}</span>
+
+      
+
+       <span class="kd">public</span>  <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span>
+
+       <span class="o">{</span>
+
+              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Feasibility Analysis Report&#34;</span><span class="o">);</span>
+
+       <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>Software Requirements Specification</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">SRS</span> <span class="kd">implements</span> <span class="n">OfficialDocument</span>
+
+<span class="o">{</span>
+
+       <span class="kd">public</span>  <span class="n">OfficialDocument</span> <span class="nf">clone</span><span class="o">()</span>
+
+      <span class="o">{</span>
+
+              <span class="n">OfficialDocument</span>   <span class="n">srs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+              <span class="k">try</span>
+
+              <span class="o">{</span>
+
+                      <span class="n">srs</span>  <span class="o">=</span> <span class="o">(</span><span class="n">OfficialDocument</span><span class="o">)</span><span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+
+              <span class="o">}</span>
+
+              <span class="k">catch</span><span class="o">(</span><span class="n">CloneNotSupportedException</span>  <span class="n">e</span><span class="o">)</span>
+
+              <span class="o">{</span>
+
+                      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;not support...！&#34;</span><span class="o">);</span>
+
+              <span class="o">}</span>
+
+              <span class="k">return</span>   <span class="n">srs</span><span class="o">;</span>
+
+       <span class="o">}</span>
+
+      
+
+       <span class="kd">public</span>  <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span>
+
+       <span class="o">{</span>
+
+              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Software Requirements Specification&#34;</span><span class="o">);</span>
+
+       <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>PrototypeManager</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrototypeManager</span> <span class="o">{</span>
+
+   <span class="kd">private</span> <span class="n">HashMap</span> <span class="n">hashMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+   <span class="kd">private</span> <span class="kd">static</span> <span class="n">PrototypeManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrototypeManager</span><span class="o">();</span>
+
+   <span class="kd">private</span> <span class="nf">PrototypeManager</span><span class="o">()</span> <span class="o">{</span>
+
+       <span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;far&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">FAR</span><span class="o">());</span>
+       <span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;far&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">SRS</span><span class="o">());</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addOfficialDocu</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span> <span class="n">OfficialDocu</span> <span class="n">doc</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">doc</span><span class="o">);</span>
+   <span class="o">}</span>
+
+   <span class="c1">//shallowClone
+</span><span class="c1"></span>   <span class="kd">public</span> <span class="n">OfficialDocu</span> <span class="nf">getOffDocu</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="o">((</span><span class="n">OfficialDocu</span><span class="o">)</span> <span class="n">hashMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">)).</span><span class="na">clone</span><span class="o">();</span>
+   <span class="o">}</span>
+
+   <span class="kd">public</span> <span class="kd">static</span> <span class="n">PrototypeManager</span> <span class="nf">getPrototypeManager</span><span class="o">()</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">pm</span><span class="o">;</span>
+   <span class="o">}</span>
+
+</code></pre></div><p><strong>Client</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client1</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+       <span class="n">PrototypeManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">PrototypeManager</span><span class="o">.</span><span class="na">getPrototypeManager</span><span class="o">();</span>
+
+       <span class="n">OfficialDocu</span> <span class="n">doc1</span><span class="o">,</span> <span class="n">doc2</span><span class="o">,</span> <span class="n">doc3</span><span class="o">,</span> <span class="n">doc4</span><span class="o">;</span>
+
+       <span class="n">doc1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="na">getOffDocu</span><span class="o">(</span><span class="s">&#34;far&#34;</span><span class="o">);</span>
+       <span class="n">doc1</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+
+       <span class="n">doc2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="na">getOffDocu</span><span class="o">(</span><span class="s">&#34;far&#34;</span><span class="o">);</span>
+       <span class="n">doc2</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+
+       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">doc1</span> <span class="o">==</span> <span class="n">doc2</span><span class="o">);</span>
+
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>Prototype(OfficialDocument)</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">interface</span> <span class="nc">Prototype</span>
+
+<span class="o">{</span>
+
+       <span class="kd">public</span>  <span class="n">Prototype</span> <span class="nf">clone</span><span class="o">();</span>
+
+       <span class="kd">public</span>  <span class="kt">void</span> <span class="nf">display</span><span class="o">();</span>
+
+<span class="o">}</span>
+</code></pre></div><p><strong>PrototypeManager2</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrototypeManager</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ProtoType</span><span class="o">&gt;</span> <span class="n">mProtos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+ <span class="kd">private</span> <span class="nf">PrototyManager</span><span class="o">()</span> <span class="o">{</span>
+     
+ <span class="o">}</span>
+
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setProtoType</span><span class="o">()</span> <span class="o">{</span>
+     
+ <span class="o">}</span>
+   <span class="kd">public</span> <span class="n">ProtoType</span> <span class="nf">getProto</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">ProtoType</span><span class="o">&gt;</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">mProtos</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">())</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+               <span class="k">try</span> <span class="o">{</span>
+                   <span class="n">mProtos</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">(),</span> <span class="n">type</span><span class="o">.</span><span class="na">newInstance</span><span class="o">());</span>
+               <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InstantiationException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+               <span class="o">}</span>
+           <span class="o">}</span>
+
+       <span class="k">return</span> <span class="n">mProtos</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">());</span>
+   <span class="o">}</span>
+
+</code></pre></div><h4 id="prototype-design-a-testbank">Prototype :design a testbank</h4>
+<p>before:
+<strong>AnswerQuest</strong>
+contains all the questions and answers in this class</p>
+<p><strong>ChoiceQuest</strong>
+contains all the questions and answers in this class</p>
+<p><strong>QuestBankController</strong>
+conbine answerQuest and choiceQuest in this class</p>
+<p>after:</p>
+<p><strong>utils</strong></p>
+<ul>
+<li><em><strong>Topic</strong></em></li>
+</ul>
+<figure><img src="/images/Prototype3.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+
+<ul>
+<li><em><strong>TopicRandom</strong></em></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TopicRandom</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">public</span> <span class="n">Topic</span> <span class="nf">random</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">option</span><span class="o">,</span> <span class="n">String</span> <span class="n">answer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">option</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">keyList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">keySet</span><span class="o">);</span>
+        <span class="n">Collections</span><span class="o">.</span><span class="na">shuffle</span><span class="o">(</span><span class="n">keyList</span><span class="o">);</span>
+        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">optionNew</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">ansNew</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">next</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">ranomKey</span> <span class="o">=</span> <span class="n">keyList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">++);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">answer</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">next</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">ansNew</span> <span class="o">=</span> <span class="n">randomKey</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">optionNew</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">randomKey</span><span class="o">,</span> <span class="n">option</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">next</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Topic</span><span class="o">(</span><span class="n">optionNew</span><span class="o">,</span> <span class="n">ansNew</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>AnswerQuestion</strong>
+<figure><img src="/images/Prototype4.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+</p>
+<p><strong>ChoiceQuestion</strong></p>
+<figure><img src="/images/Prototype5.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+
+<p><strong>ItemBank</strong></p>
+<figure><img src="/images/Prototype6.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/Prototype7.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+
+<p><strong>BankController</strong></p>
+<figure><img src="/images/Prototype8.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+
+<h2 id="hahahugoshortcode-s12-hbhb"><figure><img src="/images/Prototype9.png"
+         alt="image"/><figcaption>
+            <h4>Prototype</h4>
+        </figcaption>
+</figure>
+</h2>
+<h4 id="go-back-to-dp1hahahugoshortcode-s13-hbhb">go back to <a href="https://rileyshen.github.io/post/designpattern1/" >dp1</a></h4>
 </div>
     <div class="post-footer">
         <div class="info">
