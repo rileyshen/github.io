@@ -678,6 +678,76 @@ We know that string literals are created in the String pool, and string objects 
 &lt;li&gt;&lt;em&gt;&lt;strong&gt;Phantom Reference&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;不会对生存影响，无法获得实例，唯一目的是 gc 收到通知&lt;/p&gt;
+&lt;h4 id=&#34;gc-performance&#34;&gt;GC Performance&lt;/h4&gt;
+&lt;h4 id=&#34;different-gc&#34;&gt;different GC&lt;/h4&gt;
+&lt;h4 id=&#34;serial-collector&#34;&gt;Serial Collector&lt;/h4&gt;
+&lt;p&gt;默认被应用在客户端的 Client 模式下的 JVM&lt;/p&gt;
+&lt;h4 id=&#34;parnew-collector&#34;&gt;ParNew Collector&lt;/h4&gt;
+&lt;h4 id=&#34;parallel-collector&#34;&gt;Parallel Collector&lt;/h4&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm31.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;different GC &lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm32.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;different GC &lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h4 id=&#34;g1-collector&#34;&gt;G1 Collector&lt;/h4&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm33.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;pros and cons&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm34.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm35.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm36.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm37.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;*&lt;strong&gt;G1 working process&lt;/strong&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm38.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;h4 id=&#34;g1-remembered-set&#34;&gt;G1 Remembered Set&lt;/h4&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm39.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jvm40.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;G1&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
 &lt;hr&gt;
 &lt;h3 id=&#34;q1-examples-to-explain-memory-leak&#34;&gt;Q1: examples to explain Memory Leak&lt;/h3&gt;
 &lt;ul&gt;
