@@ -139,7 +139,7 @@
                     Fri, Apr 16, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">One-minute read</span>
+                <span class="reading-time">3-minute read</span>
             </div>
             
         </div>
@@ -149,9 +149,10 @@
 <p>注：三层架构分为表述层（或表示层）、业务逻辑层、数据访问层，表述层表示前台页面和后台 servlet</p>
 </blockquote>
 <p><strong>基于原生的 Servlet</strong>，通过了功能强大的<strong>前端控制器 DispatcherServlet</strong>，对请求和响应进行统一处理</p>
+<h2 id="helloworld">HelloWorld</h2>
 <h3 id="1创建项目">1、创建项目</h3>
-<h5 id="打包方式war">打包方式：war</h5>
-<h5 id="引入依赖">引入依赖</h5>
+<h5 id="10-打包方式war">1.0 打包方式：war</h5>
+<h5 id="11-引入依赖">1.1 引入依赖</h5>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependencies&gt;</span>
     <span class="c">&lt;!-- SpringMVC --&gt;</span>
     <span class="nt">&lt;dependency&gt;</span>
@@ -182,7 +183,7 @@
         <span class="nt">&lt;version&gt;</span>3.0.12.RELEASE<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;/dependencies&gt;</span>
-</code></pre></div><h5 id="扩展配置方式">扩展配置方式</h5>
+</code></pre></div><h5 id="12-扩展配置方式">1.2 扩展配置方式</h5>
 <p>可通过 init-param 标签设置 SpringMVC 配置文件的位置和名称，通过 load-on-startup 标签设置 SpringMVC 前端控制器 DispatcherServlet 的初始化时间</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 配置SpringMVC的前端控制器，对浏览器发送的请求统一进行处理 --&gt;</span>
 <span class="nt">&lt;servlet&gt;</span>
@@ -218,15 +219,41 @@
 <p>因此就可以避免在访问 jsp 页面时，该请求被 DispatcherServlet 处理，从而找不到相应的页面</p>
 <p>/*则能够匹配所有请求，例如在使用过滤器时，若需要对所有请求进行过滤，就需要使用/*的写法</p>
 </blockquote>
+<figure><img src="/images/SMVC1.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
 <h3 id="2创建请求控制器">2、创建请求控制器</h3>
-<p>由于前端控制器对浏览器发送的请求进行了统一的处理，但是具体的请求有不同的处理过程，因此需要创建处理具体请求的类，即请求控制器</p>
-<p>请求控制器中每一个处理请求的方法成为控制器方法</p>
-<p>因为 SpringMVC 的控制器由一个 POJO（普通的 Java 类）担任，因此需要通过@Controller 注解将其标识为一个控制层组件，交给 Spring 的 IoC 容器管理，此时 SpringMVC 才能够识别控制器的存在</p>
+<p>由于前端控制器对浏览器发送的请求进行了统一的处理，但是具体的请求有不同的处理过程，因此需要创建处理具体请求的类，即<em><strong>请求控制器</strong></em></p>
+<p>请求控制器中每一个处理请求的方法成为<em><strong>控制器方法</strong></em></p>
+<p>因为 SpringMVC 的控制器由一个 ***POJO（普通的 Java 类）***担任，因此需要通过 <em><strong>@Controller</strong></em> 注解将其标识为一个控制层组件，交给 Spring 的 IoC 容器管理，此时 SpringMVC 才能够识别控制器的存在</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
     
 <span class="o">}</span>
-</code></pre></div><h2 id="3创建-springmvc-的配置文件">3、创建 springMVC 的配置文件</h2>
+</code></pre></div><h3 id="3创建-springmvc-的配置文件">3、创建 springMVC 的配置文件</h3>
+<figure><img src="/images/SMVC2.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<p>出现的图标显示这个类已经交给 IOC 管理</p>
+<figure><img src="/images/SMVC3.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<p>thymeleaf 必须有前缀和后缀</p>
+<figure><img src="/images/SMVC4.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 自动扫描包 --&gt;</span>
 <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.learn.mvc.controller&#34;</span><span class="nt">/&gt;</span>
 
@@ -274,7 +301,133 @@
         <span class="nt">&lt;/bean&gt;</span>
     <span class="nt">&lt;/mvc:message-converters&gt;</span>
 <span class="nt">&lt;/mvc:annotation-driven&gt;</span>
-</code></pre></div></div>
+</code></pre></div><h3 id="4在请求控制器中创建处理请求的方法">4、在请求控制器中创建处理请求的方法</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// @RequestMapping注解：处理请求和控制器方法之间的映射关系
+</span><span class="c1">// @RequestMapping注解的value属性可以通过请求地址匹配请求，/表示的当前工程的上下文路径
+</span><span class="c1">// localhost:8080/springMVC/
+</span><span class="c1"></span><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">index</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//设置视图名称
+</span><span class="c1"></span>    <span class="k">return</span> <span class="s">&#34;index&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="5通过超链接跳转到指定页面">5、通过超链接跳转到指定页面</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="err">```</span><span class="n">html</span>
+<span class="o">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">html</span> <span class="n">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span> <span class="n">xmlns</span><span class="o">:</span><span class="n">th</span><span class="o">=</span><span class="s">&#34;http://www.thymeleaf.org&#34;</span><span class="o">&gt;</span>
+</code></pre></div><figure><img src="/images/SMVC5.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="n">首页</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+<span class="c1">//&lt;!--跳到特定页, @{/}会自动加入绝对路径的上下文，就是tomcat配置的8080/springMVC--&gt;
+</span><span class="c1"></span><span class="o">&lt;</span><span class="n">a</span> <span class="n">th</span><span class="o">:</span><span class="n">href</span><span class="o">=</span><span class="s">&#34;@{/target}&#34;</span><span class="o">&gt;</span><span class="n">目标页面</span><span class="o">.</span><span class="na">html</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+</code></pre></div><p><strong>建立 target.html 页面</strong></p>
+<p><strong>控制器</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">//     &lt;!-- 视图前缀 --&gt;
+</span><span class="c1">//                        &lt;property name=&#34;prefix&#34; value=&#34;/WEB-INF/templates/&#34;/&gt;
+</span><span class="c1">//
+</span><span class="c1">//                        &lt;!-- 视图后缀 --&gt;
+</span><span class="c1">//                        &lt;property name=&#34;suffix&#34; value=&#34;.html&#34;/&gt;
+</span><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/target&#34;</span><span class="o">)</span> <span class="c1">// 与请求地址一致
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toTarget</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 返回视图名称
+</span><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;target&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+</code></pre></div><figure><img src="/images/SMVC6.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h3 id="6总结">6、总结</h3>
+<p>浏览器发送请求，若请求地址符合前端控制器的 <em><strong>url-pattern</strong></em>，该请求就会被前端控制器 <em><strong>DispatcherServlet</strong></em> 处理。前端控制器会读取 <em><strong>SpringMVC</strong></em> 的核心配置文件，通过扫描组件找到控制器，将请求地址和控制器中 <em><strong>@RequestMapping</strong></em> 注解的 value 属性值进行匹配，若匹配成功，该注解所标识的控制器方法就是处理请求的方法。处理请求的方法需要返回一个字符串类型的视图名称，该视图名称会被视图解析器解析，加上前缀和后缀组成视图的路径，通过 Thymeleaf 对视图进行渲染，最终 <em><strong>转发</strong></em> 到视图所对应页面</p>
+<h2 id="springmvc-搭建框架">SpringMVC 搭建框架</h2>
+<h3 id="1创建项目-1">1、创建项目</h3>
+<h5 id="10-打包方式war-1">1.0 打包方式：war</h5>
+<h5 id="11-引入依赖-1">1.1 引入依赖</h5>
+<h5 id="12-注册前端控制器">1.2 注册前端控制器</h5>
+<figure><img src="/images/SMVC7.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/SMVC8.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<p><strong>配置好 controller 的 class</strong></p>
+<h5 id="13-扫描组件和视图解析器前缀后缀-spring-mvcxml">1.3 扫描组件和视图解析器（前缀后缀）： spring MVC.xml</h5>
+<h5 id="14-创建前缀文件夹和-下面的首页-indexhtml">1.4 创建前缀文件夹和 下面的首页： index.html</h5>
+ <!-- （<property name="prefix" value="/WEB-INF/templates/"/>) -->
+<h5 id="15-控制器">1.5 控制器</h5>
+<h2 id="springmvc-基本概念">SpringMVC 基本概念</h2>
+<h3 id="requestmapping">@RequestMapping</h3>
+<h4 id="requestmapping-value-属性">@RequestMapping value 属性</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RequestMappingController</span> <span class="o">{</span>
+
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testRequestMapping&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">success</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<p><a th:href="@{/testRequestMapping}">test requestmapping </a></p>
+</blockquote>
+<p><strong>404</strong></p>
+<blockquote>
+<p><a th:href="@{/hello/testRequestMapping}">test requestmapping </a></p>
+</blockquote>
+<h5 id="requestmapping-注解的-value-属性通过请求的请求地址匹配请求映射">@RequestMapping 注解的 value 属性通过请求的请求地址匹配请求映射</h5>
+<h5 id="requestmapping-注解的-value-属性是一个字符串类型的数组表示该请求映射能够匹配多个请求地址所对应的请求">@RequestMapping 注解的 value 属性是一个字符串类型的数组，表示该请求映射能够匹配多个请求地址所对应的请求</h5>
+<h5 id="requestmapping-注解的-value-属性必须设置至少通过请求地址匹配请求映射">@RequestMapping 注解的 value 属性必须设置，至少通过请求地址匹配请求映射</h5>
+<h4 id="requestmapping-method-属性get-post">@RequestMapping method 属性（get post）</h4>
+<h4 id="requestmapping-param-属性">@RequestMapping param 属性</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;/testRequestMapping&#34;</span><span class="o">,</span> <span class="s">&#34;/test&#34;</span><span class="o">}</span>
+        <span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="o">{</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">}</span>
+        <span class="o">,</span><span class="n">params</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;username&#34;</span><span class="o">,</span><span class="s">&#34;password!=123456&#34;</span><span class="o">}</span>
+<span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testRequestMapping</span><span class="o">(){</span>
+    <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="err">``````</span><span class="n">html</span>
+<span class="o">&lt;</span><span class="n">a</span> <span class="n">th</span><span class="o">:</span><span class="n">href</span><span class="o">=</span><span class="s">&#34;@{/test(username=&#39;admin&#39;,password=123456)&#34;</span><span class="o">&gt;</span><span class="n">测试</span><span class="nd">@RequestMapping的params属性</span><span class="o">--&gt;/</span><span class="n">test</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+</code></pre></div><p>&ldquo;param&rdquo;：要求请求映射所匹配的请求必须携带 param 请求参数</p>
+<p>&ldquo;!param&rdquo;：要求请求映射所匹配的请求必须不能携带 param 请求参数</p>
+<p>&ldquo;param=value&rdquo;：要求请求映射所匹配的请求必须携带 param 请求参数且 param=value</p>
+<p>&ldquo;param!=value&rdquo;：要求请求映射所匹配的请求必须携带 param 请求参数但是 param!=value</p>
+<h4 id="requestmapping-header-属性">@RequestMapping header 属性</h4>
+<h4 id="requestmapping-ant-属性">@RequestMapping ant 属性</h4>
+<p>？：表示任意的单个字符</p>
+<p>*：表示任意的 0 个或多个字符</p>
+<p>**：表示任意的一层或多层目录</p>
+<p>注意：在使用**时，只能使用/**/xxx 的方式</p>
+<h4 id="requestmapping-支持路径中的占位符重点">@RequestMapping 支持路径中的占位符（重点）</h4>
+<p>原始方式：/deleteUser?id=1</p>
+<p>rest 方式：/deleteUser/1</p>
+<p>SpringMVC 路径中的占位符常用于 RESTful 风格中，当请求路径中将某些数据通过路径的方式传输到服务器中，就可以在相应的@RequestMapping 注解的 value属性中通过占位符{xxx}表示传输的数据，在通过@PathVariable 注解，将占位符所表示的数据赋值给控制器方法的形参</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&#34;@{/testRest/1/admin}&#34;</span><span class="p">&gt;</span>测试路径中的占位符--&gt;/testRest<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testRest/{id}/{username}&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testRest</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">id</span><span class="o">,</span> <span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">username</span><span class="o">){</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;id:&#34;</span><span class="o">+</span><span class="n">id</span><span class="o">+</span><span class="s">&#34;,username:&#34;</span><span class="o">+</span><span class="n">username</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="c1">//最终输出的内容为--&gt;id:1,username:admin
+</span></code></pre></div><h2 id="springmvc-获取请求参数">SpringMVC 获取请求参数</h2>
+<h3 id="1通过-servletapi-获取">1、通过 ServletAPI 获取</h3>
+</div>
     <div class="post-footer">
         <div class="info">
             
