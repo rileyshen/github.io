@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitHub on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/github/</link>
+    <description>Recent content in GitHub on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Oct 2021 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SSO &amp;&amp; OAuth App</title>
+      <link>https://rileyshen.github.io/post/sso/</link>
+      <pubDate>Fri, 01 Oct 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/sso/</guid>
+      
+        <description>&lt;p&gt;SSO 简直要把我搞死了，关键是这个按钮都找不到，以前用的授权方法失效了，现在就重新撸一遍。其实说真的，如果它教程更清楚点，我申请了 organization 都找不到 SSO 按钮在哪。服了，吐槽。&lt;/p&gt;
+&lt;h3 id=&#34;sso--single-sign-on&#34;&gt;SSO : Single Sign On&lt;/h3&gt;
+&lt;p&gt;在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。这种方式减少了多次登录产生的时间消耗，提升了用户体验，也辅助了用户管理，是目前一种比较流行的身份认证体系。&lt;/p&gt;
+&lt;h3 id=&#34;cascentral-authentication-service-中心认证服务&#34;&gt;CAS：Central Authentication Service 中心认证服务&lt;/h3&gt;
+&lt;p&gt;用 CAS 框架实现多个不同站点的单点登录的原理的关键就是使用一个认证服务器集中处理登陆的事务。是一个企业级的单点登录解决方案，在部署上面，CAS 分为 CAS Server 和 CAS Client 其中 CAS Server 需要独立部署，CAS Client 是 CAS 本身一种 C/S 架构，可认为每个接入的 Web 应用都是 CAS 的 Client，CAS 支持的客户端也比较多，包括 Java，.Net，PHP，Perl，Apache，Ruby 等等。&lt;/p&gt;
+&lt;h3 id=&#34;iamidentity-and-access-management-身份识别与访问管理&#34;&gt;IAM：Identity and Access Management 身份识别与访问管理&lt;/h3&gt;
+&lt;p&gt;目前一般指统一的身份认证平台，集中管理企业员工和资产的身份和认证管理。&lt;/p&gt;
+&lt;h3 id=&#34;sso-技术&#34;&gt;SSO 技术&lt;/h3&gt;
+&lt;h3 id=&#34;github-授权登录功能注册-oauth-app-实现-social-login-第三方登录&#34;&gt;github 授权登录功能注册 OAuth App 实现 Social login 第三方登录&lt;/h3&gt;
+&lt;h4 id=&#34;oauth-app--settings--developer-settings--oauth-apps--new-oauth-app&#34;&gt;OAuth App ： Settings ➡ Developer settings ➡ OAuth Apps ➡ New OAuth App&lt;/h4&gt;
+&lt;h4 id=&#34;code&#34;&gt;code&lt;/h4&gt;
+&lt;h5 id=&#34;授权流程&#34;&gt;授权流程&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;1. 用户向网站发起登录请求&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;2. 网站将已注册的 OAuth App 的 client_id 作为参数，get 请求发送到 GitHub&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;3.首次登录你的网站的用户需要被寻询问是否接受被获取用户信息&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;4.用户接受请求，GitHub 向你的授权 App 回调地址发送一段过期时间为 10 分钟的 code&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;5.在过期时间内，需要将 client_id、client_secret、code 作为参数 post 到https://github.com/login/oauth/access_token&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;6.经过 GitHub 鉴权成功，返回一串 access_token&amp;amp;access_type&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;7.获取到 access_token，并且将它作为参数访问https://api.github.com/user&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;8.GitHub 将会返回 Json 格式的用户信息&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;9.你获取到用户信息，保存用户登录状态，回显到主页&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&#34;设计流程&#34;&gt;设计流程&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;1. 新建 spring boot 项目，勾选 spring web、thymeleaf、Lombok 等&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;2. 用户点击主页(index.html)的 GitHub 登录&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;3. GitHub 携带 code 回调本站&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;4. OAuthController 处理 code 将 client_id,client_secret,code 打包成对象&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TokenBean&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;client_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;client_secret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Controller&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;OAuthController&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nd&#34;&gt;@Autowired&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GithubProvider&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;githubProvider&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${github.client_id}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clientId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+     &lt;span class=&#34;nd&#34;&gt;@Value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;${github.client_secret}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;clientSecret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&#34;nd&#34;&gt;@GetMapping&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/callback&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 在申请github personal token里面的网址上面加了 /callback
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getAccessToken&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@RequestParam&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;code&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Model&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 封装
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;TokenBean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tokenBean&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TokenBean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;tokenBean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setClient_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clientId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;tokenBean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setClient_secret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clientSecret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;tokenBean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setCode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;// 获取access token
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;accessToken&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;githubProvider&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAccessToken&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;accessTokenBean&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 获取用户信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;GitHubUser&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gitHubUser&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;githubProvider&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getGitHubUser&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;accesToken&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gitHubUser&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;5.交给 GitHubProvider 处理 getAccessToken, 用 fastjson 将 accessTokenBean 对象转化 json 格式，使用 OkHttp 把 json 数据 POST 请求到 GitHub access_token 返回一串 access_token&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;处理后再将accesstoken作为发送GET请求到GitHub。
+最终拿到用户的信息，完成登录。&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
