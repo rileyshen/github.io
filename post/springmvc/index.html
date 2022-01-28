@@ -139,7 +139,7 @@
                     Mon, Aug 16, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">8-minute read</span>
+                <span class="reading-time">16-minute read</span>
             </div>
             
         </div>
@@ -1096,7 +1096,687 @@
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;username:&#34;</span><span class="o">+</span><span class="n">username</span><span class="o">+</span><span class="s">&#34;,password:&#34;</span><span class="o">+</span><span class="n">password</span><span class="o">);</span>
     <span class="k">return</span> <span class="s">&#34;hello,ajax&#34;</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre></div><hr>
+</code></pre></div><p>**点击链接后，页面无需跳转就可以显示信息, 注意在 index 页面， methods 写成了 method， 导致 param 传不过去
+<figure><img src="/images/SMVC32.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+</p>
+<h3 id="6restcontroller-注解">6、@RestController 注解</h3>
+<p>@RestController 注解是 springMVC 提供的一个复合注解，标识在控制器的类上，就相当于为类添加了@Controller 注解，并且为其中的每个方法添加了@ResponseBody 注解， 基本微服务中 springboot 都要加</p>
+<h3 id="7responseentity">7、ResponseEntity</h3>
+<p>ResponseEntity 用于控制器方法的返回值类型，该控制器方法的返回值就是响应到浏览器的响应报文</p>
+<h2 id="文件上传和下载">文件上传和下载</h2>
+<h3 id="1文件下载">1、文件下载</h3>
+<p>使用 ResponseEntity 实现下载文件的功能</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testDown&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="nf">testResponseEntity</span><span class="o">(</span><span class="n">HttpSession</span> <span class="n">session</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="c1">//获取ServletContext对象
+</span><span class="c1"></span>    <span class="n">ServletContext</span> <span class="n">servletContext</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
+    <span class="c1">//获取服务器中文件的真实路径
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">realPath</span> <span class="o">=</span> <span class="n">servletContext</span><span class="o">.</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/static/img/1.jpg&#34;</span><span class="o">);</span>
+    <span class="c1">//创建输入流
+</span><span class="c1"></span>    <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">realPath</span><span class="o">);</span>
+    <span class="c1">//创建字节数组
+</span><span class="c1"></span>    <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">is</span><span class="o">.</span><span class="na">available</span><span class="o">()];</span>
+    <span class="c1">//将流读到字节数组中
+</span><span class="c1"></span>    <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+    <span class="c1">//创建HttpHeaders对象设置响应头信息
+</span><span class="c1"></span>    <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+    <span class="c1">//设置要下载方式以及下载文件的名字
+</span><span class="c1"></span>    <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;Content-Disposition&#34;</span><span class="o">,</span> <span class="s">&#34;attachment;filename=1.jpg&#34;</span><span class="o">);</span>
+    <span class="c1">//设置响应状态码
+</span><span class="c1"></span>    <span class="n">HttpStatus</span> <span class="n">statusCode</span> <span class="o">=</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">OK</span><span class="o">;</span>
+    <span class="c1">//创建ResponseEntity对象
+</span><span class="c1"></span>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">bytes</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">statusCode</span><span class="o">);</span>
+    <span class="c1">//关闭输入流
+</span><span class="c1"></span>    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">responseEntity</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="2文件上传">2、文件上传</h3>
+<p>文件上传要求 <strong>form</strong> 表单的请求方式必须为 <strong>post</strong>，并且添加属性 <strong>enctype=&ldquo;multipart/form-data&rdquo;</strong></p>
+<p>SpringMVC 中将上传的文件封装到 MultipartFile 对象中，通过此对象可以获取文件相关信息</p>
+<h4 id="上传步骤">上传步骤</h4>
+<h4 id="添加依赖">添加依赖</h4>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>commons-fileupload<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>commons-fileupload<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.3.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><h4 id="在-springmvc-的配置文件中添加配置">在 SpringMVC 的配置文件中添加配置</h4>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--必须通过文件解析器的解析才能将文件转换为MultipartFile对象--&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;multipartResolver&#34;</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.multipart.commons.CommonsMultipartResolver&#34;</span><span class="nt">&gt;&lt;/bean&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--如果没有id默认multipartResolver， 会变成http 500--&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.multipart.commons.CommonsMultipartResolver&#34;</span><span class="nt">&gt;&lt;/bean&gt;</span>
+</code></pre></div><h4 id="控制器方法-4">控制器方法</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testUp&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testUp</span><span class="o">(</span><span class="n">MultipartFile</span> <span class="n">photo</span><span class="o">,</span> <span class="n">HttpSession</span> <span class="n">session</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="c1">//获取上传的文件的文件名
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">photo</span><span class="o">.</span><span class="na">getOriginalFilename</span><span class="o">();</span>
+    <span class="c1">//处理文件重名问题
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">hzName</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">fileName</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="s">&#34;.&#34;</span><span class="o">));</span>
+    <span class="n">fileName</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">()</span> <span class="o">+</span> <span class="n">hzName</span><span class="o">;</span>
+    <span class="c1">//获取服务器中photo目录的路径
+</span><span class="c1"></span>    <span class="n">ServletContext</span> <span class="n">servletContext</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
+    <span class="n">String</span> <span class="n">photoPath</span> <span class="o">=</span> <span class="n">servletContext</span><span class="o">.</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;photo&#34;</span><span class="o">);</span>
+    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">photoPath</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(!</span><span class="n">file</span><span class="o">.</span><span class="na">exists</span><span class="o">()){</span>
+        <span class="n">file</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="n">String</span> <span class="n">finalPath</span> <span class="o">=</span> <span class="n">photoPath</span> <span class="o">+</span> <span class="n">File</span><span class="o">.</span><span class="na">separator</span> <span class="o">+</span> <span class="n">fileName</span><span class="o">;</span>
+    <span class="c1">//实现上传功能
+</span><span class="c1"></span>    <span class="n">photo</span><span class="o">.</span><span class="na">transferTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">finalPath</span><span class="o">));</span>
+    <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="拦截器">拦截器</h2>
+<h3 id="1拦截器的配置">1、拦截器的配置</h3>
+<p>SpringMVC 中的拦截器用于拦截控制器方法的执行</p>
+<p>SpringMVC 中的拦截器需要实现 HandlerInterceptor</p>
+<p>SpringMVC 的拦截器必须在 SpringMVC 的配置文件中进行配置：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;com.learn.mav.interceptors.FirstInterceptor&#34;</span><span class="nt">&gt;&lt;/bean&gt;</span>
+<span class="nt">&lt;ref</span> <span class="na">bean=</span><span class="s">&#34;firstInterceptor&#34;</span><span class="nt">&gt;&lt;/ref&gt;</span>
+<span class="c">&lt;!-- 以上两种配置方式都是对DispatcherServlet所处理的所有的请求进行拦截 --&gt;</span>
+<span class="nt">&lt;mvc:interceptor&gt;</span>
+    <span class="nt">&lt;mvc:mapping</span> <span class="na">path=</span><span class="s">&#34;/**&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;mvc:exclude-mapping</span> <span class="na">path=</span><span class="s">&#34;/testRequestEntity&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;ref</span> <span class="na">bean=</span><span class="s">&#34;firstInterceptor&#34;</span><span class="nt">&gt;&lt;/ref&gt;</span>
+<span class="nt">&lt;/mvc:interceptor&gt;</span>
+<span class="c">&lt;!-- 
+</span><span class="c">	以上配置方式可以通过ref或bean标签设置拦截器，通过mvc:mapping设置需要拦截的请求，通过mvc:exclude-mapping设置需要排除的请求，即不需要拦截的请求
+</span><span class="c">--&gt;</span>
+</code></pre></div><h3 id="2拦截器的三个抽象方法">2、拦截器的三个抽象方法</h3>
+<p>SpringMVC 中的拦截器有三个抽象方法：</p>
+<p>preHandle：控制器方法执行之前执行 preHandle()，其 boolean 类型的返回值表示是否拦截或放行，返回 true 为放行，即调用控制器方法；返回 false 表示拦截，即不调用控制器方法</p>
+<p>postHandle：控制器方法执行之后执行 postHandle()</p>
+<p>afterComplation：处理完视图和模型数据，渲染视图完毕之后执行afterComplation()</p>
+<h3 id="3多个拦截器的执行顺序">3、多个拦截器的执行顺序</h3>
+<h4 id="若每个拦截器的-prehandle都返回-true">若每个拦截器的 preHandle()都返回 true</h4>
+<p>此时多个拦截器的执行顺序和拦截器在 SpringMVC 的配置文件的配置顺序有关：</p>
+<h4 id="prehandle会按照配置的顺序执行而-posthandle-和-aftercomplation会按照配置的反序执行">preHandle()会按照配置的顺序执行，而 postHandle() 和 afterComplation()会按照配置的反序执行</h4>
+<h4 id="若某个拦截器的-prehandle返回了-false">若某个拦截器的 preHandle()返回了 false</h4>
+<p>preHandle()返回 false 和它之前的拦截器的 preHandle()都会执行，postHandle()都不执行，返回 false 的拦截器之前的拦截器的 afterComplation()会执行</p>
+<h2 id="异常处理器">异常处理器</h2>
+<h3 id="1基于配置的异常处理">1、基于配置的异常处理</h3>
+<p>SpringMVC 提供了一个处理控制器方法执行过程中所出现的异常的接口：HandlerExceptionResolver</p>
+<p>HandlerExceptionResolver 接口的实现类有：DefaultHandlerExceptionResolver 和 SimpleMappingExceptionResolver</p>
+<p>SpringMVC 提供了自定义的异常处理器 SimpleMappingExceptionResolver，使用方式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.springframework.web.servlet.handler.SimpleMappingExceptionResolver&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;exceptionMappings&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;props&gt;</span>
+        	<span class="c">&lt;!--
+</span><span class="c">        		properties的键表示处理器方法执行过程中出现的异常
+</span><span class="c">        		properties的值表示若出现指定异常时，设置一个新的视图名称，跳转到指定页面
+</span><span class="c">        	--&gt;</span>
+            <span class="nt">&lt;prop</span> <span class="na">key=</span><span class="s">&#34;java.lang.ArithmeticException&#34;</span><span class="nt">&gt;</span>error<span class="nt">&lt;/prop&gt;</span>
+        <span class="nt">&lt;/props&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="c">&lt;!--
+</span><span class="c">    	exceptionAttribute属性设置一个属性名，将出现的异常信息在请求域中进行共享
+</span><span class="c">    --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;exceptionAttribute&#34;</span> <span class="na">value=</span><span class="s">&#34;ex&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</code></pre></div><p><strong>要新建一个 ex.html 的页面，error.html 页面 &ldquo;<p th:text="${ex.execInfo}"></p>&quot;</strong></p>
+<p><strong>错误页面就显示错误信息</strong></p>
+<h3 id="2基于注解的异常处理">2、基于注解的异常处理</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//@ControllerAdvice将当前类标识为异常处理的组件
+</span><span class="c1"></span><span class="nd">@ControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionController</span> <span class="o">{</span>
+
+    <span class="c1">//@ExceptionHandler用于设置所标识方法处理的异常
+</span><span class="c1"></span>    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">ArithmeticException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="c1">//ex表示当前请求处理中出现的异常对象
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">handleArithmeticException</span><span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;ex&#34;</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+        <span class="k">return</span> <span class="s">&#34;error&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><h2 id="注解配置-springmvc">注解配置 SpringMVC</h2>
+<p><strong>使用配置类和注解代替 web.xml 和 SpringMVC 配置文件的功能</strong></p>
+<h3 id="1创建初始化类代替-webxml">1、创建初始化类，代替 web.xml</h3>
+<p>在 Servlet3.0 环境中，容器会在类路径中查找实现 javax.servlet.ServletContainerInitializer
+接口的类，如果找到的话就用它来配置 Servlet 容器 
+Spring提供了这个接口的实现，名为SpringServletContainerInitializer，这个类反过来又会查找实现WebApplicationInitializer的类并将配置的任务交给它们来完成。Spring3.2引入了一个便利的WebApplicationInitializer基础实现，名为AbstractAnnotationConfigDispatcherServletInitializer，当我们的类扩展了AbstractAnnotationConfigDispatcherServletInitializer并将其部署到Servlet3.0容器的时候，容器会自动发现它，并用它来配置Servlet上下文。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebInit</span> <span class="kd">extends</span> <span class="n">AbstractAnnotationConfigDispatcherServletInitializer</span> <span class="o">{</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 指定spring的配置类
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">getRootConfigClasses</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]{</span><span class="n">SpringConfig</span><span class="o">.</span><span class="na">class</span><span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 指定SpringMVC的配置类
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">getServletConfigClasses</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]{</span><span class="n">WebConfig</span><span class="o">.</span><span class="na">class</span><span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 指定DispatcherServlet的映射规则，即url-pattern
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">getServletMappings</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span><span class="s">&#34;/&#34;</span><span class="o">};</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 添加过滤器
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Filter</span><span class="o">[]</span> <span class="nf">getServletFilters</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">CharacterEncodingFilter</span> <span class="n">encodingFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CharacterEncodingFilter</span><span class="o">();</span>
+        <span class="n">encodingFilter</span><span class="o">.</span><span class="na">setEncoding</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+        <span class="n">encodingFilter</span><span class="o">.</span><span class="na">setForceRequestEncoding</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">HiddenHttpMethodFilter</span> <span class="n">hiddenHttpMethodFilter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HiddenHttpMethodFilter</span><span class="o">();</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Filter</span><span class="o">[]{</span><span class="n">encodingFilter</span><span class="o">,</span> <span class="n">hiddenHttpMethodFilter</span><span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="2创建-springconfig-配置类代替-spring-的配置文件">2、创建 SpringConfig 配置类，代替 spring 的配置文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringConfig</span> <span class="o">{</span>
+	<span class="c1">//ssm整合之后，spring的配置信息写在此类中
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><h3 id="3创建-webconfig-配置类代替-springmvc-的配置文件-1-扫描组件-2视图解析器-3view-comtroller-4-default-servlet-handler-5mvc-注解驱动-6文件上传解析器-7异常处理-8-拦截器">3、创建 WebConfig 配置类，代替 SpringMVC 的配置文件 1. 扫描组件 2.视图解析器 3.view-comtroller 4. default-servlet-handler 5.mvc 注解驱动 6.文件上传解析器 7.异常处理 8. 拦截器</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="c1">//1. 扫描组件
+</span><span class="c1"></span><span class="nd">@ComponentScan</span><span class="o">(</span><span class="s">&#34;com.learn.mvc.controller&#34;</span><span class="o">)</span>
+<span class="c1">//5.开启MVC注解驱动
+</span><span class="c1"></span><span class="nd">@EnableWebMvc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="kd">implements</span> <span class="n">WebMvcConfigurer</span> <span class="o">{</span>
+
+    <span class="c1">//使用默认的servlet处理静态资源
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configureDefaultServletHandling</span><span class="o">(</span><span class="n">DefaultServletHandlerConfigurer</span> <span class="n">configurer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">configurer</span><span class="o">.</span><span class="na">enable</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">//配置文件上传解析器
+</span><span class="c1"></span>    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">CommonsMultipartResolver</span> <span class="nf">multipartResolver</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">CommonsMultipartResolver</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">//配置拦截器
+</span><span class="c1"></span>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addInterceptors</span><span class="o">(</span><span class="n">InterceptorRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FirstInterceptor</span> <span class="n">firstInterceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FirstInterceptor</span><span class="o">();</span>
+        <span class="n">registry</span><span class="o">.</span><span class="na">addInterceptor</span><span class="o">(</span><span class="n">firstInterceptor</span><span class="o">).</span><span class="na">addPathPatterns</span><span class="o">(</span><span class="s">&#34;/**&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">//配置视图控制
+</span><span class="c1"></span>    
+    <span class="cm">/*@Override
+</span><span class="cm">    public void addViewControllers(ViewControllerRegistry registry) {
+</span><span class="cm">        registry.addViewController(&#34;/&#34;).setViewName(&#34;index&#34;);
+</span><span class="cm">    }*/</span>
+    
+    <span class="c1">//配置异常映射
+</span><span class="c1"></span>    <span class="cm">/*@Override
+</span><span class="cm">    public void configureHandlerExceptionResolvers(List&lt;HandlerExceptionResolver&gt; resolvers) {
+</span><span class="cm">        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+</span><span class="cm">        Properties prop = new Properties();
+</span><span class="cm">        prop.setProperty(&#34;java.lang.ArithmeticException&#34;, &#34;error&#34;);
+</span><span class="cm">        //设置异常映射
+</span><span class="cm">        exceptionResolver.setExceptionMappings(prop);
+</span><span class="cm">        //设置共享异常信息的键
+</span><span class="cm">        exceptionResolver.setExceptionAttribute(&#34;ex&#34;);
+</span><span class="cm">        resolvers.add(exceptionResolver);
+</span><span class="cm">    }*/</span>
+
+    <span class="c1">//配置生成模板解析器
+</span><span class="c1"></span>    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">ITemplateResolver</span> <span class="nf">templateResolver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">WebApplicationContext</span> <span class="n">webApplicationContext</span> <span class="o">=</span> <span class="n">ContextLoader</span><span class="o">.</span><span class="na">getCurrentWebApplicationContext</span><span class="o">();</span>
+        <span class="c1">// ServletContextTemplateResolver需要一个ServletContext作为构造参数，可通过WebApplicationContext 的方法获得
+</span><span class="c1"></span>        <span class="n">ServletContextTemplateResolver</span> <span class="n">templateResolver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServletContextTemplateResolver</span><span class="o">(</span>
+                <span class="n">webApplicationContext</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">());</span>
+        <span class="n">templateResolver</span><span class="o">.</span><span class="na">setPrefix</span><span class="o">(</span><span class="s">&#34;/WEB-INF/templates/&#34;</span><span class="o">);</span>
+        <span class="n">templateResolver</span><span class="o">.</span><span class="na">setSuffix</span><span class="o">(</span><span class="s">&#34;.html&#34;</span><span class="o">);</span>
+        <span class="n">templateResolver</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+        <span class="n">templateResolver</span><span class="o">.</span><span class="na">setTemplateMode</span><span class="o">(</span><span class="n">TemplateMode</span><span class="o">.</span><span class="na">HTML</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">templateResolver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//生成模板引擎并为模板引擎注入模板解析器
+</span><span class="c1"></span>    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">SpringTemplateEngine</span> <span class="nf">templateEngine</span><span class="o">(</span><span class="n">ITemplateResolver</span> <span class="n">templateResolver</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringTemplateEngine</span> <span class="n">templateEngine</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpringTemplateEngine</span><span class="o">();</span>
+        <span class="n">templateEngine</span><span class="o">.</span><span class="na">setTemplateResolver</span><span class="o">(</span><span class="n">templateResolver</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">templateEngine</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//生成视图解析器并未解析器注入模板引擎
+</span><span class="c1"></span>    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">ViewResolver</span> <span class="nf">viewResolver</span><span class="o">(</span><span class="n">SpringTemplateEngine</span> <span class="n">templateEngine</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ThymeleafViewResolver</span> <span class="n">viewResolver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThymeleafViewResolver</span><span class="o">();</span>
+        <span class="n">viewResolver</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+        <span class="n">viewResolver</span><span class="o">.</span><span class="na">setTemplateEngine</span><span class="o">(</span><span class="n">templateEngine</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">viewResolver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+</code></pre></div><h2 id="springmvc-执行流程">SpringMVC 执行流程</h2>
+<h3 id="1springmvc-常用组件">1、SpringMVC 常用组件</h3>
+<ul>
+<li>DispatcherServlet：<strong>前端控制器</strong>，不需要工程师开发，由框架提供</li>
+</ul>
+<p>作用：统一处理请求和响应，整个流程控制的中心，由它调用其它组件处理用户的请求</p>
+<ul>
+<li>HandlerMapping：<strong>处理器映射器</strong>，不需要工程师开发，由框架提供</li>
+</ul>
+<p>作用：根据请求的 url、method 等信息查找 Handler，即控制器方法</p>
+<ul>
+<li>Handler：<strong>处理器</strong>，需要工程师开发</li>
+</ul>
+<p>作用：在 DispatcherServlet 的控制下 Handler 对具体的用户请求进行处理</p>
+<ul>
+<li>HandlerAdapter：<strong>处理器适配器</strong>，不需要工程师开发，由框架提供</li>
+</ul>
+<p>作用：通过 HandlerAdapter 对处理器（控制器方法）进行执行</p>
+<ul>
+<li>ViewResolver：<strong>视图解析器</strong>，不需要工程师开发，由框架提供</li>
+</ul>
+<p>作用：进行视图解析，得到相应的视图，例如：ThymeleafView、InternalResourceView、RedirectView</p>
+<ul>
+<li>View：<strong>视图</strong></li>
+</ul>
+<p>作用：将模型数据通过页面展示给用户</p>
+<h3 id="2dispatcherservlet-初始化过程">2、DispatcherServlet 初始化过程</h3>
+<p>DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的生命周期。所以宏观上是 Servlet 生命周期来进行调度。</p>
+<h5 id="1-初始化-webapplicationcontext">1. 初始化 WebApplicationContext</h5>
+<p>所在类：org.springframework.web.servlet.FrameworkServlet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="n">WebApplicationContext</span> <span class="nf">initWebApplicationContext</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">WebApplicationContext</span> <span class="n">rootContext</span> <span class="o">=</span>
+        <span class="n">WebApplicationContextUtils</span><span class="o">.</span><span class="na">getWebApplicationContext</span><span class="o">(</span><span class="n">getServletContext</span><span class="o">());</span>
+    <span class="n">WebApplicationContext</span> <span class="n">wac</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">webApplicationContext</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// A context instance was injected at construction time -&gt; use it
+</span><span class="c1"></span>        <span class="n">wac</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">webApplicationContext</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">wac</span> <span class="k">instanceof</span> <span class="n">ConfigurableWebApplicationContext</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ConfigurableWebApplicationContext</span> <span class="n">cwac</span> <span class="o">=</span> <span class="o">(</span><span class="n">ConfigurableWebApplicationContext</span><span class="o">)</span> <span class="n">wac</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">cwac</span><span class="o">.</span><span class="na">isActive</span><span class="o">())</span> <span class="o">{</span>
+                <span class="c1">// The context has not yet been refreshed -&gt; provide services such as
+</span><span class="c1"></span>                <span class="c1">// setting the parent context, setting the application context id, etc
+</span><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">cwac</span><span class="o">.</span><span class="na">getParent</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="c1">// The context instance was injected without an explicit parent -&gt; set
+</span><span class="c1"></span>                    <span class="c1">// the root application context (if any; may be null) as the parent
+</span><span class="c1"></span>                    <span class="n">cwac</span><span class="o">.</span><span class="na">setParent</span><span class="o">(</span><span class="n">rootContext</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">configureAndRefreshWebApplicationContext</span><span class="o">(</span><span class="n">cwac</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">wac</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// No context instance was injected at construction time -&gt; see if one
+</span><span class="c1"></span>        <span class="c1">// has been registered in the servlet context. If one exists, it is assumed
+</span><span class="c1"></span>        <span class="c1">// that the parent context (if any) has already been set and that the
+</span><span class="c1"></span>        <span class="c1">// user has performed any initialization such as setting the context id
+</span><span class="c1"></span>        <span class="n">wac</span> <span class="o">=</span> <span class="n">findWebApplicationContext</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">wac</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// No context instance is defined for this servlet -&gt; create a local one
+</span><span class="c1"></span>        <span class="c1">// 创建WebApplicationContext
+</span><span class="c1"></span>        <span class="n">wac</span> <span class="o">=</span> <span class="n">createWebApplicationContext</span><span class="o">(</span><span class="n">rootContext</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">refreshEventReceived</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Either the context is not a ConfigurableApplicationContext with refresh
+</span><span class="c1"></span>        <span class="c1">// support or the context injected at construction time had already been
+</span><span class="c1"></span>        <span class="c1">// refreshed -&gt; trigger initial onRefresh manually here.
+</span><span class="c1"></span>        <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">onRefreshMonitor</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 刷新WebApplicationContext
+</span><span class="c1"></span>            <span class="n">onRefresh</span><span class="o">(</span><span class="n">wac</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">publishContext</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Publish the context as a servlet context attribute.
+</span><span class="c1"></span>        <span class="c1">// 将IOC容器在应用域共享
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">attrName</span> <span class="o">=</span> <span class="n">getServletContextAttributeName</span><span class="o">();</span>
+        <span class="n">getServletContext</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">attrName</span><span class="o">,</span> <span class="n">wac</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">wac</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="2-创建-webapplicationcontext">2. 创建 WebApplicationContext</h5>
+<p>所在类：org.springframework.web.servlet.FrameworkServlet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="n">WebApplicationContext</span> <span class="nf">createWebApplicationContext</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">ApplicationContext</span> <span class="n">parent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">contextClass</span> <span class="o">=</span> <span class="n">getContextClass</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">ConfigurableWebApplicationContext</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">contextClass</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">ApplicationContextException</span><span class="o">(</span>
+            <span class="s">&#34;Fatal initialization error in servlet with name &#39;&#34;</span> <span class="o">+</span> <span class="n">getServletName</span><span class="o">()</span> <span class="o">+</span>
+            <span class="s">&#34;&#39;: custom WebApplicationContext class [&#34;</span> <span class="o">+</span> <span class="n">contextClass</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span>
+            <span class="s">&#34;] is not of type ConfigurableWebApplicationContext&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// 通过反射创建 IOC 容器对象
+</span><span class="c1"></span>    <span class="n">ConfigurableWebApplicationContext</span> <span class="n">wac</span> <span class="o">=</span>
+        <span class="o">(</span><span class="n">ConfigurableWebApplicationContext</span><span class="o">)</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">instantiateClass</span><span class="o">(</span><span class="n">contextClass</span><span class="o">);</span>
+
+    <span class="n">wac</span><span class="o">.</span><span class="na">setEnvironment</span><span class="o">(</span><span class="n">getEnvironment</span><span class="o">());</span>
+    <span class="c1">// 设置父容器
+</span><span class="c1"></span>    <span class="n">wac</span><span class="o">.</span><span class="na">setParent</span><span class="o">(</span><span class="n">parent</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">configLocation</span> <span class="o">=</span> <span class="n">getContextConfigLocation</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">configLocation</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">wac</span><span class="o">.</span><span class="na">setConfigLocation</span><span class="o">(</span><span class="n">configLocation</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">configureAndRefreshWebApplicationContext</span><span class="o">(</span><span class="n">wac</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">wac</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="3-dispatcherservlet-初始化策略">3. DispatcherServlet 初始化策略</h5>
+<p>FrameworkServlet 创建 WebApplicationContext 后，刷新容器，调用 onRefresh(wac)，此方法在 DispatcherServlet 中进行了重写，调用了 initStrategies(context)方法，初始化策略，即初始化 DispatcherServlet 的各个组件</p>
+<p>所在类：org.springframework.web.servlet.DispatcherServlet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">initStrategies</span><span class="o">(</span><span class="n">ApplicationContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">initMultipartResolver</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initLocaleResolver</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initThemeResolver</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initHandlerMappings</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initHandlerAdapters</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initHandlerExceptionResolvers</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initRequestToViewNameTranslator</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initViewResolvers</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+   <span class="n">initFlashMapManager</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="3dispatcherservlet-调用组件处理请求">3、DispatcherServlet 调用组件处理请求</h3>
+<h5 id="1-processrequest">1. processRequest()</h5>
+<p>FrameworkServlet 重写 HttpServlet 中的 service()和 doXxx()，这些方法中调用了 processRequest(request, response)</p>
+<p>所在类：org.springframework.web.servlet.FrameworkServlet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">processRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+
+    <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="n">Throwable</span> <span class="n">failureCause</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="n">LocaleContext</span> <span class="n">previousLocaleContext</span> <span class="o">=</span> <span class="n">LocaleContextHolder</span><span class="o">.</span><span class="na">getLocaleContext</span><span class="o">();</span>
+    <span class="n">LocaleContext</span> <span class="n">localeContext</span> <span class="o">=</span> <span class="n">buildLocaleContext</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+
+    <span class="n">RequestAttributes</span> <span class="n">previousAttributes</span> <span class="o">=</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">();</span>
+    <span class="n">ServletRequestAttributes</span> <span class="n">requestAttributes</span> <span class="o">=</span> <span class="n">buildRequestAttributes</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">previousAttributes</span><span class="o">);</span>
+
+    <span class="n">WebAsyncManager</span> <span class="n">asyncManager</span> <span class="o">=</span> <span class="n">WebAsyncUtils</span><span class="o">.</span><span class="na">getAsyncManager</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+    <span class="n">asyncManager</span><span class="o">.</span><span class="na">registerCallableInterceptor</span><span class="o">(</span><span class="n">FrameworkServlet</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="k">new</span> <span class="n">RequestBindingInterceptor</span><span class="o">());</span>
+
+    <span class="n">initContextHolders</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">localeContext</span><span class="o">,</span> <span class="n">requestAttributes</span><span class="o">);</span>
+
+    <span class="k">try</span> <span class="o">{</span>
+		<span class="c1">// 执行服务，doService()是一个抽象方法，在DispatcherServlet中进行了重写
+</span><span class="c1"></span>        <span class="n">doService</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">ServletException</span> <span class="o">|</span> <span class="n">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">failureCause</span> <span class="o">=</span> <span class="n">ex</span><span class="o">;</span>
+        <span class="k">throw</span> <span class="n">ex</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">failureCause</span> <span class="o">=</span> <span class="n">ex</span><span class="o">;</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">NestedServletException</span><span class="o">(</span><span class="s">&#34;Request processing failed&#34;</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">resetContextHolders</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">previousLocaleContext</span><span class="o">,</span> <span class="n">previousAttributes</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">requestAttributes</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">requestAttributes</span><span class="o">.</span><span class="na">requestCompleted</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">logResult</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">failureCause</span><span class="o">,</span> <span class="n">asyncManager</span><span class="o">);</span>
+        <span class="n">publishRequestHandledEvent</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">startTime</span><span class="o">,</span> <span class="n">failureCause</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="2-doservice">2. doService()</h5>
+<p>所在类：org.springframework.web.servlet.DispatcherServlet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doService</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">logRequest</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+
+    <span class="c1">// Keep a snapshot of the request attributes in case of an include,
+</span><span class="c1"></span>    <span class="c1">// to be able to restore the original attributes after the include.
+</span><span class="c1"></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">attributesSnapshot</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">WebUtils</span><span class="o">.</span><span class="na">isIncludeRequest</span><span class="o">(</span><span class="n">request</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">attributesSnapshot</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">Enumeration</span><span class="o">&lt;?&gt;</span> <span class="n">attrNames</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getAttributeNames</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">attrNames</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">attrName</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">attrNames</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">cleanupAfterInclude</span> <span class="o">||</span> <span class="n">attrName</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="n">DEFAULT_STRATEGIES_PREFIX</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">attributesSnapshot</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">attrName</span><span class="o">,</span> <span class="n">request</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">attrName</span><span class="o">));</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Make framework objects available to handlers and view objects.
+</span><span class="c1"></span>    <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">WEB_APPLICATION_CONTEXT_ATTRIBUTE</span><span class="o">,</span> <span class="n">getWebApplicationContext</span><span class="o">());</span>
+    <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">LOCALE_RESOLVER_ATTRIBUTE</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">localeResolver</span><span class="o">);</span>
+    <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">THEME_RESOLVER_ATTRIBUTE</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">themeResolver</span><span class="o">);</span>
+    <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">THEME_SOURCE_ATTRIBUTE</span><span class="o">,</span> <span class="n">getThemeSource</span><span class="o">());</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">flashMapManager</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FlashMap</span> <span class="n">inputFlashMap</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">flashMapManager</span><span class="o">.</span><span class="na">retrieveAndUpdate</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">inputFlashMap</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">INPUT_FLASH_MAP_ATTRIBUTE</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">unmodifiableMap</span><span class="o">(</span><span class="n">inputFlashMap</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">OUTPUT_FLASH_MAP_ATTRIBUTE</span><span class="o">,</span> <span class="k">new</span> <span class="n">FlashMap</span><span class="o">());</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="n">FLASH_MAP_MANAGER_ATTRIBUTE</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">flashMapManager</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">RequestPath</span> <span class="n">requestPath</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">parseRequestPath</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">ServletRequestPathUtils</span><span class="o">.</span><span class="na">hasParsedRequestPath</span><span class="o">(</span><span class="n">request</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">requestPath</span> <span class="o">=</span> <span class="n">ServletRequestPathUtils</span><span class="o">.</span><span class="na">parseAndCache</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="c1">// 处理请求和响应
+</span><span class="c1"></span>        <span class="n">doDispatch</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">WebAsyncUtils</span><span class="o">.</span><span class="na">getAsyncManager</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">isConcurrentHandlingStarted</span><span class="o">())</span> <span class="o">{</span>
+            <span class="c1">// Restore the original attribute snapshot, in case of an include.
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">attributesSnapshot</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">restoreAttributesAfterInclude</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">attributesSnapshot</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">requestPath</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ServletRequestPathUtils</span><span class="o">.</span><span class="na">clearParsedRequestPath</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="3-dodispatch">3. doDispatch()</h5>
+<p>所在类：org.springframework.web.servlet.DispatcherServlet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doDispatch</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">HttpServletRequest</span> <span class="n">processedRequest</span> <span class="o">=</span> <span class="n">request</span><span class="o">;</span>
+    <span class="n">HandlerExecutionChain</span> <span class="n">mappedHandler</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">multipartRequestParsed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="n">WebAsyncManager</span> <span class="n">asyncManager</span> <span class="o">=</span> <span class="n">WebAsyncUtils</span><span class="o">.</span><span class="na">getAsyncManager</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">ModelAndView</span> <span class="n">mv</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">Exception</span> <span class="n">dispatchException</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">processedRequest</span> <span class="o">=</span> <span class="n">checkMultipart</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+            <span class="n">multipartRequestParsed</span> <span class="o">=</span> <span class="o">(</span><span class="n">processedRequest</span> <span class="o">!=</span> <span class="n">request</span><span class="o">);</span>
+
+            <span class="c1">// Determine handler for the current request.
+</span><span class="c1"></span>            <span class="cm">/*
+</span><span class="cm">            	mappedHandler：调用链
+</span><span class="cm">                包含handler、interceptorList、interceptorIndex
+</span><span class="cm">            	handler：浏览器发送的请求所匹配的控制器方法
+</span><span class="cm">            	interceptorList：处理控制器方法的所有拦截器集合
+</span><span class="cm">            	interceptorIndex：拦截器索引，控制拦截器afterCompletion()的执行
+</span><span class="cm">            */</span>
+            <span class="n">mappedHandler</span> <span class="o">=</span> <span class="n">getHandler</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">mappedHandler</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">noHandlerFound</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="c1">// Determine handler adapter for the current request.
+</span><span class="c1"></span>           	<span class="c1">// 通过控制器方法创建相应的处理器适配器，调用所对应的控制器方法
+</span><span class="c1"></span>            <span class="n">HandlerAdapter</span> <span class="n">ha</span> <span class="o">=</span> <span class="n">getHandlerAdapter</span><span class="o">(</span><span class="n">mappedHandler</span><span class="o">.</span><span class="na">getHandler</span><span class="o">());</span>
+
+            <span class="c1">// Process last-modified header, if supported by the handler.
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">method</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
+            <span class="kt">boolean</span> <span class="n">isGet</span> <span class="o">=</span> <span class="s">&#34;GET&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">method</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">isGet</span> <span class="o">||</span> <span class="s">&#34;HEAD&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">method</span><span class="o">))</span> <span class="o">{</span>
+                <span class="kt">long</span> <span class="n">lastModified</span> <span class="o">=</span> <span class="n">ha</span><span class="o">.</span><span class="na">getLastModified</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">mappedHandler</span><span class="o">.</span><span class="na">getHandler</span><span class="o">());</span>
+                <span class="k">if</span> <span class="o">(</span><span class="k">new</span> <span class="n">ServletWebRequest</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">).</span><span class="na">checkNotModified</span><span class="o">(</span><span class="n">lastModified</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">isGet</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+			
+            <span class="c1">// 调用拦截器的preHandle()
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(!</span><span class="n">mappedHandler</span><span class="o">.</span><span class="na">applyPreHandle</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="c1">// Actually invoke the handler.
+</span><span class="c1"></span>            <span class="c1">// 由处理器适配器调用具体的控制器方法，最终获得ModelAndView对象
+</span><span class="c1"></span>            <span class="n">mv</span> <span class="o">=</span> <span class="n">ha</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">mappedHandler</span><span class="o">.</span><span class="na">getHandler</span><span class="o">());</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">asyncManager</span><span class="o">.</span><span class="na">isConcurrentHandlingStarted</span><span class="o">())</span> <span class="o">{</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="n">applyDefaultViewName</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">mv</span><span class="o">);</span>
+            <span class="c1">// 调用拦截器的postHandle()
+</span><span class="c1"></span>            <span class="n">mappedHandler</span><span class="o">.</span><span class="na">applyPostHandle</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">mv</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">dispatchException</span> <span class="o">=</span> <span class="n">ex</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">err</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// As of 4.3, we&#39;re processing Errors thrown from handler methods as well,
+</span><span class="c1"></span>            <span class="c1">// making them available for @ExceptionHandler methods and other scenarios.
+</span><span class="c1"></span>            <span class="n">dispatchException</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NestedServletException</span><span class="o">(</span><span class="s">&#34;Handler dispatch failed&#34;</span><span class="o">,</span> <span class="n">err</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">// 后续处理：处理模型数据和渲染视图
+</span><span class="c1"></span>        <span class="n">processDispatchResult</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">mappedHandler</span><span class="o">,</span> <span class="n">mv</span><span class="o">,</span> <span class="n">dispatchException</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">triggerAfterCompletion</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">mappedHandler</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">err</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">triggerAfterCompletion</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">mappedHandler</span><span class="o">,</span>
+                               <span class="k">new</span> <span class="n">NestedServletException</span><span class="o">(</span><span class="s">&#34;Handler processing failed&#34;</span><span class="o">,</span> <span class="n">err</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">asyncManager</span><span class="o">.</span><span class="na">isConcurrentHandlingStarted</span><span class="o">())</span> <span class="o">{</span>
+            <span class="c1">// Instead of postHandle and afterCompletion
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">mappedHandler</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">mappedHandler</span><span class="o">.</span><span class="na">applyAfterConcurrentHandlingStarted</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// Clean up any resources used by a multipart request.
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">multipartRequestParsed</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">cleanupMultipart</span><span class="o">(</span><span class="n">processedRequest</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="4-processdispatchresult">4. processDispatchResult()</h5>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">processDispatchResult</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+                                   <span class="nd">@Nullable</span> <span class="n">HandlerExecutionChain</span> <span class="n">mappedHandler</span><span class="o">,</span> <span class="nd">@Nullable</span> <span class="n">ModelAndView</span> <span class="n">mv</span><span class="o">,</span>
+                                   <span class="nd">@Nullable</span> <span class="n">Exception</span> <span class="n">exception</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+    <span class="kt">boolean</span> <span class="n">errorView</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">exception</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">exception</span> <span class="k">instanceof</span> <span class="n">ModelAndViewDefiningException</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;ModelAndViewDefiningException encountered&#34;</span><span class="o">,</span> <span class="n">exception</span><span class="o">);</span>
+            <span class="n">mv</span> <span class="o">=</span> <span class="o">((</span><span class="n">ModelAndViewDefiningException</span><span class="o">)</span> <span class="n">exception</span><span class="o">).</span><span class="na">getModelAndView</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">Object</span> <span class="n">handler</span> <span class="o">=</span> <span class="o">(</span><span class="n">mappedHandler</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">mappedHandler</span><span class="o">.</span><span class="na">getHandler</span><span class="o">()</span> <span class="o">:</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="n">mv</span> <span class="o">=</span> <span class="n">processHandlerException</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="n">handler</span><span class="o">,</span> <span class="n">exception</span><span class="o">);</span>
+            <span class="n">errorView</span> <span class="o">=</span> <span class="o">(</span><span class="n">mv</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Did the handler return a view to render?
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">mv</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">mv</span><span class="o">.</span><span class="na">wasCleared</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">// 处理模型数据和渲染视图
+</span><span class="c1"></span>        <span class="n">render</span><span class="o">(</span><span class="n">mv</span><span class="o">,</span> <span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">errorView</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">WebUtils</span><span class="o">.</span><span class="na">clearErrorRequestAttributes</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">logger</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;No view rendering, null ModelAndView returned.&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">WebAsyncUtils</span><span class="o">.</span><span class="na">getAsyncManager</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">isConcurrentHandlingStarted</span><span class="o">())</span> <span class="o">{</span>
+        <span class="c1">// Concurrent handling started during a forward
+</span><span class="c1"></span>        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">mappedHandler</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Exception (if any) is already handled..
+</span><span class="c1"></span>        <span class="c1">// 调用拦截器的afterCompletion()
+</span><span class="c1"></span>        <span class="n">mappedHandler</span><span class="o">.</span><span class="na">triggerAfterCompletion</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="4springmvc-的执行流程">4、SpringMVC 的执行流程</h3>
+<ol>
+<li>
+<p>用户向服务器发送请求，请求被 SpringMVC 前端控制器 DispatcherServlet 捕获。</p>
+</li>
+<li>
+<p>DispatcherServlet 对请求 URL 进行解析，得到请求资源标识符（URI），判断请求 URI 对应的映射：</p>
+</li>
+</ol>
+<p>a) 不存在</p>
+<p>i. 再判断是否配置了 mvc:default-servlet-handler</p>
+<p>ii. 如果没配置，则控制台报映射查找不到，客户端展示 404 错误</p>
+<p>iii. 如果有配置，则访问目标资源（一般为静态资源，如：JS,CSS,HTML），找不到客户端也会展示 404 错误</p>
+<p>b) 存在则执行下面的流程</p>
+<ol start="3">
+<li>
+<p>根据该 URI，调用 HandlerMapping 获得该 Handler 配置的所有相关的对象（包括 Handler 对象以及 Handler 对象对应的拦截器），最后以 HandlerExecutionChain 执行链对象的形式返回。</p>
+</li>
+<li>
+<p>DispatcherServlet 根据获得的 Handler，选择一个合适的 HandlerAdapter。</p>
+</li>
+<li>
+<p>如果成功获得 HandlerAdapter，此时将开始执行拦截器的 preHandler(…) 方法【正向】</p>
+</li>
+<li>
+<p>提取 Request 中的模型数据，填充 Handler 入参，开始执行 Handler（Controller)方法，处理请求。在填充 Handler 的入参过程中，根据你的配置，Spring 将帮你做一些额外的工作：</p>
+</li>
+</ol>
+<p>a) HttpMessageConveter： 将请求消息（如 Json、xml 等数据）转换成一个对象，将对象转换为指定的响应信息</p>
+<p>b) 数据转换：对请求消息进行数据转换。如 String 转换成 Integer、Double 等</p>
+<p>c) 数据格式化：对请求消息进行数据格式化。 如将字符串转换成格式化数字或格式化日期等</p>
+<p>d) 数据验证： 验证数据的有效性（长度、格式等），验证结果存储到 BindingResult 或 Error 中</p>
+<ol start="7">
+<li>
+<p>Handler 执行完成后，向 DispatcherServlet 返回一个 ModelAndView 对象。</p>
+</li>
+<li>
+<p>此时将开始执行拦截器的 postHandle(&hellip;)方法【逆向】。</p>
+</li>
+<li>
+<p>根据返回的 ModelAndView（此时会判断是否存在异常：如果存在异常，则执行 HandlerExceptionResolver 进行异常处理）选择一个适合的 ViewResolver 进行视图解析，根据 Model 和 View，来渲染视图。</p>
+</li>
+<li>
+<p>渲染视图完毕执行拦截器的 afterCompletion (…) 方法【逆向】。</p>
+</li>
+<li>
+<p>将渲染结果返回给客户端。</p>
+</li>
+</ol>
+<hr>
 <p><a href="https://rileyshen.github.io/post/spring/" >spring</a></p></div>
     <div class="post-footer">
         <div class="info">
