@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | MyBatis-Plus for Beginners 3 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="MyBatis-Plus简易教程">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/mybatis3/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="MyBatis-Plus for Beginners 3"/>
+<meta name="twitter:description" content="MyBatis-Plus简易教程"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>MyBatis-Plus for Beginners 3</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Jan 15, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">3-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>常用插件</p>
+<h2 id="mybatis-plus-常用插件">MyBatis-plus 常用插件</h2>
+<h3 id="40-乐观锁">4.0 乐观锁</h3>
+<p>主要适用场景：当要更新一条记录的时候，希望这条记录没有被别人更新，也就是说实现线程安全的数据更新</p>
+<p><strong>乐观锁实现方式：</strong></p>
+<p>取出记录时，获取当前<strong>version</strong></p>
+<p>更新时，带上这个<strong>version</strong></p>
+<p>执行更新时， <strong>set version = newVersion where version = oldVersion</strong></p>
+<p>如果version不对，就更新失败</p>
+<p><strong>4.1表右键里面加字段version属性</strong></p>
+<p><strong>4.2修改实体类</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Version
+private Integer version;
+</code></pre></div><p><strong>4.3创建配置文件</strong>
+创建包config，创建文件MybatisPlusConfig.java</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Configuration
+@MapperScan(&#34;com.atguigu.mybatis_plus.mapper&#34;)
+public class MybatisPlusConfig {
+/**
+ * 乐观锁插件
+ */
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInterceptor();
+    }
+}
+</code></pre></div><p><strong>4.4测试</strong></p>
+<ul>
+<li>在entity里面添加自动填充</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">  private Date updateTime;
+
+  @Version
+  @TableField(fill = FieldFill.INSERT)
+  private Integer version;
+
+}
+</code></pre></div><ul>
+<li>在handle里面添加执行方法</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> @Override
+    public void insertFill(MetaObject metaObject) {
+        this.setFieldValByName(&#34;createTime&#34;,new Date(),metaObject);
+        this.setFieldValByName(&#34;updateTime&#34;,new Date(),metaObject);
+        this.setFieldValByName(&#34;version&#34;,1,metaObject);
+    }
+</code></pre></div><ul>
+<li>
+<p>测试</p>
+<p>IDE中快捷生成返回值 Ctrl + Alt + v</p>
+<p>user.setVersion(user.getVersion() + 1);mp中自动做</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
+public void testOptimisticLock() {
+//根据id查询
+User user = userMapper.selectById(1L);
+//修改
+user.setName(&#34;张三&#34;);
+//        user.setVersion(user.getVersion() + 1); 这行mp自动做了，不需要我们手动做
+userMapper.updateById(user);
+
+}
+</code></pre></div><ul>
+<li>插入李四，version为1</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">  @Test
+   public void testAdd() {
+       User user = new User();
+       user.setName(&#34;李四&#34;);
+       user.setAge(20);
+       user.setEmail(&#34;1243@qq.com&#34;);
+
+       int insert = userMapper.insert(user);
+       System.out.println(insert);
+</code></pre></div><ul>
+<li>输入李四id号加L</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> @Test
+    public void testOptimisticLock() {
+        //根据id查询
+        User user = userMapper.selectById(1369872842425233409L);
+        //修改
+        user.setName(&#34;张三&#34;);
+//        user.setVersion(user.getVersion() + 1); 这行mp自动做了，不需要我们手动做
+        userMapper.updateById(user);
+
+    }
+</code></pre></div><p><em>&lsquo;1369872842425233409&rsquo;, &lsquo;张三&rsquo;, &lsquo;20&rsquo;, &lsquo;<a href="mailto:1243@qq.com">1243@qq.com</a>&rsquo;, &lsquo;2021-03-11 12:48:31&rsquo;, &lsquo;2021-03-11 12:52:15&rsquo;, &lsquo;2&rsquo;</em></p>
+<p>结果完成，version变成2</p>
+<p><strong>5.0分页查询</strong></p>
+<p><strong>5.1分页插件</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/**
+ * 分页插件
+ */
+@Bean
+public PaginationInterceptor paginationInterceptor() {
+    return new PaginationInterceptor();
+}
+</code></pre></div><p><strong>5.2编写分页代码</strong></p>
+<p><strong>插件page对象，传入两个参数，当前页和每页记录数</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
+public void testSelectPage() {
+    Page&lt;User&gt; page = new Page(1,3);
+    Page&lt;User&gt; userPage = userMapper.selectPage(page, null);
+    //返回对象得到分页所有数据
+    long pages = userPage.getPages(); //总页数
+    long current = userPage.getCurrent(); //当前页
+    List&lt;User&gt; records = userPage.getRecords(); //查询数据集合
+    long total = userPage.getTotal(); //总记录数
+    boolean hasNext = userPage.hasNext();  //下一页
+    boolean hasPrevious = userPage.hasPrevious(); //上一页
+
+    System.out.println(pages);
+    System.out.println(current);
+    System.out.println(records);
+    System.out.println(total);
+    System.out.println(hasNext);
+    System.out.println(hasPrevious);
+}
+</code></pre></div><p><strong>5.3简单条件查询用map</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
+//简单条件查询
+@Test
+public void testSelect2() {
+    Map&lt;String, Object&gt; columnMap = new HashMap&lt;&gt;();
+    columnMap.put(&#34;name&#34;,&#34;Jack&#34;);
+    columnMap.put(&#34;age&#34;,20);
+    List&lt;User&gt; users = userMapper.selectByMap(columnMap);
+    System.out.println(users);
+}
+
+</code></pre></div><p><strong>6.0 逻辑删除</strong></p>
+<ul>
+<li>
+<p>物理删除：真实删除，将对应数据从数据库中删除，之后查询不到此条被删除数据</p>
+</li>
+<li>
+<p>逻辑删除：假删除，将对应数据中代表是否被删除字段状态修改为“被删除状态”，之后在数据库中仍旧能看到此条数据记录</p>
+</li>
+</ul>
+<p><strong>6.1 数据库右键增加deleted</strong></p>
+<p><strong>6.2实体类修改</strong></p>
+<p>添加deleted 字段，并加上 @TableLogic 注解</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@TableLogic
+@TableField(fill = FieldFill.INSERT)
+private Integer deleted;
+</code></pre></div><p><strong>6.3执行类修改</strong></p>
+<p>0未删除，1已删除</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Override
+    public void insertFill(MetaObject metaObject) {
+        this.setFieldValByName(&#34;createTime&#34;,new Date(),metaObject);
+        this.setFieldValByName(&#34;updateTime&#34;,new Date(),metaObject);
+        this.setFieldValByName(&#34;version&#34;,1,metaObject);
+        this.setFieldValByName(&#34;deleted&#34;,0,metaObject);
+    }
+</code></pre></div><p><strong>6.4配置（可选）</strong></p>
+<p><em>application.properties 加入以下配置，此为默认值，如果你的默认值和mp默认的一样,该配置可无
+mybatis-plus.global-config.db-config.logic-delete-value=1
+mybatis-plus.global-config.db-config.logic-not-delete-value=0</em></p>
+<p><strong>6.5测试</strong></p>
+<ul>
+<li>插入王五，</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">  @Test
+   public void testAdd() {
+       User user = new User();
+       user.setName(&#34;王五&#34;);
+       user.setAge(20);
+       user.setEmail(&#34;1243@qq.com&#34;);
+
+       int insert = userMapper.insert(user);
+       System.out.println(insert);
+</code></pre></div><p><em>1369890832562638849	王五	20	1243@qq.com	2021-03-11 14:00:00	2021-03-11 14:00:00	1	0</em></p>
+<pre><code>1369890832562638849	王五	20	1243@qq.com	2021-03-11 14:00:00	2021-03-11 14:00:00	1	1
+</code></pre>
+<p><strong>7.0 wrapper复杂查询操作</strong></p>
+<p><strong>7.1  ge、gt、le、lt、isNull、isNotNull</strong></p>
+<ul>
+<li>lt：less than 小于</li>
+<li>le：less than or equal to 小于等于</li>
+<li>eq：equal to 等于</li>
+<li>ne：not equal to 不等于</li>
+<li>ge：greater than or equal to 大于等于</li>
+<li>gt：greater than 大于</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">QueryWrapper&lt;User&gt;queryWrapper = new QueryWrapper&lt;&gt;();
+queryWrapper
+.isNull(&#34;name&#34;)
+.ge(&#34;age&#34;, 12)
+.isNotNull(&#34;email&#34;);
+int result = userMapper.delete(queryWrapper);
+System.out.println(&#34;delete return count = &#34; + result);
+</code></pre></div><ul>
+<li>eq、ne</li>
+</ul>
+<p><strong>7.2between、notBetween</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
+public void testSelectCount() {
+QueryWrapper&lt;User&gt;queryWrapper = newQueryWrapper&lt;&gt;();
+queryWrapper.between(&#34;age&#34;, 20, 30);
+    Integer count = userMapper.selectCount(queryWrapper); //返回数据数量
+System.out.println(count);
+}
+</code></pre></div><p><strong>7.3 like、notLike、likeLeft、likeRight</strong></p>
+<p><strong>likeLeft(&ldquo;name&rdquo;, &ldquo;王&rdquo;)&mdash;&gt;name like &lsquo;%王&rsquo;</strong></p>
+<p><strong>likeRight(&ldquo;name&rdquo;, &ldquo;王&rdquo;)&mdash;&gt;name like &lsquo;王%'</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
+@Test
+public void testSelectMaps() {
+QueryWrapper&lt;User&gt;queryWrapper = newQueryWrapper&lt;&gt;();
+queryWrapper
+        .select(&#34;name&#34;, &#34;age&#34;)
+        .like(&#34;name&#34;, &#34;e&#34;)
+        .likeRight(&#34;email&#34;, &#34;5&#34;);
+List&lt;Map&lt;String, Object&gt;&gt;maps = userMapper.selectMaps(queryWrapper);//返回值是Map列表
+maps.forEach(System.out::println);
+}
+
+</code></pre></div><p><strong>7.4 orderBy、orderByDesc、orderByAsc</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
+public void testSelectListOrderBy() {
+QueryWrapper&lt;User&gt;queryWrapper = newQueryWrapper&lt;&gt;();
+queryWrapper.orderByDesc(&#34;age&#34;, &#34;id&#34;);
+List&lt;User&gt;users = userMapper.selectList(queryWrapper);
+users.forEach(System.out::println);
+}
+</code></pre></div><hr>
+<h4 id="ok-its-time-for-mybatis3hahahugoshortcode-s0-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis3/" >mybatis3</a></h4>
+<p><a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></p></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/mybatis-plus/">MyBatis-Plus</a><a class="tag" href="/tags/plusinterceptor/">PlusInterceptor</a><a class="tag" href="/tags/optimisticlockerinnerinterceptor/">OptimisticLockerInnerInterceptor</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

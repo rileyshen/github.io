@@ -145,7 +145,7 @@ it means you didn&#39;t understand it well enough&#34;.
                     Fri, Oct 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">2-minute read</span>
+                <span class="reading-time">3-minute read</span>
             </div>
             
         </div>
@@ -157,6 +157,79 @@ it means you didn&#39;t understand it well enough&#34;.
 <p>用 CAS 框架实现多个不同站点的单点登录的原理的关键就是使用一个认证服务器集中处理登陆的事务。是一个企业级的单点登录解决方案，在部署上面，CAS 分为 CAS Server 和 CAS Client 其中 CAS Server 需要独立部署，CAS Client 是 CAS 本身一种 C/S 架构，可认为每个接入的 Web 应用都是 CAS 的 Client，CAS 支持的客户端也比较多，包括 Java，.Net，PHP，Perl，Apache，Ruby 等等。</p>
 <h3 id="iamidentity-and-access-management-身份识别与访问管理">IAM：Identity and Access Management 身份识别与访问管理</h3>
 <p>目前一般指统一的身份认证平台，集中管理企业员工和资产的身份和认证管理。</p>
+<h3 id="auth2">auth2</h3>
+<ul>
+<li>authorization_code
+<ul>
+<li>用户登录授权，拿到 code</li>
+<li>code 换 token</li>
+</ul>
+</li>
+<li>implicit
+<ul>
+<li>用户登录授权，拿到 token</li>
+</ul>
+</li>
+<li>password
+<ul>
+<li>验证客户端， 用户名和密码， 拿 token</li>
+</ul>
+</li>
+<li>client-credentials
+<ul>
+<li>验证客户端， 直接拿 token (多个用户)</li>
+</ul>
+</li>
+</ul>
+<h3 id="auth2-1">auth2</h3>
+<ul>
+<li>user (资源拥有方 user)</li>
+<li>资源方()</li>
+<li>资源请求方(client)</li>
+<li>授权方 OAuth2</li>
+</ul>
+<h3 id="auth2-客户端模拟授权一般开发中">auth2 客户端模拟授权（一般开发中）</h3>
+<h3 id="authorization_code">authorization_code</h3>
+<h4 id="11-获取授权-code">1.1 获取授权 code</h4>
+<blockquote>
+<p>GET auth</p>
+</blockquote>
+<h4 id="12-code-换-token">1.2 code 换 token</h4>
+<blockquote>
+<p>code 换 token 是因为安全性： client 通往 Authorization Service 提供 Redirect Url 等信息， 验证身份，导回 Redirect URI,带上 Authorization code， 这些都发生在前端，游览器中， 大部分通过页面跳转去传递信息。 公开信息不安全。</p>
+</blockquote>
+<blockquote>
+<p>用 code 向 Authorization Service 换 token 发生在后端，用 token 向 Resource service 换资料， 通常是 Http Post 请求， secret key 只存在在后端中，相对安全</p>
+</blockquote>
+<h3 id="postman-中设置通过授权码流程获取-token-以及自动刷新-token">postman 中设置通过授权码流程获取 token 以及自动刷新 token</h3>
+<p>先从浏览器上访问输入用户名/密码后得到 code, 拿着 code 到 postman 上通过 request 拿到 token</p>
+<p>postman 上可以直接配置</p>
+<figure><img src="/images/SSO1.png"
+         alt="image"/><figcaption>
+            <h4>postman</h4>
+        </figcaption>
+</figure>
+
+<h3 id="github-oauth-的验证">Github OAuth 的验证</h3>
+<h4 id="1-request-a-users-github-identity">1. Request a user&rsquo;s GitHub identity</h4>
+<blockquote>
+<p>GET <a href="https://github.com/login/oauth/authorize">https://github.com/login/oauth/authorize</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/login/oauth/authorize?client_id=xxxxxxxxxxxxxxxxxx&amp;scope=user,public_repo">https://github.com/login/oauth/authorize?client_id=xxxxxxxxxxxxxxxxxx&amp;scope=user,public_repo</a></p>
+</blockquote>
+<p>网页会跳转到之前注册 oauth applicathion 时的 callback url，并且带有 code 参数</p>
+<blockquote>
+<p>http://localhost:8080/login?code=xxxxxxxxxxxxxxxxxxxx</p>
+</blockquote>
+<h4 id="2-users-are-redirected-back-to-your-site-by-github">2. Users are redirected back to your site by GitHub</h4>
+<blockquote>
+<p>POST <a href="https://github.com/login/oauth/access_token">https://github.com/login/oauth/access_token</a></p>
+</blockquote>
+<p>使用 client_id、client_secret 和 code 这三个参数获取用户的 access_token，即用户身份标识</p>
+<blockquote>
+<p><a href="https://github.com/login/oauth/access_token?client_id=xxxxxxxxxxxxxxxxxxx&amp;client_secret=xxxxxxxxxxxxxxxxx&amp;code=xxxxxxxxxxxxxxxxxxx">https://github.com/login/oauth/access_token?client_id=xxxxxxxxxxxxxxxxxxx&amp;client_secret=xxxxxxxxxxxxxxxxx&amp;code=xxxxxxxxxxxxxxxxxxx</a></p>
+</blockquote>
 <h3 id="sso-技术">SSO 技术</h3>
 <h3 id="github-授权登录功能注册-oauth-app-实现-social-login-第三方登录">github 授权登录功能注册 OAuth App 实现 Social login 第三方登录</h3>
 <h4 id="oauth-app--settings--developer-settings--oauth-apps--new-oauth-app">OAuth App ： Settings ➡ Developer settings ➡ OAuth Apps ➡ New OAuth App</h4>
@@ -192,7 +265,16 @@ it means you didn&#39;t understand it well enough&#34;.
 </li>
 </ul>
 <h5 id="设计流程">设计流程</h5>
-<ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">controller</span>
+<span class="o">+</span> <span class="n">OAuthController</span>
+<span class="n">dao</span>
+<span class="o">+</span> <span class="n">TokenBean</span>
+<span class="n">model</span>
+<span class="o">+</span> <span class="n">GitHubUser</span>
+<span class="n">provider</span>
+<span class="o">+</span> <span class="n">GithubProvider</span>
+<span class="n">DemoApplication</span>
+</code></pre></div><ul>
 <li>
 <p><strong>1. 新建 spring boot 项目，勾选 spring web、thymeleaf、Lombok 等</strong></p>
 </li>
@@ -241,8 +323,61 @@ it means you didn&#39;t understand it well enough&#34;.
 </code></pre></div><ul>
 <li><strong>5.交给 GitHubProvider 处理 getAccessToken, 用 fastjson 将 accessTokenBean 对象转化 json 格式，使用 OkHttp 把 json 数据 POST 请求到 GitHub access_token 返回一串 access_token</strong></li>
 </ul>
-<p>处理后再将accesstoken作为发送GET请求到GitHub。
-最终拿到用户的信息，完成登录。</p></div>
+<p>处理后再将 accesstoken 作为发送 GET 请求到 GitHub。
+最终拿到用户的信息，完成登录。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getToken</span><span class="o">(</span><span class="n">TokenBean</span> <span class="n">tokenBean</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">MediaType</span> <span class="n">mediaType</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;application/json; charset=utf-8&#34;</span><span class="o">);</span>
+        <span class="n">OkHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="o">();</span>
+        <span class="c1">// json格式的 tokenBean
+</span><span class="c1"></span>        <span class="n">RequestBody</span> <span class="n">body</span> <span class="o">=</span> <span class="n">RequestBody</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">accessTokenDTO</span><span class="o">),</span> <span class="n">mediaType</span><span class="o">);</span>
+        <span class="n">Request</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Request</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">&#34;https://github.com/login/oauth/access_token&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">body</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">(</span><span class="n">Response</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">newCall</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">execute</span><span class="o">())</span> <span class="o">{</span>
+        	<span class="c1">// 从返回结果中提取access_token
+</span><span class="c1"></span>            <span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">().</span><span class="na">string</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">AccessToken</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;&amp;&#34;</span><span class="o">)[</span><span class="n">0</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;=&#34;</span><span class="o">)[</span><span class="n">1</span><span class="o">];</span>
+            <span class="k">return</span> <span class="n">AccessToken</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><ul>
+<li><strong>6.用 token 获取用户的信息， OKHttp 再把返回的 json 格式的用户信息， 转化为 GitHubUser 对象</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">GitHubUser</span> <span class="nf">getGitHubUser</span><span class="o">(</span><span class="n">String</span> <span class="n">tokenBean</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">OkHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="o">();</span>
+        <span class="c1">// 以拼接字符串的形式，把token作为参数去Get请求url
+</span><span class="c1"></span>        <span class="c1">// 官方文档 但是会错误， 显示要头传参
+</span><span class="c1"></span>        <span class="c1">// Request request = new Request.Builder()
+</span><span class="c1"></span>        <span class="c1">//         .url(&#34;https://github.com/login/oauth/access_token&#34; + accessToken)
+</span><span class="c1"></span>        <span class="c1">//         .build();
+</span><span class="c1"></span>        <span class="n">Request</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Request</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">url</span><span class="o">(</span><span class="s">&#34;https://github.com/login/oauth/access_token&#34;</span> <span class="o">+</span> <span class="n">accessToken</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">&#34;Authorization&#34;</span><span class="o">,</span> <span class="s">&#34;token &#34;</span> <span class="o">+</span> <span class="n">accessToken</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+        	<span class="c1">// 封装返回用户信息
+</span><span class="c1"></span>            <span class="n">Response</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">newCall</span><span class="o">(</span><span class="n">request</span><span class="o">).</span><span class="na">execute</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">string</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">().</span><span class="na">string</span><span class="o">();</span>
+            <span class="n">GitHubUser</span> <span class="n">gitHubUser</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">String</span><span class="o">,</span> <span class="n">GitHubUser</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">gitHubUser</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="o">---</span>
+
+<span class="err">####</span> <span class="n">感谢参考文章</span>
+
+<span class="n">CSDN</span> <span class="n">博主</span><span class="o">[</span><span class="n">FRed</span><span class="err">、</span><span class="o">](</span><span class="n">https</span><span class="o">:</span><span class="c1">//blog.csdn.net/weixin_45906715/article/details/107189541) 
+</span></code></pre></div></div>
     <div class="post-footer">
         <div class="info">
             

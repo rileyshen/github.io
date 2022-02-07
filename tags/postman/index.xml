@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>postman on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/postman/</link>
+    <description>Recent content in postman on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 16 May 2021 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/postman/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Personalized job Recommendation Engine</title>
+      <link>https://rileyshen.github.io/post/recommendation/</link>
+      <pubDate>Sun, 16 May 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/recommendation/</guid>
+      
+        <description>&lt;p&gt;learning the postman require github api step by step, 手把手显示 postman 中得到授权 api&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;&#34; &gt;code download&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-httpclient-vs-feign&#34;&gt;1. HttpClient vs Feign&lt;/h3&gt;
+&lt;h4 id=&#34;httpclient&#34;&gt;HttpClient&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;OKhttp&lt;/strong&gt; :它能允许同一 ip 和端口的请求重用一个 socket，这种方式能大大降低网络连接的时间，和每次请求都建立 socket，再断开 socket 的方式相比，降低了服务器服务器的压力&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RestTemplate&lt;/strong&gt; : RestTemplate 提供了多种便捷访问远程 Http 服务的方法,能够大大提高客户端的编写效率; 面向对 RESTful Web 服务调用的功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;httpclient-使用步骤&#34;&gt;HttpClient 使用步骤&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;引入依赖：项目中引入 HttpClient 依赖类库。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;创建 HttpClient 对象。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;创建请求方法实例：GET 请求创建 HttpGet 对象，POST 请求创建 HttpPost 对象，并在对象构建时指定请求 URL&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;设置请求参数：调用 HttpGet、 HttpPost 共同的 setParams(HetpParams params)方法来添加请求参数； HttpPost 也可调用 setEntity(HttpEntity entity)方法来设置请求参数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;发送请求：调用 HttpClient 对象的 execute(HttpUriRequest request)发送请求，该方法返回一个 HttpResponse&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;获取响应结果：调用 HttpResponse 的 getAllHeaders()、 getHeaders(String name)等方法获取服务器的响应头；调用 HttpResponse 的 getEntity()方法可获取 HttpEntity 对象，该对象包装了服务器的响应内容。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;释放连接：无论执行方法是否成功，都必须释放连接。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;feign-在默认情况下使用的是-jdk-原生的-urlconnection-发送-http-请求没有连接池但是对每个地址会保持一个长连接即利用-http-的-persistence-connection--我们可以用-http-client-或-okhttp-替换-feign-原始的-http-client-从而获取连接池超时时间等与性能息息相关的控制能力&#34;&gt;Feign 在默认情况下使用的是 JDK 原生的 URLConnection 发送 HTTP 请求，没有连接池，但是对每个地址会保持一个长连接，即利用 HTTP 的 persistence connection 。 我们可以用 HTTP Client 或 OKhttp 替换 Feign 原始的 http client, 从而获取连接池、超时时间等与性能息息相关的控制能力&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;application.properties:&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;feign.httpclient.enabled=true&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;feign.okhttp.enabled=true&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;feign&#34;&gt;Feign&lt;/h4&gt;
+&lt;p&gt;Feign 是一个 http 请求调用的轻量级框架，可以以 Java 接口注解的方式调用 Http 请求。Feign 通过处理注解，将请求模板化，当实际调用的时候，传入参数，根据参数再应用到请求上，进而转化成真正的请求，封装了 http 调用流程&lt;/p&gt;
+&lt;h3 id=&#34;2-javaxnetsslsslhandshakeexception-remote-host-terminated-the-handshake&#34;&gt;2. javax.net.ssl.SSLHandshakeException: Remote host terminated the handshake&lt;/h3&gt;
+&lt;p&gt;-Dhttps.protocols = &amp;ldquo;TLSv1,TLSv1.1,TLSv1.2&amp;rdquo;&lt;/p&gt;
+&lt;h3 id=&#34;3-social-login&#34;&gt;3. social login&lt;/h3&gt;
+&lt;h4 id=&#34;原理oauth-授权&#34;&gt;原理：OAuth 授权&lt;/h4&gt;
+&lt;h5 id=&#34;1-a-网站让用户跳转到-github&#34;&gt;1. A 网站让用户跳转到 GitHub&lt;/h5&gt;
+&lt;h5 id=&#34;2-github-要求用户登录然后询问a-网站要求获得-xx-权限你是否同意&#34;&gt;2. GitHub 要求用户登录，然后询问&amp;quot;A 网站要求获得 xx 权限，你是否同意？&amp;quot;&lt;/h5&gt;
+&lt;h5 id=&#34;3-用户同意github-就会重定向回-a-网站同时发回一个授权码&#34;&gt;3. 用户同意，GitHub 就会重定向回 A 网站，同时发回一个授权码&lt;/h5&gt;
+&lt;h5 id=&#34;4-a-网站使用授权码向-github-请求令牌&#34;&gt;4. A 网站使用授权码，向 GitHub 请求令牌&lt;/h5&gt;
+&lt;h5 id=&#34;5-github-返回令牌&#34;&gt;5. GitHub 返回令牌&lt;/h5&gt;
+&lt;h5 id=&#34;6-a-网站使用令牌向-github-请求用户数据&#34;&gt;6. A 网站使用令牌，向 GitHub 请求用户数据&lt;/h5&gt;
+&lt;h4 id=&#34;登记-到对方网站登录让对方知道请求者&#34;&gt;登记： 到对方网站登录，让对方知道请求者&lt;/h4&gt;
+&lt;p&gt;GitHub-》 setting -》 developer -》 Register a new OAuth application&lt;/p&gt;
+&lt;p&gt;get client ID, client secret&lt;/p&gt;
+&lt;p&gt;token: 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&lt;/p&gt;
+&lt;h3 id=&#34;3-postman-test&#34;&gt;3. postman test&lt;/h3&gt;
+&lt;h4 id=&#34;authorize-a-request&#34;&gt;Authorize a Request&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;repository &lt;a href=&#34;https://docs.github.com/en/rest&#34;  target=&#34;_blank&#34; &gt;GitHub Docs REST API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;create a repository for the authenticated user &lt;a href=&#34;https://docs.github.com/en/rest/reference/repos#create-a-repository-for-the-authenticated-user&#34;  target=&#34;_blank&#34; &gt;repository&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job1.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.github.com/en/rest/overview/resources-in-the-rest-api&#34;  target=&#34;_blank&#34; &gt;Resources in the REST API&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job2.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;POST &lt;a href=&#34;https://api.github.com/user/repos&#34;&gt;https://api.github.com/user/repos&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job3.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;create a token let git hub knows who we are&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job4.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Bad credentials&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;token 应该是私密的，所以要设置 variables&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job5.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job6.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job7.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;☕☕☕☕&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;token 过期了，上面一直是 401&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job8.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;400 Bad Request&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;必须要的参数 &amp;ldquo;name&amp;rdquo;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job9.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;add required name&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/job10.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Recommendation Engine&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Recommendation System widely exists in industry,&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Demographic-based Recommendation (User Profile Match)&lt;/li&gt;
+&lt;li&gt;Content-based Recommendation (item profiles(category, price, etc.) of your favorite)&lt;/li&gt;
+&lt;li&gt;User-based method (similarity of Users)&lt;/li&gt;
+&lt;li&gt;Item-based method (similartiy of Items)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Contend-based Recommendatioon&lt;/p&gt;
+&lt;p&gt;f2fa1e76e1489b72b973f5c0836617f57beb26dc&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/sso/&#34; &gt;SSO&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

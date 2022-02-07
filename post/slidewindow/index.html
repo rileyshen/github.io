@@ -139,7 +139,7 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">10-minute read</span>
+                <span class="reading-time">20-minute read</span>
             </div>
             
         </div>
@@ -740,8 +740,602 @@ push 元素的数值小于等于队列入口元素的数值为止</p>
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><hr>
-<p>来源：力扣（LeetCode）
+</code></pre></div><h3 id="剑指-offer-ii-057-值和下标之差都在给定的范围内">剑指 Offer II 057. 值和下标之差都在给定的范围内</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给你一个整数数组</span> <span class="n">nums</span> <span class="n">和两个整数</span> <span class="n">k</span> <span class="n">和</span> <span class="n">t</span> <span class="err">。</span><span class="n">请你判断是否存在</span> <span class="n">两个不同下标</span> <span class="n">i</span> <span class="n">和</span> <span class="n">j</span><span class="err">，</span><span class="n">使得</span> <span class="nf">abs</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">])</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="err">，</span><span class="n">同时又满足</span> <span class="nf">abs</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="o">)</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="err">。</span>
+
+<span class="n">如果存在则返回</span> <span class="kc">true</span><span class="err">，</span><span class="n">不存在返回</span> <span class="kc">false</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">3</span><span class="o">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">0</span>
+<span class="n">输出</span><span class="err">：</span><span class="kc">true</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">1</span><span class="o">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">2</span>
+<span class="n">输出</span><span class="err">：</span><span class="kc">true</span>
+<span class="n">示例</span> <span class="n">3</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">9</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">9</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">2</span><span class="o">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">3</span>
+<span class="n">输出</span><span class="err">：</span><span class="kc">false</span>
+
+</code></pre></div><p><a href="https://leetcode-cn.com/problems/contains-duplicate-iii/solution/gong-shui-san-xie-yi-ti-shuang-jie-hua-d-dlnv/"  target="_blank" >宫水三叶</a></p>
+<figure><img src="/images/sw5.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">containsNearbyAlmostDuplicate</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">,</span> <span class="kt">int</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">ts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Long</span> <span class="n">u</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">*</span> <span class="n">1L</span><span class="o">;</span>
+            <span class="c1">// 从 ts 中找到小于等于 u 的最大值（小于等于 u 的最接近 u 的数）
+</span><span class="c1"></span>            <span class="n">Long</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">u</span><span class="o">);</span> 
+            <span class="c1">// 从 ts 中找到大于等于 u 的最小值（大于等于 u 的最接近 u 的数）
+</span><span class="c1"></span>            <span class="n">Long</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">ceiling</span><span class="o">(</span><span class="n">u</span><span class="o">);</span> 
+            <span class="k">if</span><span class="o">(</span><span class="n">l</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">u</span> <span class="o">-</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">-</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="c1">// 将当前数加到 ts 中，并移除下标范围不在 [max(0, i - k), i) 的数（维持滑动窗口大小为 k）
+</span><span class="c1"></span>            <span class="n">ts</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">u</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">)</span> <span class="n">ts</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">k</span><span class="o">]</span> <span class="o">*</span> <span class="n">1L</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h3 id="904-水果成篮httpsleetcode-cncomproblemsfruit-into-baskets">904. 水果成篮[https://leetcode-cn.com/problems/fruit-into-baskets/]</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">你正在探访一家农场</span><span class="err">，</span><span class="n">农场从左到右种植了一排果树</span><span class="err">。</span><span class="n">这些树用一个整数数组</span> <span class="n">fruits</span> <span class="n">表示</span><span class="err">，</span><span class="n">其中</span> <span class="n">fruits</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="n">是第</span> <span class="n">i</span> <span class="n">棵树上的水果</span> <span class="n">种类</span> <span class="err">。</span>
+
+<span class="n">你想要尽可能多地收集水果</span><span class="err">。</span><span class="n">然而</span><span class="err">，</span><span class="n">农场的主人设定了一些严格的规矩</span><span class="err">，</span><span class="n">你必须按照要求采摘水果</span><span class="err">：</span>
+
+<span class="n">你只有</span> <span class="n">两个</span> <span class="n">篮子</span><span class="err">，</span><span class="n">并且每个篮子只能装</span> <span class="n">单一类型</span> <span class="n">的水果</span><span class="err">。</span><span class="n">每个篮子能够装的水果总量没有限制</span><span class="err">。</span>
+<span class="n">你可以选择任意一棵树开始采摘</span><span class="err">，</span><span class="n">你必须从</span> <span class="n">每棵</span> <span class="n">树</span><span class="err">（</span><span class="n">包括开始采摘的树</span><span class="err">）</span><span class="n">上</span> <span class="n">恰好摘一个水果</span> <span class="err">。</span><span class="n">采摘的水果应当符合篮子中的水果类型</span><span class="err">。</span><span class="n">每采摘一次</span><span class="err">，</span><span class="n">你将会向右移动到下一棵树</span><span class="err">，</span><span class="n">并继续采摘</span><span class="err">。</span>
+<span class="n">一旦你走到某棵树前</span><span class="err">，</span><span class="n">但水果不符合篮子的水果类型</span><span class="err">，</span><span class="n">那么就必须停止采摘</span><span class="err">。</span>
+<span class="n">给你一个整数数组</span> <span class="n">fruits</span> <span class="err">，</span><span class="n">返回你可以收集的水果的</span> <span class="n">最大</span> <span class="n">数目</span><span class="err">。</span>
+
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">fruits</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">3</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">可以采摘全部</span> <span class="n">3</span> <span class="n">棵树</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">fruits</span> <span class="o">=</span> <span class="o">[</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">3</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">可以采摘</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">]</span> <span class="n">这三棵树</span><span class="err">。</span>
+<span class="n">如果从第一棵树开始采摘</span><span class="err">，</span><span class="n">则只能采摘</span> <span class="o">[</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">]</span> <span class="n">这两棵树</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">3</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">fruits</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">4</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">可以采摘</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">]</span> <span class="n">这四棵树</span><span class="err">。</span>
+<span class="n">如果从第一棵树开始采摘</span><span class="err">，</span><span class="n">则只能采摘</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">]</span> <span class="n">这两棵树</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">4</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">fruits</span> <span class="o">=</span> <span class="o">[</span><span class="n">3</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">5</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">可以采摘</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">]</span> <span class="n">这五棵树</span><span class="err">。</span>
+
+</code></pre></div><p>这个就是固定距离的窗口， 里面有个过程，我习惯先判断 left， 这里是右边先放入 map，对比前面几道 while（left 如何）， 这里应该是固定长度的关系，所以先放入右边。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">totalFruit</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">fruits</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">if</span><span class="o">(</span><span class="n">fruits</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">fruits</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+         
+         <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+         <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+         <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+         <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+         
+         <span class="k">while</span><span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">fruits</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+              <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">fruits</span><span class="o">[</span><span class="n">right</span><span class="o">],</span> <span class="n">map</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">fruits</span><span class="o">[</span><span class="n">right</span><span class="o">],</span> <span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+             <span class="k">while</span><span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">2</span><span class="o">){</span>
+                 <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">fruits</span><span class="o">[</span><span class="n">left</span><span class="o">],</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">fruits</span><span class="o">[</span><span class="n">left</span><span class="o">])</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+                 <span class="k">if</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">fruits</span><span class="o">[</span><span class="n">left</span><span class="o">])</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="n">map</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">fruits</span><span class="o">[</span><span class="n">left</span><span class="o">]);</span>
+                 <span class="n">left</span><span class="o">++;</span>
+             <span class="o">}</span>
+           
+             <span class="n">max</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">max</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span> <span class="c1">// + 1 is for 0 - based indexing
+</span><span class="c1"></span>             <span class="n">right</span><span class="o">++;</span>
+         <span class="o">}</span>
+         <span class="k">return</span> <span class="n">max</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">fruits</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">100001</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">[</span><span class="n">fruits</span><span class="o">[</span><span class="n">right</span><span class="o">]]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="n">map</span><span class="o">[</span><span class="n">fruits</span><span class="o">[</span><span class="n">right</span><span class="o">]]++;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">);</span>
+                <span class="n">map</span><span class="o">[</span><span class="n">fruits</span><span class="o">[</span><span class="n">left</span><span class="o">]]--;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">[</span><span class="n">fruits</span><span class="o">[</span><span class="n">left</span><span class="o">]]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">count</span><span class="o">--;</span>
+                <span class="o">}</span>
+                <span class="n">left</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="n">right</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+</code></pre></div><p>这里注意 map.remove 用法</p>
+<h3 id="和相同的二元子数组httpsleetcode-cncomproblemsbinary-subarrays-with-sum">[和相同的二元子数组](<a href="https://leetcode-cn.com/problems/binary-subarrays-with-sum/">https://leetcode-cn.com/problems/binary-subarrays-with-sum/</a>）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给你一个二元数组</span> <span class="n">nums</span> <span class="err">，</span><span class="n">和一个整数</span> <span class="n">goal</span> <span class="err">，</span><span class="n">请你统计并返回有多少个和为</span> <span class="n">goal</span> <span class="n">的</span> <span class="n">非空</span> <span class="n">子数组</span><span class="err">。</span>
+<span class="n">子数组</span> <span class="n">是数组的一段连续部分</span><span class="err">。</span>
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">goal</span> <span class="o">=</span> <span class="n">2</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">4</span>
+<span class="n">解释</span><span class="err">：</span>
+<span class="n">有</span> <span class="n">4</span> <span class="n">个满足题目要求的子数组</span><span class="err">：</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">]</span><span class="err">、</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">]</span><span class="err">、</span><span class="o">[</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">]</span><span class="err">、</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">]</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">],</span> <span class="n">goal</span> <span class="o">=</span> <span class="n">0</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">15</span>
+</code></pre></div><p>前缀法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span> <span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">sum</span><span class="o">,</span> <span class="n">map</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">sum</span><span class="o">,</span> <span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span><span class="o">;</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">map</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">sum</span> <span class="o">-</span> <span class="n">goal</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">numSubarraysWithSum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">goal</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 一边加
+</span><span class="c1"></span>            <span class="n">count</span><span class="o">[</span><span class="n">sum</span><span class="o">]++;</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">i</span><span class="o">;</span>
+            <span class="c1">// 一边算
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">-</span> <span class="n">goal</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="n">count</span><span class="o">[</span><span class="n">sum</span> <span class="o">-</span> <span class="n">goal</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>那么 L2 与 L1 之间有几个 0，那这个部分就有多少种子数组</p>
+<p>同时本题只含有 0 与 1，那么肯定可以保证滑动窗口内的元素和要么等于 goal，要么等于 goal+1</p>
+<p>那么我们可以定义：</p>
+<p>L1 与 R 直接的窗口内元素为 goal</p>
+<p>L2 与 R 直接的窗口内元素为 goal+1</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">numSubarraysWithSum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">goal</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">left1</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">left2</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">sum1</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">sum2</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sum1</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">left1</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="o">&amp;&amp;</span> <span class="n">sum1</span> <span class="o">&gt;</span> <span class="n">goal</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">sum1</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">left1</span><span class="o">++];</span>
+            <span class="o">}</span>
+            <span class="n">sum2</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">left2</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="o">&amp;&amp;</span> <span class="n">sum2</span> <span class="o">&gt;=</span> <span class="n">goal</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">sum2</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">left2</span><span class="o">++];</span>
+            <span class="o">}</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">left2</span> <span class="o">-</span> <span class="n">left1</span><span class="o">;</span>
+            <span class="n">right</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h3 id="k-个不同整数的子数组httpsleetcode-cncomproblemssubarrays-with-k-different-integers">[K 个不同整数的子数组](<a href="https://leetcode-cn.com/problems/subarrays-with-k-different-integers/">https://leetcode-cn.com/problems/subarrays-with-k-different-integers/</a>）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给定一个正整数数组</span> <span class="n">A</span><span class="err">，</span><span class="n">如果</span> <span class="n">A</span> <span class="n">的某个子数组中不同整数的个数恰好为</span> <span class="n">K</span><span class="err">，</span><span class="n">则称</span> <span class="n">A</span> <span class="n">的这个连续</span><span class="err">、</span><span class="n">不一定不同的子数组为好子数组</span><span class="err">。</span>
+
+<span class="err">（</span><span class="n">例如</span><span class="err">，</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">]</span> <span class="n">中有</span> <span class="n">3</span> <span class="n">个不同的整数</span><span class="err">：</span><span class="n">1</span><span class="err">，</span><span class="n">2</span><span class="err">，</span><span class="n">以及</span> <span class="n">3</span><span class="err">。）</span>
+
+<span class="n">返回</span> <span class="n">A</span> <span class="n">中好子数组的数目</span><span class="err">。</span>
+
+ 
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">A</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="n">K</span> <span class="o">=</span> <span class="n">2</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">7</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">恰好由</span> <span class="n">2</span> <span class="n">个不同整数组成的子数组</span><span class="err">：</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">],</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">],</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">],</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">].</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">A</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">],</span> <span class="n">K</span> <span class="o">=</span> <span class="n">3</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">3</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">恰好由</span> <span class="n">3</span> <span class="n">个不同整数组成的子数组</span><span class="err">：</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">].</span>
+
+</code></pre></div><p>核心是一手：恰好转化为最多之差
+最多包含K个不同整数的子数组，意即包含1,2…K个不同整数的子数组皆在此列。
+如此，最多包含K个不同整数的子数组个数即恰好包含1,2…K个不同整数的子数组个数，而最多包含K-1个不同整数的子数组个数即恰好包含1,2…K-1个不同整数的子数组个数
+两者相减即为恰好包含K个不同整数的子数组个数</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">subarraysWithKDistinct</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">atMost</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">k</span><span class="o">)</span> <span class="o">-</span> <span class="n">atMost</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">k</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+
+        <span class="kd">private</span> <span class="kt">int</span> <span class="nf">atMost</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">freq</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">len</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">// [left, right) 里不同整数的个数
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="c1">// [left, right) 包含不同整数的个数小于等于 K
+</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">freq</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">]]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="n">freq</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">]]++;</span>
+            <span class="n">right</span><span class="o">++;</span>
+
+            <span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+               
+                <span class="k">if</span> <span class="o">(</span><span class="n">freq</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">]]</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">count</span><span class="o">--;</span>
+                <span class="o">}</span>
+                <span class="n">freq</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">]]--;</span>
+                <span class="n">left</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="c1">// [left, right) 区间的长度就是对结果的贡献
+</span><span class="c1"></span>            <span class="n">res</span> <span class="o">+=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+
+
+</code></pre></div><h3 id="最长湍流子数组httpsleetcode-cncomproblemslongest-turbulent-subarray">[最长湍流子数组](<a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/">https://leetcode-cn.com/problems/longest-turbulent-subarray/</a>）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给定一个整数数组</span> <span class="n">arr</span> <span class="err">，</span><span class="n">返回</span> <span class="n">arr</span> <span class="n">的</span> <span class="n">最大湍流子数组的长度</span> <span class="err">。</span>
+
+<span class="n">如果比较符号在子数组中的每个相邻元素对之间翻转</span><span class="err">，</span><span class="n">则该子数组是</span> <span class="n">湍流子数组</span> <span class="err">。</span>
+
+<span class="n">更正式地来说</span><span class="err">，</span><span class="n">当</span> <span class="n">arr</span> <span class="n">的子数组</span> <span class="n">A</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">A</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="o">],</span> <span class="o">...,</span> <span class="n">A</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="n">满足仅满足下列条件时</span><span class="err">，</span><span class="n">我们称其为湍流子数组</span><span class="err">：</span>
+
+<span class="n">若</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="err">：</span>
+<span class="n">当</span> <span class="n">k</span> <span class="n">为奇数时</span><span class="err">，</span> <span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">+</span><span class="n">1</span><span class="o">]</span><span class="err">，</span><span class="n">且</span>
+<span class="n">当</span> <span class="n">k</span> <span class="n">为偶数时</span><span class="err">，</span><span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">+</span><span class="n">1</span><span class="o">]</span><span class="err">；</span>
+<span class="n">或</span> <span class="n">若</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="err">：</span>
+<span class="n">当</span> <span class="n">k</span> <span class="n">为偶数时</span><span class="err">，</span><span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">+</span><span class="n">1</span><span class="o">]</span> <span class="err">，</span><span class="n">且</span>
+<span class="n">当</span> <span class="n">k</span> <span class="n">为奇数时</span><span class="err">，</span> <span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">A</span><span class="o">[</span><span class="n">k</span><span class="o">+</span><span class="n">1</span><span class="o">]</span><span class="err">。</span>
+ 
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="n">9</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">10</span><span class="o">,</span><span class="n">7</span><span class="o">,</span><span class="n">8</span><span class="o">,</span><span class="n">8</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">9</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">5</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">arr</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">2</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">3</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">4</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">5</span><span class="o">]</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="n">4</span><span class="o">,</span><span class="n">8</span><span class="o">,</span><span class="n">12</span><span class="o">,</span><span class="n">16</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">2</span>
+<span class="n">示例</span> <span class="n">3</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="n">100</span><span class="o">]</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">1</span>
+
+</code></pre></div><p>动态规划：波浪段， 这里不能只定义一个状态数组，</p>
+<blockquote>
+<p>up[i] = i 结尾的， arr[i - 1] &lt; arr[i] 的最长子数组长度</p>
+</blockquote>
+<blockquote>
+<p>down[i] = i 结尾的， arr[i - 1] &gt; arr[i] 的最长子数组长度</p>
+</blockquote>
+<p><strong>up[i] = down[i - 1] + 1</strong></p>
+<p><strong>down[i] = up[i - 1] + 1</strong></p>
+<p>.       i
+arr:    9   4   2   10  7   8   8   1   9<br>
+up:     1   1   1   1   1   1   1   1   1
+down:   1   1   1   1   1   1   1   1   1</p>
+<p>.           i
+arr:    9   4   2   10  7   8   8   1   9<br>
+up:     1   1   1   1   1   1   1   1   1
+down:   1   2   1   1   1   1   1   1   1</p>
+<p>.               i
+arr:    9   4   2   10  7   8   8   1   9<br>
+up:     1   1   1   1   1   1   1   1   1
+down:   1   2   2   1   1   1   1   1   1   <strong>down[i] = up[i - 1] + 1</strong></p>
+<p>.                   i   i   i   i   i   i
+arr:    9   4   2   10  7   8   8   1   9<br>
+up:     1   1   1   3   1   5   1   1   3
+down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxTurbulenceSize</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">1</span><span class="o">,</span> <span class="n">up</span> <span class="o">=</span> <span class="n">1</span><span class="o">,</span> <span class="n">down</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">up</span> <span class="o">=</span> <span class="n">down</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+                <span class="n">down</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">down</span> <span class="o">=</span> <span class="n">up</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+                <span class="n">up</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">up</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+                <span class="n">down</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">up</span><span class="o">,</span> <span class="n">down</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+
+</code></pre></div><p>滑动窗口： 移动右指针：</p>
+<p>[left, right + 1]</p>
+<ul>
+<li>arr[right - 1] &lt; arr[right] &amp;&amp;  arr[right] &gt; arr[right + 1]</li>
+<li>arr[right - 1] &gt; arr[right] &amp;&amp;  arr[right] &lt; arr[right + 1]</li>
+</ul>
+<p>滑动窗口： 移动左指针：</p>
+<p>[left, right + 1]</p>
+<ul>
+<li>右窗口 2 个条件不满足时，左窗口 直接跳到右窗口</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxTurbulenceSize</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">len</span> <span class="o">&lt;</span> <span class="n">2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">len</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+    <span class="c1">// arr[i - 1] &lt; arr[i] is true
+</span><span class="c1"></span>    <span class="kt">boolean</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">current</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">right</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">current</span> <span class="o">==</span> <span class="n">pre</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">right</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">arr</span><span class="o">[</span><span class="n">right</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">right</span><span class="o">++;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">);</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">current</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="最大连续1的个数iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii">[最大连续1的个数III](<a href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/">https://leetcode-cn.com/problems/max-consecutive-ones-iii/</a>）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给定一个二进制数组</span> <span class="n">nums</span> <span class="n">和一个整数</span> <span class="n">k</span> <span class="err">，</span><span class="n">如果可以翻转最多k</span> <span class="n">个</span> <span class="n">0</span> <span class="err">，</span><span class="n">则返回</span> <span class="n">数组中连续</span> <span class="n">1</span> <span class="n">的最大个数</span> <span class="err">。</span>
+
+ 
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">],</span> <span class="n">K</span> <span class="o">=</span> <span class="n">2</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">6</span>
+<span class="n">解释</span><span class="err">：</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">]</span>
+<span class="n">粗体数字从</span> <span class="n">0</span> <span class="n">翻转到</span> <span class="n">1</span><span class="err">，</span><span class="n">最长的子数组长度为</span> <span class="n">6</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">K</span> <span class="o">=</span> <span class="n">3</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">10</span>
+<span class="n">解释</span><span class="err">：</span><span class="o">[</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">]</span>
+<span class="n">粗体数字从</span> <span class="n">0</span> <span class="n">翻转到</span> <span class="n">1</span><span class="err">，</span><span class="n">最长的子数组长度为</span> <span class="n">10</span><span class="err">。</span>
+</code></pre></div><p>窗口的常见做法，是 0 的时候 K - 1， 当 k 没了左边窗口就移动</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Sulution</span><span class="o">{</span>
+    <span class="n">puclic</span> <span class="kt">int</span> <span class="nf">longestOnes</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">fast</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">++]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">--;</span>
+            <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="replacethesubstringforbalancedstringhttpsleetcodecomproblemsreplace-the-substring-for-balanced-string">[ReplacetheSubstringforBalancedString](<a href="https://leetcode.com/problems/replace-the-substring-for-balanced-string/">https://leetcode.com/problems/replace-the-substring-for-balanced-string/</a>）</h3>
+<p>这道题我以为统计一下字符的频率就行了，发现不行，没想到是子序列，不能是任意位置。用双指针法，i 指向子串的左端，j 指向字符串的右端，当 i~j 去掉的字符串区间。维护 i 到 j 这个最小区间就行了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">You</span> <span class="n">are</span> <span class="n">given</span> <span class="n">a</span> <span class="n">string</span> <span class="n">s</span> <span class="n">of</span> <span class="n">length</span> <span class="n">n</span> <span class="n">containing</span> <span class="n">only</span> <span class="n">four</span> <span class="n">kinds</span> <span class="n">of</span> <span class="n">characters</span><span class="o">:</span> <span class="sc">&#39;Q&#39;</span><span class="o">,</span> <span class="sc">&#39;W&#39;</span><span class="o">,</span> <span class="sc">&#39;E&#39;</span><span class="o">,</span> <span class="n">and</span> <span class="sc">&#39;R&#39;</span><span class="o">.</span>
+
+<span class="n">A</span> <span class="n">string</span> <span class="n">is</span> <span class="n">said</span> <span class="n">to</span> <span class="n">be</span> <span class="n">balanced</span> <span class="k">if</span> <span class="n">each</span> <span class="n">of</span> <span class="n">its</span> <span class="n">characters</span> <span class="n">appears</span> <span class="n">n</span> <span class="o">/</span> <span class="n">4</span> <span class="n">times</span> <span class="n">where</span> <span class="n">n</span> <span class="n">is</span> <span class="n">the</span> <span class="n">length</span> <span class="n">of</span> <span class="n">the</span> <span class="n">string</span><span class="o">.</span>
+
+<span class="n">Return</span> <span class="n">the</span> <span class="n">minimum</span> <span class="n">length</span> <span class="n">of</span> <span class="n">the</span> <span class="n">substring</span> <span class="n">that</span> <span class="n">can</span> <span class="n">be</span> <span class="n">replaced</span> <span class="n">with</span> <span class="n">any</span> <span class="n">other</span> <span class="n">string</span> <span class="n">of</span> <span class="n">the</span> <span class="n">same</span> <span class="n">length</span> <span class="n">to</span> <span class="n">make</span> <span class="n">s</span> <span class="n">balanced</span><span class="o">.</span> <span class="n">If</span> <span class="n">s</span> <span class="n">is</span> <span class="n">already</span> <span class="n">balanced</span><span class="o">,</span> <span class="k">return</span> <span class="n">0</span><span class="o">.</span>
+
+ 
+
+<span class="n">Example</span> <span class="n">1</span><span class="o">:</span>
+<span class="nl">
+</span><span class="nl">Input:</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;QWER&#34;</span>
+<span class="nl">Output:</span> <span class="n">0</span>
+<span class="nl">Explanation:</span> <span class="n">s</span> <span class="n">is</span> <span class="n">already</span> <span class="n">balanced</span><span class="o">.</span>
+<span class="n">Example</span> <span class="n">2</span><span class="o">:</span>
+<span class="nl">
+</span><span class="nl">Input:</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;QQWE&#34;</span>
+<span class="nl">Output:</span> <span class="n">1</span>
+<span class="nl">Explanation:</span> <span class="n">We</span> <span class="n">need</span> <span class="n">to</span> <span class="n">replace</span> <span class="n">a</span> <span class="sc">&#39;Q&#39;</span> <span class="n">to</span> <span class="sc">&#39;R&#39;</span><span class="o">,</span> <span class="n">so</span> <span class="n">that</span> <span class="s">&#34;RQWE&#34;</span> <span class="o">(</span><span class="n">or</span> <span class="s">&#34;QRWE&#34;</span><span class="o">)</span> <span class="n">is</span> <span class="n">balanced</span><span class="o">.</span>
+<span class="n">Example</span> <span class="n">3</span><span class="o">:</span>
+<span class="nl">
+</span><span class="nl">Input:</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;QQQW&#34;</span>
+<span class="nl">Output:</span> <span class="n">2</span>
+<span class="nl">Explanation:</span> <span class="n">We</span> <span class="n">can</span> <span class="n">replace</span> <span class="n">the</span> <span class="n">first</span> <span class="s">&#34;QQ&#34;</span> <span class="n">to</span> <span class="s">&#34;ER&#34;</span><span class="o">.</span> 
+ 
+</code></pre></div><p>思路
+注意要替换的是子串，必须连续，自然想到连续窗口；
+对于窗口内的可以任意替换，而窗口外的不能更改，所以这必然要求窗口外的各字母数量小于等于n/4，这样才能在窗口内补上，但如果超过就不能更改，必然不满足条件，所以第一步先统计每个字母次数，用哈希表计数，（数组也可以）。
+当窗口外计数满足，则更新答案，并试探更小的窗口；当不能缩小时再后移窗口。
+对于每个窗口内的位置，将其计数减一，出窗口后就加一恢复，可变滑动窗口遍历整个字符串，最小窗口即是答案。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Sulution</span><span class="o">{</span>
+    <span class="n">puclic</span> <span class="kt">int</span> <span class="nf">longestOnes</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">128</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">res</span> <span class="o">=</span> <span class="n">n</span><span class="o">,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="n">4</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">count</span><span class="o">[</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)]++;</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">count</span><span class="o">[</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)]--;</span> <span class="c1">// 窗口外的减少
+</span><span class="c1"></span>        
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">count</span><span class="o">[</span><span class="sc">&#39;Q&#39;</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">count</span><span class="o">[</span><span class="sc">&#39;W&#39;</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">count</span><span class="o">[</span><span class="sc">&#39;E&#39;</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&amp;&amp;</span> <span class="n">count</span><span class="o">[</span><span class="sc">&#39;R&#39;</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+                <span class="n">count</span><span class="o">[</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">++)]++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="统计优美子数组httpsleetcode-cncomproblemscount-number-of-nice-subarrays">[统计「优美子数组」](<a href="https://leetcode-cn.com/problems/count-number-of-nice-subarrays/">https://leetcode-cn.com/problems/count-number-of-nice-subarrays/</a>）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给你一个整数数组</span> <span class="n">nums</span> <span class="n">和一个整数</span> <span class="n">k</span><span class="err">。</span><span class="n">如果某个连续子数组中恰好有</span> <span class="n">k</span> <span class="n">个奇数数字</span><span class="err">，</span><span class="n">我们就认为这个子数组是</span><span class="err">「</span><span class="n">优美子数组</span><span class="err">」。</span>
+
+<span class="n">请返回这个数组中</span> <span class="err">「</span><span class="n">优美子数组</span><span class="err">」</span> <span class="n">的数目</span><span class="err">。</span>
+
+ 
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">3</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">2</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">包含</span> <span class="n">3</span> <span class="n">个奇数的子数组是</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">]</span> <span class="n">和</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">]</span> <span class="err">。</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">6</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">1</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">0</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">数列中不包含任何奇数</span><span class="err">，</span><span class="n">所以不存在优美子数组</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">3</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">2</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">16</span>
+
+</code></pre></div><p>这道题其实求得是窗口外得值</p>
+<p>2   3   4   2   5   6   2    k = 2</p>
+<p>窗口：</p>
+<p>2   [3   4   2   5]   6   2    k = 2</p>
+<p>窗口前面有 2 个 * 窗口后面有 3 个 共 6 个子集</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Sulution</span><span class="o">{</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">++]</span> <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// 右指针先走，每遇到一个奇数则 
+</span><span class="c1"></span>                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+             <span class="c1">//  若当前滑动窗口 [left, right) 中有 k 个奇数了，进入此分支统计当前滑动窗口中的优美子数组个数。
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// 有窗口移动到下一个奇数后者边界
+</span><span class="c1"></span>                <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span>
+                <span class="k">while</span><span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">right</span><span class="o">++;</span>
+                <span class="o">}</span>
+                <span class="kt">int</span> <span class="n">rightB</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">tmp</span><span class="o">;</span>
+                <span class="c1">// leftEvenCnt 即为第 1 个奇数左边的偶数的个数
+</span><span class="c1"></span>                <span class="kt">int</span> <span class="n">leftB</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">leftB</span><span class="o">++;</span>
+                    <span class="n">left</span><span class="o">++;</span>
+                <span class="o">}</span>
+                <span class="c1">// 第 1 个奇数左边的 leftEvenCnt 个偶数都可以作为优美子数组的起点
+</span><span class="c1"></span>                <span class="c1">// (因为第1个奇数左边可以1个偶数都不取，所以起点的选择有 leftEvenCnt + 1 种）
+</span><span class="c1"></span>                <span class="c1">// 第 k 个奇数右边的 rightEvenCnt 个偶数都可以作为优美子数组的终点
+</span><span class="c1"></span>                <span class="c1">// (因为第k个奇数右边可以1个偶数都不取，所以终点的选择有 rightEvenCnt + 1 种）
+</span><span class="c1"></span>                <span class="c1">// 所以该滑动窗口中，优美子数组左右起点的选择组合数为 (leftEvenCnt + 1) * (rightEvenCnt + 1)
+</span><span class="c1"></span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="o">(</span><span class="n">leftB</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">*</span> <span class="o">(</span><span class="n">rightB</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+                <span class="n">left</span><span class="o">++;</span>
+                <span class="n">count</span><span class="o">--;</span>
+            
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>前缀和</p>
+<p>计算前缀和数组 arr：遍历原数组，每遍历一个元素，计算当前的前缀和（即到当前元素为止，数组中有多少个奇数）；
+对上述前缀和数组，双重循环统计 arr[j] - arr[i] == k 的个数，这样做是 O(N^2)O(N 
+2
+) 的（这里会超时哦）。</p>
+<p>优化：因此，我们可以像「1. 两数之和」那样使用 HashMap 优化到 O(N)O(N)，键是「前缀和」，值是「前缀和的个数」（下面代码中具体使用的是 int[] prefixCnt 数组，下标是「前缀和」，值是「前缀和的个数」），因此我们可以遍历原数组，每遍历到一个元素，计算当前的前缀和 sum，就在 res 中累加上前缀和为 sum - k 的个数。
+👇代码注释很详细👇（时间复杂度 O(N)O(N)，空间复杂度 O(N)O(N)）</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java">
+<span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">numberOfSubarrays</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 数组 prefixCnt 的下标是前缀和（即当前奇数的个数），值是前缀和的个数。
+</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">prefixCnt</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="n">prefixCnt</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="c1">// 遍历原数组，计算当前的前缀和，统计到 prefixCnt 数组中，
+</span><span class="c1"></span>        <span class="c1">// 并且在 res 中累加上与当前前缀和差值为 k 的前缀和的个数。
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span> <span class="o">&amp;</span> <span class="n">1</span><span class="o">;</span>
+            <span class="n">prefixCnt</span><span class="o">[</span><span class="n">sum</span><span class="o">]++;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">+=</span> <span class="n">prefixCnt</span><span class="o">[</span><span class="n">sum</span> <span class="o">-</span> <span class="n">k</span><span class="o">];</span>
+            <span class="o">}</span>       
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="将x减到0的最小操作数httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero">[将x减到0的最小操作数](<a href="https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero">https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero</a>）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给你一个整数数组</span> <span class="n">nums</span> <span class="n">和一个整数</span> <span class="n">x</span> <span class="err">。</span><span class="n">每一次操作时</span><span class="err">，</span><span class="n">你应当移除数组</span> <span class="n">nums</span> <span class="n">最左边或最右边的元素</span><span class="err">，</span><span class="n">然后从</span> <span class="n">x</span> <span class="n">中减去该元素的值</span><span class="err">。</span><span class="n">请注意</span><span class="err">，</span><span class="n">需要</span> <span class="n">修改</span> <span class="n">数组以供接下来的操作使用</span><span class="err">。</span>
+
+<span class="n">如果可以将</span> <span class="n">x</span> <span class="n">恰好</span> <span class="n">减到</span> <span class="n">0</span> <span class="err">，</span><span class="n">返回</span> <span class="n">最小操作数</span> <span class="err">；</span><span class="n">否则</span><span class="err">，</span><span class="n">返回</span> <span class="o">-</span><span class="n">1</span> <span class="err">。</span>
+
+
+
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">5</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">2</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">最佳解决方案是移除后两个元素</span><span class="err">，</span><span class="n">将</span> <span class="n">x</span> <span class="n">减到</span> <span class="n">0</span> <span class="err">。</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">7</span><span class="o">,</span><span class="n">8</span><span class="o">,</span><span class="n">9</span><span class="o">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">4</span>
+<span class="n">输出</span><span class="err">：</span><span class="o">-</span><span class="n">1</span>
+<span class="n">示例</span> <span class="n">3</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">3</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">20</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="n">x</span> <span class="o">=</span> <span class="n">10</span>
+<span class="n">输出</span><span class="err">：</span><span class="n">5</span>
+<span class="n">解释</span><span class="err">：</span><span class="n">最佳解决方案是移除后三个元素和前两个元素</span><span class="err">（</span><span class="n">总共</span> <span class="n">5</span> <span class="n">次操作</span><span class="err">），</span><span class="n">将</span> <span class="n">x</span> <span class="n">减到</span> <span class="n">0</span> <span class="err">。</span>
+
+</code></pre></div><p>找外部最小即找中间最大</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Sulution</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minOperations</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 滑动槽口找中间最早片段 sum -x
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">nums</span><span class="o">).</span><span class="na">sum</span><span class="o">();</span>
+
+        <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">-</span> <span class="n">x</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">cur</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+
+            <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">cur</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">];</span>
+                <span class="n">left</span><span class="o">++;</span>
+            <span class="o">}</span>
+             <span class="k">if</span> <span class="o">(</span><span class="n">cur</span> <span class="o">==</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="n">max</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">max</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+             <span class="o">}</span>
+            <span class="n">right</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">max</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span> <span class="o">?</span> <span class="o">-</span><span class="n">1</span> <span class="o">:</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">max</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minOperations</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">sum</span><span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">-</span><span class="n">x</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">target</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="c1">//因为数据全是正数
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span><span class="n">0</span><span class="o">,</span> <span class="n">right</span><span class="o">=</span><span class="n">0</span> <span class="o">,</span><span class="n">max</span><span class="o">=</span><span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+            <span class="n">target</span> <span class="o">-=</span><span class="n">nums</span><span class="o">[</span><span class="n">right</span><span class="o">++];</span><span class="c1">//窗口右侧主动扩张
+</span><span class="c1"></span>            <span class="k">while</span> <span class="o">(</span><span class="n">target</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="n">target</span><span class="o">+=</span><span class="n">nums</span><span class="o">[</span><span class="n">left</span><span class="o">++];</span> <span class="c1">//窗口左侧适应性收缩
+</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">target</span><span class="o">==</span><span class="n">0</span><span class="o">)</span> <span class="n">max</span><span class="o">=</span><span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span> <span class="n">max</span> <span class="o">,</span> <span class="n">right</span> <span class="o">-</span><span class="n">left</span><span class="o">);</span><span class="c1">//right以及
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">max</span><span class="o">==</span><span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">?</span> <span class="o">-</span><span class="n">1</span> <span class="o">:</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span><span class="n">max</span><span class="o">;</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL</p>
 <p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p></div>
     <div class="post-footer">
