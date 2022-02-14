@@ -944,10 +944,10 @@ push 元素的数值小于等于队列入口元素的数值为止</p>
 <span class="n">输出</span><span class="err">：</span><span class="n">3</span>
 <span class="n">解释</span><span class="err">：</span><span class="n">恰好由</span> <span class="n">3</span> <span class="n">个不同整数组成的子数组</span><span class="err">：</span><span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="o">[</span><span class="n">2</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">],</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">].</span>
 
-</code></pre></div><p>核心是一手：恰好转化为最多之差
-最多包含K个不同整数的子数组，意即包含1,2…K个不同整数的子数组皆在此列。
-如此，最多包含K个不同整数的子数组个数即恰好包含1,2…K个不同整数的子数组个数，而最多包含K-1个不同整数的子数组个数即恰好包含1,2…K-1个不同整数的子数组个数
-两者相减即为恰好包含K个不同整数的子数组个数</p>
+</code></pre></div><p>核心是一手：恰好转化为最多之差</p>
+<p>最多包含 K 个不同整数的子数组，意即包含 1,2&hellip; K 个 不同整数的子数组皆在此列</p>
+<p>如此，最多包含 K 个不同整数的子数组个数即恰好包含 1,2..K 个不同整数的子数组个数，而最多包含 K-1 个不同整数的子数组个数即恰好包含 1,2&hellip; K-1 个不同整数的子数组个数</p>
+<p>两者相减即为恰好包含 K 个不同整数的子数组个数</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">subarraysWithKDistinct</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">atMost</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">k</span><span class="o">)</span> <span class="o">-</span> <span class="n">atMost</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">k</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
     <span class="o">}</span>
@@ -1092,7 +1092,7 @@ down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</str
     <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
 <span class="o">}</span>
 
-</code></pre></div><h3 id="最大连续1的个数iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii">[最大连续1的个数III](<a href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/">https://leetcode-cn.com/problems/max-consecutive-ones-iii/</a>）</h3>
+</code></pre></div><h3 id="最大连续-1-的个数-iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii">[最大连续 1 的个数 III](<a href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/">https://leetcode-cn.com/problems/max-consecutive-ones-iii/</a>）</h3>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给定一个二进制数组</span> <span class="n">nums</span> <span class="n">和一个整数</span> <span class="n">k</span> <span class="err">，</span><span class="n">如果可以翻转最多k</span> <span class="n">个</span> <span class="n">0</span> <span class="err">，</span><span class="n">则返回</span> <span class="n">数组中连续</span> <span class="n">1</span> <span class="n">的最大个数</span> <span class="err">。</span>
 
  
@@ -1155,9 +1155,9 @@ down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</str
 <span class="nl">Output:</span> <span class="n">2</span>
 <span class="nl">Explanation:</span> <span class="n">We</span> <span class="n">can</span> <span class="n">replace</span> <span class="n">the</span> <span class="n">first</span> <span class="s">&#34;QQ&#34;</span> <span class="n">to</span> <span class="s">&#34;ER&#34;</span><span class="o">.</span> 
  
-</code></pre></div><p>思路
-注意要替换的是子串，必须连续，自然想到连续窗口；
-对于窗口内的可以任意替换，而窗口外的不能更改，所以这必然要求窗口外的各字母数量小于等于n/4，这样才能在窗口内补上，但如果超过就不能更改，必然不满足条件，所以第一步先统计每个字母次数，用哈希表计数，（数组也可以）。
+</code></pre></div><p>思路</p>
+<p>注意要替换的是子串，必须连续，自然想到连续窗口</p>
+<p>对于窗口内的可以任意替换，而窗口外的不能更改，所以这必然要求窗口外的各字母数量小于等于 n/4，这样才能在窗口内补上，但如果超过就不能更改，必然不满足条件，所以第一步先统计每个字母次数，用哈希表计数，（数组也可以）。
 当窗口外计数满足，则更新答案，并试探更小的窗口；当不能缩小时再后移窗口。
 对于每个窗口内的位置，将其计数减一，出窗口后就加一恢复，可变滑动窗口遍历整个字符串，最小窗口即是答案。</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Sulution</span><span class="o">{</span>
@@ -1272,7 +1272,7 @@ down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</str
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><h3 id="将x减到0的最小操作数httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero">[将x减到0的最小操作数](<a href="https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero">https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero</a>）</h3>
+</code></pre></div><h3 id="将-x-减到-0-的最小操作数httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero">[将 x 减到 0 的最小操作数](<a href="https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero">https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero</a>）</h3>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给你一个整数数组</span> <span class="n">nums</span> <span class="n">和一个整数</span> <span class="n">x</span> <span class="err">。</span><span class="n">每一次操作时</span><span class="err">，</span><span class="n">你应当移除数组</span> <span class="n">nums</span> <span class="n">最左边或最右边的元素</span><span class="err">，</span><span class="n">然后从</span> <span class="n">x</span> <span class="n">中减去该元素的值</span><span class="err">。</span><span class="n">请注意</span><span class="err">，</span><span class="n">需要</span> <span class="n">修改</span> <span class="n">数组以供接下来的操作使用</span><span class="err">。</span>
 
 <span class="n">如果可以将</span> <span class="n">x</span> <span class="n">恰好</span> <span class="n">减到</span> <span class="n">0</span> <span class="err">，</span><span class="n">返回</span> <span class="n">最小操作数</span> <span class="err">；</span><span class="n">否则</span><span class="err">，</span><span class="n">返回</span> <span class="o">-</span><span class="n">1</span> <span class="err">。</span>
@@ -1335,7 +1335,8 @@ down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</str
         <span class="k">return</span> <span class="n">max</span><span class="o">==</span><span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">?</span> <span class="o">-</span><span class="n">1</span> <span class="o">:</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span><span class="n">max</span><span class="o">;</span>
     <span class="o">}</span>
 
-</code></pre></div><p>来源：力扣（LeetCode）
+</code></pre></div><hr>
+<p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL</p>
 <p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p></div>
     <div class="post-footer">

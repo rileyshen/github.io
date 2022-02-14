@@ -814,10 +814,10 @@ push 元素的数值小于等于队列入口元素的数值为止&lt;/p&gt;
 &lt;span class=&#34;n&#34;&gt;输出&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;解释&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;恰好由&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;个不同整数组成的子数组&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;].&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;核心是一手：恰好转化为最多之差
-最多包含K个不同整数的子数组，意即包含1,2…K个不同整数的子数组皆在此列。
-如此，最多包含K个不同整数的子数组个数即恰好包含1,2…K个不同整数的子数组个数，而最多包含K-1个不同整数的子数组个数即恰好包含1,2…K-1个不同整数的子数组个数
-两者相减即为恰好包含K个不同整数的子数组个数&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;核心是一手：恰好转化为最多之差&lt;/p&gt;
+&lt;p&gt;最多包含 K 个不同整数的子数组，意即包含 1,2&amp;hellip; K 个 不同整数的子数组皆在此列&lt;/p&gt;
+&lt;p&gt;如此，最多包含 K 个不同整数的子数组个数即恰好包含 1,2..K 个不同整数的子数组个数，而最多包含 K-1 个不同整数的子数组个数即恰好包含 1,2&amp;hellip; K-1 个不同整数的子数组个数&lt;/p&gt;
+&lt;p&gt;两者相减即为恰好包含 K 个不同整数的子数组个数&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;subarraysWithKDistinct&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;atMost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;atMost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
@@ -962,7 +962,7 @@ down:   1   2   2   1   4   1   1   2   1   &lt;strong&gt;up[i] = down[i - 1] + 
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;最大连续1的个数iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii&#34;&gt;[最大连续1的个数III](&lt;a href=&#34;https://leetcode-cn.com/problems/max-consecutive-ones-iii/&#34;&gt;https://leetcode-cn.com/problems/max-consecutive-ones-iii/&lt;/a&gt;）&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;最大连续-1-的个数-iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii&#34;&gt;[最大连续 1 的个数 III](&lt;a href=&#34;https://leetcode-cn.com/problems/max-consecutive-ones-iii/&#34;&gt;https://leetcode-cn.com/problems/max-consecutive-ones-iii/&lt;/a&gt;）&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;给定一个二进制数组&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;和一个整数&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;如果可以翻转最多k&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;个&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;则返回&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;数组中连续&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;的最大个数&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
 
  
@@ -1025,9 +1025,9 @@ down:   1   2   2   1   4   1   1   2   1   &lt;strong&gt;up[i] = down[i - 1] + 
 &lt;span class=&#34;nl&#34;&gt;Output:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;
 &lt;span class=&#34;nl&#34;&gt;Explanation:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;We&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;can&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;replace&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;first&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;QQ&amp;#34;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;ER&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt; 
  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;思路
-注意要替换的是子串，必须连续，自然想到连续窗口；
-对于窗口内的可以任意替换，而窗口外的不能更改，所以这必然要求窗口外的各字母数量小于等于n/4，这样才能在窗口内补上，但如果超过就不能更改，必然不满足条件，所以第一步先统计每个字母次数，用哈希表计数，（数组也可以）。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;思路&lt;/p&gt;
+&lt;p&gt;注意要替换的是子串，必须连续，自然想到连续窗口&lt;/p&gt;
+&lt;p&gt;对于窗口内的可以任意替换，而窗口外的不能更改，所以这必然要求窗口外的各字母数量小于等于 n/4，这样才能在窗口内补上，但如果超过就不能更改，必然不满足条件，所以第一步先统计每个字母次数，用哈希表计数，（数组也可以）。
 当窗口外计数满足，则更新答案，并试探更小的窗口；当不能缩小时再后移窗口。
 对于每个窗口内的位置，将其计数减一，出窗口后就加一恢复，可变滑动窗口遍历整个字符串，最小窗口即是答案。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Sulution&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -1142,7 +1142,7 @@ down:   1   2   2   1   4   1   1   2   1   &lt;strong&gt;up[i] = down[i - 1] + 
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;将x减到0的最小操作数httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero&#34;&gt;[将x减到0的最小操作数](&lt;a href=&#34;https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero&#34;&gt;https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero&lt;/a&gt;）&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;将-x-减到-0-的最小操作数httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero&#34;&gt;[将 x 减到 0 的最小操作数](&lt;a href=&#34;https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero&#34;&gt;https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero&lt;/a&gt;）&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;给你一个整数数组&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;和一个整数&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;每一次操作时&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;你应当移除数组&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;最左边或最右边的元素&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;然后从&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;中减去该元素的值&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;请注意&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;需要&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;修改&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;数组以供接下来的操作使用&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
 
 &lt;span class=&#34;n&#34;&gt;如果可以将&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;恰好&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;减到&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;返回&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;最小操作数&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;否则&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;返回&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
@@ -1205,7 +1205,8 @@ down:   1   2   2   1   4   1   1   2   1   &lt;strong&gt;up[i] = down[i - 1] + 
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MIN_VALUE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;来源：力扣（LeetCode）
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&#34;&gt;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&lt;/a&gt;&lt;/p&gt;</description>
       
