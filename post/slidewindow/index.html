@@ -147,8 +147,11 @@
         <p>Sliding Window pattern in algorithm, 滑动窗口套路</p>
 <!-- TOC -->
 <ul>
-<li><a href="#%E5%89%91%E6%8C%87-offer-ii-008-%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-target-%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84" >剑指 Offer II 008. 和大于等于 target 的最短子数组</a></li>
-<li><a href="#%E5%89%91%E6%8C%87-offer-ii-009-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84" >剑指 Offer II 009. 乘积小于 K 的子数组</a></li>
+<li><a href="#substrings-of-size-three-with-distinct-characters" >Substrings of Size Three with Distinct Characters</a></li>
+<li>[Longest Substring Without Repeating Characters]](#longest-substring-without-repeating-characters)</li>
+<li><a href="#minimum-window-substring" >Minimum Window Substring</a></li>
+<li><a href="#%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-target-%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84" >和大于等于 target 的最短子数组</a></li>
+<li><a href="#%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84" >乘积小于 K 的子数组</a></li>
 <li><a href="#%E5%89%91%E6%8C%87-offer-ii-014-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D" >剑指 Offer II 014. 字符串中的变位词</a></li>
 <li><a href="#%E5%89%91%E6%8C%87-offer-ii-015-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%98%E4%BD%8D%E8%AF%8D" >剑指 Offer II 015. 字符串中的所有变位词</a></li>
 <li><a href="#%E5%89%91%E6%8C%87-offer-ii-016-%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2" >剑指 Offer II 016. 不含重复字符的最长子字符串</a></li>
@@ -156,12 +159,12 @@
 <li><a href="#%E5%89%91%E6%8C%87-offer-ii-057-%E5%80%BC%E5%92%8C%E4%B8%8B%E6%A0%87%E4%B9%8B%E5%B7%AE%E9%83%BD%E5%9C%A8%E7%BB%99%E5%AE%9A%E7%9A%84%E8%8C%83%E5%9B%B4%E5%86%85" >剑指 Offer II 057. 值和下标之差都在给定的范围内</a></li>
 <li><a href="#%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AEhttpsleetcode-cncomproblemsfruit-into-baskets" >水果成篮[https://leetcode-cn.com/problems/fruit-into-baskets/]</a></li>
 <li><a href="#%E5%92%8C%E7%9B%B8%E5%90%8C%E7%9A%84%E4%BA%8C%E5%85%83%E5%AD%90%E6%95%B0%E7%BB%84httpsleetcode-cncomproblemsbinary-subarrays-with-sum" >[和相同的二元子数组]https://leetcode-cn.com/problems/binary-subarrays-with-sum/）</a></li>
-<li><a href="#k-%E4%B8%AA%E4%B8%8D%E5%90%8C%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84httpsleetcode-cncomproblemssubarrays-with-k-different-integers" >[K 个不同整数的子数组]https://leetcode-cn.com/problems/subarrays-with-k-different-integers/）</a></li>
-<li><a href="#%E6%9C%80%E9%95%BF%E6%B9%8D%E6%B5%81%E5%AD%90%E6%95%B0%E7%BB%84httpsleetcode-cncomproblemslongest-turbulent-subarray" >[最长湍流子数组]https://leetcode-cn.com/problems/longest-turbulent-subarray/）</a></li>
-<li><a href="#%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD-1-%E7%9A%84%E4%B8%AA%E6%95%B0-iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii" >[最大连续 1 的个数 III]https://leetcode-cn.com/problems/max-consecutive-ones-iii/）</a></li>
-<li><a href="#replacethesubstringforbalancedstringhttpsleetcodecomproblemsreplace-the-substring-for-balanced-string" >[ReplacetheSubstringforBalancedString]https://leetcode.com/problems/replace-the-substring-for-balanced-string/）</a></li>
-<li><a href="#%E7%BB%9F%E8%AE%A1%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84httpsleetcode-cncomproblemscount-number-of-nice-subarrays" >[统计「优美子数组」]https://leetcode-cn.com/problems/count-number-of-nice-subarrays/）</a></li>
-<li><a href="#%E5%B0%86-x-%E5%87%8F%E5%88%B0-0-%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero" >[将 x 减到 0 的最小操作数]https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero）</a></li>
+<li><a href="#k-%E4%B8%AA%E4%B8%8D%E5%90%8C%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84" >K 个不同整数的子数组</a></li>
+<li><a href="#%E6%9C%80%E9%95%BF%E6%B9%8D%E6%B5%81%E5%AD%90%E6%95%B0%E7%BB%84" >最长湍流子数组</a></li>
+<li><a href="#%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD-1-%E7%9A%84%E4%B8%AA%E6%95%B0-iii" >最大连续 1 的个数 III</a></li>
+<li><a href="#replacethesubstringforbalancedstring" >ReplacetheSubstringforBalancedString</a></li>
+<li><a href="#%E7%BB%9F%E8%AE%A1%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84" >统计「优美子数组</a></li>
+<li><a href="#%E5%B0%86-x-%E5%87%8F%E5%88%B0-0-%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0" >将 x 减到 0 的最小操作数</a></li>
 <li><a href="#contains-duplicate" >Contains Duplicate</a></li>
 <li><a href="#contains-duplicate-iii" >Contains Duplicate III</a></li>
 <li><a href="#shortest-word-distance" >Shortest Word Distance</a></li>
@@ -170,7 +173,8 @@
 </ul>
 <!-- /TOC -->
 <p>滑动窗口更多处理连续问题， &ldquo;Longest Substring“， ”Subarray“</p>
-<p><a href="https://leetcode.com/problems/substrings-of-size-three-with-distinct-characters/"  target="_blank" >1876. Substrings of Size Three with Distinct Characters</a></p>
+<h3 id="substrings-of-size-three-with-distinct-characters">Substrings of Size Three with Distinct Characters</h3>
+<p><a id="markdown-substrings-of-size-three-with-distinct-characters" name="substrings-of-size-three-with-distinct-characters"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">A string is good <span class="k">if</span> there are no repeated characters.
 
 Given a string s​​​​​, <span class="k">return</span> the number of good substrings of length three in s​​​​​​.
@@ -198,7 +202,8 @@ A substring is a contiguous sequence of characters in a string.
 </code></pre></div><blockquote>
 <p>Input: s = &ldquo;aababcabc&rdquo; Output: 4</p>
 </blockquote>
-<p><a href="" >3. Longest Substring Without Repeating Characters</a></p>
+<h3 id="longest-substring-without-repeating-characters">Longest Substring Without Repeating Characters]</h3>
+<p><a id="markdown-longest-substring-without-repeating-characters%5D" name="longest-substring-without-repeating-characters%5D"></a></p>
 <p><strong>the input are ascii, there are only 128 unique characters =&gt; max length = 128</strong></p>
 <p><strong>ASCII 码中，一个英文字母（不分大小写）为一个字节，一个中文汉字为两个字节。</strong></p>
 <p><strong>On²能做到 10^8 10^9 次方了不起了</strong></p>
@@ -238,34 +243,34 @@ l
 r
 left = Math.max(left, map.get(s.charAt(right)) + 1):</p>
 <p>这里没有直接用 left =  map.get(s.charAt(right)) + 1</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">p</span>   <span class="n">w</span>   <span class="n">w</span>   <span class="n">p</span>   <span class="n">e</span>   <span class="n">w</span>
-<span class="n">l</span>
-<span class="n">r</span>       
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">p   w   w   p   e   w
+l
+r       
 
-<span class="n">map</span><span class="o">{(</span><span class="n">p</span><span class="o">,</span> <span class="n">1</span><span class="o">)};</span> 
+map<span class="o">{(</span>p, 1<span class="o">)}</span><span class="p">;</span> 
 
-<span class="n">r</span><span class="o">++;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+r++<span class="p">;</span> <span class="nv">res</span> <span class="o">=</span> 1<span class="p">;</span>
 
-<span class="n">p</span>   <span class="n">w</span>   <span class="n">w</span>   <span class="n">p</span>   <span class="n">e</span>   <span class="n">w</span>
-<span class="n">l</span>
-    <span class="n">r</span>       
+p   w   w   p   e   w
+l
+    r       
 
-<span class="n">map</span><span class="o">{(</span><span class="n">p</span><span class="o">,</span> <span class="n">1</span><span class="o">),</span> <span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">2</span><span class="o">)};</span>
+map<span class="o">{(</span>p, 1<span class="o">)</span>, <span class="o">(</span>w, 2<span class="o">)}</span><span class="p">;</span>
 
-<span class="n">r</span><span class="o">++;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+r++<span class="p">;</span> <span class="nv">res</span> <span class="o">=</span> 2<span class="p">;</span>
 
-<span class="n">p</span>   <span class="n">w</span>   <span class="n">w</span>   <span class="n">p</span>
-        <span class="n">l</span>           
-        <span class="n">r</span>
+p   w   w   p
+        l           
+        r
 
-<span class="n">l</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">))</span> <span class="o">=</span> <span class="n">2</span>
+<span class="nv">l</span> <span class="o">=</span> map.get<span class="o">(</span>s.charAt<span class="o">(</span>right<span class="o">))</span> <span class="o">=</span> <span class="m">2</span>
 
-<span class="n">map</span><span class="o">{(</span><span class="n">p</span><span class="o">,</span> <span class="n">1</span><span class="o">),</span> <span class="o">(</span><span class="n">w</span><span class="o">,</span> <span class="n">3</span><span class="o">)};</span>
+map<span class="o">{(</span>p, 1<span class="o">)</span>, <span class="o">(</span>w, 3<span class="o">)}</span><span class="p">;</span>
 
 
-<span class="n">p</span>   <span class="n">w</span>   <span class="n">w</span>   <span class="n">p</span>
-        <span class="n">l</span>            
-            <span class="n">r</span>
+p   w   w   p
+        l            
+            r
 </code></pre></div><p>left = Math.max(left, map.get(s.charAt(right)) );</p>
 <p>直接造成了 left 左移</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span>   <span class="nf">Solution</span><span class="o">()</span> <span class="o">{</span>
@@ -319,7 +324,8 @@ left = Math.max(left, map.get(s.charAt(right)) + 1):</p>
 
 	<span class="k">return</span> <span class="n">res</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
     <span class="o">}</span> <span class="c1">// Runtime: 3 ms,
-</span></code></pre></div><p><a href="https://leetcode.com/problems/minimum-window-substring/"  target="_blank" >Minimum Window Substring</a></p>
+</span></code></pre></div><h3 id="minimum-window-substring">Minimum Window Substring</h3>
+<p><a id="markdown-minimum-window-substring" name="minimum-window-substring"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given two strings s and t of lengths m and n respectively, <span class="k">return</span> the minimum window substring of s such that every character in t <span class="o">(</span>including duplicates<span class="o">)</span> is included in the window. If there is no such substring, <span class="k">return</span> the empty string <span class="s2">&#34;&#34;</span>.
 
 The testcases will be generated such that the answer is unique.
@@ -441,13 +447,11 @@ Example 2:
     <span class="k">return</span> <span class="n">map</span><span class="o">;</span>
   <span class="o">}</span>
 
-</code></pre></div><h3 id="剑指-offer-ii-008-和大于等于-target-的最短子数组">剑指 Offer II 008. 和大于等于 target 的最短子数组</h3>
-<p><a id="markdown-%E5%89%91%E6%8C%87-offer-ii-008.-%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-target-%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84" name="%E5%89%91%E6%8C%87-offer-ii-008.-%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-target-%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
+</code></pre></div><h3 id="和大于等于-target-的最短子数组">和大于等于 target 的最短子数组</h3>
+<p><a id="markdown-%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-target-%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84" name="%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-target-%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个含有 n 个正整数的数组和一个正整数 target 。
 
 找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 <span class="o">[</span>numsl, numsl+1, ..., numsr-1, numsr<span class="o">]</span> ，并返回其长度。如果不存在符合条件的子数组，返回 <span class="m">0</span> 。
-
- 
 
 示例 1：
 
@@ -473,8 +477,8 @@ Example 2:
         <span class="k">return</span> <span class="n">res</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="n">res</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><h3 id="剑指-offer-ii-009-乘积小于-k-的子数组">剑指 Offer II 009. 乘积小于 K 的子数组</h3>
-<p><a id="markdown-%E5%89%91%E6%8C%87-offer-ii-009.-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84" name="%E5%89%91%E6%8C%87-offer-ii-009.-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
+</code></pre></div><h3 id="乘积小于-k-的子数组">乘积小于 K 的子数组</h3>
+<p><a id="markdown-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84" name="%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个正整数数组 nums和整数 k ，请找出该数组内乘积小于 k 的连续的子数组的个数。
 示例 1：
 输入: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>10,5,2,6<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">100</span>
@@ -1109,8 +1113,8 @@ i  i</p>
         <span class="o">}</span>
         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre></div><h3 id="k-个不同整数的子数组httpsleetcode-cncomproblemssubarrays-with-k-different-integers">[K 个不同整数的子数组](<a href="https://leetcode-cn.com/problems/subarrays-with-k-different-integers/">https://leetcode-cn.com/problems/subarrays-with-k-different-integers/</a>）</h3>
-<p><a id="markdown-%5Bk-%E4%B8%AA%E4%B8%8D%E5%90%8C%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fsubarrays-with-k-different-integers%2F%EF%BC%89" name="%5Bk-%E4%B8%AA%E4%B8%8D%E5%90%8C%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fsubarrays-with-k-different-integers%2F%EF%BC%89"></a></p>
+</code></pre></div><h3 id="k-个不同整数的子数组">K 个不同整数的子数组</h3>
+<p><a id="markdown-k-%E4%B8%AA%E4%B8%8D%E5%90%8C%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84" name="k-%E4%B8%AA%E4%B8%8D%E5%90%8C%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定不同的子数组为好子数组。
 
 （例如，<span class="o">[</span>1,2,3,1,2<span class="o">]</span> 中有 3 个不同的整数：1，2，以及 3。）
@@ -1168,8 +1172,8 @@ K-1 个不同整数的子数组个数即恰好包含 1,2&hellip; K-1 个不同�
         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
 
 
-</code></pre></div><h3 id="最长湍流子数组httpsleetcode-cncomproblemslongest-turbulent-subarray">[最长湍流子数组](<a href="https://leetcode-cn.com/problems/longest-turbulent-subarray/">https://leetcode-cn.com/problems/longest-turbulent-subarray/</a>）</h3>
-<p><a id="markdown-%5B%E6%9C%80%E9%95%BF%E6%B9%8D%E6%B5%81%E5%AD%90%E6%95%B0%E7%BB%84%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Flongest-turbulent-subarray%2F%EF%BC%89" name="%5B%E6%9C%80%E9%95%BF%E6%B9%8D%E6%B5%81%E5%AD%90%E6%95%B0%E7%BB%84%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Flongest-turbulent-subarray%2F%EF%BC%89"></a></p>
+</code></pre></div><h3 id="最长湍流子数组">最长湍流子数组</h3>
+<p><a id="markdown-%E6%9C%80%E9%95%BF%E6%B9%8D%E6%B5%81%E5%AD%90%E6%95%B0%E7%BB%84" name="%E6%9C%80%E9%95%BF%E6%B9%8D%E6%B5%81%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个整数数组arr ，返回arr的最大湍流子数组的长度 。
 如果比较符号在子数组中的每个相邻元素对之间翻转，则该子数组是 湍流子数组 。
 更正式地来说，当 arr 的子数组 A<span class="o">[</span>i<span class="o">]</span>, A<span class="o">[</span>i+1<span class="o">]</span>, ..., A<span class="o">[</span>j<span class="o">]</span> 满足仅满足下列条件时，我们称其为湍流子数组：
@@ -1272,8 +1276,8 @@ down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</str
     <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
 <span class="o">}</span>
 
-</code></pre></div><h3 id="最大连续-1-的个数-iiihttpsleetcode-cncomproblemsmax-consecutive-ones-iii">[最大连续 1 的个数 III](<a href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/">https://leetcode-cn.com/problems/max-consecutive-ones-iii/</a>）</h3>
-<p><a id="markdown-%5B%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD-1-%E7%9A%84%E4%B8%AA%E6%95%B0-iii%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fmax-consecutive-ones-iii%2F%EF%BC%89" name="%5B%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD-1-%E7%9A%84%E4%B8%AA%E6%95%B0-iii%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fmax-consecutive-ones-iii%2F%EF%BC%89"></a></p>
+</code></pre></div><h3 id="最大连续-1-的个数-iii">最大连续 1 的个数 III</h3>
+<p><a id="markdown-%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD-1-%E7%9A%84%E4%B8%AA%E6%95%B0-iii" name="%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD-1-%E7%9A%84%E4%B8%AA%E6%95%B0-iii"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个二进制数组nums和一个整数k ，如果可以翻转最多k个0 ，则返回 数组中连续1的最大个数 。
 示例 1：
 输入：nums <span class="o">=</span> <span class="o">[</span>1,1,1,0,0,0,1,1,1,1,0<span class="o">]</span>, <span class="nv">K</span> <span class="o">=</span> <span class="m">2</span>
@@ -1305,8 +1309,8 @@ down:   1   2   2   1   4   1   1   2   1   <strong>up[i] = down[i - 1] + 1</str
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><h3 id="replacethesubstringforbalancedstringhttpsleetcodecomproblemsreplace-the-substring-for-balanced-string">[ReplacetheSubstringforBalancedString](<a href="https://leetcode.com/problems/replace-the-substring-for-balanced-string/">https://leetcode.com/problems/replace-the-substring-for-balanced-string/</a>）</h3>
-<p><a id="markdown-%5Breplacethesubstringforbalancedstring%5Dhttps%3A%2F%2Fleetcode.com%2Fproblems%2Freplace-the-substring-for-balanced-string%2F%EF%BC%89" name="%5Breplacethesubstringforbalancedstring%5Dhttps%3A%2F%2Fleetcode.com%2Fproblems%2Freplace-the-substring-for-balanced-string%2F%EF%BC%89"></a></p>
+</code></pre></div><h3 id="replacethesubstringforbalancedstring">ReplacetheSubstringforBalancedString</h3>
+<p><a id="markdown-replacethesubstringforbalancedstring" name="replacethesubstringforbalancedstring"></a></p>
 <p>这道题我以为统计一下字符的频率就行了，发现不行，没想到是子序列，不能是任意位置。用双指针法，i 指向子串的左端，j 指向字符串的右端，当 i~j 去掉的字符串区间。维护 i 到 j 这个最小区间就行了。</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given a string s of length n containing only four kinds of characters: <span class="s1">&#39;Q&#39;</span>, <span class="s1">&#39;W&#39;</span>, <span class="s1">&#39;E&#39;</span>, and <span class="s1">&#39;R&#39;</span>.
 
@@ -1357,8 +1361,8 @@ Explanation: We can replace the first <span class="s2">&#34;QQ&#34;</span> to <s
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><h3 id="统计优美子数组httpsleetcode-cncomproblemscount-number-of-nice-subarrays">[统计「优美子数组」](<a href="https://leetcode-cn.com/problems/count-number-of-nice-subarrays/">https://leetcode-cn.com/problems/count-number-of-nice-subarrays/</a>）</h3>
-<p><a id="markdown-%5B%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84%E3%80%8D%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fcount-number-of-nice-subarrays%2F%EF%BC%89" name="%5B%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84%E3%80%8D%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fcount-number-of-nice-subarrays%2F%EF%BC%89"></a></p>
+</code></pre></div><h3 id="统计优美子数组">统计「优美子数组</h3>
+<p><a id="markdown-%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84" name="%E7%BB%9F%E8%AE%A1%E3%80%8C%E4%BC%98%E7%BE%8E%E5%AD%90%E6%95%B0%E7%BB%84"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给你一个整数数组 nums 和一个整数 k。如果某个连续子数组中恰好有 k 个奇数数字，我们就认为这个子数组是「优美子数组」。
 请返回这个数组中 「优美子数组」 的数目。
 示例 1：
@@ -1442,8 +1446,8 @@ Explanation: We can replace the first <span class="s2">&#34;QQ&#34;</span> to <s
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div><h3 id="将-x-减到-0-的最小操作数httpsleetcode-cncomproblemsminimum-operations-to-reduce-x-to-zero">[将 x 减到 0 的最小操作数](<a href="https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero">https://leetcode-cn.com/problems/minimum-operations-to-reduce-x-to-zero</a>）</h3>
-<p><a id="markdown-%5B%E5%B0%86-x-%E5%87%8F%E5%88%B0-0-%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fminimum-operations-to-reduce-x-to-zero%EF%BC%89" name="%5B%E5%B0%86-x-%E5%87%8F%E5%88%B0-0-%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0%5Dhttps%3A%2F%2Fleetcode-cn.com%2Fproblems%2Fminimum-operations-to-reduce-x-to-zero%EF%BC%89"></a></p>
+</code></pre></div><h3 id="将-x-减到-0-的最小操作数">将 x 减到 0 的最小操作数</h3>
+<p><a id="markdown-%E5%B0%86-x-%E5%87%8F%E5%88%B0-0-%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0" name="%E5%B0%86-x-%E5%87%8F%E5%88%B0-0-%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给你一个整数数组nums 和一个整数x 。每一次操作时，你应当移除数组nums 最左边或最右边的元素，然后从x中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。
 
 如果可以将 x 恰好 减到 <span class="m">0</span> ，返回 最小操作数 ；否则，返回 -1 。
