@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about Sliding Window5 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/slidewindow5/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about Sliding Window5"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about Sliding Window5</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">4-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Sliding Window pattern in algorithm, 滑动窗口套路</p>
+<p><a href="#String-Frequency-In-Windows" >String Frequency In Windows</a>
+<a href="#longest-substring-with-k-typed-characters" >Longest Substring With K Typed Characters</a></p>
+<p>**字符串的时候， map 里面，不符合的或者超过边界的左边吐出去的时候， count 加上，</p>
+<h3 id="string-frequency-in-windows">String Frequency In Windows</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a string containing only <span class="s1">&#39;A&#39;</span>, <span class="s1">&#39;B&#39;</span>, <span class="s1">&#39;C&#39;</span>, <span class="s1">&#39;D&#39;</span>, <span class="k">return</span> the number of occurrences of substring which has length <span class="m">4</span> and includes all of the characters from <span class="s1">&#39;A&#39;</span>, <span class="s1">&#39;B&#39;</span>, <span class="s1">&#39;C&#39;</span>, <span class="s1">&#39;D&#39;</span> with in descending sorted order.
+
+Assumptions:
+
+The given string is not null and has length of &gt;<span class="o">=</span> 4.
+In the output, <span class="k">if</span> two substrings have the same frequency, <span class="k">then</span> they should be sorted by the their natural order.
+Examples:
+
+ “ABCDABCDD”, --&gt; <span class="o">{</span><span class="s2">&#34;ABCD&#34;</span> : 2, <span class="s2">&#34;BCDA&#34;</span> : 1, <span class="s2">&#34;CDAB&#34;</span> : 1, <span class="s2">&#34;DABC&#34;</span> : 1<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Frequency</span> <span class="o">{</span>
+ <span class="o">*</span>   <span class="kd">public</span> <span class="n">String</span> <span class="n">str</span><span class="o">;</span>
+ <span class="o">*</span>   <span class="kd">public</span> <span class="kt">int</span> <span class="n">freq</span><span class="o">;</span>
+ <span class="o">*</span>   <span class="kd">public</span> <span class="nf">Frequency</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">,</span> <span class="kt">int</span> <span class="n">freq</span><span class="o">)</span> <span class="o">{</span>
+ <span class="o">*</span>     <span class="k">this</span><span class="o">.</span><span class="na">str</span> <span class="o">=</span> <span class="n">str</span><span class="o">;</span>
+ <span class="o">*</span>     <span class="k">this</span><span class="o">.</span><span class="na">freq</span> <span class="o">=</span> <span class="n">freq</span><span class="o">;</span>
+ <span class="o">*</span>   <span class="o">}</span>
+ <span class="o">*</span> <span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Frequency</span><span class="o">&gt;</span> <span class="nf">frequency</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Write your solution here.
+</span><span class="c1"></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">freqMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">countMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">countMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="sc">&#39;A&#39;</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">countMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="sc">&#39;B&#39;</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">countMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="sc">&#39;C&#39;</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">countMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="sc">&#39;D&#39;</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">width</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">width</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">char</span> <span class="n">removedChar</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">width</span><span class="o">);</span>
+        <span class="n">countMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">removedChar</span><span class="o">,</span> <span class="n">countMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">removedChar</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">countMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">removedChar</span><span class="o">)</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">count</span><span class="o">++;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+      
+      <span class="kt">char</span> <span class="n">insertChar</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+      <span class="n">countMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">insertChar</span><span class="o">,</span> <span class="n">countMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">insertChar</span><span class="o">)</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">countMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">insertChar</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">count</span><span class="o">--;</span>
+      <span class="o">}</span>
+      
+      <span class="k">if</span><span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">3</span> <span class="o">&amp;&amp;</span> <span class="n">count</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">subStr</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">3</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">freqMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">subStr</span><span class="o">,</span> <span class="n">freqMap</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">subStr</span><span class="o">,</span> <span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">entryList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span><span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">entry</span><span class="o">:</span> <span class="n">freqMap</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">entryList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">entryList</span><span class="o">,</span> <span class="k">new</span> <span class="n">EntryComparator</span><span class="o">());</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Frequency</span><span class="o">&gt;</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Frequency</span><span class="o">&gt;();</span>
+    <span class="k">for</span><span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">entry</span><span class="o">:</span> <span class="n">entryList</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">ret</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Frequency</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">()));</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+  <span class="o">}</span>
+  
+  <span class="kd">private</span> <span class="kd">class</span> <span class="nc">EntryComparator</span> <span class="kd">implements</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">e1</span><span class="o">,</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">e1</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span> <span class="o">==</span> <span class="n">e2</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">e1</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">e2</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+      <span class="o">}</span> 
+      
+      <span class="k">return</span> <span class="n">e1</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">e2</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span> <span class="o">?</span> <span class="o">-</span><span class="n">1</span> <span class="o">:</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+ <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;ABCDABCDD&#34;</span><span class="o">;</span>
+    <span class="n">Solution</span> <span class="n">solution</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Solution</span><span class="o">();</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">solution</span><span class="o">.</span><span class="na">frequency</span><span class="o">(</span><span class="n">s</span><span class="o">));</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+
+</code></pre></div><h3 id="longest-substring-with-k-typed-characters">Longest Substring With K Typed Characters</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a string, <span class="k">return</span> the longest contiguous substring that contains exactly k <span class="nb">type</span> of characters.
+
+Return null <span class="k">if</span> there does not exist such substring.
+
+Assumptions:
+
+The given string is not null and guaranteed to have at least k different characters.
+k &gt; 0.
+Examples:
+
+<span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabcc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 3, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;aabcc&#34;</span>.
+<span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabcccc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 2, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;bcccc&#34;</span>.
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+     <span class="c1">// Function to find the longest substring of a given string containing
+</span><span class="c1"></span>    <span class="c1">// `k` distinct characters using a sliding window
+</span><span class="c1"></span>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">longest</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">input</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">window</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">// stores the longest substring boundaries
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">begin</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+      <span class="c1">// Count array `freq` stores the frequency of characters present in the
+</span><span class="c1"></span>        <span class="c1">// current window. We can also use a map instead of a count array.
+</span><span class="c1"></span>    <span class="kt">int</span><span class="o">[]</span> <span class="n">freq</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">128</span><span class="o">];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">fast</span><span class="o">++)</span> <span class="o">{</span>
+         <span class="n">window</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">fast</span><span class="o">));</span>
+      <span class="n">freq</span><span class="o">[</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">fast</span><span class="o">)]++;</span>
+     <span class="c1">//  if the window size is more than `k`, remove characters from the left
+</span><span class="c1"></span>      <span class="k">while</span><span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+          <span class="c1">// If the leftmost character&#39;s frequency becomes 0 after
+</span><span class="c1"></span>                <span class="c1">// removing it in the window, remove it from the set as well
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(--</span><span class="n">freq</span><span class="o">[</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">)]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">window</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="n">slow</span><span class="o">++;</span>
+      <span class="o">}</span>
+   
+      <span class="k">if</span> <span class="o">(</span><span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">&gt;</span> <span class="n">end</span> <span class="o">-</span> <span class="n">begin</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">fast</span><span class="o">;</span>
+        <span class="n">begin</span> <span class="o">=</span> <span class="n">slow</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+          <span class="c1">// return the longest substring found at `str[begin…end]`
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">input</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">begin</span><span class="o">,</span> <span class="n">end</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>注意</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="k">if</span> <span class="o">(--</span><span class="n">freq</span><span class="o">[</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">)]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">window</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">));</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="k">if</span> <span class="o">(</span><span class="n">freq</span><span class="o">[</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">)]--</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">window</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">));</span>
+</code></pre></div><p>基础不好，如果是第二个情况，&ndash;其实是先判断完再行动，导致吐出 a b c 后才会 remove，而第一个先 &ndash; 了再判断</p>
+<h3 id="shortest-substring-with-k-typed-characters">Shortest Substring With K Typed Characters</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a string, <span class="k">return</span> the shortest contiguous substring that contains exactly k <span class="nb">type</span> of characters.
+
+Return an empty string <span class="k">if</span> there does not exist such substring.
+
+Assumptions:
+
+The given string is not null.
+k &gt;<span class="o">=</span> 0.
+Examples:
+
+<span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabcc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 3, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;abc&#34;</span>.
+<span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabbbcccc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 3, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;abbbc&#34;</span>.
+<span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabcc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 4, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>.
+</code></pre></div><p><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a>
+<a href="https://rileyshen.github.io/post/slidewindow2/" >slidewindow2</a>
+<a href="https://rileyshen.github.io/post/slidewindow3/" >slidewindow3</a>
+<a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a></p>
+<hr>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL</p>
+<p>感谢：她们都有题库在 github 上直接有，都是大神</p>
+<ul>
+<li>
+<p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p>
+</li>
+<li>
+<p>宫水三叶</p>
+</li>
+</ul></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/sliding-window/">Sliding Window</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

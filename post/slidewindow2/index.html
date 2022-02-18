@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about Sliding Window2 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/slidewindow2/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about Sliding Window2"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about Sliding Window2</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">6-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Sliding Window pattern in algorithm, 滑动窗口套路</p>
+<p>滑动窗口更多处理连续问题， &ldquo;Longest Substring“， ”Subarray“</p>
+<p><a href="#shortest-word-distance" >Shortest Word Distance</a>
+<a href="#shortest-word-distance-iii" >Shortest Word Distance III</a>
+<a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%ad%e7%9a%84%e5%8f%98%e4%bd%8d%e8%af%8d" >字符串中的变位词</a>
+<a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%ad%e7%9a%84%e6%89%80%e6%9c%89%e5%8f%98%e4%bd%8d%e8%af%8d" >字符串中的所有变位词</a>
+<a href="#%e4%b8%8d%e5%90%ab%e9%87%8d%e5%a4%8d%e5%ad%97%e7%ac%a6%e7%9a%84%e6%9c%80%e9%95%bf%e5%ad%90%e5%ad%97%e7%ac%a6%e4%b8%b2" >不含重复字符的最长子字符串</a></p>
+<p>😼😼😼😼</p>
+<h3 id="shortest-word-distance">Shortest Word Distance</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a list of words and two words word1 and word2, <span class="k">return</span> the shortest distance between these two words in the list.
+
+Example:
+Assume that <span class="nv">words</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;practice&#34;</span>, <span class="s2">&#34;makes&#34;</span>, <span class="s2">&#34;perfect&#34;</span>, <span class="s2">&#34;coding&#34;</span>, <span class="s2">&#34;makes&#34;</span><span class="o">]</span>.
+
+“coding”
+“practice”
+<span class="s2">&#34;makes&#34;</span>
+<span class="s2">&#34;coding&#34;</span>
+</code></pre></div><p>For each a, we need to get the most recent position of b.</p>
+<p>For each b, we need to get the most recent position of a.</p>
+<p>這樣他們中差值最小的那個，就是我們需要的答案。</p>
+<p>那麼在實現的時候，我們就需要從左到右掃一遍 array，並記錄：</p>
+<p>IndexA：最近一次出現 a 的位置</p>
+<p>IndexB：最近一次出現 b 的位置</p>
+<p>Result：當前的最短距離</p>
+<p>每當我們找到一個 a 或者 b 時，我們就要檢查 IndexB 和 IndexA 之間的差是否比 result 的值小，如果是，則更新 result 的值，直到遍歷完整個 array。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">shortestDistance</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">words</span><span class="o">,</span> <span class="n">String</span> <span class="n">word1</span><span class="o">,</span> <span class="n">String</span> <span class="n">word2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">index1</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">index2</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">minLen</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">words</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">word1</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">index2</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">minLen</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">minLen</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">index2</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">index1</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+      <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">word2</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">index1</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">minLen</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">minLen</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">index1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">index2</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">minLen</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><p>下面这种方法只用一个辅助变量 idx，初始化为 -1，然后遍历数组，如果遇到等于两个单词中的任意一个的单词，再看 idx 是否为 -1，若不为 -1，且指向的单词和当前遍历到的单词不同，更新结果，参见代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">shortestDistance</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">words</span><span class="o">,</span> <span class="n">String</span> <span class="n">word1</span><span class="o">,</span> <span class="n">String</span> <span class="n">word2</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">words</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">word1</span> <span class="o">||</span> <span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">word2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">idx</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">words</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span> <span class="o">!=</span> <span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">idx</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><h3 id="shortest-word-distance-iii">Shortest Word Distance III</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">This is a follow up of Shortest Word Distance. The only difference is now word1 could be the same as word2.
+
+Given a list of words and two words word1 and word2, <span class="k">return</span> the shortest distance between these two words in the list.
+
+word1 and word2 may be the same and they represent two individual words in the list.
+
+For example,
+Assume that <span class="nv">words</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;practice&#34;</span>, <span class="s2">&#34;makes&#34;</span>, <span class="s2">&#34;perfect&#34;</span>, <span class="s2">&#34;coding&#34;</span>, <span class="s2">&#34;makes&#34;</span><span class="o">]</span>.
+
+Given <span class="nv">word1</span> <span class="o">=</span> “makes”, <span class="nv">word2</span> <span class="o">=</span> “coding”, <span class="k">return</span> 1.
+Given <span class="nv">word1</span> <span class="o">=</span> <span class="s2">&#34;makes&#34;</span>, <span class="nv">word2</span> <span class="o">=</span> <span class="s2">&#34;makes&#34;</span>, <span class="k">return</span> 3.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">shortestDistance</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">words</span><span class="o">,</span> <span class="n">String</span> <span class="n">word1</span><span class="o">,</span> <span class="n">String</span> <span class="n">word2</span><span class="o">)</span> <span class="o">{</span>
+ <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">res</span> <span class="o">=</span><span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">words</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">word1</span> <span class="o">||</span> <span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">word2</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">idx</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">word1</span> <span class="o">==</span> <span class="n">word2</span> <span class="o">||</span> <span class="n">words</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">words</span><span class="o">[</span><span class="n">idx</span><span class="o">]))</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">idx</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>理解 words[i] != words[idx])</p>
+<blockquote>
+<p>String[] words = new String[]{&ldquo;practice&rdquo;, &ldquo;makes&rdquo;,  &ldquo;makes&rdquo;, &ldquo;perfect&rdquo;, &ldquo;coding&rdquo;};</p>
+</blockquote>
+<blockquote>
+<p>String word1 = &ldquo;makes&rdquo;;
+String word2 = &ldquo;coding&rdquo;;</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">practice<span class="s2">&#34;,   &#34;</span>makes<span class="s2">&#34;,   &#34;</span>makes<span class="s2">&#34;,    &#34;</span>perfect<span class="s2">&#34;,  &#34;</span>coding
+                idx
+                i
+                <span class="nv">res</span><span class="o">=</span>max
+                
+                            i   //<span class="o">(</span><span class="nv">word1</span> <span class="o">==</span> word2 <span class="o">||</span> words<span class="o">[</span>i<span class="o">]</span> !<span class="o">=</span> words<span class="o">[</span>idx<span class="o">])</span>
+                            idx // 这时候直接把idx移到i位置，res不更新，因为word1 !<span class="o">=</span> word2
+                            <span class="nv">res</span><span class="o">=</span>max
+
+</code></pre></div><h3 id="字符串中的变位词">字符串中的变位词</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的某个变位词。
+
+换句话说，第一个字符串的排列之一是第二个字符串的 子串 。
+
+ 
+
+示例 1：
+
+输入: <span class="nv">s1</span> <span class="o">=</span> <span class="s2">&#34;ab&#34;</span> <span class="nv">s2</span> <span class="o">=</span> <span class="s2">&#34;eidbaooo&#34;</span>
+输出: True
+解释: s2 包含 s1 的排列之一 <span class="o">(</span><span class="s2">&#34;ba&#34;</span><span class="o">)</span>.
+示例 2：
+
+输入: <span class="nv">s1</span><span class="o">=</span> <span class="s2">&#34;ab&#34;</span> <span class="nv">s2</span> <span class="o">=</span> <span class="s2">&#34;eidboaoo&#34;</span>
+输出: False
+
+
+</code></pre></div><p>使用两个数组统计 s1 中各字符的个数，看个数是否相等</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minSubArrayLen</span><span class="o">(</span><span class="kt">int</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">count1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">26</span><span class="o">];</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">count2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">26</span><span class="o">];</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">count1</span><span class="o">[</span><span class="n">s1</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++;</span>
+            <span class="n">count2</span><span class="o">[</span><span class="n">s2</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++;</span>
+            <span class="n">right</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">count1</span><span class="o">,</span> <span class="n">count2</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">count2</span><span class="o">[</span><span class="n">s2</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++;</span>
+            <span class="n">count2</span><span class="o">[</span><span class="n">s2</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]--;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">count1</span><span class="o">,</span> <span class="n">count2</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="字符串中的所有变位词">字符串中的所有变位词</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定两个字符串 s 和 p，找到 s 中所有 p 的 变位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+
+变位词 指字母相同，但排列不同的字符串。
+
+ 
+
+示例 1:
+
+输入: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;cbaebabacd&#34;</span>, <span class="nv">p</span> <span class="o">=</span> <span class="s2">&#34;abc&#34;</span>
+输出: <span class="o">[</span>0,6<span class="o">]</span>
+解释:
+起始索引等于 <span class="m">0</span> 的子串是 <span class="s2">&#34;cba&#34;</span>, 它是 <span class="s2">&#34;abc&#34;</span> 的变位词。
+起始索引等于 <span class="m">6</span> 的子串是 <span class="s2">&#34;bac&#34;</span>, 它是 <span class="s2">&#34;abc&#34;</span> 的变位词。
+ 示例 2:
+
+输入: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;abab&#34;</span>, <span class="nv">p</span> <span class="o">=</span> <span class="s2">&#34;ab&#34;</span>
+输出: <span class="o">[</span>0,1,2<span class="o">]</span>
+解释:
+起始索引等于 <span class="m">0</span> 的子串是 <span class="s2">&#34;ab&#34;</span>, 它是 <span class="s2">&#34;ab&#34;</span> 的变位词。
+起始索引等于 <span class="m">1</span> 的子串是 <span class="s2">&#34;ba&#34;</span>, 它是 <span class="s2">&#34;ab&#34;</span> 的变位词。
+起始索引等于 <span class="m">2</span> 的子串是 <span class="s2">&#34;ab&#34;</span>, 它是 <span class="s2">&#34;ab&#34;</span> 的变位词。
+
+
+</code></pre></div><p>使用两个数组统计 s1 中各字符的个数，看个数是否相等</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minSubArrayLen</span><span class="o">(</span><span class="kt">int</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">count1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">26</span><span class="o">];</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">count2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">26</span><span class="o">];</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">count1</span><span class="o">[</span><span class="n">p</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++;</span>
+            <span class="n">count2</span><span class="o">[</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">count1</span><span class="o">,</span> <span class="n">count2</span><span class="o">)){</span>
+            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">count2</span><span class="o">[</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++;</span>
+            <span class="n">count2</span><span class="o">[</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]--;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">count1</span><span class="o">,</span> <span class="n">count2</span><span class="o">)){</span>
+            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>l = &ldquo;abcbac&rdquo;, s = &ldquo;ab&rdquo;, return [0, 3] since the substring with length 2 starting from index 0/3 are all anagrams of &ldquo;ab&rdquo; (&ldquo;ab&rdquo;, &ldquo;ba&rdquo;)</strong></p>
+<p><strong>only the count is from 1 to 0, we have &lsquo;a&rsquo;totally matched</strong>
+<strong>match == map.size(), we find an anagram</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">allAnagrams</span><span class="o">(</span><span class="n">String</span> <span class="n">sh</span><span class="o">,</span> <span class="n">String</span> <span class="n">lo</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">lo</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">lo</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">sh</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="n">countMap</span><span class="o">(</span><span class="n">sh</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">match</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lo</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="c1">// handle the rightmost ch at the previous sliding window
+</span><span class="c1"></span>      <span class="kt">char</span> <span class="n">ch</span><span class="o">=</span> <span class="n">lo</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+      <span class="n">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ch</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">count</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">match</span><span class="o">++;</span>
+        <span class="o">}</span> 
+      <span class="o">}</span>
+      <span class="c1">// handle the leftmost ch at the previous sliding window
+</span><span class="c1"></span>      <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">sh</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">lo</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">sh</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ch</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span><span class="n">count</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">match</span><span class="o">--;</span>
+          <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">match</span> <span class="o">==</span> <span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">sh</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">countMap</span><span class="o">(</span><span class="n">String</span> <span class="n">sh</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">ch</span> <span class="o">:</span> <span class="n">sh</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+      <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">count</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">map</span><span class="o">;</span>
+  <span class="o">}</span>
+
+</code></pre></div><h3 id="不含重复字符的最长子字符串">不含重复字符的最长子字符串</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个字符串 s ，请你找出其中不含有重复字符的 最长连续子字符串 的长度。
+
+
+示例 1:
+
+输入: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;abcabcbb&#34;</span>
+输出: <span class="m">3</span> 
+解释: 因为无重复字符的最长子字符串是 <span class="s2">&#34;abc&#34;</span>，所以其长度为 3。
+示例 2:
+
+输入: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;bbbbb&#34;</span>
+输出: <span class="m">1</span>
+解释: 因为无重复字符的最长子字符串是 <span class="s2">&#34;b&#34;</span>，所以其长度为 1。
+示例 3:
+
+输入: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;pwwkew&#34;</span>
+输出: <span class="m">3</span>
+解释: 因为无重复字符的最长子串是 <span class="s2">&#34;wke&#34;</span>，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，<span class="s2">&#34;pwke&#34;</span> 是一个子序列，不是子串。
+示例 4:
+
+输入: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+输出: <span class="m">0</span>
+
+</code></pre></div><p>滑动窗口： 时间空间都是 O(N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">lengthOfLongestSubstring2</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">maxLen</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">&gt;</span> <span class="n">window</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">char</span> <span class="n">rightChar</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">window</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">rightChar</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">window</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">left</span><span class="o">));</span>
+            <span class="n">left</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="n">maxLen</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxLen</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">window</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">rightChar</span><span class="o">);</span>
+        <span class="n">right</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">maxLen</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>其实遇到重复字符， 直接跳到重复字符的后面, 滑动窗口： 时间空间都是 O(N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-JAVA" data-lang="JAVA"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">lengthOfLongestSubstring2</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">maxLen</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">window</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">char</span> <span class="n">rightChar</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">rightCharIndex</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">rightChar</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">rightCharIndex</span><span class="o">);</span>
+        <span class="n">maxLen</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxLen</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">window</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">rightChar</span><span class="o">,</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">right</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">maxLen</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>继续移动
+<figure><img src="/images/sw1.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+</p>
+<figure><img src="/images/sw2.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/sw3.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/sw4.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+
+<p>输入: s = &ldquo;p    w   w   k   e   w&rdquo;
+l
+r
+window[p] = 1
+输出: 3</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">lengthOfLongestSubstring2</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">maxLen</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">window</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">128</span><span class="o">];</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">char</span> <span class="n">rightChar</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">rightCharIndex</span> <span class="o">=</span> <span class="n">window</span><span class="o">[</span><span class="n">rightChar</span><span class="o">];</span> <span class="c1">// 128个已经概括了不需要再 - ‘a’
+</span><span class="c1"></span>        <span class="n">left</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">rightCharIndex</span><span class="o">);</span>
+        <span class="n">maxLen</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxLen</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">window</span><span class="o">[</span><span class="n">rightChar</span><span class="o">]</span> <span class="o">=</span>  <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">right</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">maxLen</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a>
+<a href="https://rileyshen.github.io/post/slidewindow3/" >slidewindow3</a>
+<a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a>
+<a href="https://rileyshen.github.io/post/slidewindow5/" >slidewindow5</a></p>
+<hr>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL</p>
+<p>感谢：她们都有题库在 github 上直接有，都是大神</p>
+<ul>
+<li>
+<p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p>
+</li>
+<li>
+<p>宫水三叶</p>
+</li>
+</ul></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/sliding-window/">Sliding Window</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

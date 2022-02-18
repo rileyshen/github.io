@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about Sliding Window3 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/slidewindow3/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about Sliding Window3"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about Sliding Window3</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">6-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Sliding Window pattern in algorithm, 滑动窗口套路</p>
+<p>滑动窗口更多处理连续问题， &ldquo;Longest Substring“， ”Subarray“</p>
+<p><a href="#%e5%92%8c%e5%a4%a7%e4%ba%8e%e7%ad%89%e4%ba%8etarget%e7%9a%84%e6%9c%80%e7%9f%ad%e5%ad%90%e6%95%b0%e7%bb%84" >和大于等于 target 的最短子数组</a>
+<a href="#%e4%b9%98%e7%a7%af%e5%b0%8f%e4%ba%8eK%e7%9a%84%e5%ad%90%e6%95%b0%e7%bb%84" >乘积小于 K 的子数组</a>
+<a href="#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc" >滑动窗口的最大值</a>
+<a href="#%e5%80%bc%e5%92%8c%e4%b8%8b%e6%a0%87%e4%b9%8b%e5%b7%ae%e9%83%bd%e5%9c%a8%e7%bb%99%e5%ae%9a%e7%9a%84%e8%8c%83%e5%9b%b4%e5%86%85" >值和下标之差都在给定的范围内</a>
+<a href="#Maximum-Values-Of-Size-K-Sliding-Windowss" >Maximum Values Of Size K Sliding Windowss</a></p>
+<p>😼😼😼😼</p>
+<h3 id="和大于等于-target-的最短子数组">和大于等于 target 的最短子数组</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个含有 n 个正整数的数组和一个正整数 target 。
+
+找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 <span class="o">[</span>numsl, numsl+1, ..., numsr-1, numsr<span class="o">]</span> ，并返回其长度。如果不存在符合条件的子数组，返回 <span class="m">0</span> 。
+
+示例 1：
+
+输入：target <span class="o">=</span> 7, <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>2,3,1,2,4,3<span class="o">]</span>
+输出：2
+解释：子数组 <span class="o">[</span>4,3<span class="o">]</span> 是该条件下的长度最小的子数组。
+</code></pre></div><p>思路知道，但是代码不优雅，而且有可能结果是 0， 因为始终达不到</p>
+<p>target， 所以 sum 小于 target，res 就是 0，所以条件函数里只计算 sum &gt;= target, 更新 res， slow 指针更新</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minSubArrayLen</span><span class="o">(</span><span class="kt">int</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">sum</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">];</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+                <span class="n">sum</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+                <span class="n">slow</span><span class="o">++;</span>
+            <span class="o">}</span>
+           <span class="n">fast</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="乘积小于-k-的子数组">乘积小于 K 的子数组</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个正整数数组 nums和整数 k ，请找出该数组内乘积小于 k 的连续的子数组的个数。
+示例 1：
+输入: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>10,5,2,6<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">100</span>
+输出: <span class="m">8</span>
+解释: <span class="m">8</span> 个乘积小于 <span class="m">100</span> 的子数组分别为: <span class="o">[</span>10<span class="o">]</span>, <span class="o">[</span>5<span class="o">]</span>, <span class="o">[</span>2<span class="o">]</span>, <span class="o">[</span>6<span class="o">]</span>, <span class="o">[</span>10,5<span class="o">]</span>, <span class="o">[</span>5,2<span class="o">]</span>, <span class="o">[</span>2,6<span class="o">]</span>, <span class="o">[</span>5,2,6<span class="o">]</span>。
+需要注意的是 <span class="o">[</span>10,5,2<span class="o">]</span> 并不是乘积小于100的子数组。
+
+</code></pre></div><p>个数的规律没有推算出来</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minSubArrayLen</span><span class="o">(</span><span class="kt">int</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span> <span class="n">k</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">*=</span> <span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">];</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">slow</span> <span class="o">&lt;=</span> <span class="n">fast</span> <span class="o">&amp;&amp;</span> <span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">){</span>
+                <span class="n">sum</span> <span class="o">/=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">++];</span>
+            <span class="o">}</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="o">(</span><span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="n">fast</span><span class="o">++;</span>
+            
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="滑动窗口的最大值">滑动窗口的最大值</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
+
+示例:
+
+输入: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>1,3,-1,-3,5,3,6,7<span class="o">]</span>, 和 <span class="nv">k</span> <span class="o">=</span> <span class="m">3</span>
+输出: <span class="o">[</span>3,3,5,5,6,7<span class="o">]</span> 
+解释: 
+
+  滑动窗口的位置                最大值
+---------------               -----
+<span class="o">[</span><span class="m">1</span>  <span class="m">3</span>  -1<span class="o">]</span> -3  <span class="m">5</span>  <span class="m">3</span>  <span class="m">6</span>  <span class="m">7</span>       <span class="m">3</span>
+ <span class="m">1</span> <span class="o">[</span><span class="m">3</span>  -1  -3<span class="o">]</span> <span class="m">5</span>  <span class="m">3</span>  <span class="m">6</span>  <span class="m">7</span>       <span class="m">3</span>
+ <span class="m">1</span>  <span class="m">3</span> <span class="o">[</span>-1  -3  5<span class="o">]</span> <span class="m">3</span>  <span class="m">6</span>  <span class="m">7</span>       <span class="m">5</span>
+ <span class="m">1</span>  <span class="m">3</span>  -1 <span class="o">[</span>-3  <span class="m">5</span>  3<span class="o">]</span> <span class="m">6</span>  <span class="m">7</span>       <span class="m">5</span>
+ <span class="m">1</span>  <span class="m">3</span>  -1  -3 <span class="o">[</span><span class="m">5</span>  <span class="m">3</span>  6<span class="o">]</span> <span class="m">7</span>       <span class="m">6</span>
+ <span class="m">1</span>  <span class="m">3</span>  -1  -3  <span class="m">5</span> <span class="o">[</span><span class="m">3</span>  <span class="m">6</span>  7<span class="o">]</span>      <span class="m">7</span>
+
+</code></pre></div><p>移动窗口找最大值考虑单调队列, 队列里的元素一定是要排序的，而且要最大值放在出队口</p>
+<p>设计单调队列的时候，pop，和 push 操作要保持如下规则：</p>
+<p>pop(value)：如果窗口移除的元素 value 等于单调队列的出口元素，那么队列弹出元素，否则不用任何
+操作</p>
+<p>push(value)：如果 push 的元素 value 大于入口元素的数值，那么就将队列入口的元素弹出，直到
+push 元素的数值小于等于队列入口元素的数值为止</p>
+<p>空间复杂度就很简单了，就是窗口的大小 O(k)O(k)。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">maxSlidingWindow</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">deque</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">deque</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">deque</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">deque</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">deque</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">deque</span><span class="o">.</span><span class="na">peekLast</span><span class="o">()]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">deque</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">deque</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">[</span><span class="n">index</span><span class="o">++]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">deque</span><span class="o">.</span><span class="na">peek</span><span class="o">()];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>里面不是一个数据</strong></p>
+<p>nums = [1, 2, 3, 2, 4, 2, 1]
+i  i</p>
+<p>deque: [2, 3]</p>
+<p>当 i = 4， 5， 6 时候，数据是 4 2 1</p>
+<p>全部塞入 deque 中</p>
+<p>deque：[4, 5, 6]</p>
+<p>设计 api 的方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">MyDeque</span> <span class="o">{</span>
+    <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">deque</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+<span class="c1">// 要弹出的是否是队列出口的数值，相等就弹出
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="nf">poll</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(!</span><span class="n">deque</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">deque</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">==</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">deque</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(!</span><span class="n">deque</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">deque</span><span class="o">.</span><span class="na">peekLast</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">deque</span><span class="o">.</span><span class="na">removeLast</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">deque</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">peek</span><span class="o">()</span> <span class="o">{</span>
+        
+        <span class="k">return</span> <span class="n">deque</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">maxSlidingWindow</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+        <span class="n">MyDeque</span> <span class="n">deque</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyDeque</span><span class="o">&lt;&gt;();</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">deque</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+
+        <span class="n">res</span><span class="o">[</span><span class="n">index</span><span class="o">++]</span> <span class="o">=</span> <span class="n">deque</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">deque</span><span class="o">.</span><span class="na">poll</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">k</span><span class="o">]);</span>
+             <span class="n">deque</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">]);</span>
+             <span class="n">res</span><span class="o">[</span><span class="n">index</span><span class="o">++]</span> <span class="o">=</span> <span class="n">deque</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="值和下标之差都在给定的范围内">值和下标之差都在给定的范围内</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">给你一个整数数组</span> <span class="n">nums</span> <span class="n">和两个整数</span> <span class="n">k</span> <span class="n">和</span> <span class="n">t</span> <span class="err">。</span><span class="n">请你判断是否存在</span> <span class="n">两个不同下标</span> <span class="n">i</span> <span class="n">和</span> <span class="n">j</span><span class="err">，</span><span class="n">使得</span> <span class="nf">abs</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">])</span> <span class="o">&lt;=</span> <span class="n">t</span> <span class="err">，</span><span class="n">同时又满足</span> <span class="nf">abs</span><span class="o">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="o">)</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="err">。</span>
+
+<span class="n">如果存在则返回</span> <span class="kc">true</span><span class="err">，</span><span class="n">不存在返回</span> <span class="kc">false</span><span class="err">。</span>
+<span class="n">示例</span> <span class="n">1</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">3</span><span class="o">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">0</span>
+<span class="n">输出</span><span class="err">：</span><span class="kc">true</span>
+<span class="n">示例</span> <span class="n">2</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">1</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">1</span><span class="o">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">2</span>
+<span class="n">输出</span><span class="err">：</span><span class="kc">true</span>
+<span class="n">示例</span> <span class="n">3</span><span class="err">：</span>
+
+<span class="n">输入</span><span class="err">：</span><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="n">1</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">9</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">9</span><span class="o">],</span> <span class="n">k</span> <span class="o">=</span> <span class="n">2</span><span class="o">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">3</span>
+<span class="n">输出</span><span class="err">：</span><span class="kc">false</span>
+
+</code></pre></div><p><a href="https://leetcode-cn.com/problems/contains-duplicate-iii/solution/gong-shui-san-xie-yi-ti-shuang-jie-hua-d-dlnv/"  target="_blank" >宫水三叶</a></p>
+<figure><img src="/images/sw5.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+
+<p>时间复杂度：TreeSet 基于红黑树，查找和插入都是 O(\log{k})O(logk) 复杂度。整体复杂度为 O(n\log{k})O(nlogk)
+空间复杂度：O(k)O(k)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">containsNearbyAlmostDuplicate</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">,</span> <span class="kt">int</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">nums</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;&gt;();</span>
+    <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="n">nums</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">k</span><span class="o">)</span> <span class="n">set</span><span class="o">.</span><span class="na">remove</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="n">1</span><span class="o">]);</span>
+        <span class="kt">long</span> <span class="n">left</span> <span class="o">=</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">t</span><span class="o">;</span>
+        <span class="kt">long</span> <span class="n">right</span> <span class="o">=</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">t</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">set</span><span class="o">.</span><span class="na">subSet</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">).</span><span class="na">isEmpty</span><span class="o">())</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">((</span><span class="kt">long</span><span class="o">)</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+  <span class="o">}</span>
+       <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">ts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Long</span> <span class="n">u</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">*</span> <span class="n">1L</span><span class="o">;</span>
+            <span class="c1">// 从 ts 中找到小于等于 u 的最大值（小于等于 u 的最接近 u 的数）
+</span><span class="c1"></span>            <span class="n">Long</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">floor</span><span class="o">(</span><span class="n">u</span><span class="o">);</span> 
+            <span class="c1">// 从 ts 中找到大于等于 u 的最小值（大于等于 u 的最接近 u 的数）
+</span><span class="c1"></span>            <span class="n">Long</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">ceiling</span><span class="o">(</span><span class="n">u</span><span class="o">);</span> 
+            <span class="k">if</span><span class="o">(</span><span class="n">l</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">u</span> <span class="o">-</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">r</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">-</span> <span class="n">u</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="c1">// 将当前数加到 ts 中，并移除下标范围不在 [max(0, i - k), i) 的数（维持滑动窗口大小为 k）
+</span><span class="c1"></span>            <span class="n">ts</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">u</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">)</span> <span class="n">ts</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">k</span><span class="o">]</span> <span class="o">*</span> <span class="n">1L</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>桶排序
+上述解法无法做到线性的原因是：我们需要在大小为 k 的滑动窗口所在的「有序集合」中找到与 u 接近的数。</p>
+<p>如果我们能够将 k 个数字分到 kk 个桶的话，那么我们就能 O(1)O(1) 的复杂度确定是否有 [u - t, u + t][u−t,u+t] 的数字（检查目标桶是否有元素）。</p>
+<p>具体的做法为：令桶的大小为 size = t + 1size=t+1，根据 u 计算所在桶编号：</p>
+<p>如果已经存在该桶，说明前面已有 [u - t, u + t][u−t,u+t] 范围的数字，返回 true
+如果不存在该桶，则检查相邻两个桶的元素是有 [u - t, u + t][u−t,u+t] 范围的数字，如有 返回 true
+建立目标桶，并删除下标范围不在 [max(0, i - k), i)[max(0,i−k),i) 内的桶</p>
+<figure><img src="/images/sw7.png"
+         alt="image"/><figcaption>
+            <h4>slide window</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">containsNearbyAlmostDuplicate</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">,</span> <span class="kt">int</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="kt">long</span> <span class="n">w</span> <span class="o">=</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span><span class="n">t</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">m</span> <span class="o">=</span> <span class="n">getID</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">w</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">m</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">1</span><span class="o">))</span> <span class="o">&lt;</span> <span class="n">w</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">d</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">1</span><span class="o">))</span> <span class="o">&lt;</span> <span class="n">w</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="n">d</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">m</span><span class="o">,</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">)</span> <span class="n">d</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">getID</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">k</span><span class="o">],</span> <span class="n">w</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+      <span class="kd">private</span> <span class="kt">long</span> <span class="nf">getID</span><span class="o">(</span><span class="kt">long</span> <span class="n">i</span><span class="o">,</span> <span class="kt">long</span> <span class="n">w</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">?</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">/</span> <span class="n">w</span> <span class="o">-</span> <span class="n">1</span> <span class="o">:</span> <span class="n">i</span> <span class="o">/</span> <span class="n">w</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="maximum-values-of-size-k-sliding-windowss">Maximum Values Of Size K Sliding Windowss</h3>
+<p><a id="markdown-maximum-values-of-size-k-sliding-windowss" name="maximum-values-of-size-k-sliding-windowss"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array A and a sliding window of size K, find the maximum value of each window as it slides from left to right.
+
+Assumptions
+
+The given array is not null and is not empty
+
+K &gt;<span class="o">=</span> 1, K &lt;<span class="o">=</span> A.length
+
+Examples
+
+<span class="nv">A</span> <span class="o">=</span> <span class="o">{</span>1, 2, 3, 2, 4, 2, 1<span class="o">}</span>, <span class="nv">K</span> <span class="o">=</span> 3, the windows are <span class="o">{{</span>1,2,3<span class="o">}</span>, <span class="o">{</span>2,3,2<span class="o">}</span>, <span class="o">{</span>3,2,4<span class="o">}</span>, <span class="o">{</span>2,4,2<span class="o">}</span>, <span class="o">{</span>4,2,1<span class="o">}}</span>,
+
+and the maximum values of each K-sized sliding window are <span class="o">[</span>3, 3, 4, 4, 4<span class="o">]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">maxWindows</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stack</span><span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">fast</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="k">while</span><span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">&lt;=</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">k</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">();</span>
+      <span class="o">}</span>
+      <span class="k">while</span><span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="o">[</span><span class="n">stack</span><span class="o">.</span><span class="na">peekLast</span><span class="o">()]</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">[</span><span class="n">fast</span><span class="o">])</span> <span class="o">{</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>   
+      <span class="o">}</span>
+      <span class="n">stack</span><span class="o">.</span><span class="na">offerLast</span><span class="o">(</span><span class="n">fast</span><span class="o">);</span>
+
+      <span class="k">if</span> <span class="o">(</span><span class="n">fast</span> <span class="o">&gt;=</span> <span class="n">k</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">stack</span><span class="o">.</span><span class="na">peekFirst</span><span class="o">()]);</span>
+      <span class="o">}</span>  
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><p><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a>
+<a href="https://rileyshen.github.io/post/slidewindow2/" >slidewindow2</a>
+<a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a>
+<a href="https://rileyshen.github.io/post/slidewindow5/" >slidewindow5</a></p>
+<hr>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL</p>
+<p>感谢：她们都有题库在 github 上直接有，都是大神</p>
+<ul>
+<li>
+<p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p>
+</li>
+<li>
+<p>宫水三叶</p>
+</li>
+</ul></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/sliding-window/">Sliding Window</a><a class="tag" href="/tags/treeset/">treeset</a><a class="tag" href="/tags/%E6%A1%B6%E6%8E%92%E5%BA%8F/">桶排序</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

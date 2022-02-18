@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | SpringMVC learning code 3 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="springMVC learning code">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/springmvc3/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="SpringMVC learning code 3"/>
+<meta name="twitter:description" content="springMVC learning code"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>SpringMVC learning code 3</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Mon, Aug 16, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">5-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>This is my learning note about SpringMVC with Code Examples .</p>
+<!-- TOC -->
+<ul>
+<li><a href="#springmvc-%E7%9A%84%E8%A7%86%E5%9B%BE" >SpringMVC 的视图</a>
+<ul>
+<li><a href="#thymeleafview" >、ThymeleafView</a></li>
+<li><a href="#%E8%BD%AC%E5%8F%91%E8%A7%86%E5%9B%BE" >、转发视图</a></li>
+<li><a href="#%E9%87%8D%E5%AE%9A%E5%90%91%E8%A7%86%E5%9B%BE" >、重定向视图</a></li>
+<li><a href="#%E8%A7%86%E5%9B%BE%E6%8E%A7%E5%88%B6%E5%99%A8-view-controller" >、视图控制器 view-controller</a></li>
+</ul>
+</li>
+<li><a href="#restful" >RESTful</a>
+<ul>
+<li><a href="#restful-%E7%AE%80%E4%BB%8B" >、RESTful 简介</a></li>
+<li><a href="#restful-%E7%9A%84%E5%AE%9E%E7%8E%B0" >、RESTful 的实现</a></li>
+<li><a href="#restful-%E4%BB%A3%E7%A0%81" >、RESTful 代码</a></li>
+<li><a href="#hiddenhttpmethodfilter" >、HiddenHttpMethodFilter</a></li>
+<li><a href="#method--requestmethodput-%E6%98%AF%E6%97%A0%E6%B3%95%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E7%9A%84%E9%BB%98%E8%AE%A4-get-%E6%96%B9%E6%B3%95-hiddenhttpmethodfilter%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98" >&amp;ldquo;method = RequestMethod.PUT&amp;rdquo; 是无法修改数据的，默认 get 方法， &lt;strong&gt;HiddenHttpMethodFilter&lt;/strong&gt;解决这个问题</a></li>
+</ul>
+</li>
+<li><a href="#restful-example" >RESTful Example</a>
+<ul>
+<li><a href="#%E6%90%AD%E5%BB%BA-%E6%A8%A1%E5%9D%97---webxml-2-filter-servlet---springmvcxml---controller---springmvcxmlcomponent-scan-thymeleaf" >、搭建： 模块 -》 web.xml 2 filter/ servlet -&amp;gt; springMVC.xml &amp;ndash;&amp;gt;controller &amp;ndash;&amp;gt;springMVC.xmlcomponent-scan/ thymeleaf</a></li>
+<li><a href="#%E5%8A%9F%E8%83%BD%E6%B8%85%E5%8D%95" >、功能清单</a></li>
+<li><a href="#controller-dao-%E5%AF%B9%E8%B1%A1" >controller， dao 对象</a></li>
+<li><a href="#%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%E8%AE%BF%E9%97%AE%E9%A6%96%E9%A1%B5" >具体功能：访问首页</a></li>
+<li><a href="#%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E5%88%97%E8%A1%A8%E5%8A%9F%E8%83%BD" >具体功能：实现列表功能</a></li>
+<li><a href="#%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%E5%88%A0%E9%99%A4" >、具体功能：删除</a>
+<ul>
+<li><a href="#%E5%88%A0%E9%99%A4%E8%B6%85%E9%93%BE%E6%8E%A5%E7%BB%91%E5%AE%9A%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6" >删除超链接绑定点击事件</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" >控制器方法</a>
+<ul>
+<li><a href="#dispatcherservlet-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90-%E8%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4-servlet" >DispatcherServlet 无法访问静态资源！！！！ 要用默认 servlet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD" >、具体功能：添加功能</a></li>
+<li><a href="#%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD" >、具体功能：修改功能</a>
+<ul>
+<li><a href="#%E4%BF%AE%E6%94%B9%E8%B6%85%E9%93%BE%E6%8E%A5" >修改超链接</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" >控制器方法</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-employee_updatehtml" >创建 employee_update.html</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" >控制器方法</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F%E8%A6%81%E5%85%88%E5%9B%9E%E6%98%BE%E7%84%B6%E5%90%8E%E7%A1%AE%E5%AE%9A%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%E5%9B%A0%E4%B8%BA%E6%98%AF-put%E6%89%80%E4%BB%A5%E8%A6%81%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%E7%A1%AE%E4%BF%9D%E8%A1%A8%E5%8D%95-method-%E6%98%AF-post-%E9%87%8C%E9%9D%A2%E6%9C%89%E4%B8%AA-hidden-input-value-%E6%98%AF-put" >修改方式要先回显，然后确定请求方式，因为是 put，所以要特殊处理，确保表单 method 是 post， 里面有个 hidden input， value 是 put</a></li>
+</ul>
+</li>
+<li><a href="#httpmessageconverter" >HttpMessageConverter</a>
+<ul>
+<li><a href="#requestbody" >、@RequestBody</a></li>
+<li><a href="#requestentity" >、RequestEntity</a></li>
+<li><a href="#responsebody" >、@ResponseBody</a>
+<ul>
+<li><a href="#%E9%80%9A%E8%BF%87-servletapi-%E5%93%8D%E5%BA%94" >通过 servletAPI 响应</a></li>
+<li><a href="#%E9%80%9A%E8%BF%87-springmvc-%E6%B3%A8%E8%A7%A3-%E5%93%8D%E5%BA%94" >通过 SpringMVC 注解 响应</a></li>
+</ul>
+</li>
+<li><a href="#springmvc-%E5%A4%84%E7%90%86-json" >、SpringMVC 处理 json</a>
+<ul>
+<li><a href="#a%E5%AF%BC%E5%85%A5-jackson-%E7%9A%84%E4%BE%9D%E8%B5%96" >&lt;strong&gt;a&amp;gt;导入 jackson 的依赖&lt;/strong&gt;</a></li>
+<li><a href="#%E5%9C%A8-springmvc-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E5%BC%80%E5%90%AF-mvc-%E7%9A%84%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E6%AD%A4%E6%97%B6%E5%9C%A8-handleradaptor-%E4%B8%AD%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E8%BD%AC%E6%8D%A2%E5%99%A8mappingjackson2httpmessageconverter%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%93%8D%E5%BA%94%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84-java-%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BA-json-%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2" >在 SpringMVC 的核心配置文件中开启 mvc 的注解驱动，此时在 HandlerAdaptor 中会自动装配一个消息转换器：MappingJackson2HttpMessageConverter，可以将响应到浏览器的 Java 对象转换为 Json 格式的字符串</a></li>
+<li><a href="#%E5%9C%A8%E5%A4%84%E7%90%86%E5%99%A8%E6%96%B9%E6%B3%95%E4%B8%8A%E4%BD%BF%E7%94%A8responsebody-%E6%B3%A8%E8%A7%A3%E8%BF%9B%E8%A1%8C%E6%A0%87%E8%AF%86" >在处理器方法上使用@ResponseBody 注解进行标识</a></li>
+<li><a href="#%E5%B0%86-java-%E5%AF%B9%E8%B1%A1%E7%9B%B4%E6%8E%A5%E4%BD%9C%E4%B8%BA%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%94%E5%9B%9E%E5%B0%B1%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA-json-%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2" >将 Java 对象直接作为控制器方法的返回值返回，就会自动转换为 Json 格式的字符串</a></li>
+</ul>
+</li>
+<li><a href="#springmvc-%E5%A4%84%E7%90%86-ajax" >、SpringMVC 处理 ajax</a>
+<ul>
+<li><a href="#%E8%AF%B7%E6%B1%82%E8%B6%85%E9%93%BE%E6%8E%A5" >请求超链接</a></li>
+<li><a href="#%E9%80%9A%E8%BF%87-vue-%E5%92%8C-axios-%E5%A4%84%E7%90%86%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6" >通过 vue 和 axios 处理点击事件</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" >控制器方法</a></li>
+</ul>
+</li>
+<li><a href="#restcontroller-%E6%B3%A8%E8%A7%A3" >、@RestController 注解</a></li>
+<li><a href="#responseentity" >、ResponseEntity</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="springmvc-的视图">SpringMVC 的视图</h2>
+<p><a id="markdown-springmvc-%E7%9A%84%E8%A7%86%E5%9B%BE" name="springmvc-%E7%9A%84%E8%A7%86%E5%9B%BE"></a></p>
+<p>SpringMVC 中的视图是 View 接口，视图的作用渲染数据，将模型 Model 中的数据展示给用户</p>
+<p>SpringMVC 视图的种类很多，默认有<strong>转发视图</strong>和<strong>重定向视图</strong></p>
+<p>当工程引入 <strong>jstl</strong> 的依赖，转发视图会自动转换为 <strong>JstlView</strong></p>
+<p>若使用的视图技术为 Thymeleaf，在 SpringMVC 的配置文件中配置了 Thymeleaf 的视图解析器，由此视图解析器解析之后所得到的是 ThymeleafView</p>
+<h3 id="thymeleafview">、ThymeleafView</h3>
+<p><a id="markdown-%E3%80%81thymeleafview" name="%E3%80%81thymeleafview"></a></p>
+<p>当控制器方法中所设置的视图名称没有任何前缀时，此时的视图名称会被 SpringMVC 配置文件中所配置的视图解析器解析，视图名称拼接视图前缀和视图后缀所得到的最终路径，会通过转发的方式实现跳转</p>
+<h3 id="转发视图">、转发视图</h3>
+<p><a id="markdown-%E3%80%81%E8%BD%AC%E5%8F%91%E8%A7%86%E5%9B%BE" name="%E3%80%81%E8%BD%AC%E5%8F%91%E8%A7%86%E5%9B%BE"></a></p>
+<p>SpringMVC 中默认的转发视图是 InternalResourceView</p>
+<p>SpringMVC 中创建转发视图的情况：</p>
+<p>当控制器方法中所设置的视图名称以&quot;forward:&ldquo;为前缀时，创建 InternalResourceView 视图，此时的视图名称不会被 SpringMVC 配置文件中所配置的视图解析器解析，而是会将前缀&quot;forward:&ldquo;去掉，剩余部分作为最终路径通过转发的方式实现跳转</p>
+<p>例如&quot;forward:/&quot;，&ldquo;forward:/employee&rdquo;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testForward&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testForward</span><span class="o">(){</span>
+    <span class="k">return</span> <span class="s">&#34;forward:/testHello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="重定向视图">、重定向视图</h3>
+<p><a id="markdown-%E3%80%81%E9%87%8D%E5%AE%9A%E5%90%91%E8%A7%86%E5%9B%BE" name="%E3%80%81%E9%87%8D%E5%AE%9A%E5%90%91%E8%A7%86%E5%9B%BE"></a></p>
+<p>游览器发送了两次请求， 可以跨域</p>
+<p>SpringMVC 中默认的重定向视图是 RedirectView</p>
+<p>当控制器方法中所设置的视图名称以&quot;redirect:&ldquo;为前缀时，创建 RedirectView 视图，此时的视图名称不会被 SpringMVC 配置文件中所配置的视图解析器解析，而是会将前缀&quot;redirect:&ldquo;去掉，剩余部分作为最终路径通过重定向的方式实现跳转</p>
+<p>例如&quot;redirect:/&quot;，&ldquo;redirect:/employee&rdquo;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testRedirect&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testRedirect</span><span class="o">(){</span>
+    <span class="k">return</span> <span class="s">&#34;redirect:/testHello&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<p>注：</p>
+<p>重定向视图在解析时，会先将 redirect:前缀去掉，然后会判断剩余部分是否以/开头，若是则会自动拼接上下文路径</p>
+</blockquote>
+<h3 id="视图控制器-view-controller">、视图控制器 view-controller</h3>
+<p><a id="markdown-%E3%80%81%E8%A7%86%E5%9B%BE%E6%8E%A7%E5%88%B6%E5%99%A8-view-controller" name="%E3%80%81%E8%A7%86%E5%9B%BE%E6%8E%A7%E5%88%B6%E5%99%A8-view-controller"></a></p>
+<p>当控制器方法中，仅仅用来实现页面跳转，没有任何其他请求，即只需要设置视图名称时，可以将处理器方法使用 view-controller 标签进行表示</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	path：设置处理的请求地址
+</span><span class="c">	view-name：设置请求地址所对应的视图名称
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;mvc:view-controller</span> <span class="na">path=</span><span class="s">&#34;/testView&#34;</span> <span class="na">view-name=</span><span class="s">&#34;success&#34;</span><span class="nt">&gt;&lt;/mvc:view-controller&gt;</span>
+</code></pre></div><blockquote>
+<p>注：</p>
+<p>当 SpringMVC 中设置任何一个 view-controller 时，其他控制器中的请求映射将全部失效，此时需要在 SpringMVC 的核心配置文件中设置开启 mvc 注解驱动的标签：</p>
+<p>&lt;mvc:annotation-driven /&gt;</p>
+</blockquote>
+<h2 id="restful">RESTful</h2>
+<p><a id="markdown-restful" name="restful"></a></p>
+<h3 id="restful-简介">、RESTful 简介</h3>
+<p><a id="markdown-%E3%80%81restful-%E7%AE%80%E4%BB%8B" name="%E3%80%81restful-%E7%AE%80%E4%BB%8B"></a></p>
+<p>REST：<strong>Re</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer，表现层资源状态转移。</p>
+<h3 id="restful-的实现">、RESTful 的实现</h3>
+<p><a id="markdown-%E3%80%81restful-%E7%9A%84%E5%AE%9E%E7%8E%B0" name="%E3%80%81restful-%E7%9A%84%E5%AE%9E%E7%8E%B0"></a></p>
+<p>具体说，就是 HTTP 协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。</p>
+<p>它们分别对应四种基本操作：GET 用来获取资源，POST 用来新建资源，PUT 用来更新资源，DELETE 用来删除资源。</p>
+<p>REST 风格提倡 URL 地址使用统一的风格设计，从前到后各个单词使用斜杠分开，不使用问号键值对方式携带请求参数，而是将要发送给服务器的数据作为 URL 地址的一部分，以保证整体风格的一致性。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>传统方式</th>
+<th>REST 风格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查询操作</td>
+<td>getUserById?id=1</td>
+<td>user/1&ndash;&gt;get 请求方式</td>
+</tr>
+<tr>
+<td>保存操作</td>
+<td>saveUser</td>
+<td>user&ndash;&gt;post 请求方式</td>
+</tr>
+<tr>
+<td>删除操作</td>
+<td>deleteUser?id=1</td>
+<td>user/1&ndash;&gt;delete 请求方式</td>
+</tr>
+<tr>
+<td>更新操作</td>
+<td>updateUser</td>
+<td>user&ndash;&gt;put 请求方式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="restful-代码">、RESTful 代码</h3>
+<p><a id="markdown-%E3%80%81restful-%E4%BB%A3%E7%A0%81" name="%E3%80%81restful-%E4%BB%A3%E7%A0%81"></a></p>
+<p><strong>controller</strong></p>
+<figure><img src="/images/SMVC17.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/SMVC18.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h3 id="hiddenhttpmethodfilter">、HiddenHttpMethodFilter</h3>
+<p><a id="markdown-%E3%80%81hiddenhttpmethodfilter" name="%E3%80%81hiddenhttpmethodfilter"></a></p>
+<h3 id="method--requestmethodput-是无法修改数据的默认-get-方法-hiddenhttpmethodfilter解决这个问题">&ldquo;method = RequestMethod.PUT&rdquo; 是无法修改数据的，默认 get 方法， <strong>HiddenHttpMethodFilter</strong>解决这个问题</h3>
+<p><a id="markdown-%22method-%3D-requestmethod.put%22-%E6%98%AF%E6%97%A0%E6%B3%95%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E7%9A%84%EF%BC%8C%E9%BB%98%E8%AE%A4-get-%E6%96%B9%E6%B3%95%EF%BC%8C-**hiddenhttpmethodfilter**%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98" name="%22method-%3D-requestmethod.put%22-%E6%98%AF%E6%97%A0%E6%B3%95%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E7%9A%84%EF%BC%8C%E9%BB%98%E8%AE%A4-get-%E6%96%B9%E6%B3%95%EF%BC%8C-**hiddenhttpmethodfilter**%E8%A7%A3%E5%86%B3%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98"></a></p>
+<p>由于浏览器只支持发送 get 和 post 方式的请求，那么该如何发送 put 和 delete 请求呢？</p>
+<p>SpringMVC 提供了 <strong>HiddenHttpMethodFilter</strong> 帮助我们<strong>将 POST 请求转换为 DELETE 或 PUT 请求</strong></p>
+<p><strong>HiddenHttpMethodFilter</strong> 处理 put 和 delete 请求的条件：</p>
+<p>a&gt;当前请求的请求方式必须为 post</p>
+<p>b&gt;当前请求必须传输请求参数_method</p>
+<p>满足以上条件，<strong>HiddenHttpMethodFilter</strong> 过滤器就会将当前请求的请求方式转换为请求参数_method 的值，因此请求参数_method 的值才是最终的请求方式</p>
+<p>在 web.xml 中注册<strong>HiddenHttpMethodFilter</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;filter&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>HiddenHttpMethodFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;filter-class&gt;</span>org.springframework.web.filter.HiddenHttpMethodFilter<span class="nt">&lt;/filter-class&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>HiddenHttpMethodFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div><blockquote>
+<p>注：</p>
+<p>目前为止，SpringMVC 中提供了两个过滤器：CharacterEncodingFilter 和 HiddenHttpMethodFilter</p>
+<p>在 web.xml 中注册时，必须先注册 CharacterEncodingFilter，再注册 HiddenHttpMethodFilter</p>
+<p>原因：</p>
+<ul>
+<li>
+<p>在 CharacterEncodingFilter 中通过 request.setCharacterEncoding(encoding) 方法设置字符集的</p>
+</li>
+<li>
+<p>request.setCharacterEncoding(encoding) 方法要求前面不能有任何获取请求参数的操作</p>
+</li>
+<li>
+<p>而 HiddenHttpMethodFilter 恰恰有一个获取请求方式的操作：</p>
+</li>
+<li>
+<p>String paramValue = request.getParameter(this.methodParam);</p>
+</li>
+</ul>
+</blockquote>
+<figure><img src="/images/SMVC19.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h2 id="restful-example">RESTful Example</h2>
+<p><a id="markdown-restful-example" name="restful-example"></a></p>
+<h3 id="搭建-模块---webxml-2-filter-servlet---springmvcxml---controller---springmvcxmlcomponent-scan-thymeleaf">、搭建： 模块 -》 web.xml (2 filter/ servlet) -&gt; springMVC.xml &ndash;&gt;controller &ndash;&gt;springMVC.xml(component-scan/ thymeleaf)</h3>
+<p><a id="markdown-%E3%80%81%E6%90%AD%E5%BB%BA%EF%BC%9A-%E6%A8%A1%E5%9D%97--%E3%80%8B-web.xml-2-filter%2F-servlet--%3E-springmvc.xml---%3Econtroller---%3Espringmvc.xmlcomponent-scan%2F-thymeleaf" name="%E3%80%81%E6%90%AD%E5%BB%BA%EF%BC%9A-%E6%A8%A1%E5%9D%97--%E3%80%8B-web.xml-2-filter%2F-servlet--%3E-springmvc.xml---%3Econtroller---%3Espringmvc.xmlcomponent-scan%2F-thymeleaf"></a></p>
+<h3 id="功能清单">、功能清单</h3>
+<p><a id="markdown-%E3%80%81%E5%8A%9F%E8%83%BD%E6%B8%85%E5%8D%95" name="%E3%80%81%E5%8A%9F%E8%83%BD%E6%B8%85%E5%8D%95"></a></p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>URL 地址</th>
+<th>请求方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访问首页√</td>
+<td>/</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>查询全部数据√</td>
+<td>/employee</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>删除√</td>
+<td>/employee/2</td>
+<td>DELETE</td>
+</tr>
+<tr>
+<td>跳转到添加数据页面√</td>
+<td>/toAdd</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>执行保存√</td>
+<td>/employee</td>
+<td>POST</td>
+</tr>
+<tr>
+<td>跳转到更新数据页面√</td>
+<td>/employee/2</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>执行更新√</td>
+<td>/employee</td>
+<td>PUT</td>
+</tr>
+</tbody>
+</table>
+<h3 id="controller-dao-对象">controller， dao 对象</h3>
+<p><a id="markdown-controller%EF%BC%8C-dao-%E5%AF%B9%E8%B1%A1" name="controller%EF%BC%8C-dao-%E5%AF%B9%E8%B1%A1"></a></p>
+<figure><img src="/images/SMVC20.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<p><strong>要用到依赖注入， 在 controller 文件上，加入 private EmployeeDao employeeDao</strong></p>
+<p>在 springMVC.xml 配置文件上加入扫描包</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;!--</span> <span class="n">扫描组件</span>   <span class="o">--&gt;</span>
+    <span class="o">&lt;</span><span class="n">context</span><span class="o">:</span><span class="n">component</span><span class="o">-</span><span class="n">scan</span> <span class="n">base</span><span class="o">-</span><span class="n">package</span><span class="o">=</span><span class="s">&#34;com.learn.rest&#34;</span><span class="o">/&gt;</span>
+</code></pre></div><h3 id="具体功能访问首页">具体功能：访问首页</h3>
+<p><a id="markdown-%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%AE%BF%E9%97%AE%E9%A6%96%E9%A1%B5" name="%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%AE%BF%E9%97%AE%E9%A6%96%E9%A1%B5"></a></p>
+<figure><img src="/images/SMVC21.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h3 id="具体功能实现列表功能">具体功能：实现列表功能</h3>
+<p><a id="markdown-%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E5%88%97%E8%A1%A8%E5%8A%9F%E8%83%BD" name="%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E5%88%97%E8%A1%A8%E5%8A%9F%E8%83%BD"></a></p>
+<p><strong>没有用 axois， 所以要页面显示数据，必须要通过控制层处理</strong></p>
+<figure><img src="/images/SMVC22.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/SMVC23.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h3 id="具体功能删除">、具体功能：删除</h3>
+<p><a id="markdown-%E3%80%81%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4" name="%E3%80%81%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4"></a></p>
+<p><strong>方法 1：</strong>
+<figure><img src="/images/SMVC24.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+</p>
+<p><strong>方法 2：</strong></p>
+<blockquote>
+<p><a th:href="@{'/employee/'+${employee.id}}">delete</a></p>
+</blockquote>
+<p><strong>在 static 下面创建一个 js 文件，不能放 templates 下面，因为默认都是转发</strong></p>
+<h4 id="删除超链接绑定点击事件">删除超链接绑定点击事件</h4>
+<p><a id="markdown-%E5%88%A0%E9%99%A4%E8%B6%85%E9%93%BE%E6%8E%A5%E7%BB%91%E5%AE%9A%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6" name="%E5%88%A0%E9%99%A4%E8%B6%85%E9%93%BE%E6%8E%A5%E7%BB%91%E5%AE%9A%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"></a></p>
+<p>引入 vue.js</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">th:src</span><span class="o">=</span><span class="s">&#34;@{/static/js/vue.js}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>删除超链接: 点击超链接， 取消默认行为， 而去提交表单， post， &ldquo;_method&rdquo;， 将请求方式转为 delete</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;deleteA&#34;</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;deleteEmployee&#34;</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&#34;@{&#39;/employee/&#39;+${employee.id}}&#34;</span><span class="p">&gt;</span>delete<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div><p>通过 vue 处理点击事件</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">vue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s2">&#34;#dataTable&#34;</span><span class="p">,</span>
+        <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+            <span class="c1">//event表示当前事件
+</span><span class="c1"></span>            <span class="nx">deleteEmployee</span><span class="o">:</span><span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">//通过id获取表单标签
+</span><span class="c1"></span>                <span class="kd">var</span> <span class="nx">delete_form</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;delete_form&#34;</span><span class="p">);</span>
+                <span class="c1">//将触发事件的超链接的href属性为表单的action属性赋值
+</span><span class="c1"></span>                <span class="nx">delete_form</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+                <span class="c1">//提交表单
+</span><span class="c1"></span>                <span class="nx">delete_form</span><span class="p">.</span><span class="nx">submit</span><span class="p">();</span>
+                <span class="c1">//阻止超链接的默认跳转行为
+</span><span class="c1"></span>                <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="控制器方法">控制器方法</h4>
+<p><a id="markdown-%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" name="%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/employee/{id}&#34;</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">DELETE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">deleteEmployee</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">){</span>
+    <span class="n">employeeDao</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;redirect:/employee&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><figure><img src="/images/SMVC25.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/SMVC26.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<p><strong>报错</strong>
+<figure><img src="/images/SMVC27.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+</p>
+<p><strong>重新打包后，依然 404</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nl">20:</span><span class="n">54</span><span class="o">:</span><span class="n">29</span><span class="o">.</span><span class="na">327</span> <span class="o">[</span><span class="n">http</span><span class="o">-</span><span class="n">nio</span><span class="o">-</span><span class="n">8080</span><span class="o">-</span><span class="n">exec</span><span class="o">-</span><span class="n">38</span><span class="o">]</span> <span class="n">DEBUG</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">web</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">DispatcherServlet</span> <span class="o">-</span> <span class="n">GET</span> <span class="s">&#34;/springMVC/employee/1001&#34;</span><span class="o">,</span> <span class="n">parameters</span><span class="o">={}</span>
+<span class="nl">20:</span><span class="n">54</span><span class="o">:</span><span class="n">29</span><span class="o">.</span><span class="na">331</span> <span class="o">[</span><span class="n">http</span><span class="o">-</span><span class="n">nio</span><span class="o">-</span><span class="n">8080</span><span class="o">-</span><span class="n">exec</span><span class="o">-</span><span class="n">38</span><span class="o">]</span> <span class="n">WARN</span> <span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">web</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">PageNotFound</span> <span class="o">-</span> <span class="n">No</span> <span class="n">mapping</span> <span class="k">for</span> <span class="n">GET</span> <span class="o">/</span><span class="n">springMVC</span><span class="o">/</span><span class="n">employee</span><span class="o">/</span><span class="n">1001</span>
+</code></pre></div><h5 id="dispatcherservlet-无法访问静态资源-要用默认-servlet">DispatcherServlet 无法访问静态资源！！！！ 要用默认 servlet</h5>
+<p><a id="markdown-dispatcherservlet-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81-%E8%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4-servlet" name="dispatcherservlet-%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81-%E8%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4-servlet"></a></p>
+<figure><img src="/images/SMVC28.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<p><strong>405 请求行中接收的方法由源服务器知道，但目标资源不支持</strong></p>
+<p><strong>原来是注册器路径写错了</strong></p>
+<blockquote>
+<p>@RequestMapping(value = &ldquo;/employee/${id}&rdquo;, method = RequestMethod.DELETE)</p>
+</blockquote>
+<p>参数多加个 $,</p>
+<blockquote>
+<p>@RequestMapping(value = &ldquo;/employee/{id}&rdquo;, method = RequestMethod.DELETE)</p>
+</blockquote>
+<p><strong>上述是日志功能， logback-classic</strong></p>
+<h3 id="具体功能添加功能">、具体功能：添加功能</h3>
+<p><a id="markdown-%E3%80%81%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD" name="%E3%80%81%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD"></a></p>
+<p>页面无法跳转：<!--            这里是添加信息，但是不能直接写<a th:href="@{/employee}">--></p>
+<!--            因为这里需要页面跳转到employ列表， 请求方式是 GET, 和功能中查询所有员工的路径和请求方式一摸一样-->
+<figure><img src="/images/SMVC29.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/SMVC30.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h3 id="具体功能修改功能">、具体功能：修改功能</h3>
+<p><a id="markdown-%E3%80%81%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD" name="%E3%80%81%E5%85%B7%E4%BD%93%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD"></a></p>
+<figure><img src="/images/SMVC31.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+
+<h4 id="修改超链接">修改超链接</h4>
+<p><a id="markdown-%E4%BF%AE%E6%94%B9%E8%B6%85%E9%93%BE%E6%8E%A5" name="%E4%BF%AE%E6%94%B9%E8%B6%85%E9%93%BE%E6%8E%A5"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&#34;@{&#39;/employee/&#39;+${employee.id}}&#34;</span><span class="p">&gt;</span>update<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="控制器方法-1">控制器方法</h4>
+<p><a id="markdown-%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" name="%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/employee/{id}&#34;</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">getEmployeeById</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
+    <span class="n">Employee</span> <span class="n">employee</span> <span class="o">=</span> <span class="n">employeeDao</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;employee&#34;</span><span class="o">,</span> <span class="n">employee</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;employee_update&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="创建-employee_updatehtml">创建 employee_update.html</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA-employee_update.html" name="%E5%88%9B%E5%BB%BA-employee_update.html"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span> <span class="na">xmlns:th</span><span class="o">=</span><span class="s">&#34;http://www.thymeleaf.org&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Update Employee<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">th:action</span><span class="o">=</span><span class="s">&#34;@{/employee}&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;hidden&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;_method&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;put&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;hidden&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;id&#34;</span> <span class="na">th:value</span><span class="o">=</span><span class="s">&#34;${employee.id}&#34;</span><span class="p">&gt;</span>
+    lastName:<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;lastName&#34;</span> <span class="na">th:value</span><span class="o">=</span><span class="s">&#34;${employee.lastName}&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    email:<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;email&#34;</span> <span class="na">th:value</span><span class="o">=</span><span class="s">&#34;${employee.email}&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    <span class="c">&lt;!--
+</span><span class="c">        th:field=&#34;${employee.gender}&#34;可用于单选框或复选框的回显
+</span><span class="c">        若单选框的value和employee.gender的值一致，则添加checked=&#34;checked&#34;属性
+</span><span class="c">    --&gt;</span>
+    gender:<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;gender&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;1&#34;</span> <span class="na">th:field</span><span class="o">=</span><span class="s">&#34;${employee.gender}&#34;</span><span class="p">&gt;</span>male
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;gender&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;0&#34;</span> <span class="na">th:field</span><span class="o">=</span><span class="s">&#34;${employee.gender}&#34;</span><span class="p">&gt;</span>female<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;update&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="控制器方法-2">控制器方法</h4>
+<p><a id="markdown-%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" name="%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/employee&#34;</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">PUT</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">updateEmployee</span><span class="o">(</span><span class="n">Employee</span> <span class="n">employee</span><span class="o">){</span>
+    <span class="n">employeeDao</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">employee</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;redirect:/employee&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="修改方式要先回显然后确定请求方式因为是-put所以要特殊处理确保表单-method-是-post-里面有个-hidden-input-value-是-put">修改方式要先回显，然后确定请求方式，因为是 put，所以要特殊处理，确保表单 method 是 post， 里面有个 hidden input， value 是 put</h3>
+<p><a id="markdown-%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F%E8%A6%81%E5%85%88%E5%9B%9E%E6%98%BE%EF%BC%8C%E7%84%B6%E5%90%8E%E7%A1%AE%E5%AE%9A%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%9B%A0%E4%B8%BA%E6%98%AF-put%EF%BC%8C%E6%89%80%E4%BB%A5%E8%A6%81%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%EF%BC%8C%E7%A1%AE%E4%BF%9D%E8%A1%A8%E5%8D%95-method-%E6%98%AF-post%EF%BC%8C-%E9%87%8C%E9%9D%A2%E6%9C%89%E4%B8%AA-hidden-input%EF%BC%8C-value-%E6%98%AF-put" name="%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F%E8%A6%81%E5%85%88%E5%9B%9E%E6%98%BE%EF%BC%8C%E7%84%B6%E5%90%8E%E7%A1%AE%E5%AE%9A%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%9B%A0%E4%B8%BA%E6%98%AF-put%EF%BC%8C%E6%89%80%E4%BB%A5%E8%A6%81%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86%EF%BC%8C%E7%A1%AE%E4%BF%9D%E8%A1%A8%E5%8D%95-method-%E6%98%AF-post%EF%BC%8C-%E9%87%8C%E9%9D%A2%E6%9C%89%E4%B8%AA-hidden-input%EF%BC%8C-value-%E6%98%AF-put"></a></p>
+<h2 id="httpmessageconverter">HttpMessageConverter</h2>
+<p><a id="markdown-httpmessageconverter" name="httpmessageconverter"></a></p>
+<p>HttpMessageConverter，报文信息转换器，将请求报文转换为 Java 对象，或将 Java 对象转换为响应报文</p>
+<p>HttpMessageConverter 提供了两个注解和两个类型：@RequestBody，@ResponseBody，RequestEntity，ResponseEntity</p>
+<p>@RequestBody， RequestEntity 将请求报文转换为 Java 对象，</p>
+<p>@ResponseBody， ResponseEntity 将 Java 对象转换为响应报文</p>
+<h3 id="requestbody">、@RequestBody</h3>
+<p><a id="markdown-%E3%80%81%40requestbody" name="%E3%80%81%40requestbody"></a></p>
+<p>@RequestBody 可以获取请求体，需要在控制器方法设置一个形参，使用@RequestBody 进行标识，当前请求的请求体就会为当前注解所标识的形参赋值</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">th:action</span><span class="o">=</span><span class="s">&#34;@{/testRequestBody}&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+    用户名：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    密码：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;password&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testRequestBody&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testRequestBody</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">String</span> <span class="n">requestBody</span><span class="o">){</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;requestBody:&#34;</span><span class="o">+</span><span class="n">requestBody</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="requestentity">、RequestEntity</h3>
+<p><a id="markdown-%E3%80%81requestentity" name="%E3%80%81requestentity"></a></p>
+<p>RequestEntity 封装请求报文的一种类型，需要在控制器方法的形参中设置该类型的形参，当前请求的请求报文就会赋值给该形参，可以通过 getHeaders()获取请求头信息，通过 getBody()获取请求体信息</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testRequestEntity&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testRequestEntity</span><span class="o">(</span><span class="n">RequestEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">requestEntity</span><span class="o">){</span>
+    <span class="c1">// 当前requestEntity 表示整个请求报文的信息
+</span><span class="c1"></span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;requestHeader:&#34;</span><span class="o">+</span><span class="n">requestEntity</span><span class="o">.</span><span class="na">getHeaders</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;requestBody:&#34;</span><span class="o">+</span><span class="n">requestEntity</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
+    <span class="k">return</span> <span class="s">&#34;success&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">输出结果</span><span class="err">：</span>
+<span class="err">����</span><span class="n">ͷ</span><span class="o">:</span> <span class="o">[</span><span class="n">host</span><span class="o">:</span><span class="s">&#34;localhost:8080&#34;</span><span class="o">,</span> <span class="n">connection</span><span class="o">:</span><span class="s">&#34;keep-alive&#34;</span><span class="o">,</span> <span class="n">content</span><span class="o">-</span><span class="n">length</span><span class="o">:</span><span class="s">&#34;25&#34;</span><span class="o">,</span> <span class="n">cache</span><span class="o">-</span><span class="n">control</span><span class="o">:</span><span class="s">&#34;max-age=0&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">ch</span><span class="o">-</span><span class="n">ua</span><span class="o">:</span><span class="s">&#34;&#34;</span> <span class="n">Not</span><span class="o">;</span><span class="n">A</span> <span class="n">Brand</span><span class="s">&#34;;v=&#34;</span><span class="n">99</span><span class="s">&#34;, &#34;</span><span class="n">Google</span> <span class="n">Chrome</span><span class="s">&#34;;v=&#34;</span><span class="n">97</span><span class="s">&#34;, &#34;</span><span class="n">Chromium</span><span class="s">&#34;;v=&#34;</span><span class="n">97</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">ch</span><span class="o">-</span><span class="n">ua</span><span class="o">-</span><span class="n">mobile</span><span class="o">:</span><span class="s">&#34;?0&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">ch</span><span class="o">-</span><span class="n">ua</span><span class="o">-</span><span class="n">platform</span><span class="o">:</span><span class="s">&#34;&#34;</span><span class="n">Windows</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="n">upgrade</span><span class="o">-</span><span class="n">insecure</span><span class="o">-</span><span class="n">requests</span><span class="o">:</span><span class="s">&#34;1&#34;</span><span class="o">,</span> <span class="n">origin</span><span class="o">:</span><span class="s">&#34;http://localhost:8080&#34;</span><span class="o">,</span> <span class="n">user</span><span class="o">-</span><span class="n">agent</span><span class="o">:</span><span class="s">&#34;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36&#34;</span><span class="o">,</span> <span class="n">accept</span><span class="o">:</span><span class="s">&#34;text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">fetch</span><span class="o">-</span><span class="n">site</span><span class="o">:</span><span class="s">&#34;same-origin&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">fetch</span><span class="o">-</span><span class="n">mode</span><span class="o">:</span><span class="s">&#34;navigate&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">fetch</span><span class="o">-</span><span class="n">user</span><span class="o">:</span><span class="s">&#34;?1&#34;</span><span class="o">,</span> <span class="n">sec</span><span class="o">-</span><span class="n">fetch</span><span class="o">-</span><span class="n">dest</span><span class="o">:</span><span class="s">&#34;document&#34;</span><span class="o">,</span> <span class="n">referer</span><span class="o">:</span><span class="s">&#34;http://localhost:8080/springMVC/&#34;</span><span class="o">,</span> <span class="n">accept</span><span class="o">-</span><span class="n">encoding</span><span class="o">:</span><span class="s">&#34;gzip, deflate, br&#34;</span><span class="o">,</span> <span class="n">accept</span><span class="o">-</span><span class="n">language</span><span class="o">:</span><span class="s">&#34;zh-CN,zh;q=0.9&#34;</span><span class="o">,</span> <span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span><span class="s">&#34;application/x-www-form-urlencoded;charset=UTF-8&#34;</span><span class="o">]</span>
+<span class="err">������</span><span class="o">:</span> <span class="n">username</span><span class="o">=</span><span class="n">123</span><span class="o">&amp;</span><span class="n">password</span><span class="o">=</span><span class="n">erg</span>
+</code></pre></div><h3 id="responsebody">、@ResponseBody</h3>
+<p><a id="markdown-%E3%80%81%40responsebody" name="%E3%80%81%40responsebody"></a></p>
+<p>@ResponseBody 用于标识一个控制器方法，可以将该方法的返回值直接作为响应报文的响应体响应到浏览器</p>
+<h4 id="通过-servletapi-响应">通过 servletAPI 响应</h4>
+<p><a id="markdown-%E9%80%9A%E8%BF%87-servletapi-%E5%93%8D%E5%BA%94" name="%E9%80%9A%E8%BF%87-servletapi-%E5%93%8D%E5%BA%94"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testResponse&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testResponse</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">response</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>结果：浏览器页面显示 hello</p>
+<h4 id="通过-springmvc-注解-响应">通过 SpringMVC 注解 响应</h4>
+<p><a id="markdown-%E9%80%9A%E8%BF%87-springmvc-%E6%B3%A8%E8%A7%A3-%E5%93%8D%E5%BA%94" name="%E9%80%9A%E8%BF%87-springmvc-%E6%B3%A8%E8%A7%A3-%E5%93%8D%E5%BA%94"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testResponse&#34;</span><span class="o">)</span>
+    <span class="nd">@ResponseBody</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">testResponse</span><span class="o">(){</span>
+       <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+
+    <span class="o">}</span>
+</code></pre></div><p>结果：浏览器页面显示 hello, 直接把 hello 响应到游览器</p>
+<h3 id="springmvc-处理-json">、SpringMVC 处理 json</h3>
+<p><a id="markdown-%E3%80%81springmvc-%E5%A4%84%E7%90%86-json" name="%E3%80%81springmvc-%E5%A4%84%E7%90%86-json"></a></p>
+<p>@ResponseBody 处理 json 的步骤：</p>
+<h4 id="a导入-jackson-的依赖"><strong>a&gt;导入 jackson 的依赖</strong></h4>
+<p><a id="markdown-**a%3E%E5%AF%BC%E5%85%A5-jackson-%E7%9A%84%E4%BE%9D%E8%B5%96**" name="**a%3E%E5%AF%BC%E5%85%A5-jackson-%E7%9A%84%E4%BE%9D%E8%B5%96**"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.fasterxml.jackson.core<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>jackson-databind<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.12.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><h4 id="在-springmvc-的核心配置文件中开启-mvc-的注解驱动此时在-handleradaptor-中会自动装配一个消息转换器mappingjackson2httpmessageconverter可以将响应到浏览器的-java-对象转换为-json-格式的字符串">在 SpringMVC 的核心配置文件中开启 mvc 的注解驱动，此时在 HandlerAdaptor 中会自动装配一个消息转换器：MappingJackson2HttpMessageConverter，可以将响应到浏览器的 Java 对象转换为 Json 格式的字符串</h4>
+<p><a id="markdown-%E5%9C%A8-springmvc-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E5%BC%80%E5%90%AF-mvc-%E7%9A%84%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%EF%BC%8C%E6%AD%A4%E6%97%B6%E5%9C%A8-handleradaptor-%E4%B8%AD%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E8%BD%AC%E6%8D%A2%E5%99%A8%EF%BC%9Amappingjackson2httpmessageconverter%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%93%8D%E5%BA%94%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84-java-%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BA-json-%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2" name="%E5%9C%A8-springmvc-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E5%BC%80%E5%90%AF-mvc-%E7%9A%84%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%EF%BC%8C%E6%AD%A4%E6%97%B6%E5%9C%A8-handleradaptor-%E4%B8%AD%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E8%BD%AC%E6%8D%A2%E5%99%A8%EF%BC%9Amappingjackson2httpmessageconverter%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B0%86%E5%93%8D%E5%BA%94%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84-java-%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E4%B8%BA-json-%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">mvc</span><span class="o">:</span><span class="n">annotation</span><span class="o">-</span><span class="n">driven</span> <span class="o">/&gt;</span>
+</code></pre></div><h4 id="在处理器方法上使用responsebody-注解进行标识">在处理器方法上使用@ResponseBody 注解进行标识</h4>
+<p><a id="markdown-%E5%9C%A8%E5%A4%84%E7%90%86%E5%99%A8%E6%96%B9%E6%B3%95%E4%B8%8A%E4%BD%BF%E7%94%A8%40responsebody-%E6%B3%A8%E8%A7%A3%E8%BF%9B%E8%A1%8C%E6%A0%87%E8%AF%86" name="%E5%9C%A8%E5%A4%84%E7%90%86%E5%99%A8%E6%96%B9%E6%B3%95%E4%B8%8A%E4%BD%BF%E7%94%A8%40responsebody-%E6%B3%A8%E8%A7%A3%E8%BF%9B%E8%A1%8C%E6%A0%87%E8%AF%86"></a></p>
+<h4 id="将-java-对象直接作为控制器方法的返回值返回就会自动转换为-json-格式的字符串">将 Java 对象直接作为控制器方法的返回值返回，就会自动转换为 Json 格式的字符串</h4>
+<p><a id="markdown-%E5%B0%86-java-%E5%AF%B9%E8%B1%A1%E7%9B%B4%E6%8E%A5%E4%BD%9C%E4%B8%BA%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%94%E5%9B%9E%EF%BC%8C%E5%B0%B1%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA-json-%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2" name="%E5%B0%86-java-%E5%AF%B9%E8%B1%A1%E7%9B%B4%E6%8E%A5%E4%BD%9C%E4%B8%BA%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%94%E5%9B%9E%EF%BC%8C%E5%B0%B1%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA-json-%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testResponseUser&#34;</span><span class="o">)</span>
+    <span class="nd">@ResponseBody</span>
+    <span class="kd">public</span> <span class="n">User</span> <span class="nf">testResponseUser</span><span class="o">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="n">1001</span><span class="o">,</span> <span class="s">&#34;aa&#34;</span><span class="o">,</span> <span class="s">&#34;123&#34;</span><span class="o">,</span> <span class="s">&#34;female&#34;</span><span class="o">,</span> <span class="n">20</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>浏览器的页面中展示的结果：</p>
+<p>{&ldquo;id&rdquo;:1001,&ldquo;username&rdquo;:&ldquo;aa&rdquo;,&ldquo;password&rdquo;:&ldquo;123&rdquo;,&ldquo;sex&rdquo;:&ldquo;female&rdquo;,&ldquo;age&rdquo;:20}</p>
+<h3 id="springmvc-处理-ajax">、SpringMVC 处理 ajax</h3>
+<p><a id="markdown-%E3%80%81springmvc-%E5%A4%84%E7%90%86-ajax" name="%E3%80%81springmvc-%E5%A4%84%E7%90%86-ajax"></a></p>
+<h4 id="请求超链接">请求超链接</h4>
+<p><a id="markdown-%E8%AF%B7%E6%B1%82%E8%B6%85%E9%93%BE%E6%8E%A5" name="%E8%AF%B7%E6%B1%82%E8%B6%85%E9%93%BE%E6%8E%A5"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;app&#34;</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">a</span> <span class="na">th:href</span><span class="o">=</span><span class="s">&#34;@{/testAjax}&#34;</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;testAjax&#34;</span><span class="p">&gt;</span>testAjax<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="通过-vue-和-axios-处理点击事件">通过 vue 和 axios 处理点击事件</h4>
+<p><a id="markdown-%E9%80%9A%E8%BF%87-vue-%E5%92%8C-axios-%E5%A4%84%E7%90%86%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6" name="%E9%80%9A%E8%BF%87-vue-%E5%92%8C-axios-%E5%A4%84%E7%90%86%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">th:src</span><span class="o">=</span><span class="s">&#34;@{/static/js/vue.js}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="na">th:src</span><span class="o">=</span><span class="s">&#34;@{/static/js/axios.min.js}&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">vue</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s2">&#34;#app&#34;</span><span class="p">,</span>
+        <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">testAjax</span><span class="o">:</span><span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">axios</span><span class="p">({</span>
+                    <span class="nx">method</span><span class="o">:</span><span class="s2">&#34;post&#34;</span><span class="p">,</span>
+                    <span class="nx">url</span><span class="o">:</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">href</span><span class="p">,</span>
+                    <span class="nx">params</span><span class="o">:</span><span class="p">{</span>
+                        <span class="nx">username</span><span class="o">:</span><span class="s2">&#34;admin&#34;</span><span class="p">,</span>
+                        <span class="nx">password</span><span class="o">:</span><span class="s2">&#34;123456&#34;</span>
+                    <span class="p">}</span>
+                <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">alert</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="控制器方法-3">控制器方法</h4>
+<p><a id="markdown-%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95" name="%E6%8E%A7%E5%88%B6%E5%99%A8%E6%96%B9%E6%B3%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/testAjax&#34;</span><span class="o">)</span>
+<span class="nd">@ResponseBody</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">testAjax</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">){</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;username:&#34;</span><span class="o">+</span><span class="n">username</span><span class="o">+</span><span class="s">&#34;,password:&#34;</span><span class="o">+</span><span class="n">password</span><span class="o">);</span>
+    <span class="k">return</span> <span class="s">&#34;hello,ajax&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>**点击链接后，页面无需跳转就可以显示信息, 注意在 index 页面， methods 写成了 method， 导致 param 传不过去
+<figure><img src="/images/SMVC32.png"
+         alt="image"/><figcaption>
+            <h4>springmvc</h4>
+        </figcaption>
+</figure>
+</p>
+<h3 id="restcontroller-注解">、@RestController 注解</h3>
+<p><a id="markdown-%E3%80%81%40restcontroller-%E6%B3%A8%E8%A7%A3" name="%E3%80%81%40restcontroller-%E6%B3%A8%E8%A7%A3"></a></p>
+<p>@RestController 注解是 springMVC 提供的一个复合注解，标识在控制器的类上，就相当于为类添加了@Controller 注解，并且为其中的每个方法添加了@ResponseBody 注解， 基本微服务中 springboot 都要加</p>
+<h3 id="responseentity">、ResponseEntity</h3>
+<p><a id="markdown-%E3%80%81responseentity" name="%E3%80%81responseentity"></a></p>
+<p>ResponseEntity 用于控制器方法的返回值类型，该控制器方法的返回值就是响应到浏览器的响应报文</p>
+<hr>
+<p><strong>感谢尚硅谷</strong>
+<a href="https://rileyshen.github.io/post/springmvc/" >springmvc1</a>
+<a href="https://rileyshen.github.io/post/springmvc2/" >springmvc2</a>
+<a href="https://rileyshen.github.io/post/springmvc4/" >springmvc4</a>
+<a href="https://rileyshen.github.io/post/springmvc5/" >springmvc5</a>
+<a href="https://rileyshen.github.io/post/spring/" >spring</a>
+<a href="https://rileyshen.github.io/tags/javaweb/" >javaweb</a></p></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/crud/">CRUD</a><a class="tag" href="/tags/ioc/">IOC</a><a class="tag" href="/tags/aop/">AOP</a><a class="tag" href="/tags/spring5/">Spring5</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>
