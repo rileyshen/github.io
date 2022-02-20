@@ -146,15 +146,13 @@
 
         <p>Sliding Window pattern in algorithm, 滑动窗口套路</p>
 <!-- TOC -->
-<pre><code>- [Substrings of Size Three with Distinct Characters](#substrings-of-size-three-with-distinct-characters)
-- [Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
-- [Minimum Window Substring](#minimum-window-substring)
-- [Contains Duplicate](#contains-duplicate)
-- [Contains Duplicate III](#contains-duplicate-iii)
-- [水果成篮](#%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE)
-</code></pre>
 <ul>
-<li><a href="#slidewindow2" >slidewindow2</a></li>
+<li><a href="#substrings-of-size-three-with-distinct-characters" >Substrings of Size Three with Distinct Characters</a></li>
+<li><a href="#longest-substring-without-repeating-characters" >Longest Substring Without Repeating Characters</a></li>
+<li><a href="#minimum-window-substring" >Minimum Window Substring</a></li>
+<li><a href="#contains-duplicate" >Contains Duplicate</a></li>
+<li><a href="#contains-duplicate-iii" >Contains Duplicate III</a></li>
+<li><a href="#%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE" >水果成篮</a></li>
 </ul>
 <!-- /TOC -->
 <p>滑动窗口更多处理连续问题， &ldquo;Longest Substring“， ”Subarray“</p>
@@ -187,7 +185,31 @@ A substring is a contiguous sequence of characters in a string.
 </code></pre></div><blockquote>
 <p>Input: s = &ldquo;aababcabc&rdquo; Output: 4</p>
 </blockquote>
-<h3 id="longest-substring-without-repeating-characters">Longest Substring Without Repeating Characters</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">numberOfSubstrings</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+ <span class="n">3</span>         <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+ <span class="n">4</span>         <span class="kt">int</span><span class="o">[]</span> <span class="n">letter</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">3</span><span class="o">];</span>
+ <span class="n">5</span>         <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+ <span class="n">6</span>         <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+ <span class="n">7</span>         <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+ <span class="n">8</span>         <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+ <span class="n">9</span>         <span class="nf">while</span> <span class="o">(</span><span class="n">end</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">{</span>
+<span class="n">10</span>             <span class="kt">char</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">end</span><span class="o">);</span>
+<span class="n">11</span>             <span class="nf">if</span> <span class="o">(</span><span class="n">letter</span><span class="o">[</span><span class="n">c1</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]++</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">12</span>                 <span class="n">count</span><span class="o">++;</span>
+<span class="n">13</span>             <span class="o">}</span>
+<span class="n">14</span>             <span class="nf">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">3</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">15</span>                 <span class="n">res</span> <span class="o">+=</span> <span class="n">len</span> <span class="o">-</span> <span class="n">end</span><span class="o">;</span>
+<span class="n">16</span>                 <span class="kt">char</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">start</span><span class="o">);</span>
+<span class="n">17</span>                 <span class="nf">if</span> <span class="o">(</span><span class="n">letter</span><span class="o">[</span><span class="n">c2</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="o">]--</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">18</span>                     <span class="n">count</span><span class="o">--;</span>
+<span class="n">19</span>                 <span class="o">}</span>
+<span class="n">20</span>                 <span class="n">start</span><span class="o">++;</span>
+<span class="n">21</span>             <span class="o">}</span>
+<span class="n">22</span>             <span class="n">end</span><span class="o">++;</span>
+<span class="n">23</span>         <span class="o">}</span>
+<span class="n">24</span>         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="n">25</span>     <span class="o">}</span>
+</code></pre></div><h3 id="longest-substring-without-repeating-characters">Longest Substring Without Repeating Characters</h3>
 <p><a id="markdown-longest-substring-without-repeating-characters" name="longest-substring-without-repeating-characters"></a></p>
 <p><strong>the input are ascii, there are only 128 unique characters =&gt; max length = 128</strong></p>
 <p><strong>ASCII 码中，一个英文字母（不分大小写）为一个字节，一个中文汉字为两个字节。</strong></p>
@@ -200,6 +222,7 @@ Example 1:
 Input: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;abcabcbb&#34;</span>
 Output: <span class="m">3</span>
 Explanation: The answer is <span class="s2">&#34;abc&#34;</span>, with the length of 3.
+
 </code></pre></div><p><strong>没有重复字母， 右移动， 有，左移动</strong></p>
 <p><strong>set</strong></p>
 <p>p   w   w
@@ -497,11 +520,14 @@ Example 2:
         <span class="n">res</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
 </code></pre></div><p>这里注意 map.remove 用法</p>
-<h2 id="slidewindow5hahahugoshortcode-s3-hbhb"><a href="https://rileyshen.github.io/post/slidewindow2/" >slidewindow2</a>
-<a id="markdown-slidewindow2" name="slidewindow2"></a>
-<a href="https://rileyshen.github.io/post/slidewindow3/" >slidewindow3</a>
-<a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a>
-<a href="https://rileyshen.github.io/post/slidewindow5/" >slidewindow5</a></h2>
+<hr>
+<ul>
+<li><a href="https://rileyshen.github.io/post/slidewindow2/" >slidewindow2</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow3/" >slidewindow3</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow5/" >slidewindow5</a></li>
+</ul>
+<hr>
 <p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL</p>
 <p>感谢：她们都有题库在 github 上直接有，都是大神</p>
@@ -512,8 +538,7 @@ Example 2:
 <li>
 <p>宫水三叶</p>
 </li>
-</ul>
-</div>
+</ul></div>
     <div class="post-footer">
         <div class="info">
             

@@ -2576,15 +2576,13 @@ i2: the second smallest value index&lt;/p&gt;
       
         <description>&lt;p&gt;Sliding Window pattern in algorithm, 滑动窗口套路&lt;/p&gt;
 &lt;!-- TOC --&gt;
-&lt;pre&gt;&lt;code&gt;- [Substrings of Size Three with Distinct Characters](#substrings-of-size-three-with-distinct-characters)
-- [Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
-- [Minimum Window Substring](#minimum-window-substring)
-- [Contains Duplicate](#contains-duplicate)
-- [Contains Duplicate III](#contains-duplicate-iii)
-- [水果成篮](#%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE)
-&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#slidewindow2&#34; &gt;slidewindow2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#substrings-of-size-three-with-distinct-characters&#34; &gt;Substrings of Size Three with Distinct Characters&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#longest-substring-without-repeating-characters&#34; &gt;Longest Substring Without Repeating Characters&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#minimum-window-substring&#34; &gt;Minimum Window Substring&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#contains-duplicate&#34; &gt;Contains Duplicate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#contains-duplicate-iii&#34; &gt;Contains Duplicate III&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE&#34; &gt;水果成篮&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- /TOC --&gt;
 &lt;p&gt;滑动窗口更多处理连续问题， &amp;ldquo;Longest Substring“， ”Subarray“&lt;/p&gt;
@@ -2617,7 +2615,31 @@ A substring is a contiguous sequence of characters in a string.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;Input: s = &amp;ldquo;aababcabc&amp;rdquo; Output: 4&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&#34;longest-substring-without-repeating-characters&#34;&gt;Longest Substring Without Repeating Characters&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;numberOfSubstrings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;letter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;6&lt;/span&gt;         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;7&lt;/span&gt;         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;8&lt;/span&gt;         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+ &lt;span class=&#34;n&#34;&gt;9&lt;/span&gt;         &lt;span class=&#34;nf&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;10&lt;/span&gt;             &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;11&lt;/span&gt;             &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;letter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]++&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;12&lt;/span&gt;                 &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;13&lt;/span&gt;             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;14&lt;/span&gt;             &lt;span class=&#34;nf&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;15&lt;/span&gt;                 &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;16&lt;/span&gt;                 &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;17&lt;/span&gt;                 &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;letter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]--&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;18&lt;/span&gt;                     &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;19&lt;/span&gt;                 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;20&lt;/span&gt;                 &lt;span class=&#34;n&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;21&lt;/span&gt;             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;22&lt;/span&gt;             &lt;span class=&#34;n&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;23&lt;/span&gt;         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;24&lt;/span&gt;         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;25&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;longest-substring-without-repeating-characters&#34;&gt;Longest Substring Without Repeating Characters&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-longest-substring-without-repeating-characters&#34; name=&#34;longest-substring-without-repeating-characters&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;the input are ascii, there are only 128 unique characters =&amp;gt; max length = 128&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;ASCII 码中，一个英文字母（不分大小写）为一个字节，一个中文汉字为两个字节。&lt;/strong&gt;&lt;/p&gt;
@@ -2630,6 +2652,7 @@ Example 1:
 Input: &lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;abcabcbb&amp;#34;&lt;/span&gt;
 Output: &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
 Explanation: The answer is &lt;span class=&#34;s2&#34;&gt;&amp;#34;abc&amp;#34;&lt;/span&gt;, with the length of 3.
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;没有重复字母， 右移动， 有，左移动&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;set&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;p   w   w
@@ -2927,11 +2950,14 @@ Example 2:
         &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里注意 map.remove 用法&lt;/p&gt;
-&lt;h2 id=&#34;slidewindow5hahahugoshortcode-s3-hbhb&#34;&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;
-&lt;a id=&#34;markdown-slidewindow2&#34; name=&#34;slidewindow2&#34;&gt;&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/h2&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
 &lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
 &lt;p&gt;感谢：她们都有题库在 github 上直接有，都是大神&lt;/p&gt;
@@ -2942,8 +2968,7 @@ Example 2:
 &lt;li&gt;
 &lt;p&gt;宫水三叶&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
       
     </item>
     
@@ -2956,11 +2981,11 @@ Example 2:
       
         <description>&lt;p&gt;Sliding Window pattern in algorithm, 滑动窗口套路&lt;/p&gt;
 &lt;p&gt;滑动窗口更多处理连续问题， &amp;ldquo;Longest Substring“， ”Subarray“&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;#shortest-word-distance&#34; &gt;Shortest Word Distance&lt;/a&gt;
-&lt;a href=&#34;#shortest-word-distance-iii&#34; &gt;Shortest Word Distance III&lt;/a&gt;
-&lt;a href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%ad%e7%9a%84%e5%8f%98%e4%bd%8d%e8%af%8d&#34; &gt;字符串中的变位词&lt;/a&gt;
-&lt;a href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%ad%e7%9a%84%e6%89%80%e6%9c%89%e5%8f%98%e4%bd%8d%e8%af%8d&#34; &gt;字符串中的所有变位词&lt;/a&gt;
-&lt;a href=&#34;#%e4%b8%8d%e5%90%ab%e9%87%8d%e5%a4%8d%e5%ad%97%e7%ac%a6%e7%9a%84%e6%9c%80%e9%95%bf%e5%ad%90%e5%ad%97%e7%ac%a6%e4%b8%b2&#34; &gt;不含重复字符的最长子字符串&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#shortest-word-distance&#34; &gt;Shortest Word Distance&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#shortest-word-distance-iii&#34; &gt;Shortest Word Distance III&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%ad%e7%9a%84%e5%8f%98%e4%bd%8d%e8%af%8d&#34; &gt;字符串中的变位词&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e5%ad%97%e7%ac%a6%e4%b8%b2%e4%b8%ad%e7%9a%84%e6%89%80%e6%9c%89%e5%8f%98%e4%bd%8d%e8%af%8d&#34; &gt;字符串中的所有变位词&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e4%b8%8d%e5%90%ab%e9%87%8d%e5%a4%8d%e5%ad%97%e7%ac%a6%e7%9a%84%e6%9c%80%e9%95%bf%e5%ad%90%e5%ad%97%e7%ac%a6%e4%b8%b2&#34; &gt;不含重复字符的最长子字符串&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;😼😼😼😼&lt;/p&gt;
 &lt;h3 id=&#34;shortest-word-distance&#34;&gt;Shortest Word Distance&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a list of words and two words word1 and word2, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the shortest distance between these two words in the list.
@@ -3323,10 +3348,12 @@ window[p] = 1
     
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
@@ -3351,11 +3378,11 @@ window[p] = 1
       
         <description>&lt;p&gt;Sliding Window pattern in algorithm, 滑动窗口套路&lt;/p&gt;
 &lt;p&gt;滑动窗口更多处理连续问题， &amp;ldquo;Longest Substring“， ”Subarray“&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;#%e5%92%8c%e5%a4%a7%e4%ba%8e%e7%ad%89%e4%ba%8etarget%e7%9a%84%e6%9c%80%e7%9f%ad%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;和大于等于 target 的最短子数组&lt;/a&gt;
-&lt;a href=&#34;#%e4%b9%98%e7%a7%af%e5%b0%8f%e4%ba%8eK%e7%9a%84%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;乘积小于 K 的子数组&lt;/a&gt;
-&lt;a href=&#34;#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc&#34; &gt;滑动窗口的最大值&lt;/a&gt;
-&lt;a href=&#34;#%e5%80%bc%e5%92%8c%e4%b8%8b%e6%a0%87%e4%b9%8b%e5%b7%ae%e9%83%bd%e5%9c%a8%e7%bb%99%e5%ae%9a%e7%9a%84%e8%8c%83%e5%9b%b4%e5%86%85&#34; &gt;值和下标之差都在给定的范围内&lt;/a&gt;
-&lt;a href=&#34;#Maximum-Values-Of-Size-K-Sliding-Windowss&#34; &gt;Maximum Values Of Size K Sliding Windowss&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e5%92%8c%e5%a4%a7%e4%ba%8e%e7%ad%89%e4%ba%8etarget%e7%9a%84%e6%9c%80%e7%9f%ad%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;和大于等于 target 的最短子数组&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e4%b9%98%e7%a7%af%e5%b0%8f%e4%ba%8eK%e7%9a%84%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;乘积小于 K 的子数组&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc&#34; &gt;滑动窗口的最大值&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e5%80%bc%e5%92%8c%e4%b8%8b%e6%a0%87%e4%b9%8b%e5%b7%ae%e9%83%bd%e5%9c%a8%e7%bb%99%e5%ae%9a%e7%9a%84%e8%8c%83%e5%9b%b4%e5%86%85&#34; &gt;值和下标之差都在给定的范围内&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#Maximum-Values-Of-Size-K-Sliding-Windowss&#34; &gt;Maximum Values Of Size K Sliding Windowss&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;😼😼😼😼&lt;/p&gt;
 &lt;h3 id=&#34;和大于等于-target-的最短子数组&#34;&gt;和大于等于 target 的最短子数组&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;给定一个含有 n 个正整数的数组和一个正整数 target 。
@@ -3642,10 +3669,12 @@ and the maximum values of each K-sized sliding window are &lt;span class=&#34;o&
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
@@ -3669,13 +3698,13 @@ and the maximum values of each K-sized sliding window are &lt;span class=&#34;o&
       <guid>https://rileyshen.github.io/post/slidewindow4/</guid>
       
         <description>&lt;p&gt;Sliding Window pattern in algorithm, 滑动窗口套路&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;#%e5%92%8c%e7%9b%b8%e5%90%8c%e7%9a%84%e4%ba%8c%e5%85%83%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;和相同的二元子数组&lt;/a&gt;
-&lt;a href=&#34;#K-%e4%b8%aa%e4%b8%8d%e5%90%8c%e6%95%b4%e6%95%b0%e7%9a%84%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;K 个不同整数的子数组&lt;/a&gt;
-&lt;a href=&#34;#%e6%9c%80%e9%95%bf%e6%b9%8d%e6%b5%81%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;最长湍流子数组&lt;/a&gt;
-&lt;a href=&#34;#%e6%9c%80%e5%a4%a7%e8%bf%9e%e7%bb%ad-1-%e7%9a%84%e4%b8%aa%e6%95%b0-III&#34; &gt;最大连续 1 的个数 III&lt;/a&gt;
-&lt;a href=&#34;#Replace-the-Substring-for-Balanced-String&#34; &gt;Replace the Substring for Balanced String&lt;/a&gt;
-&lt;a href=&#34;#%e7%bb%9f%e8%ae%a1%e4%bc%98%e7%be%8e%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;统计优美子数组&lt;/a&gt;
-&lt;a href=&#34;#%e5%b0%86-x-%e5%87%8f%e5%88%b0-0-%e7%9a%84%e6%9c%80%e5%b0%8f%e6%93%8d%e4%bd%9c%e6%95%b0&#34; &gt;将 x 减到 0 的最小操作数&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e5%92%8c%e7%9b%b8%e5%90%8c%e7%9a%84%e4%ba%8c%e5%85%83%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;和相同的二元子数组&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#K-%e4%b8%aa%e4%b8%8d%e5%90%8c%e6%95%b4%e6%95%b0%e7%9a%84%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;K 个不同整数的子数组&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e6%9c%80%e9%95%bf%e6%b9%8d%e6%b5%81%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;最长湍流子数组&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e6%9c%80%e5%a4%a7%e8%bf%9e%e7%bb%ad-1-%e7%9a%84%e4%b8%aa%e6%95%b0-III&#34; &gt;最大连续 1 的个数 III&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#Replace-the-Substring-for-Balanced-String&#34; &gt;Replace the Substring for Balanced String&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e7%bb%9f%e8%ae%a1%e4%bc%98%e7%be%8e%e5%ad%90%e6%95%b0%e7%bb%84&#34; &gt;统计优美子数组&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%e5%b0%86-x-%e5%87%8f%e5%88%b0-0-%e7%9a%84%e6%9c%80%e5%b0%8f%e6%93%8d%e4%bd%9c%e6%95%b0&#34; &gt;将 x 减到 0 的最小操作数&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;和相同的二元子数组&#34;&gt;和相同的二元子数组&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;给你一个二元数组nums&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;和一个整数goal&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;请你统计并返回有多少个和为goal的非空子数组&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;子数组是数组的一段连续部分&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
@@ -4124,10 +4153,12 @@ Explanation: We can replace the first &lt;span class=&#34;s2&#34;&gt;&amp;#34;QQ
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MIN_VALUE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow5/&#34; &gt;slidewindow5&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
@@ -4151,8 +4182,8 @@ Explanation: We can replace the first &lt;span class=&#34;s2&#34;&gt;&amp;#34;QQ
       <guid>https://rileyshen.github.io/post/slidewindow5/</guid>
       
         <description>&lt;p&gt;Sliding Window pattern in algorithm, 滑动窗口套路&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;#String-Frequency-In-Windows&#34; &gt;String Frequency In Windows&lt;/a&gt;
-&lt;a href=&#34;#longest-substring-with-k-typed-characters&#34; &gt;Longest Substring With K Typed Characters&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#String-Frequency-In-Windows&#34; &gt;String Frequency In Windows&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#longest-substring-with-k-typed-characters&#34; &gt;Longest Substring With K Typed Characters&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;**字符串的时候， map 里面，不符合的或者超过边界的左边吐出去的时候， count 加上，&lt;/p&gt;
 &lt;h3 id=&#34;string-frequency-in-windows&#34;&gt;String Frequency In Windows&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a string containing only &lt;span class=&#34;s1&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt;, &lt;span class=&#34;s1&#34;&gt;&amp;#39;B&amp;#39;&lt;/span&gt;, &lt;span class=&#34;s1&#34;&gt;&amp;#39;C&amp;#39;&lt;/span&gt;, &lt;span class=&#34;s1&#34;&gt;&amp;#39;D&amp;#39;&lt;/span&gt;, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the number of occurrences of substring which has length &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; and includes all of the characters from &lt;span class=&#34;s1&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt;, &lt;span class=&#34;s1&#34;&gt;&amp;#39;B&amp;#39;&lt;/span&gt;, &lt;span class=&#34;s1&#34;&gt;&amp;#39;C&amp;#39;&lt;/span&gt;, &lt;span class=&#34;s1&#34;&gt;&amp;#39;D&amp;#39;&lt;/span&gt; with in descending sorted order.
@@ -4309,10 +4340,45 @@ Examples:
 &lt;span class=&#34;nv&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;aabcc&amp;#34;&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 3, &lt;span class=&#34;nv&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;abc&amp;#34;&lt;/span&gt;.
 &lt;span class=&#34;nv&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;aabbbcccc&amp;#34;&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 3, &lt;span class=&#34;nv&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;abbbc&amp;#34;&lt;/span&gt;.
 &lt;span class=&#34;nv&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;aabcc&amp;#34;&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 4, &lt;span class=&#34;nv&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;
-&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+        &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Character&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minLen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MAX_VALUE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matchCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+         &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+         &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOrDefault&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+         &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+         
+         &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+             &lt;span class=&#34;c1&#34;&gt;// 找到了
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minLen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                 &lt;span class=&#34;n&#34;&gt;minLen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                 &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leftmost&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++);&lt;/span&gt;
+             &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leftmostCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftmost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftmostCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftmost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leftmostCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftmost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;wordDict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;remove&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftmost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minLen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MAX_VALUE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;substring&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minLen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow2/&#34; &gt;slidewindow2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow3/&#34; &gt;slidewindow3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow4/&#34; &gt;slidewindow4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;

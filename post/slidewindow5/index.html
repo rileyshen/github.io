@@ -145,8 +145,8 @@
         </div>
 
         <p>Sliding Window pattern in algorithm, 滑动窗口套路</p>
-<p><a href="#String-Frequency-In-Windows" >String Frequency In Windows</a>
-<a href="#longest-substring-with-k-typed-characters" >Longest Substring With K Typed Characters</a></p>
+<p><a href="#String-Frequency-In-Windows" >String Frequency In Windows</a></p>
+<p><a href="#longest-substring-with-k-typed-characters" >Longest Substring With K Typed Characters</a></p>
 <p>**字符串的时候， map 里面，不符合的或者超过边界的左边吐出去的时候， count 加上，</p>
 <h3 id="string-frequency-in-windows">String Frequency In Windows</h3>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a string containing only <span class="s1">&#39;A&#39;</span>, <span class="s1">&#39;B&#39;</span>, <span class="s1">&#39;C&#39;</span>, <span class="s1">&#39;D&#39;</span>, <span class="k">return</span> the number of occurrences of substring which has length <span class="m">4</span> and includes all of the characters from <span class="s1">&#39;A&#39;</span>, <span class="s1">&#39;B&#39;</span>, <span class="s1">&#39;C&#39;</span>, <span class="s1">&#39;D&#39;</span> with in descending sorted order.
@@ -303,10 +303,45 @@ Examples:
 <span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabcc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 3, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;abc&#34;</span>.
 <span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabbbcccc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 3, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;abbbc&#34;</span>.
 <span class="nv">input</span> <span class="o">=</span> <span class="s2">&#34;aabcc&#34;</span>, <span class="nv">k</span> <span class="o">=</span> 4, <span class="nv">output</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>.
-</code></pre></div><p><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a>
-<a href="https://rileyshen.github.io/post/slidewindow2/" >slidewindow2</a>
-<a href="https://rileyshen.github.io/post/slidewindow3/" >slidewindow3</a>
-<a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a></p>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">wordDict</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">minLen</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="n">matchCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">fast</span><span class="o">++)</span> <span class="o">{</span>
+         <span class="kt">char</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">fast</span><span class="o">);</span>
+         <span class="n">Integer</span> <span class="n">count</span> <span class="o">=</span> <span class="n">wordDict</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+         <span class="n">wordDict</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+         
+         <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">==</span> <span class="n">wordDict</span><span class="o">.</span><span class="na">size</span><span class="o">())</span> <span class="o">{</span>
+             <span class="c1">// 找到了
+</span><span class="c1"></span>             <span class="k">if</span> <span class="o">(</span><span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span> <span class="o">&lt;</span> <span class="n">minLen</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="n">minLen</span> <span class="o">=</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+                 <span class="n">index</span> <span class="o">=</span> <span class="n">slow</span><span class="o">;</span>
+             <span class="o">}</span>
+             <span class="kt">char</span> <span class="n">leftmost</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">++);</span>
+             <span class="n">Integer</span> <span class="n">leftmostCount</span> <span class="o">=</span> <span class="n">wordDict</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">leftmost</span><span class="o">);</span>
+             <span class="k">if</span> <span class="o">(</span><span class="n">leftmostCount</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">wordDict</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">leftmost</span><span class="o">,</span> <span class="n">leftmostCount</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">wordDict</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">leftmost</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">wordDict</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">leftmost</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        
+    <span class="o">}</span>
+        <span class="o">}</span>
+     <span class="k">return</span> <span class="n">minLen</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span> <span class="o">?</span> <span class="s">&#34;&#34;</span> <span class="o">:</span> <span class="n">input</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">minLen</span><span class="o">);</span>
+    
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><hr>
+<ul>
+<li><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow2/" >slidewindow2</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow3/" >slidewindow3</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow4/" >slidewindow4</a></li>
+</ul>
 <hr>
 <p>来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL</p>
