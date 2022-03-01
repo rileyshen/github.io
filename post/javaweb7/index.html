@@ -139,7 +139,7 @@
                     Tue, Jan 12, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">5-minute read</span>
+                <span class="reading-time">6-minute read</span>
             </div>
             
         </div>
@@ -322,6 +322,8 @@
 <li>处理结果</li>
 <li>释放资源</li>
 </ol>
+<h4 id="statement-接口提供了三种执行">Statement 接口提供了三种执行</h4>
+<p>Statement 接口提供了三种执行 SQL 语句的方法：executeQuery、executeUpdate 和 execute。使用哪一个方法由 SQL 语句所产生的内容决定</p>
 <h4 id="druidalibaba">druid（Alibaba）</h4>
 <blockquote>
 <p>step: <br>
@@ -505,6 +507,66 @@ query(sql 语句，new BeanHandle&lt;&gt;(类名.class),可变参数)</p>
             <span class="n">JDBCUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">preparedStatement</span><span class="o">,</span><span class="n">conn</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
+</code></pre></div><h4 id="jdbc-固定步骤">jdbc 固定步骤</h4>
+<ul>
+<li>加载驱动</li>
+<li>链接数据库</li>
+<li>向数据库发送 SQL 对象 Statement：CRUD</li>
+<li>编写 sql</li>
+<li>执行 SQL</li>
+<li>关闭连接</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 配置信息
+</span><span class="c1"></span><span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;characterEncoding=utf-8&#34;</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+<span class="c1">// 1/ 加载驱动
+</span><span class="c1"></span><span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.mysql.ct.jdbc.Driver&#34;</span><span class="o">);</span>
+<span class="c1">// 2. 链接数据库
+</span><span class="c1"></span><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">DirverManager</span><span class="o">.</span><span class="na">getConnction</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+<span class="c1">// 3. 向数据库发送 SQL 对象 Statement：CRUD
+</span><span class="c1"></span><span class="n">Statement</span> <span class="n">statement</span><span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+<span class="c1">// 4. 编写 sql
+</span><span class="c1"></span><span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select * from users&#34;</span><span class="o">;</span>
+<span class="c1">// 5. 执行 SQL
+</span><span class="c1"></span><span class="n">ResultSet</span> <span class="n">resultset</span><span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">resultset</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">);</span>
+    <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 6. 关闭连接
+</span><span class="c1"></span><span class="n">resultSet</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">statement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre></div><p>用 preparedStatement</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 配置信息
+</span><span class="c1"></span><span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;characterEncoding=utf-8&#34;</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+<span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+<span class="c1">// 1/ 加载驱动
+</span><span class="c1"></span><span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.mysql.ct.jdbc.Driver&#34;</span><span class="o">);</span>
+<span class="c1">// 2. 链接数据库
+</span><span class="c1"></span><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">DirverManager</span><span class="o">.</span><span class="na">getConnction</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+<span class="c1">// // 3. 向数据库发送 SQL 对象 Statement：CRUD
+</span><span class="c1">// Statement statement= connection.createStatement();
+</span><span class="c1">// 3. 编写 sql
+</span><span class="c1"></span><span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into users(id, name, password, email, birthday) values(?, ?, ?, ?, ?)&#34;</span><span class="o">;</span>
+<span class="c1">// 4. preparestatement
+</span><span class="c1"></span><span class="n">PreparedStatement</span> <span class="n">preparedStatement</span><span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">preparedStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">4</span><span class="o">);</span>
+<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;aa&#34;</span><span class="o">);</span>
+<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="s">&#34;123456&#34;</span><span class="o">);</span>
+<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">4</span><span class="o">,</span> <span class="s">&#34;123456@qq.com&#34;</span><span class="o">);</span>
+<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setDate</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">Date</span><span class="o">(</span><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span><span class="o">().</span><span class="na">getTime</span><span class="o">()));</span>
+<span class="c1">// 5. 执行 SQL
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">preparedStatement</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">sout</span><span class="o">(</span><span class="s">&#34;success&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 6. 关闭连接
+</span><span class="c1"></span>
+<span class="n">preparedStatement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
 </code></pre></div><h4 id="spring-jdbc-jdbc-template">spring JDBC ：JDBC template</h4>
 <p>Spring 框架对 JDBC 的简单封装。提供了一个 JDBCTemplate 对象简化 JDBC 的开发</p>
 <h5 id="步骤">步骤</h5>
@@ -557,7 +619,12 @@ JdbcTemplate template = new JdbcTemplate(ds);<br>
 
 <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBatchSize</span><span class="o">()</span> <span class="o">{</span>
 <span class="k">return</span> <span class="n">users</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-</code></pre></div><hr>
+</code></pre></div><h3 id="datasource">DataSource</h3>
+<p>DataSource 用来取代 DriverManager 来获取 Connection，获取速度快，同时可以大幅度提高数据库访问速度。</p>
+<p>特别注意：</p>
+<p>数据源和数据库连接不同，数据源无需创建多个，它是产生数据库连接的工厂，因此整个应用只需要一个数据源即可。</p>
+<p>当数据库访问结束后，程序还是像以前一样关闭数据库连接：conn.close(); 但 conn.close()并没有关闭数据库的物理连接，它仅仅把数据库连接释放，归还给了数据库连接池。</p>
+<hr>
 <ul>
 <li><a href="https://rileyshen.github.io/post/javaweb2/" >javaweb2</a></li>
 <li><a href="https://rileyshen.github.io/post/javaweb3/" >javaweb3</a></li>

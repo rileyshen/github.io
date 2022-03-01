@@ -502,13 +502,17 @@ window[p] = 1
     <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
     <span class="kt">int</span><span class="o">[]</span> <span class="n">window</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">128</span><span class="o">];</span>
     <span class="k">while</span> <span class="o">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
-        <span class="kt">char</span> <span class="n">rightChar</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">);</span>
-        <span class="kt">int</span> <span class="n">rightCharIndex</span> <span class="o">=</span> <span class="n">window</span><span class="o">[</span><span class="n">rightChar</span><span class="o">];</span> <span class="c1">// 128个已经概括了不需要再 - ‘a’
+        <span class="kt">char</span> <span class="n">rightChar</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">right</span><span class="o">);</span> <span class="c1">// p
+</span><span class="c1"></span>        <span class="c1">// pwwkew
+</span><span class="c1"></span>        <span class="c1">// {0, 0, 0}
+</span><span class="c1"></span>        <span class="c1">// rightCharIndex = 0;前置，还没映射
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">rightCharIndex</span> <span class="o">=</span> <span class="n">window</span><span class="o">[</span><span class="n">rightChar</span><span class="o">];</span> <span class="c1">// 128个已经概括了不需要再 - ‘a’ 
 </span><span class="c1"></span>        <span class="n">left</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">rightCharIndex</span><span class="o">);</span>
         <span class="n">maxLen</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxLen</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
-        <span class="n">window</span><span class="o">[</span><span class="n">rightChar</span><span class="o">]</span> <span class="o">=</span>  <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
-        <span class="n">right</span><span class="o">++;</span>
-    <span class="o">}</span>
+        <span class="n">window</span><span class="o">[</span><span class="n">rightChar</span><span class="o">]</span> <span class="o">=</span>  <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span> <span class="c1">// window[p] = 1;
+</span><span class="c1"></span>         
+        <span class="n">right</span><span class="o">++;</span> <span class="c1">// r = 1
+</span><span class="c1"></span>    <span class="o">}</span>
     <span class="k">return</span> <span class="n">maxLen</span><span class="o">;</span>
     
     <span class="o">}</span>

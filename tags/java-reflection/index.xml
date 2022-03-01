@@ -216,7 +216,83 @@
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;反射理解&#34;&gt;反射理解&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;将类的各个组成部分封装为其他对象，这就是反射机制&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;好处：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;可以在程序运行过程中，操作这些对象。&lt;/li&gt;
+&lt;li&gt;可以解耦，提高程序的可扩展性。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;获取-class-对象的方式&#34;&gt;获取 Class 对象的方式&lt;/h3&gt;
+&lt;h4 id=&#34;1-classforname全类名&#34;&gt;1. Class.forName(“全类名”)&lt;/h4&gt;
+&lt;p&gt;将字节码文件加载进内存，返回 Class 对象
+&lt;strong&gt;多用于配置文件，将类名定义在配置文件中，读取文件，加载类&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Class aClass = Class.forName(&amp;ldquo;day01.itcast.junit.test.Calculator&amp;rdquo;);&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;2-类名class通过类名的属性-class-获取&#34;&gt;2. 类名.class：通过类名的属性 class 获取&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;多用于参数的传递&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;获取成员变量们&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Field[] getFields() ：获取所有 public 修饰的成员变量&lt;/li&gt;
+&lt;li&gt;Field getField(String name) 获取指定名称的 public 修饰的成员变量&lt;/li&gt;
+&lt;li&gt;Field[] getDeclaredFields() 获取所有的成员变量，不考虑修饰符&lt;/li&gt;
+&lt;li&gt;Field getDeclaredField(String name)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;获取构造方法们&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Constructor&amp;lt;?&amp;gt;[] getConstructors()&lt;/li&gt;
+&lt;li&gt;Constructor getConstructor(类&amp;lt;?&amp;gt;.. parameterTypes)&lt;/li&gt;
+&lt;li&gt;Constructor getDeclaredConstructor(类&amp;lt;?&amp;gt;.. parameterTypes)&lt;/li&gt;
+&lt;li&gt;Constructor&amp;lt;?&amp;gt;[] getDeclaredConstructors()&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;创建对象&lt;/strong&gt;&lt;/em&gt;
+&lt;ul&gt;
+&lt;li&gt;T newInstance(Object.. initargs)&lt;/li&gt;
+&lt;li&gt;如果使用空参数构造方法创建对象，操作可以简化：Class 对象的 newInstance 方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- &gt;  创建 Constructor 类 --&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Class personClass = Person.class;
+Constructor constructor = personClass.getConstructor(String.class, int.class);
+Object person= constructor.newInstance(&amp;ldquo;aaa&amp;rdquo;, 11);&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;获取成员方法们&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Method[] getMethods()&lt;/li&gt;
+&lt;li&gt;Method getMethod(String name, 类&amp;lt;?&amp;gt;.. parameterTypes)&lt;/li&gt;
+&lt;li&gt;Method[] getDeclaredMethods()&lt;/li&gt;
+&lt;li&gt;Method getDeclaredMethod(String name, 类&amp;lt;?&amp;gt;.. parameterTypes)&lt;/li&gt;
+&lt;li&gt;Mthod: 方法对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Object invoke(Object obj, Object&amp;hellip;args)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;获取方法名称&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;String getName()&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Class personClass = Person.class;
+Method setName = personClass.getMethod(&amp;ldquo;setName&amp;rdquo;, String.class);
+Person person = new Person();
+setName.invoke(person, &amp;ldquo;hello&amp;rdquo;);&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;3-对象getclassgetclass方法在-object-类中定义着&#34;&gt;3. 对象.getClass()：getClass()方法在 Object 类中定义着&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;有对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多用于对象的获取字节码的方式&lt;/strong&gt;&lt;/p&gt;
+</description>
       
     </item>
     

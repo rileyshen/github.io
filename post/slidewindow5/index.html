@@ -139,7 +139,7 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">4-minute read</span>
+                <span class="reading-time">6-minute read</span>
             </div>
             
         </div>
@@ -335,6 +335,57 @@ Examples:
     
   <span class="o">}</span>
 <span class="o">}</span>
+</code></pre></div><h3 id="longest-substring-with-at-most-k-distinct-characters">Longest Substring with At Most K Distinct Characters</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a string, find the length of the longest substring T that contains at most k distinct characters.
+
+For example, Given <span class="nv">s</span> <span class="o">=</span> “eceba” and <span class="nv">k</span> <span class="o">=</span> 2,
+
+T is <span class="s2">&#34;ece&#34;</span> which its length is 3.
+
+</code></pre></div><h3 id="longest-substring-with-at-most-two-distinct-characters">Longest Substring with At Most Two Distinct Characters</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a string, find the length of the longest substring T that contains at most <span class="m">2</span> distinct characters.
+
+For example, Given <span class="nv">s</span> <span class="o">=</span> “eceba”, T is <span class="s2">&#34;ece&#34;</span>, <span class="k">return</span> <span class="m">3</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">lengthOfLongestSubstringTwoDistinct</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">input</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">fast</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="kt">char</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">fast</span><span class="o">);</span>
+      <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">map</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span><span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+      <span class="k">while</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">char</span> <span class="n">leftCh</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">slow</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">leftCh</span><span class="o">,</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">leftCh</span><span class="o">)</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">leftCh</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">map</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">leftCh</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">slow</span><span class="o">++;</span>
+      <span class="o">}</span>
+      
+      <span class="n">len</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">len</span><span class="o">,</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">len</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><h3 id="minimum-size-subarray-sum">Minimum Size Subarray Sum</h3>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn<span class="err">&#39;</span>t one, <span class="k">return</span> <span class="m">0</span> instead.
+
+For example, given the array <span class="o">[</span>2,3,1,2,4,3<span class="o">]</span> and <span class="nv">s</span> <span class="o">=</span> 7,
+the subarray <span class="o">[</span>4,3<span class="o">]</span> has the minimal length under the problem constraint.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">minSubArrayLen</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">fast</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">fast</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">sum</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">];</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">min</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">sum</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">++];</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">min</span> <span class="o">==</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="n">min</span><span class="o">;</span>
+  <span class="o">}</span>
+
 </code></pre></div><hr>
 <ul>
 <li><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></li>

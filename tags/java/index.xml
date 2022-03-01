@@ -1,12 +1,457 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on Website of Riley</title>
+    <title>java on Website of Riley</title>
     <link>https://rileyshen.github.io/tags/java/</link>
-    <description>Recent content in Java on Website of Riley</description>
+    <description>Recent content in java on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 01 Sep 2021 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>about 2 pointers 1</title>
+      <link>https://rileyshen.github.io/post/2pointers1/</link>
+      <pubDate>Wed, 01 Sep 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/2pointers1/</guid>
+      
+        <description>&lt;p&gt;42							
+125	Valid Palindrome	★★	455							
+917	Reverse Only Letters	★★	925	986	855&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;16						
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;977	Squares of a Sorted Array	★★								
+merge sort
+992	
+Subarrays with K Different Integers&lt;/p&gt;
+&lt;p&gt;16 - 3Sum Closest
+259 - 3Sum Smaller
+844 - Backspace String Compare
+26 - Remove Duplicates from Sorted Array
+75 - Sort Colors
+713&lt;/p&gt;
+&lt;h2 id=&#34;3-two-sum&#34;&gt;3. Two Sum&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/two-sum/&#34;  target=&#34;_blank&#34; &gt;leet&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an array of integers nums and an integer target, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the answer in any order.
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0,1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: Because nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 9, we &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0, 1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;167-two-sum-ii---input-array-is-sorted&#34;&gt;167. Two Sum II - Input Array Is Sorted&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and numbers&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; where &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; index1 &amp;lt; index2 &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index1, index2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+Input: &lt;span class=&#34;nv&#34;&gt;numbers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: The sum of &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; and &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; is 9. Therefore, &lt;span class=&#34;nv&#34;&gt;index1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 1, &lt;span class=&#34;nv&#34;&gt;index2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2. We &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1, 2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;11-container-with-most-water&#34;&gt;11. Container With Most Water&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;i, 0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; and &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;i, height&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt;.
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;谁小移谁&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无论是移动短板或者长板，我们都只关注移动后的新短板会不会变长，而每次移动的木板都只有三种情况，比原短板短，比原短板长，与原短板相等；如向内移动长板，对于新的木板：1.比原短板短，则新短板更短。2.与原短板相等或者比原短板长，则新短板不变。所以，向内移动长板，一定不能使新短板变长&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;15-3sum&#34;&gt;15. 3Sum&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; all the triplets &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;k&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt; such that i !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; j, i !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k, and j !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k, and nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;k&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 0.
+
+Notice that the solution &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; must not contain duplicate triplets.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,0,1,2,-1,-4&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt;-1,-1,2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;,&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,0,1&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;对于重复元素：跳过，避免出现重复解&lt;/strong&gt;
+&lt;strong&gt;令&lt;/strong&gt;左指针 L=i+1L=i+1，右指针 R=n-1R=n−1，当 L&amp;lt;R 时，执行循环**&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;当 nums[i]+nums[L]+nums[R]==0nums[i]+nums[L]+nums[R]==0，执行循环，判断左界和右界是否和下一位置重复，去除重复解。并同时将 L,RL,R 移到下一位置，寻找新的解&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和大于 00，说明 nums[R]nums[R] 太大，R 左移&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和小于 00，说明 nums[L]nums[L] 太小，L 右移&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1. sort:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k   i                   j&lt;/p&gt;
+&lt;p&gt;sum = -3 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 去重:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k               i       j
+sum = -2 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 移动:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k                   i    j
+sum = -1 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 第二轮:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.     k   i             j&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res , i++, j&amp;ndash;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.     k         i    j // 去重&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5，去重，第三轮&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.                k   i  j // 去重&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;threeSum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;c1&#34;&gt;// 不能大于 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             &lt;span class=&#34;c1&#34;&gt;// 去重  nums[i] == nums[i + 1] 就排斥-1， -1 ， 2，或者 0， 0， 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;asList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]));&lt;/span&gt;
+                    &lt;span class=&#34;c1&#34;&gt;// 去重
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                     &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;16-3sum-closest&#34;&gt;16. 3Sum Closest&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
+
+Return the sum of the three integers.
+
+You may assume that each input would have exactly one solution.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,2,1,-4&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+Output: &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+Explanation: The sum that is closest to the target is 2. &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;-1 + &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; + &lt;span class=&#34;nv&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;threeSumClosest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        
+       
+        &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+                    
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    
+                  
+                     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+           
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;int res = nums[0] + nums[1] + nums[nums.length - 1], 刚开始我设置为     int res = Integer.MAX_VALUE&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但是！！！！ input 为负的时候，Math.abs(res - target))这里 res 因为是正的 max_value - (-1) 会变成 min_value, 这时候 res 就一直是 max_value, 不会变成 sum&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;two-sum&#34;&gt;Two Sum&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/two-sum/&#34;  target=&#34;_blank&#34; &gt;leet&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an array of integers nums and an integer target, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the answer in any order.
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0,1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: Because nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 9, we &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0, 1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+Input: &lt;span class=&#34;nv&#34;&gt;height&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,8,6,2,5,4,8,3,7&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Output: &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt;
+Explanation: The above vertical lines are represented by array &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,8,6,2,5,4,8,3,7&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;. In this &lt;span class=&#34;k&#34;&gt;case&lt;/span&gt;, the max area of water &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;blue section&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; the container can contain is 49.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/2pointers2/&#34; &gt;2pointers2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
+&lt;p&gt;感谢：她们都有题库在 github 上直接有，都是大神, 都富有详细解法，对新人特别适合了解解题思路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&#34;&gt;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;宫水三叶&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Grandyang (&lt;a href=&#34;https://www.cnblogs.com/grandyang/&#34;&gt;https://www.cnblogs.com/grandyang/&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;花花酱（油管频道视频）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>about 2 pointers 2</title>
+      <link>https://rileyshen.github.io/post/2pointers2/</link>
+      <pubDate>Wed, 01 Sep 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/2pointers2/</guid>
+      
+        <description>&lt;p&gt;42							
+125	Valid Palindrome	★★	455							
+917	Reverse Only Letters	★★	925	986	855&lt;/p&gt;
+&lt;p&gt;977	Squares of a Sorted Array	★★								
+merge sort
+992	
+Subarrays with K Different Integers&lt;/p&gt;
+&lt;p&gt;259 - 3Sum Smaller
+844 - Backspace String Compare
+26 - Remove Duplicates from Sorted Array
+75 - Sort Colors
+713&lt;/p&gt;
+&lt;h2 id=&#34;259-3sum-smaller&#34;&gt;259. 3Sum Smaller&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;167-two-sum-ii---input-array-is-sorted&#34;&gt;167. Two Sum II - Input Array Is Sorted&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and numbers&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; where &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; index1 &amp;lt; index2 &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index1, index2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+Input: &lt;span class=&#34;nv&#34;&gt;numbers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: The sum of &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; and &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; is 9. Therefore, &lt;span class=&#34;nv&#34;&gt;index1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 1, &lt;span class=&#34;nv&#34;&gt;index2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2. We &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1, 2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;844-backspace-string-compare&#34;&gt;844. Backspace String Compare&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings s and t, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; they are equal when both are typed into empty text editors. &lt;span class=&#34;s1&#34;&gt;&amp;#39;#&amp;#39;&lt;/span&gt; means a backspace character.
+
+Note that after backspacing an empty text, the text will &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt; empty.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ab#c&amp;#34;&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;ad#c&amp;#34;&lt;/span&gt;
+Output: &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+Explanation: Both s and t become &lt;span class=&#34;s2&#34;&gt;&amp;#34;ac&amp;#34;&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;谁小移谁&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无论是移动短板或者长板，我们都只关注移动后的新短板会不会变长，而每次移动的木板都只有三种情况，比原短板短，比原短板长，与原短板相等；如向内移动长板，对于新的木板：1.比原短板短，则新短板更短。2.与原短板相等或者比原短板长，则新短板不变。所以，向内移动长板，一定不能使新短板变长&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;15-3sum&#34;&gt;15. 3Sum&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; all the triplets &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;k&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt; such that i !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; j, i !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k, and j !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k, and nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;k&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 0.
+
+Notice that the solution &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; must not contain duplicate triplets.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,0,1,2,-1,-4&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt;-1,-1,2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;,&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,0,1&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;对于重复元素：跳过，避免出现重复解&lt;/strong&gt;
+&lt;strong&gt;令&lt;/strong&gt;左指针 L=i+1L=i+1，右指针 R=n-1R=n−1，当 L&amp;lt;R 时，执行循环**&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;当 nums[i]+nums[L]+nums[R]==0nums[i]+nums[L]+nums[R]==0，执行循环，判断左界和右界是否和下一位置重复，去除重复解。并同时将 L,RL,R 移到下一位置，寻找新的解&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和大于 00，说明 nums[R]nums[R] 太大，R 左移&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和小于 00，说明 nums[L]nums[L] 太小，L 右移&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1. sort:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k   i                   j&lt;/p&gt;
+&lt;p&gt;sum = -3 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 去重:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k               i       j
+sum = -2 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 移动:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k                   i    j
+sum = -1 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 第二轮:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.     k   i             j&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res , i++, j&amp;ndash;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.     k         i    j // 去重&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5，去重，第三轮&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.                k   i  j // 去重&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;threeSum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;c1&#34;&gt;// 不能大于 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             &lt;span class=&#34;c1&#34;&gt;// 去重  nums[i] == nums[i + 1] 就排斥-1， -1 ， 2，或者 0， 0， 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;asList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]));&lt;/span&gt;
+                    &lt;span class=&#34;c1&#34;&gt;// 去重
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                     &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;16-3sum-closest&#34;&gt;16. 3Sum Closest&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
+
+Return the sum of the three integers.
+
+You may assume that each input would have exactly one solution.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,2,1,-4&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+Output: &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+Explanation: The sum that is closest to the target is 2. &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;-1 + &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; + &lt;span class=&#34;nv&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;threeSumClosest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        
+       
+        &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+                    
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    
+                  
+                     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+           
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;int res = nums[0] + nums[1] + nums[nums.length - 1], 刚开始我设置为     int res = Integer.MAX_VALUE&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但是！！！！ input 为负的时候，Math.abs(res - target))这里 res 因为是正的 max_value - (-1) 会变成 min_value, 这时候 res 就一直是 max_value, 不会变成 sum&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;two-sum&#34;&gt;Two Sum&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/two-sum/&#34;  target=&#34;_blank&#34; &gt;leet&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an array of integers nums and an integer target, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the answer in any order.
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0,1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: Because nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 9, we &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0, 1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+Input: &lt;span class=&#34;nv&#34;&gt;height&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,8,6,2,5,4,8,3,7&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Output: &lt;span class=&#34;m&#34;&gt;49&lt;/span&gt;
+Explanation: The above vertical lines are represented by array &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,8,6,2,5,4,8,3,7&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;. In this &lt;span class=&#34;k&#34;&gt;case&lt;/span&gt;, the max area of water &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;blue section&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; the container can contain is 49.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/2pointers1/&#34; &gt;2pointers1&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
+&lt;p&gt;感谢：她们都有题库在 github 上直接有，都是大神, 都富有详细解法，对新人特别适合了解解题思路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&#34;&gt;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;宫水三叶&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Grandyang (&lt;a href=&#34;https://www.cnblogs.com/grandyang/&#34;&gt;https://www.cnblogs.com/grandyang/&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;花花酱（油管频道视频）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
     <item>
       <title>about Dynamic Programming</title>
       <link>https://rileyshen.github.io/post/dp/</link>
@@ -2581,6 +3026,7 @@ i2: the second smallest value index&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;#longest-substring-without-repeating-characters&#34; &gt;Longest Substring Without Repeating Characters&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#minimum-window-substring&#34; &gt;Minimum Window Substring&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#contains-duplicate&#34; &gt;Contains Duplicate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#contains-duplicate-ii&#34; &gt;Contains Duplicate II&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#contains-duplicate-iii&#34; &gt;Contains Duplicate III&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE&#34; &gt;水果成篮&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -2588,6 +3034,7 @@ i2: the second smallest value index&lt;/p&gt;
 &lt;p&gt;滑动窗口更多处理连续问题， &amp;ldquo;Longest Substring“， ”Subarray“&lt;/p&gt;
 &lt;h3 id=&#34;substrings-of-size-three-with-distinct-characters&#34;&gt;Substrings of Size Three with Distinct Characters&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-substrings-of-size-three-with-distinct-characters&#34; name=&#34;substrings-of-size-three-with-distinct-characters&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/substrings-of-size-three-with-distinct-characters/&#34;  target=&#34;_blank&#34; &gt;leetcode&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;A string is good &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; there are no repeated characters.
 
 Given a string s​​​​​, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the number of good substrings of length three in s​​​​​​.
@@ -2641,6 +3088,7 @@ A substring is a contiguous sequence of characters in a string.
 &lt;span class=&#34;n&#34;&gt;25&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;longest-substring-without-repeating-characters&#34;&gt;Longest Substring Without Repeating Characters&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-longest-substring-without-repeating-characters&#34; name=&#34;longest-substring-without-repeating-characters&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/longest-substring-without-repeating-characters/&#34;  target=&#34;_blank&#34; &gt;leetcode&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;the input are ascii, there are only 128 unique characters =&amp;gt; max length = 128&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;ASCII 码中，一个英文字母（不分大小写）为一个字节，一个中文汉字为两个字节。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;On²能做到 10^8 10^9 次方了不起了&lt;/strong&gt;&lt;/p&gt;
@@ -2711,22 +3159,35 @@ p   w   w   p
             r
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;left = Math.max(left, map.get(s.charAt(right)) );&lt;/p&gt;
 &lt;p&gt;直接造成了 left 左移&lt;/p&gt;
+&lt;p&gt;map 里面映射的是 R 出现的后一位，&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;tmsmfdut&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;我经常纠结要不要前置处理 R， 实际上如果映射坐标，是不能前置处理 R 的，比如下面频率这道，因为 R 在 t, m s 的时候， 如果我们让 R 移到 m, map 里面映射了 R 的 坐标，这时候 L 其实需要跳到 s 位置，而不是 m 的位置，如果 R 在 s 的时候，我们先判断 map 里面是不是已经有 m 了，如果有了让 L 跳到此时 R 坐标，s 位置，然后让 R++，  map.put R 坐标就是第二个 m 的位置才是对的。&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt;   &lt;span class=&#34;nf&#34;&gt;Solution&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;lengthOfLongestSubstring&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Character&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;containsKey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                    &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+       &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        
+        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;R&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Character&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;R&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;R&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;containsKey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;c1&#34;&gt;// map已经有的ch位置的后一位
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                &lt;span class=&#34;n&#34;&gt;L&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; 
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            
+            &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;R&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;R&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
- &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;map 里面映射的是出现的频率&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Character&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -2744,7 +3205,9 @@ p   w   w   p
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为本题设定的字符范围有限，可以使用定长的数组代替 map，来追求更高的性能。&lt;/p&gt;
-&lt;p&gt;最巧妙的是 if (map[c] &amp;gt;= left) 不仅替代了 map.containsKey，也解决了 left 可能在前面出现过的问题（left 没出现和在前面出现在这里一样）。&lt;/p&gt;
+&lt;p&gt;最巧妙的是 if (map[c] &amp;gt;= left) 不仅替代了 map.containsKey，也解决了 left 可能在前面出现过的问题（left 没出现和在前面出现在这里一样）。
+abba
+arr[a] = 0, arr[b] = 1, arr[b]&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
@@ -2764,6 +3227,7 @@ p   w   w   p
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Runtime: 3 ms,
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;minimum-window-substring&#34;&gt;Minimum Window Substring&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-minimum-window-substring&#34; name=&#34;minimum-window-substring&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/minimum-window-substring/&#34;  target=&#34;_blank&#34; &gt;leet&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings s and t of lengths m and n respectively, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the minimum window substring of s such that every character in t &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;including duplicates&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; is included in the window. If there is no such substring, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the empty string &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.
 
 The testcases will be generated such that the answer is unique.
@@ -2835,13 +3299,65 @@ Example 2:
     &lt;span class=&#34;c1&#34;&gt;// s = &amp;#34;abbc&amp;#34; , map = {&amp;#39;a&amp;#39;: 1, &amp;#39;b&amp;#39;: 2, &amp;#39;c&amp;#39;: 1,}
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;  &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+        
+    &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s_arr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toCharArray&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t_arr&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toCharArray&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t_arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]++;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+     
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; 
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MAX_VALUE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s_arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cur&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s_arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cur&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t_arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slowChar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s_arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(++&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;slowChar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+     
+     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MAX_VALUE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;substring&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; 
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;contains-duplicate&#34;&gt;Contains Duplicate&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-contains-duplicate&#34; name=&#34;contains-duplicate&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/contains-duplicate/&#34;  target=&#34;_blank&#34; &gt;leetcode&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an array of integers, find &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; the array contains any duplicates. Your &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; should &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; any value appears at least twice in the array, and it should &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; every element is distinct.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;contains-duplicate-ii&#34;&gt;Contains Duplicate II&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-contains-duplicate-ii&#34; name=&#34;contains-duplicate-ii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and the absolute difference between i and j is at most k.
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;contains-duplicate-iii&#34;&gt;Contains Duplicate III&lt;/h3&gt;
-&lt;p&gt;&lt;a id=&#34;markdown-contains-duplicate-iii&#34; name=&#34;contains-duplicate-iii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums and an integer k, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; there are two distinct indices i and j in the array such that nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and abs&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;i - j&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k.
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,2,3,1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+Output: &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;n&#34;&gt;Set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;contains&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+           
+            &lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]);&lt;/span&gt;
+             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;remove&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]);&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Solution&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;containsNearbyDuplicate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;Set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
@@ -2869,8 +3385,47 @@ Example 2:
 	
 	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;contains-duplicate-iii&#34;&gt;Contains Duplicate III&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-contains-duplicate-iii&#34; name=&#34;contains-duplicate-iii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums and an integer k, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; there are two distinct indices i and j in the array such that nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and abs&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;i - j&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Solution&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+ &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;containsNearbyAlmostDuplicate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;TreeSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;treeSet&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TreeSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+        
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;treeSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;floor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;R&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;treeSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ceiling&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;L&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;  &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;R&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;R&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;treeSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;treeSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;remove&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;    
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-JAVA&#34; data-lang=&#34;JAVA&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;containsNearbyAlmostDuplicate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; 
+                        &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                        &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+                
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+                    
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;水果成篮&#34;&gt;水果成篮&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE&#34; name=&#34;%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/fruit-into-baskets/&#34;  target=&#34;_blank&#34; &gt;leetcode&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;你正在探访一家农场&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;农场从左到右种植了一排果树&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;这些树用一个整数数组fruits表示&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;其中&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fruits&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;是第i棵树上的水果&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;种类&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
 
 &lt;span class=&#34;n&#34;&gt;你想要尽可能多地收集水果&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;然而&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;农场的主人设定了一些严格的规矩&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;你必须按照要求采摘水果&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;
@@ -2903,7 +3458,7 @@ Example 2:
 &lt;span class=&#34;n&#34;&gt;输出&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;解释&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;可以采摘&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;这五棵树&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个就是固定距离的窗口， 里面有个过程，我习惯先判断 left， 这里是右边先放入 map，对比前面几道 while（left 如何）， 这里应该是固定长度的关系，所以先放入右边。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这个就是固定距离的窗口， 里面有个过程，我习惯先判断 left， 这里是右边先放入 map，对比前面几道 while（left 如何）， 这里应该是固定长度的关系，所以先放入右边。 这里不是无重复，所以 map 不要用映射坐标的方法。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;totalFruit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fruits&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fruits&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fruits&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
          
@@ -2960,13 +3515,16 @@ Example 2:
 &lt;hr&gt;
 &lt;p&gt;来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
-&lt;p&gt;感谢：她们都有题库在 github 上直接有，都是大神&lt;/p&gt;
+&lt;p&gt;感谢：她们都有题库在 github 上直接有，都是大神, 都富有详细解法，对新人特别适合了解解题思路&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&#34;&gt;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;宫水三叶&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Grandyang (&lt;a href=&#34;https://www.cnblogs.com/grandyang/&#34;&gt;https://www.cnblogs.com/grandyang/&lt;/a&gt;)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</description>
       
@@ -3337,13 +3895,17 @@ window[p] = 1
     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;window&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;128&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rightChar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rightCharIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rightChar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 128个已经概括了不需要再 - ‘a’
+        &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rightChar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// p
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// pwwkew
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// {0, 0, 0}
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// rightCharIndex = 0;前置，还没映射
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rightCharIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rightChar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 128个已经概括了不需要再 - ‘a’ 
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rightCharIndex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;maxLen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;maxLen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;left&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rightChar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;window&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rightChar&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// window[p] = 1;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         
+        &lt;span class=&#34;n&#34;&gt;right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// r = 1
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;maxLen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
@@ -4372,6 +4934,57 @@ Examples:
     
   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;longest-substring-with-at-most-k-distinct-characters&#34;&gt;Longest Substring with At Most K Distinct Characters&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a string, find the length of the longest substring T that contains at most k distinct characters.
+
+For example, Given &lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; “eceba” and &lt;span class=&#34;nv&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2,
+
+T is &lt;span class=&#34;s2&#34;&gt;&amp;#34;ece&amp;#34;&lt;/span&gt; which its length is 3.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;longest-substring-with-at-most-two-distinct-characters&#34;&gt;Longest Substring with At Most Two Distinct Characters&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a string, find the length of the longest substring T that contains at most &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; distinct characters.
+
+For example, Given &lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; “eceba”, T is &lt;span class=&#34;s2&#34;&gt;&amp;#34;ece&amp;#34;&lt;/span&gt;, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;lengthOfLongestSubstringTwoDistinct&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Character&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MIN_VALUE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOrDefault&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+      &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leftCh&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+          &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;remove&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;leftCh&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+      &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+      
+      &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;minimum-size-subarray-sum&#34;&gt;Minimum Size Subarray Sum&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;t one, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; instead.
+
+For example, given the array &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,3,1,2,4,3&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and &lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 7,
+the subarray &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;4,3&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; has the minimal length under the problem constraint.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;minSubArrayLen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;min&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MAX_VALUE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+      &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;min&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fast&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;slow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++];&lt;/span&gt;
+      &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;min&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;MAX_VALUE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/li&gt;

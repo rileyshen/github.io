@@ -501,7 +501,7 @@
 &lt;!-- /TOC --&gt;
 &lt;h3 id=&#34;jquery&#34;&gt;jQuery&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-jquery&#34; name=&#34;jquery&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;&#34; &gt;jQuery&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;refer to &lt;a href=&#34;&#34; &gt;jQuery&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;attr&#34;&gt;attr()&lt;/h4&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-attr&#34; name=&#34;attr&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;prop-checked-readonly-selected-disabled&#34;&gt;prop() (checked, readOnly, selected, disabled)&lt;/h4&gt;
@@ -1618,7 +1618,225 @@ display username       Set-Cookie:username
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;page&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;// frames/left
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;目的是执行super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;processTemplate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;方法&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;让thymeleaf生效&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;数据库设计-1&#34;&gt;数据库设计&lt;/h4&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;昨日内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;top.html页面显示登录者昵称、判断是否是自己的空间
+1)显示登录者昵称： ${session.userBasic.nickName}
+2)判断是否是自己的空间 : ${session.userBasic.id!=session.friend.id}
+如果不是期望的效果，首先考虑将两者的id都显示出来&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击左侧的好友链接，进入好友空间&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;根据id获取指定userBasic信息，查询这个userBasic的topicList，然后覆盖friend对应的value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;main页面应该展示friend中的topicList，而不是userBasic中的topicList&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;跳转后，在左侧（left）中显示整个index页面&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;问题：在left页面显示整个index布局&lt;/li&gt;
+&lt;li&gt;解决：给超链接添加target属性：   target=&amp;quot;_top&amp;quot; 保证在顶层窗口显示整个index页面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;top.html页面需要修改： &amp;ldquo;欢迎进入${session.friend}&amp;rdquo;
+top.html页面的返回自己空间的超链接需要修改：
+&lt;a th:href=&#34;@{|/user.do?operate=friend&amp;id=${session.userBasic.id}|}&#34; target=&#34;_top&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;日志详情页面实现&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;已知topic的id，需要根据topic的id获取特定topic&lt;/li&gt;
+&lt;li&gt;获取这个topic关联的所有的回复&lt;/li&gt;
+&lt;li&gt;如果某个回复有主人回复，需要查询出来&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;在TopicController中获取指定的topic&lt;/li&gt;
+&lt;li&gt;具体这个topic中关联多少个Reply，由ReplyService内部实现&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;获取到的topic中的author只有id，那么需要在topicService的getTopic方法中封装，在查询topic本身信息时，同时调用userBasicService中的获取userBasic方法，给author属性赋值&lt;/li&gt;
+&lt;li&gt;同理，在reply类中也有author，而且这个author也是只有id，那么我们也需要根据id查询得到author，最后设置关联&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;添加回复&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除回复&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果回复有关联的主人回复，需要先删除主人回复&lt;/li&gt;
+&lt;li&gt;删除回复
+Cannot delete or update a parent row: a foreign key constraint fails
+(&lt;code&gt;qqzonedb&lt;/code&gt;.&lt;code&gt;t_host_reply&lt;/code&gt;, CONSTRAINT &lt;code&gt;FK_host_reply&lt;/code&gt; FOREIGN KEY (&lt;code&gt;reply&lt;/code&gt;) REFERENCES &lt;code&gt;t_reply&lt;/code&gt; (&lt;code&gt;id&lt;/code&gt;))
+我们在删除回复表记录时，发现删除失败，原因是：在主人回复表中仍然有记录引用待删除的回复这条记录
+如果需要删除主表数据，需要首先删除子表数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除日志&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;删除日志，首先需要考虑是否有关联的回复&lt;/li&gt;
+&lt;li&gt;删除回复，首先需要考虑是否有关联的主人回复&lt;/li&gt;
+&lt;li&gt;另外，如果不是自己的空间，则不能删除日志&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;今日内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;日期和字符串之间的格式化
+/*
+// String -&amp;gt; java.util.Date
+String dateStr1 = &amp;ldquo;2021-12-30 12:59:59&amp;rdquo;;
+SimpleDateFormat sdf = new SimpleDateFormat(&amp;ldquo;yyyy-MM-dd HH:mm:ss&amp;rdquo;);
+try {
+Date date1 = sdf.parse(dateStr1);
+} catch (ParseException e) {
+e.printStackTrace();
+}&lt;/p&gt;
+&lt;p&gt;// Date -&amp;gt; String
+Date date2 = new Date();
+String dateStr2 = sdf.format(date2);
+*/&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;thymeleaf中使用#dates这个公共的内置对象
+${#dates.format(topic.topicDate ,&amp;lsquo;yyyy-MM-dd HH:mm:ss&amp;rsquo;)}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login
+为什么不是： http://localhost:8080/pro23/login.html  ?
+答： 如果是后者，那么属于直接访问静态页面。那么页面上的thymeleaf表达式（标签）浏览器是不能识别的
+我们访问前者的目的其实就是要执行 ViewBaseServlet中的processTemplete()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login 访问这个URL，执行的过程是什么样的？
+答：
+http://  localhost   :8080   /pro23          /page.do                        ?operate=page&amp;amp;page=login
+协议       ServerIP   port    context root    request.getServletPath()         query string&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;DispatcherServlet -&amp;gt; urlPattern :  *.do  拦截/page.do&lt;/li&gt;
+&lt;li&gt;request.getServletPath() -&amp;gt;  /page.do&lt;/li&gt;
+&lt;li&gt;解析处理字符串，将/page.do -&amp;gt; page&lt;/li&gt;
+&lt;li&gt;拿到page这个字符串，然后去IOC容器（BeanFactory）中寻找id=page的那个bean对象   -&amp;gt; PageController.java&lt;/li&gt;
+&lt;li&gt;获取operate的值 -&amp;gt; page    因此得知，应该执行 PageController中的page()方法&lt;/li&gt;
+&lt;li&gt;PageController中的page方法定义如下：
+public String page(String page){
+return page ;
+}&lt;/li&gt;
+&lt;li&gt;在queryString:   ?operate=page&amp;amp;page=login 中 获取请求参数，参数名是page，参数值是login
+因此page方法的参数page值会被赋上&amp;quot;login&amp;quot;
+然后return &amp;ldquo;login&amp;rdquo; , return 给 谁？？&lt;/li&gt;
+&lt;li&gt;因为PageController的page方法是DispatcherServlet通过反射调用的
+method.invoke(&amp;hellip;.) ;
+因此，字符串&amp;quot;login&amp;quot;返回给DispatcherServlet&lt;/li&gt;
+&lt;li&gt;DispatcherServlet接收到返回值，然后处理视图
+目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
+当前，返回&amp;quot;login&amp;quot;，不带前缀
+那么执行  super.processTemplete(&amp;ldquo;login&amp;rdquo;,request,response);&lt;/li&gt;
+&lt;li&gt;此时ViewBaseServlet中的processTemplete方法会执行，效果是：
+在&amp;quot;login&amp;quot;这个字符串前面拼接 &amp;ldquo;/&amp;rdquo;  (其实就是配置文件中view-prefixe配置的值)
+在&amp;quot;login&amp;quot;这个字符串后面拼接 &amp;ldquo;.html&amp;rdquo; (其实就是配置文件中view-suffix配置的值)
+最后进行服务器转发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;目前我们进行javaweb项目开发的“套路”是这样的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;拷贝 myssm包&lt;/li&gt;
+&lt;li&gt;新建配置文件applicationContext.xml或者可以不叫这个名字，在web.xml中指定文件名&lt;/li&gt;
+&lt;li&gt;在web.xml文件中配置：
+&lt;ol&gt;
+&lt;li&gt;配置前缀和后缀，这样thymeleaf引擎就可以根据我们返回的字符串进行拼接，再跳转
+&lt;context-param&gt;
+&lt;param-name&gt;view-prefix&lt;/param-name&gt;
+&lt;param-value&gt;/&lt;/param-value&gt;
+&lt;/context-param&gt;
+&lt;context-param&gt;
+&lt;param-name&gt;view-suffix&lt;/param-name&gt;
+&lt;param-value&gt;.html&lt;/param-value&gt;
+&lt;/context-param&gt;&lt;/li&gt;
+&lt;li&gt;配置监听器要读取的参数，目的是加载IOC容器的配置文件（也就是applicationContext.xml）
+&lt;context-param&gt;
+&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+&lt;param-value&gt;applicationContext.xml&lt;/param-value&gt;
+&lt;/context-param&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;开发具体的业务模块：
+1） 一个具体的业务模块纵向上由几个部分组成：
+&lt;ul&gt;
+&lt;li&gt;html页面&lt;/li&gt;
+&lt;li&gt;POJO类&lt;/li&gt;
+&lt;li&gt;DAO接口和实现类&lt;/li&gt;
+&lt;li&gt;Service接口和实现类&lt;/li&gt;
+&lt;li&gt;Controller 控制器组件
+2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
+3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
+4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
+例如：
+public class UserDAOImpl extends BaseDAO&lt;User&gt; implements UserDAO{}
+5） Service是业务控制类，这一层我们只需要记住一点：
+- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
+- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
+6） Controller类的编写规则
+① 在applicationContext.xml中配置Controller
+&amp;lt;bean id=&amp;ldquo;user&amp;rdquo; class=&amp;ldquo;com.atguigu.qqzone.controllers.UserController&amp;gt;
+那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
+② 在Controller中设计的方法名需要和operate的值一致
+public String login(String loginId , String pwd , HttpSession session){
+return &amp;ldquo;index&amp;rdquo;;
+}
+因此，我们的登录验证的表单如下：
+&lt;form th:action=&#34;@{/user.do}&#34; method=&#34;post&#34;&gt;
+&lt;inut type=&#34;hidden&#34; name=&#34;operate&#34; value=&#34;login&#34;/&gt;
+&lt;/form&gt;
+③ 在表单中，组件的name属性和Controller中方法的参数名一致
+&lt;input type=&#34;text&#34; name=&#34;loginId&#34; /&gt;
+public String login(String loginId , String pwd , HttpSession session){
+④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
+if(&amp;ldquo;request&amp;rdquo;.equals&amp;hellip;) else if(&amp;ldquo;response&amp;rdquo;.equals&amp;hellip;.) else if(&amp;ldquo;session&amp;rdquo;.equals&amp;hellip;.){
+直接赋值
+}else{
+此处才是从request的请求参数中获取
+request.getParameter(&amp;ldquo;loginId&amp;rdquo;) &amp;hellip;..
+}
+7）  DispatcherServlet中步骤大致分为：
+0. 从application作用域获取IOC容器
+1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
+2. 准备operate指定的方法所要求的参数
+3. 调用operate指定的方法
+4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;为什么DispatcherServlet能够从application作用域获取到IOC容器？
+ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
+&lt;ol&gt;
+&lt;li&gt;解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入&lt;/li&gt;
+&lt;li&gt;将IOC容器保存到application作用域&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修改BaseDAO，让其支持properties文件以及druid数据源连接池
+讲解了两种方式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;直接自己配置properties，然后读取，然后加载驱动&amp;hellip;..&lt;/li&gt;
+&lt;li&gt;使用druid连接池技术，那么properties中的key是有要求的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;step1-数据库设计&#34;&gt;step1. 数据库设计&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;数据库主键最好不要跟业务有关，比如主键设计为学生学号，但是将来学校合并等，主键就比较麻烦&lt;/p&gt;
@@ -1820,7 +2038,7 @@ display username       Set-Cookie:username
 配置 Filter，可以用注解@WebFilter，也可以使用 xml 文件 &lt;filter&gt; &lt;filter-mapping&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Filter 在配置时，和 servlet 一样，也可以配置通配符，例如 @WebFilter(&amp;quot;*.do&amp;quot;)表示拦截所有以.do 结尾的请求&lt;/p&gt;
+&lt;p&gt;Filter 在配置时，和 servlet 一样，也可以配置通配符，例如 @WebFilter(&amp;quot;*.do&amp;rdquo;)表示拦截所有以.do 结尾的请求&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;过滤器链&lt;/p&gt;
@@ -2663,6 +2881,8 @@ display username       Set-Cookie:username
 &lt;li&gt;处理结果&lt;/li&gt;
 &lt;li&gt;释放资源&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h4 id=&#34;statement-接口提供了三种执行&#34;&gt;Statement 接口提供了三种执行&lt;/h4&gt;
+&lt;p&gt;Statement 接口提供了三种执行 SQL 语句的方法：executeQuery、executeUpdate 和 execute。使用哪一个方法由 SQL 语句所产生的内容决定&lt;/p&gt;
 &lt;h4 id=&#34;druidalibaba&#34;&gt;druid（Alibaba）&lt;/h4&gt;
 &lt;blockquote&gt;
 &lt;p&gt;step: &lt;br&gt;
@@ -2846,6 +3066,66 @@ query(sql 语句，new BeanHandle&amp;lt;&amp;gt;(类名.class),可变参数)&lt
             &lt;span class=&#34;n&#34;&gt;JDBCUtils&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;jdbc-固定步骤&#34;&gt;jdbc 固定步骤&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;加载驱动&lt;/li&gt;
+&lt;li&gt;链接数据库&lt;/li&gt;
+&lt;li&gt;向数据库发送 SQL 对象 Statement：CRUD&lt;/li&gt;
+&lt;li&gt;编写 sql&lt;/li&gt;
+&lt;li&gt;执行 SQL&lt;/li&gt;
+&lt;li&gt;关闭连接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 配置信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;amp;characterEncoding=utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;password&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 1/ 加载驱动
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.mysql.ct.jdbc.Driver&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 2. 链接数据库
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connection&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DirverManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getConnction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 3. 向数据库发送 SQL 对象 Statement：CRUD
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Statement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;statement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;connection&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;createStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 4. 编写 sql
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;select * from users&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 5. 执行 SQL
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ResultSet&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resultset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;statement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;executeQuery&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resultset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;resultSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;resultSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 6. 关闭连接
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resultSet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;statement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;用 preparedStatement&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 配置信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;amp;characterEncoding=utf-8&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;password&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;root&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 1/ 加载驱动
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.mysql.ct.jdbc.Driver&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 2. 链接数据库
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connection&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DirverManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getConnction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;password&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// // 3. 向数据库发送 SQL 对象 Statement：CRUD
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// Statement statement= connection.createStatement();
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 3. 编写 sql
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;insert into users(id, name, password, email, birthday) values(?, ?, ?, ?, ?)&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 4. preparestatement
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PreparedStatement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;connection&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setInt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setInt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;aa&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setInt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;123456&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setInt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;123456@qq.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sql&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;java&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;util&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTime&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()));&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 5. 执行 SQL
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;executeUpdate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+   &lt;span class=&#34;n&#34;&gt;sout&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;success&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;// 6. 关闭连接
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;preparedStatement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;spring-jdbc-jdbc-template&#34;&gt;spring JDBC ：JDBC template&lt;/h4&gt;
 &lt;p&gt;Spring 框架对 JDBC 的简单封装。提供了一个 JDBCTemplate 对象简化 JDBC 的开发&lt;/p&gt;
 &lt;h5 id=&#34;步骤&#34;&gt;步骤&lt;/h5&gt;
@@ -2898,7 +3178,12 @@ JdbcTemplate template = new JdbcTemplate(ds);&lt;br&gt;
 
 &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getBatchSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;users&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;datasource&#34;&gt;DataSource&lt;/h3&gt;
+&lt;p&gt;DataSource 用来取代 DriverManager 来获取 Connection，获取速度快，同时可以大幅度提高数据库访问速度。&lt;/p&gt;
+&lt;p&gt;特别注意：&lt;/p&gt;
+&lt;p&gt;数据源和数据库连接不同，数据源无需创建多个，它是产生数据库连接的工厂，因此整个应用只需要一个数据源即可。&lt;/p&gt;
+&lt;p&gt;当数据库访问结束后，程序还是像以前一样关闭数据库连接：conn.close(); 但 conn.close()并没有关闭数据库的物理连接，它仅仅把数据库连接释放，归还给了数据库连接池。&lt;/p&gt;
+&lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/javaweb2/&#34; &gt;javaweb2&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://rileyshen.github.io/post/javaweb3/&#34; &gt;javaweb3&lt;/a&gt;&lt;/li&gt;

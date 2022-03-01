@@ -346,7 +346,83 @@
     <span class="o">}</span>
 <span class="o">}</span>
 
-</code></pre></div></div>
+</code></pre></div><h3 id="反射理解">反射理解</h3>
+<p><strong>将类的各个组成部分封装为其他对象，这就是反射机制</strong></p>
+<p>好处：</p>
+<ol>
+<li>可以在程序运行过程中，操作这些对象。</li>
+<li>可以解耦，提高程序的可扩展性。</li>
+</ol>
+<h3 id="获取-class-对象的方式">获取 Class 对象的方式</h3>
+<h4 id="1-classforname全类名">1. Class.forName(“全类名”)</h4>
+<p>将字节码文件加载进内存，返回 Class 对象
+<strong>多用于配置文件，将类名定义在配置文件中，读取文件，加载类</strong></p>
+<blockquote>
+<p>Class aClass = Class.forName(&ldquo;day01.itcast.junit.test.Calculator&rdquo;);</p>
+</blockquote>
+<h4 id="2-类名class通过类名的属性-class-获取">2. 类名.class：通过类名的属性 class 获取</h4>
+<p><strong>多用于参数的传递</strong></p>
+<ul>
+<li>
+<p><em><strong>获取成员变量们</strong></em></p>
+<ul>
+<li>Field[] getFields() ：获取所有 public 修饰的成员变量</li>
+<li>Field getField(String name) 获取指定名称的 public 修饰的成员变量</li>
+<li>Field[] getDeclaredFields() 获取所有的成员变量，不考虑修饰符</li>
+<li>Field getDeclaredField(String name)</li>
+</ul>
+</li>
+<li>
+<p><em><strong>获取构造方法们</strong></em></p>
+<ul>
+<li>Constructor&lt;?&gt;[] getConstructors()</li>
+<li>Constructor getConstructor(类&lt;?&gt;.. parameterTypes)</li>
+<li>Constructor getDeclaredConstructor(类&lt;?&gt;.. parameterTypes)</li>
+<li>Constructor&lt;?&gt;[] getDeclaredConstructors()</li>
+<li><em><strong>创建对象</strong></em>
+<ul>
+<li>T newInstance(Object.. initargs)</li>
+<li>如果使用空参数构造方法创建对象，操作可以简化：Class 对象的 newInstance 方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- >  创建 Constructor 类 -->
+<blockquote>
+<p>Class personClass = Person.class;
+Constructor constructor = personClass.getConstructor(String.class, int.class);
+Object person= constructor.newInstance(&ldquo;aaa&rdquo;, 11);</p>
+</blockquote>
+<ul>
+<li>
+<p><em><strong>获取成员方法们</strong></em></p>
+<ul>
+<li>Method[] getMethods()</li>
+<li>Method getMethod(String name, 类&lt;?&gt;.. parameterTypes)</li>
+<li>Method[] getDeclaredMethods()</li>
+<li>Method getDeclaredMethod(String name, 类&lt;?&gt;.. parameterTypes)</li>
+<li>Mthod: 方法对象</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Object invoke(Object obj, Object&hellip;args)</p>
+</blockquote>
+<ul>
+<li>获取方法名称</li>
+</ul>
+<p>String getName()</p>
+<blockquote>
+<p>Class personClass = Person.class;
+Method setName = personClass.getMethod(&ldquo;setName&rdquo;, String.class);
+Person person = new Person();
+setName.invoke(person, &ldquo;hello&rdquo;);</p>
+</blockquote>
+<h4 id="3-对象getclassgetclass方法在-object-类中定义着">3. 对象.getClass()：getClass()方法在 Object 类中定义着</h4>
+<p><strong>有对象</strong></p>
+<p><strong>多用于对象的获取字节码的方式</strong></p>
+</div>
     <div class="post-footer">
         <div class="info">
             
