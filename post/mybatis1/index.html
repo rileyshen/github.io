@@ -139,14 +139,170 @@
                     Thu, Jul 15, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">5-minute read</span>
+                <span class="reading-time">9-minute read</span>
             </div>
             
         </div>
 
         <p>This tutorial is for newbies who want to learn MyBatis-Plus in a quite easy way.</p>
+<!-- TOC depthfrom:1 depthto:6 orderedlist:false -->
+<ul>
+<li><a href="#mybatis" >MyBatis</a>
+<ul>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8-mybatis--%E7%8E%B0%E6%9C%89%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AF%B9%E6%AF%94" >为什么要使用 MyBatis – 现有持久化技术的对比</a></li>
+<li><a href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E5%87%86%E5%A4%87" >开发环境的准备</a>
+<ul>
+<li><a href="#mysql-%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%A1%A8" >mysql 中创建表</a></li>
+<li><a href="#maven-%E5%B7%A5%E7%A8%8B-%E6%8A%8A-src-%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%A0%E6%8E%89%E5%8F%98%E6%88%90%E7%88%B6%E5%B7%A5%E7%A8%8B-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96" >maven 工程， 把 src 文件夹删掉，变成父工程, 导入依赖</a></li>
+<li><a href="#maven-%E5%AD%90%E5%B7%A5%E7%A8%8B" >maven 子工程</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-mybatis-%E7%9A%84%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%A6%82%E4%BD%95%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93mybatis-configxml" >创建 MyBatis 的全局配置文件并配置（如何连接数据库）mybatis-config.xml</a></li>
+<li><a href="#%E7%BC%96%E5%86%99-mybatis-%E5%B7%A5%E5%85%B7%E7%B1%BB" >编写 mybatis 工具类</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81" >编写代码</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a>
+<ul>
+<li><a href="#orgapacheibatisbindingbindingexception-type-interface-daouserdao-is-not-known-to-the-mapperregistry" >org.apache.ibatis.binding.BindingException: Type interface dao.UserDao is not known to the MapperRegistry</a></li>
+<li><a href="#%E6%AF%8F%E4%B8%80%E4%B8%AA-mapperxml-%E9%83%BD%E9%9C%80%E8%A6%81%E5%9C%A8-mybatis-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B3%A8%E5%86%8C" >每一个 Mapper.xml 都需要在 Mybatis 核心配置文件中注册</a></li>
+<li><a href="#could-not-find-mapperxml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA%E7%94%9F%E6%95%88%E7%9A%84%E6%97%B6%E5%80%99%E5%9C%A8-pom-%E6%96%87%E4%BB%B6%E4%B8%AD-build-%E9%87%8C%E9%9D%A2%E9%85%8D%E7%BD%AE" >could not find Mapper.xml 配置文件无法导出生效的时候在 pom 文件中 build 里面配置</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#idea-%E4%B8%AD%E6%A8%A1%E6%9D%BF%E8%AE%BE%E7%BD%AE" >idea 中模板设置</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" >配置文件</a></li>
+<li><a href="#%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF" >映射文件模板</a></li>
+<li><a href="#mybatis-%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E5%80%BC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F" >MyBatis 获取参数值的两种方式</a>
+<ul>
+<li><a href="#%E5%8D%95%E4%B8%AA%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" >单个字面量类型的参数</a></li>
+<li><a href="#%E5%A4%9A%E4%B8%AA%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" >多个字面量类型的参数</a></li>
+<li><a href="#map-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" >map 集合类型的参数</a></li>
+<li><a href="#%E5%AE%9E%E4%BD%93%E7%B1%BB%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" >实体类类型的参数</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8param-%E6%A0%87%E8%AF%86%E5%8F%82%E6%95%B0" >使用@Param 标识参数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#crud" >CRUD</a>
+<ul>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%AF%B9%E8%B1%A1" >查询一个实体类对象</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AA-list-%E9%9B%86%E5%90%88" >查询一个 list 集合</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%8D%95%E4%B8%AA%E6%95%B0%E6%8D%AE" >查询单个数据</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%E4%B8%BA-map-%E9%9B%86%E5%90%88" >查询一条数据为 map 集合</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%A4%9A%E6%9D%A1%E6%95%B0%E6%8D%AE%E4%B8%BA-map-%E9%9B%86%E5%90%88" >查询多条数据为 map 集合</a></li>
+</ul>
+</li>
+<li><a href="#sql-%E7%89%B9%E6%AE%8A%E6%89%A7%E8%A1%8C" >SQL 特殊执行</a>
+<ul>
+<li><a href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2" >模糊查询</a></li>
+<li><a href="#%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4" >批量删除</a></li>
+<li><a href="#%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E8%A1%A8%E5%90%8D" >动态设置表名</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD%E8%8E%B7%E5%8F%96%E8%87%AA%E5%A2%9E%E7%9A%84%E4%B8%BB%E9%94%AE" >添加功能获取自增的主键</a></li>
+<li><a href="#namespace" >namespace</a>
+<ul>
+<li><a href="#namespace-%E4%B8%AD%E7%9A%84%E5%8C%85%E5%90%8D%E8%A6%81%E5%92%8C-daomapper-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%85%E5%90%8D%E4%B8%80%E8%87%B4" >namespace 中的包名要和 Dao/Mapper 接口的包名一致</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" >注意事项</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E5%A2%9E%E5%88%A0%E6%94%B9%E9%9C%80%E8%A6%81%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1" >&lt;em&gt;&lt;strong&gt;注意：增删改需要提交事务&lt;/strong&gt;&lt;/em&gt;</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3" >编写接口</a></li>
+<li><a href="#mapper-%E7%9A%84-sql-%E8%AF%AD%E5%8F%A5" >mapper 的 sql 语句</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a></li>
+<li><a href="#%E5%81%87%E8%AE%BE%E6%88%91%E4%BB%AC%E7%9A%84%E5%AE%9E%E4%BD%93%E7%B1%BB%E6%88%96%E8%80%85%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%A1%A8%E5%AD%97%E6%AE%B5%E6%88%96%E8%80%85%E5%8F%82%E6%95%B0%E8%BF%87%E5%A4%9A%E6%88%91%E4%BB%AC%E5%BA%94%E5%BD%93%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8-map" >假设，我们的实体类，或者数据库中的表，字段或者参数过多，我们应当考虑使用 Map</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2" >模糊查询</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90" >配置解析</a></li>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D-typealiases" >类型别名 typeAliases</a></li>
+<li><a href="#%E6%98%A0%E5%B0%84%E5%99%A8" >映射器</a></li>
+<li><a href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F" >生命周期和作用域</a></li>
+<li><a href="#resultmap-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84" >ResultMap 结果集映射</a>
+<ul>
+<li><a href="#resultmap-%E8%BF%99%E9%87%8Cresultmap-idusermap-typepojouser%E8%A6%81%E5%86%99%E5%AE%8C%E5%8C%85%E5%90%8D%E4%B8%8D%E7%84%B6%E4%BC%9A%E5%87%BA%E9%94%99" >resultmap 这里&lt;resultMap id=&#34;UserMap&#34; type=&#34;pojo.User&#34;&gt;要写完包名，不然会出错</a></li>
+</ul>
+</li>
+<li><a href="#%E6%97%A5%E5%BF%97" >日志</a>
+<ul>
+<li><a href="#stdout_logging" >STDOUT_LOGGING</a></li>
+<li><a href="#log4j" >LOG4J</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E9%A1%B5" >分页</a>
+<ul>
+<li><a href="#%E8%AF%AD%E6%B3%95" >语法</a></li>
+<li><a href="#mybatis-%E5%AE%9E%E7%8E%B0%E5%88%86%E9%A1%B5-%E6%A0%B8%E5%BF%83-sql" >mybatis 实现分页， 核心 SQL</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91" >注解开发</a>
+<ul>
+<li><a href="#%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B" >面向接口编程</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90" >执行流程剖析</a>
+<ul>
+<li><a href="#resources-%E8%8E%B7%E5%8F%96%E5%8A%A0%E8%BD%BD%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" >Resources 获取加载全局配置文件</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%8C%96-sqlsessionfactorybuilder-%E5%AF%B9%E8%B1%A1" >实例化 sqlsessionfactoryBuilder 对象</a></li>
+<li><a href="#%E8%A7%A3%E6%9E%90%E6%96%87%E4%BB%B6%E6%B5%81-xmlconfigbuilder" >解析文件流 XMLConfigBuilder</a></li>
+<li><a href="#configuration-%E6%89%80%E6%9C%89%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF" >Configuration 所有的配置信息</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%8C%96-sqlsessionfactory-%E5%AF%B9%E8%B1%A1" >实例化 sqlsessionfactory 对象</a></li>
+<li><a href="#transactioncaches" >transactionCaches</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-executor-%E6%89%A7%E8%A1%8C%E5%99%A8" >创建 executor 执行器</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-sqlsession" >创建 sqlsession</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0-crud-%E4%BC%9A%E5%92%8C-6-%E8%BF%9E%E6%8E%A5-%E5%9B%9E%E6%BB%9A" >实现 CRUD 会和 6 连接， 回滚</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F-%E4%BC%9A%E5%92%8C-6-%E8%BF%9E%E6%8E%A5-%E5%9B%9E%E6%BB%9A" >查看是否成功 会和 6 连接， 回滚</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1" >提交事务</a></li>
+<li><a href="#%E5%85%B3%E9%97%AD" >关闭</a></li>
+</ul>
+</li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" >环境搭建</a></li>
+<li><a href="#could-not-find-resource-daoxml" >Could not find resource dao/*.xml</a>
+<ul>
+<li><a href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" >测试环境搭建</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" >多对一处理</a></li>
+</ul>
+</li>
+<li><a href="#mybatis-plus-%E5%90%AF%E5%8A%A8" >MyBatis-plus 启动</a>
+<ul>
+<li><a href="#%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%88%91%E4%BB%AC%E5%B0%B1%E5%AE%9E%E7%8E%B0%E4%BA%86-user-%E8%A1%A8%E7%9A%84-crud-%E5%8A%9F%E8%83%BD%E7%94%9A%E8%87%B3%E8%BF%9E-xml-%E6%96%87%E4%BB%B6%E9%83%BD%E4%B8%8D%E7%94%A8%E7%BC%96%E5%86%99" >通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写</a></li>
+<li><a href="#%E9%80%9A%E7%94%A8mapper" >通用Mapper</a></li>
+<li><a href="#mp%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%ACcrud%E5%9C%A8%E5%86%85%E7%BD%AE%E7%9A%84basemapper%E4%B8%AD%E9%83%BD%E5%B7%B2%E5%BE%97%E5%88%B0%E4%BA%86%E5%AE%9E%E7%8E%B0" >MP中的基本CRUD在内置的BaseMapper中都已得到了实现。</a>
+<ul>
+<li><a href="#--%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9Ccreate" >&#43; #### 插入操作Create</a></li>
+<li><a href="#--retrieve" >&#43; #### Retrieve</a></li>
+<li><a href="#--update" >&#43; #### Update</a></li>
+<li><a href="#--delete" >&#43; #### Delete</a></li>
+</ul>
+</li>
+<li><a href="#%E9%80%9A%E7%94%A8service" >通用Service</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BAservice%E6%8E%A5%E5%8F%A3" >创建Service接口</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BAservice%E5%AE%9E%E7%8E%B0%E7%B1%BB" >创建Service实现类</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-impl-%E5%8C%85%E5%88%9B%E5%BB%BA-userserviceimpl%E7%BB%A7%E6%89%BF-serviceimpl%E5%AE%9E%E7%8E%B0-userservice" >创建 impl 包，创建 UserServiceImpl，继承 ServiceImpl，实现 UserService</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E7%B1%BB" >创建测试类</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95%E6%95%B0" >测试记录数</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5" >测试批量插入</a></li>
+</ul>
+</li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89mapper" >自定义Mapper</a>
+<ul>
+<li><a href="#%E5%BD%93%E9%80%9A%E7%94%A8mapper%E6%97%A0%E6%B3%95%E6%BB%A1%E8%B6%B3%E6%88%91%E4%BB%AC%E7%9A%84%E9%9C%80%E6%B1%82%E6%97%B6%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%BA%E4%BA%8Emapper%E6%8E%A5%E5%8F%A3%E7%9A%84xml%E6%96%87%E4%BB%B6%E5%B9%B6%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AEsql%E8%AF%AD%E5%8F%A5" >当通用Mapper无法满足我们的需求时，我们可以自定义基于Mapper接口的xml文件，并在xml文件中配置SQL语句</a></li>
+</ul>
+</li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89service" >自定义Service</a>
+<ul>
+<li><a href="#%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper" >以上同一个Test里面return可以用注入userMapper或者直接用baseMapper</a></li>
+<li><a href="#ok-its-time-for-mybatis2" >Ok, It&amp;rsquo;s time for mybatis2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
 <h2 id="mybatis">MyBatis</h2>
+<p><a id="markdown-mybatis" name="mybatis"></a></p>
 <h3 id="为什么要使用-mybatis--现有持久化技术的对比">为什么要使用 MyBatis – 现有持久化技术的对比</h3>
+<p><a id="markdown-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8-mybatis-%E2%80%93-%E7%8E%B0%E6%9C%89%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AF%B9%E6%AF%94" name="%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8-mybatis-%E2%80%93-%E7%8E%B0%E6%9C%89%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AF%B9%E6%AF%94"></a></p>
 <ul>
 <li>
 <p><strong>JDBC</strong></p>
@@ -180,8 +336,10 @@
 </li>
 </ul>
 <h3 id="开发环境的准备">开发环境的准备</h3>
+<p><a id="markdown-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E5%87%86%E5%A4%87" name="%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E5%87%86%E5%A4%87"></a></p>
 <p><strong>思路：搭建环境——》导入 Mybatis——》编写代码——》测试</strong></p>
 <h4 id="1-mysql-中创建表">1 mysql 中创建表</h4>
+<p><a id="markdown-mysql-%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%A1%A8" name="mysql-%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%A1%A8"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">存储引擎是innodb。innoDB 是 MySQL 上第一个提供外键约束的数据存储引擎，除了提供事务处理外，InnoDB 还支持行锁，提供和 Oracle 一样的一致性的不加锁读取，能增加并发读的用户数量并提高性能，不会增加锁的数量。InnoDB 的设计目标是处理大容量数据时最大化性能，它的 CPU 利用率是其他所有基于磁盘的关系数据库引擎中最有效率的。
 
 InnoDB 是一套放在 MySQL 后台的完整数据库系统，InnoDB 有它自己的缓冲池，能缓冲数据和索引，InnoDB 还把数据和索引存放在表空间里面，可能包含好几个文件，这和 MyISAM 表完全不同，在 MyISAM 中，表被存放在单独的文件中，InnoDB 表的大小只受限于操作系统文件的大小，一般为 2GB
@@ -202,6 +360,7 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </span><span class="w"></span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bb&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;123e56&#39;</span><span class="p">),</span><span class="w">
 </span><span class="w"></span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cc&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1234gg6&#39;</span><span class="p">)</span><span class="w">
 </span></code></pre></div><h4 id="2-maven-工程-把-src-文件夹删掉变成父工程-导入依赖">2 maven 工程， 把 src 文件夹删掉，变成父工程, 导入依赖</h4>
+<p><a id="markdown-maven-%E5%B7%A5%E7%A8%8B%EF%BC%8C-%E6%8A%8A-src-%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%A0%E6%8E%89%EF%BC%8C%E5%8F%98%E6%88%90%E7%88%B6%E5%B7%A5%E7%A8%8B%2C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96" name="maven-%E5%B7%A5%E7%A8%8B%EF%BC%8C-%E6%8A%8A-src-%E6%96%87%E4%BB%B6%E5%A4%B9%E5%88%A0%E6%8E%89%EF%BC%8C%E5%8F%98%E6%88%90%E7%88%B6%E5%B7%A5%E7%A8%8B%2C-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96"></a></p>
 <p><strong>导入 MyBatis 框架的 jar 包、Mysql 驱动包、log4j 的 jar 包</strong></p>
 <ul>
 <li>myBatis-3.4.1.jar</li>
@@ -210,7 +369,9 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <li>junit</li>
 </ul>
 <h4 id="3-maven-子工程">3 maven 子工程</h4>
+<p><a id="markdown-maven-%E5%AD%90%E5%B7%A5%E7%A8%8B" name="maven-%E5%AD%90%E5%B7%A5%E7%A8%8B"></a></p>
 <h4 id="4-创建-mybatis-的全局配置文件并配置如何连接数据库mybatis-configxml">4. 创建 MyBatis 的全局配置文件并配置（如何连接数据库）mybatis-config.xml</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA-mybatis-%E7%9A%84%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E9%85%8D%E7%BD%AE%EF%BC%88%E5%A6%82%E4%BD%95%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89mybatis-config.xml" name="%E5%88%9B%E5%BB%BA-mybatis-%E7%9A%84%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E9%85%8D%E7%BD%AE%EF%BC%88%E5%A6%82%E4%BD%95%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89mybatis-config.xml"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;</span>
 <span class="cp">&lt;!DOCTYPE configuration
 </span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
@@ -232,7 +393,11 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
     <span class="nt">&lt;/environments&gt;</span>
 <span class="nt">&lt;/configuration&gt;</span>
 
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mysql数据库用的是gbk编码，而项目数据库用的是utf-8编码。这时候如果添加了useUnicode<span class="o">=</span>true<span class="p">&amp;</span><span class="nv">characterEncoding</span><span class="o">=</span>UTF-8 ，那么作用有如下两个方面：
+</code></pre></div><p><strong>transactionManager type=&ldquo;JDBC&rdquo;/</strong></p>
+<p>type：设置事务管理方式，type=&ldquo;JDBC|MANAGED&rdquo;</p>
+<p>type=&ldquo;JDBC&rdquo;：设置当前环境的事务管理都必须手动处理</p>
+<p>type=&ldquo;MANAGED&rdquo;：设置事务被管理，例如 spring 中的 AOP</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mysql数据库用的是gbk编码，而项目数据库用的是utf-8编码。这时候如果添加了useUnicode<span class="o">=</span>true<span class="p">&amp;</span><span class="nv">characterEncoding</span><span class="o">=</span>UTF-8 ，那么作用有如下两个方面：
 
 1. 存数据时：
 
@@ -243,6 +408,7 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 在从数据库中取数据的时候，数据库会先将数据库中的数据按GBK格式解码成字节码，然后再将解码后的字节码重新按UTF-8格式编码数据，最后再将数据返回给客户端。
 
 </code></pre></div><h4 id="5-编写-mybatis-工具类">5. 编写 mybatis 工具类</h4>
+<p><a id="markdown-%E7%BC%96%E5%86%99-mybatis-%E5%B7%A5%E5%85%B7%E7%B1%BB" name="%E7%BC%96%E5%86%99-mybatis-%E5%B7%A5%E5%85%B7%E7%B1%BB"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MybatisUtils</span> <span class="o">{</span>
 
@@ -266,6 +432,7 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <span class="o">}</span>
 
 </code></pre></div><h4 id="6-编写代码">6. 编写代码</h4>
+<p><a id="markdown-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81" name="%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"></a></p>
 <ul>
 <li>
 <p><strong>JDBC 时期</strong></p>
@@ -306,6 +473,7 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <span class="nt">&lt;/mapper&gt;</span>
 
 </code></pre></div><h4 id="7-测试">7. 测试</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoTest</span> <span class="o">{</span>
 
     <span class="nd">@Test</span>
@@ -326,7 +494,9 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <span class="o">}</span>
 
 </code></pre></div><h5 id="orgapacheibatisbindingbindingexception-type-interface-daouserdao-is-not-known-to-the-mapperregistry">org.apache.ibatis.binding.BindingException: Type interface dao.UserDao is not known to the MapperRegistry</h5>
+<p><a id="markdown-org.apache.ibatis.binding.bindingexception%3A-type-interface-dao.userdao-is-not-known-to-the-mapperregistry" name="org.apache.ibatis.binding.bindingexception%3A-type-interface-dao.userdao-is-not-known-to-the-mapperregistry"></a></p>
 <h5 id="每一个-mapperxml-都需要在-mybatis-核心配置文件中注册">每一个 Mapper.xml 都需要在 Mybatis 核心配置文件中注册</h5>
+<p><a id="markdown-%E6%AF%8F%E4%B8%80%E4%B8%AA-mapper.xml-%E9%83%BD%E9%9C%80%E8%A6%81%E5%9C%A8-mybatis-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B3%A8%E5%86%8C" name="%E6%AF%8F%E4%B8%80%E4%B8%AA-mapper.xml-%E9%83%BD%E9%9C%80%E8%A6%81%E5%9C%A8-mybatis-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B3%A8%E5%86%8C"></a></p>
 <figure><img src="/images/batis1.png"
          alt="image"/><figcaption>
             <h4>mapper 配置</h4>
@@ -334,16 +504,244 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </figure>
 
 <h5 id="could-not-find-mapperxml-配置文件无法导出生效的时候在-pom-文件中-build-里面配置">could not find Mapper.xml 配置文件无法导出生效的时候在 pom 文件中 build 里面配置</h5>
+<p><a id="markdown-could-not-find-mapper.xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA%E7%94%9F%E6%95%88%E7%9A%84%E6%97%B6%E5%80%99%E5%9C%A8-pom-%E6%96%87%E4%BB%B6%E4%B8%AD-build-%E9%87%8C%E9%9D%A2%E9%85%8D%E7%BD%AE" name="could-not-find-mapper.xml-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA%E7%94%9F%E6%95%88%E7%9A%84%E6%97%B6%E5%80%99%E5%9C%A8-pom-%E6%96%87%E4%BB%B6%E4%B8%AD-build-%E9%87%8C%E9%9D%A2%E9%85%8D%E7%BD%AE"></a></p>
 <figure><img src="/images/batis2.png"
          alt="image"/><figcaption>
             <h4>pom 配置</h4>
         </figcaption>
 </figure>
 
+<h3 id="idea-中模板设置">idea 中模板设置</h3>
+<p><a id="markdown-idea-%E4%B8%AD%E6%A8%A1%E6%9D%BF%E8%AE%BE%E7%BD%AE" name="idea-%E4%B8%AD%E6%A8%A1%E6%9D%BF%E8%AE%BE%E7%BD%AE"></a></p>
+<h4 id="配置文件">配置文件</h4>
+<p><a id="markdown-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" name="%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"></a></p>
+<figure><img src="/images/batis12.png"
+         alt="image"/><figcaption>
+            <h4>模板设置</h4>
+        </figcaption>
+</figure>
+
+<p>以后直接右键会出现 new mybatis.xml</p>
+<h4 id="映射文件模板">映射文件模板</h4>
+<p><a id="markdown-%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF" name="%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E6%A8%A1%E6%9D%BF"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s">&#34;1.0&#34;</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span> <span class="o">?&gt;</span>
+<span class="o">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">mapper</span>
+        <span class="n">PUBLIC</span> <span class="s">&#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;</span>
+        <span class="s">&#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;</span><span class="o">&gt;</span>
+
+
+   <span class="o">&lt;</span><span class="n">mapper</span> <span class="n">namespace</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="o">&gt;</span>
+
+   <span class="o">&lt;/</span><span class="n">mapper</span><span class="o">&gt;</span>
+
+</code></pre></div><h4 id="mybatis-获取参数值的两种方式">MyBatis 获取参数值的两种方式</h4>
+<p><a id="markdown-mybatis-%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E5%80%BC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F" name="mybatis-%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0%E5%80%BC%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"></a></p>
+<p>MyBatis 获取参数值的两种方式：${}和#{}</p>
+<p>${}的本质就是字符串拼接，#{}的本质就是占位符赋值</p>
+<p>${}使用字符串拼接的方式拼接 sql，若为字符串类型或日期类型的字段进行赋值时，需要手动加单引号；但是#{}使用占位符赋值的方式拼接 sql，此时为字符串类型或日期类型的字段进行赋值时，可以自动添加单引号</p>
+<blockquote>
+<p>select * from t_user where username = #{username}</p>
+</blockquote>
+<blockquote>
+<p>select * from t_user where username = &lsquo;${username}&rsquo;</p>
+</blockquote>
+<h5 id="1-单个字面量类型的参数">1. 单个字面量类型的参数</h5>
+<p><a id="markdown-%E5%8D%95%E4%B8%AA%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" name="%E5%8D%95%E4%B8%AA%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0"></a></p>
+<p>若 mapper 接口中的方法参数为单个的字面量类型
+此时可以使用${}和#{}以任意的名称获取参数的值，注意${}需要手动加单引号</p>
+<h5 id="2-多个字面量类型的参数">2. 多个字面量类型的参数</h5>
+<p><a id="markdown-%E5%A4%9A%E4%B8%AA%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" name="%E5%A4%9A%E4%B8%AA%E5%AD%97%E9%9D%A2%E9%87%8F%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0"></a>
+若 mapper 接口中的方法参数为多个时</p>
+<p>此时 MyBatis 会自动将这些参数放在一个 map 集合中，以 arg0,arg1&hellip;为键，以参数为值;</p>
+<p>以 param1,param2&hellip;为键，以参数为值；因此只需要通过${}和#{}访问 map 集合的键就可以获取相对应的</p>
+<p>值，注意${}需要手动加单引号</p>
+<blockquote>
+<p>User checkLogin(String username, String password);</p>
+</blockquote>
+<p>错误的方法</p>
+<blockquote>
+<p>select * from t_user where username = #{username} and password = #{password}</p>
+</blockquote>
+<p>正确的, 可以把 arg0 替换为 param1</p>
+<blockquote>
+<select id = "checkLogin" resultType="User">
+select * from t_user where username = #{arg0} and password = #{arg01}
+</blockquote>
+<h5 id="3-map-集合类型的参数">3. map 集合类型的参数</h5>
+<p><a id="markdown-map-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" name="map-%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0"></a></p>
+<p>第二种是 mybatis 设置键</p>
+<p>若 mapper 接口中的方法需要的参数为多个时，此时可以手动创建 map 集合，将这些数据放在 map 中只需要通过${}和#{}访问 map 集合的键就可以获取相对应的值，注意${}需要手动加单引号</p>
+<blockquote>
+<select id = "checkLoginByMap" resultType="User">
+select * from t_user where username = #{username} and password = #{password}
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+        <span class="c1">// step2: 执行
+</span><span class="c1"></span>        <span class="n">StudentMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">StudentMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">,</span> <span class="s">&#34;admin&#34;</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">,</span> <span class="s">&#34;admin&#34;</span><span class="o">);</span>
+        <span class="n">Student</span> <span class="n">stu</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">checkLoginByMap</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">allStudent</span><span class="o">);</span>
+
+
+        <span class="n">sqlSession</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre></div><h5 id="4-实体类类型的参数">4. 实体类类型的参数</h5>
+<p><a id="markdown-%E5%AE%9E%E4%BD%93%E7%B1%BB%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0" name="%E5%AE%9E%E4%BD%93%E7%B1%BB%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%82%E6%95%B0"></a></p>
+<p>若 mapper 接口中的方法参数为实体类对象时 (从游览器中得到实体信息)
+此时可以使用${}和#{}，通过访问实体类对象中的属性名获取属性值，注意${}需要手动加单引号</p>
+<p><em><strong>int insertUser(User user);</strong></em></p>
+<blockquote>
+<select id = "insertUser" resultType="User">
+insert into t_user values(null, #{username}, #{password})
+</select>
+</blockquote>
+<h5 id="5-使用param-标识参数">5. 使用@Param 标识参数</h5>
+<p><a id="markdown-%E4%BD%BF%E7%94%A8%40param-%E6%A0%87%E8%AF%86%E5%8F%82%E6%95%B0" name="%E4%BD%BF%E7%94%A8%40param-%E6%A0%87%E8%AF%86%E5%8F%82%E6%95%B0"></a></p>
+<p>可以通过@Param 注解标识 mapper 接口中的方法参数. 此时，会将这些参数放在 map 集合中，以@Param 注解的 value 属性值为键，以参数为值；以 param1,param2&hellip;为键，以参数为值；只需要通过${}和#{}访问 map 集合的键就可以获取相对应的值，
+注意${}需要手动加单引号</p>
+<p><strong>mybatis 会把 @Param 里面的键放进 map,相当于第二第三种情况</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TeacherMapper</span> <span class="o">{</span>
+    
+    <span class="n">Teacher</span> <span class="nf">getTeacher</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;tid&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">var1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><blockquote>
+<select id = "getTeacher" resultType="Teacher">
+select * from t_user where username = #{username} and password = #{password}
+</select>
+</blockquote>
+<p><strong>建议就分两种情况,一种就是获取实体类的时候, 另一个种全部加上 @Param</strong></p>
 <h3 id="crud">CRUD</h3>
-<h4 id="namespace">namespace</h4>
+<p><a id="markdown-crud" name="crud"></a></p>
+<h4 id="查询一个实体类对象">查询一个实体类对象</h4>
+<p><a id="markdown-%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%AF%B9%E8%B1%A1" name="%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%AF%B9%E8%B1%A1"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 根据用户id查询用户信息
+</span><span class="c1"></span>    <span class="n">Student</span> <span class="nf">getStudentById</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudentById&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+      select * from Student where id = #{id};
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="查询一个-list-集合">查询一个 list 集合</h4>
+<p><a id="markdown-%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AA-list-%E9%9B%86%E5%90%88" name="%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%AA-list-%E9%9B%86%E5%90%88"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 查询所有的学生信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="nf">getAllStudent</span><span class="o">();</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllStudent&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+      select * from student;
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="查询单个数据">查询单个数据</h4>
+<p><a id="markdown-%E6%9F%A5%E8%AF%A2%E5%8D%95%E4%B8%AA%E6%95%B0%E6%8D%AE" name="%E6%9F%A5%E8%AF%A2%E5%8D%95%E4%B8%AA%E6%95%B0%E6%8D%AE"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 根据用户信息总记录是
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">getCount</span><span class="o">();</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getCount&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Integer&#34;</span><span class="nt">&gt;</span>
+     select count(*) from student;
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="查询一条数据为-map-集合">查询一条数据为 map 集合</h4>
+<p><a id="markdown-%E6%9F%A5%E8%AF%A2%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%E4%B8%BA-map-%E9%9B%86%E5%90%88" name="%E6%9F%A5%E8%AF%A2%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE%E4%B8%BA-map-%E9%9B%86%E5%90%88"></a></p>
+<blockquote>
+<p>Map&lt;String, Object&gt; getUserToMap(@Param(&ldquo;id&rdquo;) int id);</p>
+</blockquote>
+<blockquote>
+<!--Map<String, Object> getUserToMap(@Param("id") int id);-->
+<select id="getUserToMap" resultType="map">
+</blockquote>
+<p>select * from t_user where id = #{id}</p>
+<blockquote>
+</select>
+</blockquote>
+<h4 id="查询多条数据为-map-集合">查询多条数据为 map 集合</h4>
+<p><a id="markdown-%E6%9F%A5%E8%AF%A2%E5%A4%9A%E6%9D%A1%E6%95%B0%E6%8D%AE%E4%B8%BA-map-%E9%9B%86%E5%90%88" name="%E6%9F%A5%E8%AF%A2%E5%A4%9A%E6%9D%A1%E6%95%B0%E6%8D%AE%E4%B8%BA-map-%E9%9B%86%E5%90%88"></a></p>
+<p><strong>method 1</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// * 查询所有用户信息为map集合
+</span><span class="c1">// * @return
+</span><span class="c1">// * 将表中的数据以map集合的方式查询，一条数据对应一个map；若有多条数据，就会产生多个map集合，此
+</span><span class="c1">// 时可以将这些map放在一个list集合中获取
+</span><span class="c1">// */
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;&gt;</span> <span class="nf">getAllUserToMap</span><span class="o">();</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">// <span class="c">&lt;!--Map&lt;String, Object&gt; getAllUserToMap();--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllUserToMap&#34;</span> <span class="na">resultType=</span><span class="s">&#34;map&#34;</span><span class="nt">&gt;</span>
+select * from t_user
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p><strong>method 2</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@MapKey</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">getAllUserToMap</span><span class="o">();</span>
+
+</code></pre></div><h3 id="sql-特殊执行">SQL 特殊执行</h3>
+<p><a id="markdown-sql-%E7%89%B9%E6%AE%8A%E6%89%A7%E8%A1%8C" name="sql-%E7%89%B9%E6%AE%8A%E6%89%A7%E8%A1%8C"></a></p>
+<h4 id="模糊查询">模糊查询</h4>
+<p><a id="markdown-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2" name="%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 测试模糊查询
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">&gt;</span> <span class="nf">getStudentByLike</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">username</span><span class="o">);</span>
+</code></pre></div><p>不可以</p>
+<blockquote>
+<p>select * from student where <code>name</code> like &lsquo;%#{username}%&rsquo;</p>
+</blockquote>
+<p><strong>method 1</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStudentByLike&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+      select * from student where `name` like &#39;%${username}%&#39;
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p><strong>method 2</strong></p>
+<blockquote>
+<p>select * from student where <code>name</code> like concat('%', #{username}, &lsquo;%')</p>
+</blockquote>
+<p><strong>method 3</strong></p>
+<blockquote>
+<p>select * from student where <code>name</code> like &ldquo;%&quot;#{username}&quot;%&rdquo;</p>
+</blockquote>
+<h4 id="批量删除">批量删除</h4>
+<p><a id="markdown-%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4" name="%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 批量删除
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">deleteMore</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ids&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">ids</span><span class="o">);</span>
+</code></pre></div><p>不能用 #{}, 会自动加单引号</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;deleteMore&#34;</span><span class="nt">&gt;</span>
+    delete from student where id in (${ids})
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><blockquote>
+<p>mapper.deleteMore(&ldquo;1, 2, 3&rdquo;);</p>
+</blockquote>
+<h4 id="动态设置表名">动态设置表名</h4>
+<p><a id="markdown-%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E8%A1%A8%E5%90%8D" name="%E5%8A%A8%E6%80%81%E8%AE%BE%E7%BD%AE%E8%A1%A8%E5%90%8D"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 动态设置表名，查询所有的用户信息
+</span><span class="c1"></span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">getAllUser</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;tableName&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">tableName</span><span class="o">);</span>
+
+</code></pre></div><p>这里也只能用 ${}, 会出现错误 <strong>preparing : select * from ? (BaseJdbcLogger.java)</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllUsert&#34;</span> <span class="na">resultType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+     select * from ${tableName};
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="添加功能获取自增的主键">添加功能获取自增的主键</h4>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD%E8%8E%B7%E5%8F%96%E8%87%AA%E5%A2%9E%E7%9A%84%E4%B8%BB%E9%94%AE" name="%E6%B7%BB%E5%8A%A0%E5%8A%9F%E8%83%BD%E8%8E%B7%E5%8F%96%E8%87%AA%E5%A2%9E%E7%9A%84%E4%B8%BB%E9%94%AE"></a></p>
+<ul>
+<li>
+<p>t_clazz(clazz_id,clazz_name)</p>
+</li>
+<li>
+<p>t_student(student_id,student_name,clazz_id)</p>
+</li>
+<li>
+<p>添加班级信息</p>
+</li>
+<li>
+<p>获取新添加的班级的 id</p>
+</li>
+<li>
+<p>为班级分配学生，即将某学的班级 id 修改为新添加的班级的 id</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">//  添加用户信息
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">insertUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+
+</code></pre></div><p><strong>useGeneratedKeys: 设置使用自增的主键</strong></p>
+<p><strong>keyProperty：因为增删改有统一的返回值是受影响的行数，因此只能将获取的自增的主键放在传输的参数 user 对象的某个属性中</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">// <span class="c">&lt;!--int insertUser(User user);--&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;insertUser&#34;</span> <span class="na">useGeneratedKeys=</span><span class="s">&#34;true&#34;</span> <span class="na">keyProperty=</span><span class="s">&#34;id&#34;</span><span class="nt">&gt;</span>
+     insert into t_user values(null,#{username},#{password},#{age},#{sex})
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="namespace">namespace</h4>
+<p><a id="markdown-namespace" name="namespace"></a></p>
 <h5 id="namespace-中的包名要和-daomapper-接口的包名一致">namespace 中的包名要和 Dao/Mapper 接口的包名一致</h5>
+<p><a id="markdown-namespace-%E4%B8%AD%E7%9A%84%E5%8C%85%E5%90%8D%E8%A6%81%E5%92%8C-dao%2Fmapper-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%85%E5%90%8D%E4%B8%80%E8%87%B4" name="namespace-%E4%B8%AD%E7%9A%84%E5%8C%85%E5%90%8D%E8%A6%81%E5%92%8C-dao%2Fmapper-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%85%E5%90%8D%E4%B8%80%E8%87%B4"></a></p>
 <h4 id="注意事项">注意事项</h4>
+<p><a id="markdown-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" name="%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"></a></p>
 <ul>
 <li>
 <p>id ：就是对应的 namespace 接口中的方法名</p>
@@ -356,20 +754,23 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </li>
 </ul>
 <h4 id="注意增删改需要提交事务"><em><strong>注意：增删改需要提交事务</strong></em></h4>
+<p><a id="markdown-***%E6%B3%A8%E6%84%8F%EF%BC%9A%E5%A2%9E%E5%88%A0%E6%94%B9%E9%9C%80%E8%A6%81%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1***" name="***%E6%B3%A8%E6%84%8F%EF%BC%9A%E5%A2%9E%E5%88%A0%E6%94%B9%E9%9C%80%E8%A6%81%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1***"></a>
 <figure><img src="/images/batis3.png"
          alt="image"/><figcaption>
             <h4>提交事务</h4>
         </figcaption>
 </figure>
-
+</p>
 <h4 id="编写接口">编写接口</h4>
+<p><a id="markdown-%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3" name="%E7%BC%96%E5%86%99%E6%8E%A5%E5%8F%A3"></a>
 <figure><img src="/images/batis4.png"
          alt="image"/><figcaption>
             <h4>编写接口</h4>
         </figcaption>
 </figure>
-
+</p>
 <h4 id="mapper-的-sql-语句">mapper 的 sql 语句</h4>
+<p><a id="markdown-mapper-%E7%9A%84-sql-%E8%AF%AD%E5%8F%A5" name="mapper-%E7%9A%84-sql-%E8%AF%AD%E5%8F%A5"></a></p>
 <figure><img src="/images/batis5.png"
          alt="image"/><figcaption>
             <h4>mapper</h4>
@@ -377,54 +778,94 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </figure>
 
 <h4 id="测试">测试</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
 <h4 id="假设我们的实体类或者数据库中的表字段或者参数过多我们应当考虑使用-map">假设，我们的实体类，或者数据库中的表，字段或者参数过多，我们应当考虑使用 Map</h4>
-<h3 id="模糊查询">模糊查询</h3>
+<p><a id="markdown-%E5%81%87%E8%AE%BE%EF%BC%8C%E6%88%91%E4%BB%AC%E7%9A%84%E5%AE%9E%E4%BD%93%E7%B1%BB%EF%BC%8C%E6%88%96%E8%80%85%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%A1%A8%EF%BC%8C%E5%AD%97%E6%AE%B5%E6%88%96%E8%80%85%E5%8F%82%E6%95%B0%E8%BF%87%E5%A4%9A%EF%BC%8C%E6%88%91%E4%BB%AC%E5%BA%94%E5%BD%93%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8-map" name="%E5%81%87%E8%AE%BE%EF%BC%8C%E6%88%91%E4%BB%AC%E7%9A%84%E5%AE%9E%E4%BD%93%E7%B1%BB%EF%BC%8C%E6%88%96%E8%80%85%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E8%A1%A8%EF%BC%8C%E5%AD%97%E6%AE%B5%E6%88%96%E8%80%85%E5%8F%82%E6%95%B0%E8%BF%87%E5%A4%9A%EF%BC%8C%E6%88%91%E4%BB%AC%E5%BA%94%E5%BD%93%E8%80%83%E8%99%91%E4%BD%BF%E7%94%A8-map"></a></p>
+<h3 id="模糊查询-1">模糊查询</h3>
+<p><a id="markdown-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2" name="%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"></a></p>
 <blockquote>
 <p>List<User> userLike = userMapper.getUserLike(&quot;%li%&quot;);</p>
 </blockquote>
 <h3 id="配置解析">配置解析</h3>
-<p>4-4.类型别名 typeAliases</p>
-<p>  存在别名的是为 Java 类型设置一个短的名字
-  存在的意义仅用来减少类完全限定的冗余</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">typeAliases</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">typeAlias</span> <span class="n">type</span><span class="o">=</span><span class="s">&#34;pojo.User&#34;</span> <span class="n">alias</span><span class="o">=</span><span class="s">&#34;user&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">typeAliases</span><span class="o">&gt;</span>
+<p><a id="markdown-%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90" name="%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90"></a></p>
+<h3 id="类型别名-typealiases">类型别名 typeAliases</h3>
+<p><a id="markdown-%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D-typealiases" name="%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D-typealiases"></a></p>
+<p>存在别名的是为 Java 类型设置一个短的名字</p>
+<p>存在的意义仅用来减少类完全限定的冗余</p>
+<p><strong>alias：设置此类型的别名，若不设置此属性，该类型拥有默认的别名，即类名且不区分大小</strong></p>
+<!--<typeAlias type="com.learn.mybatis.bean.User"></typeAlias>-->
+<!--<typeAlias type="com.learn.mybatis.bean.User" alias="user">
+</typeAlias>-->
+<p><strong>更常用： 以包为单位，设置改包下所有的类型都拥有默认的别名，即类名且不区分大小写</strong></p>
+<package name="com.learn.mybatis.bean"/>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;typeAliases&gt;</span>
+    <span class="nt">&lt;typeAlias</span> <span class="na">type=</span><span class="s">&#34;pojo.User&#34;</span> <span class="na">alias=</span><span class="s">&#34;user&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/typeAliases&gt;</span>
 </code></pre></div><p>  也可以指定一个包名，Mybatis 会在包名下面搜索 java Bean ，比如：
   扫描实体类的包，它的默认别名就是为这个类的类型，首字母小写</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">typeAliases</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="kn">package</span> <span class="nn">name</span><span class="o">=</span><span class="s">&#34;pojo&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">typeAliases</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;typeAliases&gt;</span>
+    <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;pojo&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/typeAliases&gt;</span>
 </code></pre></div><p>  在实体类比较少的时候，使用第一种方式</p>
 <p>  如果实体类十分多，建议使用第二种</p>
 <p>  第一种可以 DIY 别名，第二种则不行，如果非要改，需要在实体上增加注解</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Alias</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
 </code></pre></div><h3 id="映射器">映射器</h3>
+<p><a id="markdown-%E6%98%A0%E5%B0%84%E5%99%A8" name="%E6%98%A0%E5%B0%84%E5%99%A8"></a></p>
+<blockquote>
+<p>MyBatis 中的 mapper 接口相当于以前的 dao。但是区别在于，mapper 仅仅是接口，我们不需要
+提供实现类。</p>
+</blockquote>
+<blockquote>
 <p>MapperRegistry：注册绑定我们的 Mapper 文件；</p>
-<p>方式一：【推荐使用】</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">mappers</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">mapper</span> <span class="n">resource</span><span class="o">=</span><span class="s">&#34;dao/UserMapper.xml&#34;</span><span class="o">/&gt;</span>
-    <span class="o">&lt;!--</span><span class="n">通配方式</span><span class="o">--&gt;</span>
-    <span class="o">&lt;</span><span class="n">mapper</span> <span class="n">resource</span><span class="o">=</span><span class="s">&#34;dao/*Mapper.xml&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">mappers</span><span class="o">&gt;</span>
+</blockquote>
+<p>方式一：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mappers&gt;</span>
+    <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;dao/UserMapper.xml&#34;</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!--通配方式--&gt;</span>
+    <span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;dao/*Mapper.xml&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
 </code></pre></div><p>方式二：使用 class 文件绑定注册</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;!--</span><span class="n">每一个Mapper</span><span class="o">.</span><span class="na">xml都需要在Mybatis核心配置文件中注册</span><span class="err">！</span><span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="n">mappers</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">mapper</span> <span class="n">class</span><span class="o">=</span><span class="s">&#34;dao.UserMapper&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">mappers</span><span class="o">&gt;</span>
-</code></pre></div><p>注意点：
-  接口和他的mapper文件都需要在Mybatis核心配置文件中注册
-  接口和他的mapper文件配置文件必须再同一包下！</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--每一个Mapper.xml都需要在Mybatis核心配置文件中注册--&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+    <span class="nt">&lt;mapper</span> <span class="na">class=</span><span class="s">&#34;dao.UserMapper&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+</code></pre></div><p>注意点：</p>
+<p>  接口和他的 mapper 文件都需要在 Mybatis 核心配置文件中注册</p>
+<p>  接口和他的 mapper 文件配置文件必须再同一包下</p>
 <p>方式三：使用扫描包注册</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;!--</span><span class="n">每一个Mapper</span><span class="o">.</span><span class="na">xml都需要在Mybatis核心配置文件中注册</span><span class="err">！</span><span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="kn">package</span> <span class="nn">name</span><span class="o">=</span><span class="s">&#34;dao&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;</span><span class="n">mappers</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="kn">package</span> <span class="nn">name</span><span class="o">=</span><span class="s">&#34;dao&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">mappers</span><span class="o">&gt;</span>
-</code></pre></div><p>注意点：
-  接口和他的Mapper配置文件必须同名！
-  接口和他的mapper文件配置文件必须再同一包下！</p>
+<p>  接口和他的 mapper 文件配置文件必须再同一包下</p>
+<p>放在 resources 下面的时候，要和 mapper 文件类名字一一对应</p>
+<p>比如 java 下面的 com.learn.mybatis.mapper</p>
+<p>那 resources 下要把 xml 文件 放进 com.learn.mybatis.mapper 中</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--每一个Mapper.xml都需要在Mybatis核心配置文件中注册--&gt;</span>
+<span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;dao&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+    <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;dao&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+</code></pre></div><p>注意点：</p>
+<p>  接口和他的 Mapper 配置文件必须同名！
+  接口和他的 mapper 文件配置文件必须再同一包下！</p>
+<blockquote>
+<p>1、映射文件的命名规则：<br>
+表所对应的实体类的类名+Mapper.xml<br>
+例如：表 t_user，映射的实体类为 User，所对应的映射文件为 UserMapper.xml<br>
+因此一个映射文件对应一个实体类，对应一张表的操作<br>
+MyBatis 映射文件用于编写 SQL，访问以及操作表中的数据<br>
+MyBatis 映射文件存放的位置是 src/main/resources/mappers 目录下<br>
+2、MyBatis 中可以面向接口操作数据，要保证两个一致：<br>
+a&gt;mapper 接口的全类名和映射文件的命名空间（namespace）保持一致<br>
+b&gt;mapper 接口中方法的方法名和映射文件中编写 SQL 的标签的 id 属性保持一致</p>
+</blockquote>
 <h3 id="生命周期和作用域">生命周期和作用域</h3>
+<p><a id="markdown-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F" name="%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F"></a></p>
+<blockquote>
+<p>SqlSession：代表 Java 程序和数据库之间的会话。（HttpSession 是 Java 程序和浏览器之间的会话）<br>
+SqlSessionFactory：是“生产”SqlSession 的“工厂”。
+工厂模式：如果创建某一个对象，使用的过程基本固定，那么我们就可以把创建这个对象的
+相关代码封装到一个“工厂类”中，以后都使用这个工厂类来“生产”我们需要的对象。</p>
+</blockquote>
 <p><strong>SqlSessionFactory</strong></p>
 <ul>
 <li>SqlSessionFactory 一旦被创建就应该在应用的运行期间一直存在，没有任何理由丢弃它或重新创建另一个实例。</li>
@@ -440,15 +881,20 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <li>一个 SQLSession 可以多次使用它的 getMapper 方法，获取多个 mapper 接口实例</li>
 </ul>
 <h3 id="resultmap-结果集映射">ResultMap 结果集映射</h3>
+<p><a id="markdown-resultmap-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84" name="resultmap-%E7%BB%93%E6%9E%9C%E9%9B%86%E6%98%A0%E5%B0%84"></a></p>
+<p>查询的标签 select 必须设置属性 resultType 或 resultMap，用于设置实体类和数据库表的映射
+关系</p>
+<p>resultType：自动映射，用于属性名和表中字段名一致的情况
+resultMap：自定义映射，用于一对多或多对一或字段名和属性名不一致的情况</p>
 <p>resultMap 元素是 MyBatis 中最重要最强大的元素。
   ResultMap 的设计思想是，对简单的语句做到零配置，对于复杂一点的语句，只需要描述语句之间的关系就行了。
   MyBatis 会在幕后自动创建一个 ResultMap，再根据属性名来映射列到 JavaBean 的属性上。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">resultMap</span> <span class="n">id</span><span class="o">=</span><span class="s">&#34;UserMap&#34;</span> <span class="n">type</span><span class="o">=</span><span class="s">&#34;pojo.User&#34;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">id</span> <span class="n">property</span><span class="o">=</span><span class="s">&#34;id&#34;</span> <span class="n">column</span><span class="o">=</span><span class="s">&#34;id&#34;</span><span class="o">/&gt;</span>
-    <span class="o">&lt;!--</span><span class="n">column</span> <span class="n">数据库的字段</span><span class="err">，</span><span class="n">property</span> <span class="n">JavaBean中的属性</span><span class="o">--&gt;</span>
-    <span class="o">&lt;</span><span class="n">result</span> <span class="n">property</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="n">column</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">result</span> <span class="n">property</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="n">column</span><span class="o">=</span><span class="s">&#34;pwd&#34;</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">resultMap</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;UserMap&#34;</span> <span class="na">type=</span><span class="s">&#34;pojo.User&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;id&#34;</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!--column 数据库的字段, property JavaBean中的属性--&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;password&#34;</span> <span class="na">column=</span><span class="s">&#34;pwd&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
 </code></pre></div><figure><img src="/images/batis6.png"
          alt="image"/><figcaption>
             <h4>ResultMap 配置</h4>
@@ -462,6 +908,7 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </figure>
 
 <h4 id="resultmap-这里resultmap-idusermap-typepojouser要写完包名不然会出错">resultmap 这里<resultMap id="UserMap" type="pojo.User">要写完包名，不然会出错</h4>
+<p><a id="markdown-resultmap-%E8%BF%99%E9%87%8C%3Cresultmap-id%3D%22usermap%22-type%3D%22pojo.user%22%3E%E8%A6%81%E5%86%99%E5%AE%8C%E5%8C%85%E5%90%8D%EF%BC%8C%E4%B8%8D%E7%84%B6%E4%BC%9A%E5%87%BA%E9%94%99" name="resultmap-%E8%BF%99%E9%87%8C%3Cresultmap-id%3D%22usermap%22-type%3D%22pojo.user%22%3E%E8%A6%81%E5%86%99%E5%AE%8C%E5%8C%85%E5%90%8D%EF%BC%8C%E4%B8%8D%E7%84%B6%E4%BC%9A%E5%87%BA%E9%94%99"></a></p>
 <figure><img src="/images/batis8.png"
          alt="image"/><figcaption>
             <h4>ResultMap 配置</h4>
@@ -469,14 +916,17 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </figure>
 
 <h3 id="日志">日志</h3>
+<p><a id="markdown-%E6%97%A5%E5%BF%97" name="%E6%97%A5%E5%BF%97"></a></p>
 <h4 id="stdout_logging">STDOUT_LOGGING</h4>
+<p><a id="markdown-stdout_logging" name="stdout_logging"></a>
 <figure><img src="/images/batis9.png"
          alt="image"/><figcaption>
             <h4>ResultMap 配置</h4>
         </figcaption>
 </figure>
-
+</p>
 <h4 id="log4j">LOG4J</h4>
+<p><a id="markdown-log4j" name="log4j"></a></p>
 <ul>
 <li>导入 log4j 包</li>
 </ul>
@@ -497,9 +947,11 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 </figure>
 
 <h3 id="分页">分页</h3>
+<p><a id="markdown-%E5%88%86%E9%A1%B5" name="%E5%88%86%E9%A1%B5"></a></p>
 <p>思考：为什么要分页？</p>
 <p>减少数据的处理量</p>
 <h4 id="语法">语法</h4>
+<p><a id="markdown-%E8%AF%AD%E6%B3%95" name="%E8%AF%AD%E6%B3%95"></a></p>
 <blockquote>
 <p>select * from users limit startIndex, PageSize;</p>
 </blockquote>
@@ -507,6 +959,7 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <p>select * from users limit 0, 2;</p>
 </blockquote>
 <h4 id="mybatis-实现分页-核心-sql">mybatis 实现分页， 核心 SQL</h4>
+<p><a id="markdown-mybatis-%E5%AE%9E%E7%8E%B0%E5%88%86%E9%A1%B5%EF%BC%8C-%E6%A0%B8%E5%BF%83-sql" name="mybatis-%E5%AE%9E%E7%8E%B0%E5%88%86%E9%A1%B5%EF%BC%8C-%E6%A0%B8%E5%BF%83-sql"></a></p>
 <ul>
 <li>
 <ol>
@@ -551,7 +1004,10 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 
     <span class="o">}</span>
 </code></pre></div><h3 id="注解开发">注解开发</h3>
+<p><a id="markdown-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91" name="%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91"></a></p>
+<p><strong>对稍微复杂一点的语句，最好使用 xml 配映射语句</strong></p>
 <h4 id="面向接口编程">面向接口编程</h4>
+<p><a id="markdown-%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B" name="%E9%9D%A2%E5%90%91%E6%8E%A5%E5%8F%A3%E7%BC%96%E7%A8%8B"></a></p>
 <p>在真正的开发中，很多时候我们会选择面向 <em><strong>接口编程</strong></em>。</p>
 <p><em><strong>根本原因:解耦，可拓展，提高复用，分层开发中，上层不用管具体的实现，大家都遵守共同的标准，使得开发变得容易，规范性更好</strong></em></p>
 <p>在一个面向对象的系统中，系统的各种功能是由许许多多的不同对象协作完成的。在这种情况下，各个对象内部是如何实现自己的, <em><strong>对系统设计人员来讲就不那么重要了</strong></em> ;</p>
@@ -573,7 +1029,65 @@ InnoDB is a general-purpose storage engine that balances high reliability and hi
 <li>面向过程是指，我们考虑问题时，以 ***一个具体的流程（事务过程)***为单位，考虑它的实现.</li>
 <li>接口设计与非接口设计是针对复用技术而言的，与面向对象（过程)不是一个问题.更多的体现就是对系统整体的架构</li>
 </ul>
+<h3 id="执行流程剖析">执行流程剖析</h3>
+<p><a id="markdown-%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90" name="%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%89%96%E6%9E%90"></a></p>
+<h4 id="1-resources-获取加载全局配置文件">1. Resources 获取加载全局配置文件</h4>
+<p><a id="markdown-resources-%E8%8E%B7%E5%8F%96%E5%8A%A0%E8%BD%BD%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" name="resources-%E8%8E%B7%E5%8F%96%E5%8A%A0%E8%BD%BD%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"></a></p>
+<h4 id="2-实例化-sqlsessionfactorybuilder-对象">2. 实例化 sqlsessionfactoryBuilder 对象</h4>
+<p><a id="markdown-%E5%AE%9E%E4%BE%8B%E5%8C%96-sqlsessionfactorybuilder-%E5%AF%B9%E8%B1%A1" name="%E5%AE%9E%E4%BE%8B%E5%8C%96-sqlsessionfactorybuilder-%E5%AF%B9%E8%B1%A1"></a></p>
+<h4 id="3-解析文件流-xmlconfigbuilder">3. 解析文件流 XMLConfigBuilder</h4>
+<p><a id="markdown-%E8%A7%A3%E6%9E%90%E6%96%87%E4%BB%B6%E6%B5%81-xmlconfigbuilder" name="%E8%A7%A3%E6%9E%90%E6%96%87%E4%BB%B6%E6%B5%81-xmlconfigbuilder"></a></p>
+<h4 id="4-configuration-所有的配置信息">4. Configuration 所有的配置信息</h4>
+<p><a id="markdown-configuration-%E6%89%80%E6%9C%89%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF" name="configuration-%E6%89%80%E6%9C%89%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"></a></p>
+<h4 id="5-实例化-sqlsessionfactory-对象">5. 实例化 sqlsessionfactory 对象</h4>
+<p><a id="markdown-%E5%AE%9E%E4%BE%8B%E5%8C%96-sqlsessionfactory-%E5%AF%B9%E8%B1%A1" name="%E5%AE%9E%E4%BE%8B%E5%8C%96-sqlsessionfactory-%E5%AF%B9%E8%B1%A1"></a></p>
+<h4 id="6-transactioncaches">6. transactionCaches</h4>
+<p><a id="markdown-transactioncaches" name="transactioncaches"></a></p>
+<h4 id="7-创建-executor-执行器">7. 创建 executor 执行器</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA-executor-%E6%89%A7%E8%A1%8C%E5%99%A8" name="%E5%88%9B%E5%BB%BA-executor-%E6%89%A7%E8%A1%8C%E5%99%A8"></a></p>
+<h4 id="8-创建-sqlsession">8. 创建 sqlsession</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA-sqlsession" name="%E5%88%9B%E5%BB%BA-sqlsession"></a></p>
+<h4 id="9-实现-crud-会和-6-连接-回滚">9. 实现 CRUD (会和 6 连接， 回滚)</h4>
+<p><a id="markdown-%E5%AE%9E%E7%8E%B0-crud-%E4%BC%9A%E5%92%8C-6-%E8%BF%9E%E6%8E%A5%EF%BC%8C-%E5%9B%9E%E6%BB%9A" name="%E5%AE%9E%E7%8E%B0-crud-%E4%BC%9A%E5%92%8C-6-%E8%BF%9E%E6%8E%A5%EF%BC%8C-%E5%9B%9E%E6%BB%9A"></a></p>
+<h4 id="10-查看是否成功-会和-6-连接-回滚">10. 查看是否成功 (会和 6 连接， 回滚)</h4>
+<p><a id="markdown-%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F-%E4%BC%9A%E5%92%8C-6-%E8%BF%9E%E6%8E%A5%EF%BC%8C-%E5%9B%9E%E6%BB%9A" name="%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F-%E4%BC%9A%E5%92%8C-6-%E8%BF%9E%E6%8E%A5%EF%BC%8C-%E5%9B%9E%E6%BB%9A"></a></p>
+<h4 id="11-提交事务">11. 提交事务</h4>
+<p><a id="markdown-%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1" name="%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1"></a></p>
+<h4 id="12-关闭">12. 关闭</h4>
+<p><a id="markdown-%E5%85%B3%E9%97%AD" name="%E5%85%B3%E9%97%AD"></a></p>
+<h3 id="环境搭建">环境搭建</h3>
+<p><a id="markdown-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" name="%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"></a></p>
+<p>多个学生<strong>关联</strong>一个老师 ： <strong>多对一</strong></p>
+<p>老师， <strong>集合</strong>， 集合里面很多学生， <strong>一对多</strong></p>
+<p>要把表关系设置在多的这一方</p>
+<h3 id="could-not-find-resource-daoxml">Could not find resource dao/*.xml</h3>
+<p><a id="markdown-could-not-find-resource-dao%2F*.xml" name="could-not-find-resource-dao%2F*.xml"></a></p>
+<ul>
+<li>pom 里面</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="o">&lt;</span><span class="n">directory</span><span class="o">&gt;</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">resources</span><span class="o">&lt;/</span><span class="n">directory</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">includes</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">include</span><span class="o">&gt;**</span><span class="cm">/*.properties&lt;/include&gt;
+</span><span class="cm">                    &lt;include&gt;**/</span><span class="o">*.</span><span class="na">xml</span><span class="o">&lt;/</span><span class="n">include</span><span class="o">&gt;</span>
+
+</code></pre></div><ul>
+<li>target 里面 classes 下面的 dao 都存在 mapper 和 mapper.xml</li>
+</ul>
+<p>但是就是无法读取，所以改为 package 或者 class 才可以</p>
+<h4 id="测试环境搭建">测试环境搭建</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" name="%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"></a></p>
+<ul>
+<li>导入 lombok</li>
+<li>新建实体类</li>
+<li>新建 Mapper 接口</li>
+<li>建立 Mapper.xml 文件</li>
+<li>在核心配置文件中绑定注册我们的 Mapper 接口或者文件</li>
+<li>测试查询</li>
+</ul>
+<h3 id="多对一处理">多对一处理</h3>
+<p><a id="markdown-%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" name="%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86"></a></p>
 <h2 id="mybatis-plus-启动">MyBatis-plus 启动</h2>
+<p><a id="markdown-mybatis-plus-%E5%90%AF%E5%8A%A8" name="mybatis-plus-%E5%90%AF%E5%8A%A8"></a></p>
 <p><strong>1.1 启动 mysql-plus</strong></p>
 <p><strong>1.2 创建 User 表</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">USER</span><span class="w">
@@ -627,6 +1141,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 </span><span class="c1"></span>	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div><h3 id="通过以上几个简单的步骤我们就实现了-user-表的-crud-功能甚至连-xml-文件都不用编写">通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写</h3>
+<p><a id="markdown-%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%AD%A5%E9%AA%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E5%AE%9E%E7%8E%B0%E4%BA%86-user-%E8%A1%A8%E7%9A%84-crud-%E5%8A%9F%E8%83%BD%EF%BC%8C%E7%94%9A%E8%87%B3%E8%BF%9E-xml-%E6%96%87%E4%BB%B6%E9%83%BD%E4%B8%8D%E7%94%A8%E7%BC%96%E5%86%99" name="%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%AD%A5%E9%AA%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E5%AE%9E%E7%8E%B0%E4%BA%86-user-%E8%A1%A8%E7%9A%84-crud-%E5%8A%9F%E8%83%BD%EF%BC%8C%E7%94%9A%E8%87%B3%E8%BF%9E-xml-%E6%96%87%E4%BB%B6%E9%83%BD%E4%B8%8D%E7%94%A8%E7%BC%96%E5%86%99"></a></p>
 <p><strong>1.4查看sql输出日志</strong></p>
 <p>配置文件中application.properties:</p>
 <p>mybatis日志</p>
@@ -634,12 +1149,15 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <p>mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl</p>
 </blockquote>
 <h3 id="通用mapper">通用Mapper</h3>
+<p><a id="markdown-%E9%80%9A%E7%94%A8mapper" name="%E9%80%9A%E7%94%A8mapper"></a></p>
 <h3 id="mp中的基本crud在内置的basemapper中都已得到了实现">MP中的基本CRUD在内置的BaseMapper中都已得到了实现。</h3>
+<p><a id="markdown-mp%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%ACcrud%E5%9C%A8%E5%86%85%E7%BD%AE%E7%9A%84basemapper%E4%B8%AD%E9%83%BD%E5%B7%B2%E5%BE%97%E5%88%B0%E4%BA%86%E5%AE%9E%E7%8E%B0%E3%80%82" name="mp%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%ACcrud%E5%9C%A8%E5%86%85%E7%BD%AE%E7%9A%84basemapper%E4%B8%AD%E9%83%BD%E5%B7%B2%E5%BE%97%E5%88%B0%E4%BA%86%E5%AE%9E%E7%8E%B0%E3%80%82"></a></p>
 <ul>
 <li>
 <h4 id="插入操作create">插入操作Create</h4>
 </li>
 </ul>
+<p><a id="markdown-%2B-%23%23%23%23-%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9Ccreate" name="%2B-%23%23%23%23-%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9Ccreate"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="o">{</span>
 <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
@@ -655,6 +1173,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <h4 id="retrieve">Retrieve</h4>
 </li>
 </ul>
+<p><a id="markdown-%2B-%23%23%23%23-retrieve" name="%2B-%23%23%23%23-retrieve"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelect</span><span class="o">(){</span>
 
@@ -679,6 +1198,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <h4 id="update">Update</h4>
 </li>
 </ul>
+<p><a id="markdown-%2B-%23%23%23%23-update" name="%2B-%23%23%23%23-update"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">(){</span>
 
@@ -695,6 +1215,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <h4 id="delete">Delete</h4>
 </li>
 </ul>
+<p><a id="markdown-%2B-%23%23%23%23-delete" name="%2B-%23%23%23%23-delete"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">(){</span>
 
@@ -703,7 +1224,9 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <span class="o">}</span>
 </code></pre></div><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <h3 id="通用service">通用Service</h3>
+<p><a id="markdown-%E9%80%9A%E7%94%A8service" name="%E9%80%9A%E7%94%A8service"></a></p>
 <h4 id="创建service接口">创建Service接口</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BAservice%E6%8E%A5%E5%8F%A3" name="%E5%88%9B%E5%BB%BAservice%E6%8E%A5%E5%8F%A3"></a></p>
 <p>创建 service 包，创建 UserService，继承 IService</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus.service</span><span class="o">;</span>
 
@@ -711,7 +1234,9 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
     
 <span class="o">}</span>
 </code></pre></div><h4 id="创建service实现类">创建Service实现类</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BAservice%E5%AE%9E%E7%8E%B0%E7%B1%BB" name="%E5%88%9B%E5%BB%BAservice%E5%AE%9E%E7%8E%B0%E7%B1%BB"></a></p>
 <h4 id="创建-impl-包创建-userserviceimpl继承-serviceimpl实现-userservice">创建 impl 包，创建 UserServiceImpl，继承 ServiceImpl，实现 UserService</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA-impl-%E5%8C%85%EF%BC%8C%E5%88%9B%E5%BB%BA-userserviceimpl%EF%BC%8C%E7%BB%A7%E6%89%BF-serviceimpl%EF%BC%8C%E5%AE%9E%E7%8E%B0-userservice" name="%E5%88%9B%E5%BB%BA-impl-%E5%8C%85%EF%BC%8C%E5%88%9B%E5%BB%BA-userserviceimpl%EF%BC%8C%E7%BB%A7%E6%89%BF-serviceimpl%EF%BC%8C%E5%AE%9E%E7%8E%B0-userservice"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus.service.impl</span><span class="o">;</span>
 
 <span class="nd">@Service</span>
@@ -719,6 +1244,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 
 <span class="o">}</span>
 </code></pre></div><h4 id="创建测试类">创建测试类</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E7%B1%BB" name="%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E7%B1%BB"></a></p>
 <p>创建ServiceTests</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus</span><span class="o">;</span>
 
@@ -730,6 +1256,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 
 <span class="o">}</span>
 </code></pre></div><h4 id="测试记录数">测试记录数</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95%E6%95%B0" name="%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95%E6%95%B0"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCount</span><span class="o">(){</span>
 
@@ -737,6 +1264,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总记录数：&#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div><h4 id="测试批量插入">测试批量插入</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5" name="%E6%B5%8B%E8%AF%95%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
 <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSaveBatch</span><span class="o">(){</span>
 
@@ -752,7 +1280,9 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
     <span class="n">userService</span><span class="o">.</span><span class="na">saveBatch</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div><h3 id="自定义mapper">自定义Mapper</h3>
+<p><a id="markdown-%E8%87%AA%E5%AE%9A%E4%B9%89mapper" name="%E8%87%AA%E5%AE%9A%E4%B9%89mapper"></a></p>
 <h4 id="当通用mapper无法满足我们的需求时我们可以自定义基于mapper接口的xml文件并在xml文件中配置sql语句">当通用Mapper无法满足我们的需求时，我们可以自定义基于Mapper接口的xml文件，并在xml文件中配置SQL语句</h4>
+<p><a id="markdown-%E5%BD%93%E9%80%9A%E7%94%A8mapper%E6%97%A0%E6%B3%95%E6%BB%A1%E8%B6%B3%E6%88%91%E4%BB%AC%E7%9A%84%E9%9C%80%E6%B1%82%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%BA%E4%BA%8Emapper%E6%8E%A5%E5%8F%A3%E7%9A%84xml%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AEsql%E8%AF%AD%E5%8F%A5" name="%E5%BD%93%E9%80%9A%E7%94%A8mapper%E6%97%A0%E6%B3%95%E6%BB%A1%E8%B6%B3%E6%88%91%E4%BB%AC%E7%9A%84%E9%9C%80%E6%B1%82%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%BA%E4%BA%8Emapper%E6%8E%A5%E5%8F%A3%E7%9A%84xml%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AEsql%E8%AF%AD%E5%8F%A5"></a></p>
 <ol>
 <li>接口方法定义</li>
 </ol>
@@ -786,6 +1316,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <p>mybatis-plus.mapper-locations=classpath:xml/*.xml</p>
 </blockquote>
 <h3 id="自定义service">自定义Service</h3>
+<p><a id="markdown-%E8%87%AA%E5%AE%9A%E4%B9%89service" name="%E8%87%AA%E5%AE%9A%E4%B9%89service"></a></p>
 <ol>
 <li>接口方法定义</li>
 </ol>
@@ -819,7 +1350,9 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 
 <span class="o">}</span>
 </code></pre></div><h4 id="以上同一个test里面return可以用注入usermapper或者直接用basemapper">以上同一个Test里面return可以用注入userMapper或者直接用baseMapper</h4>
-<h4 id="ok-its-time-for-mybatis2hahahugoshortcode-s11-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></h4></div>
+<p><a id="markdown-%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper" name="%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper"></a></p>
+<h4 id="ok-its-time-for-mybatis2hahahugoshortcode-s12-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></h4>
+<p><a id="markdown-ok%2C-it's-time-for-mybatis2" name="ok%2C-it's-time-for-mybatis2"></a></p></div>
     <div class="post-footer">
         <div class="info">
             

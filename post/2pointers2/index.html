@@ -139,7 +139,7 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">5-minute read</span>
+                <span class="reading-time">9-minute read</span>
             </div>
             
         </div>
@@ -151,14 +151,224 @@
 merge sort
 992	
 Subarrays with K Different Integers</p>
-<p>259 - 3Sum Smaller
-844 - Backspace String Compare
-26 - Remove Duplicates from Sorted Array
+<p>259 - 3Sum Smaller</p>
+<p>26 - Remove Duplicates from Sorted Array
 75 - Sort Colors
 713</p>
-<h2 id="259-3sum-smaller">259. 3Sum Smaller</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">
-</code></pre></div><h2 id="167-two-sum-ii---input-array-is-sorted">167. Two Sum II - Input Array Is Sorted</h2>
+<h2 id="844-backspace-string-compare">844. Backspace String Compare</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given two strings s and t, <span class="k">return</span> <span class="nb">true</span> <span class="k">if</span> they are equal when both are typed into empty text editors. <span class="s1">&#39;#&#39;</span> means a backspace character.
+
+Note that after backspacing an empty text, the text will <span class="k">continue</span> empty.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;ab#c&#34;</span>, <span class="nv">t</span> <span class="o">=</span> <span class="s2">&#34;ad#c&#34;</span>
+Output: <span class="nb">true</span>
+Explanation: Both s and t become <span class="s2">&#34;ac&#34;</span>.
+Example 2:
+
+Input: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;ab##&#34;</span>, <span class="nv">t</span> <span class="o">=</span> <span class="s2">&#34;c#d#&#34;</span>
+Output: <span class="nb">true</span>
+Explanation: Both s and t become <span class="s2">&#34;&#34;</span>.
+Example 3:
+
+Input: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;a#c&#34;</span>, <span class="nv">t</span> <span class="o">=</span> <span class="s2">&#34;b&#34;</span>
+Output: <span class="nb">false</span>
+Explanation: s becomes <span class="s2">&#34;c&#34;</span> <span class="k">while</span> t becomes <span class="s2">&#34;b&#34;</span>.
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">backspaceCompare</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">,</span> <span class="n">String</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">getString</span><span class="o">(</span><span class="n">s</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="n">getString</span><span class="o">(</span><span class="n">t</span><span class="o">));</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">getString</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">ch</span> <span class="o">:</span> <span class="n">str</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">ch</span> <span class="o">!=</span> <span class="sc">&#39;#&#39;</span><span class="o">){</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">ch</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">deleteCharAt</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre></div><p><strong>2 pointer</strong></p>
+<p>case 1： 
+String s= &ldquo;a#c&rdquo;;
+String t = &ldquo;b&rdquo;;</p>
+<p>进入 getNextValidindex 的时候 ，s 出来 i1 留在 2 中，</p>
+<p>case 2： 
+String s= &ldquo;&ldquo;ab##&quot;;
+String t = &ldquo;c#d#&quot;;</p>
+<p>进入 getNextValidindex 的时候 ，s 出来 i1 留在 -1 中， t 出来后就是 j1 = -1, 删完了</p>
+<p>String s= &ldquo;&ldquo;ab##&quot;; index = 3， backSpaceCount = 1；</p>
+<p>.                  index = 2， backSpaceCount = 2；</p>
+<p>.                  index = 1， backSpaceCount = 1；</p>
+<p>.                  index = 0， backSpaceCount = 0；<br>
+进入循环
+.                  index = -1</p>
+<p>String s= &ldquo;&ldquo;c#d#&quot;; index = 3， backSpaceCount = 1；</p>
+<p>.                  index = 2， backSpaceCount = 0；</p>
+<p>.                  index = 1， backSpaceCount = 1；</p>
+<p>.                  index = 0， backSpaceCount = 0；<br>
+进入循环
+.                  index = -1</p>
+<p>case 3： 
+String s= &ldquo;&ldquo;ab#c&rdquo;;
+String t = &ldquo;cd#c&rdquo;;</p>
+<p>String s= &ldquo;ab#c&rdquo;;</p>
+<p>第一次进入 getNextValidindex 的时候 ，s 和 t 都出来 i1 留在 3 中， 
+出来后  i = i1 - 1; j = j1 - 1; 第二次进入 getNextValidindex 的时候</p>
+<p>String s= &ldquo;ab#c&rdquo;; index = 2， backSpaceCount = 1；</p>
+<p>.                  index = 1， backSpaceCount = 0；</p>
+<p>.                  index = 0， break, 推出；</p>
+<p>i1 = 0;</p>
+<p>String s= &ldquo;cd#c&rdquo;; index = 2， backSpaceCount = 1；</p>
+<p>.                  index = 1， backSpaceCount = 0；</p>
+<p>.                  index = 0， break, 推出；</p>
+<p>j1 = 0;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">backspaceCompare</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">,</span> <span class="n">String</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        
+
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">||</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">){</span>
+            <span class="kt">int</span> <span class="n">i1</span> <span class="o">=</span> <span class="n">getNextValidindex</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span> <span class="c1">// i = 2(c), i1 = 2
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">j1</span> <span class="o">=</span> <span class="n">getNextValidindex</span><span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span><span class="c1">// j = 0(b), j1 = 0
+</span><span class="c1"></span>        <span class="c1">//  String s= &#34;ab##&#34;;
+</span><span class="c1"></span>        <span class="c1">//  String t = &#34;c#d#&#34;;           
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">j1</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+            
+             <span class="k">if</span> <span class="o">(</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">j1</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+             <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i1</span><span class="o">)</span> <span class="o">!=</span> <span class="n">t</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j1</span><span class="o">)</span> <span class="o">)</span> <span class="o">{</span> <span class="c1">// c 和 b对比，
+</span><span class="c1"></span>                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+            
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i1</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+            <span class="n">j</span><span class="o">=</span> <span class="n">j1</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">getNextValidindex</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">backSpaceCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">index</span><span class="o">)</span> <span class="o">==</span> <span class="sc">&#39;#&#39;</span><span class="o">)</span> <span class="o">{</span>
+               <span class="n">backSpaceCount</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">backSpaceCount</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">backSpaceCount</span><span class="o">--;</span>
+                <span class="c1">// 有#后的字母，
+</span><span class="c1"></span>            <span class="o">}</span> <span class="k">else</span>  <span class="o">{</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">index</span><span class="o">--;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">index</span><span class="o">;</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>Time Complexity: O(m + n) where m and n are the lengths of strings s and t respectively;
+Space Complexity: O(1) - we do not allocate any memory (just a few variables)</p>
+<h2 id="977-squares-of-a-sorted-array">977 Squares of a Sorted Array</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums sorted in non-decreasing order, <span class="k">return</span> an array of the squares of each number sorted in non-decreasing order.
+
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>-4,-1,0,3,10<span class="o">]</span>
+Output: <span class="o">[</span>0,1,9,16,100<span class="o">]</span>
+Explanation: After squaring, the array becomes <span class="o">[</span>16,1,0,9,100<span class="o">]</span>.
+After sorting, it becomes <span class="o">[</span>0,1,9,16,100<span class="o">]</span>.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">sortedSquares</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span><span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]*</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">*</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">[</span><span class="n">index</span><span class="o">--]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">*</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+                <span class="n">j</span><span class="o">--;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">[</span><span class="n">index</span><span class="o">--]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">*</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h2 id="992-subarrays-with-k-different-integers">992. Subarrays with K Different Integers</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums and an integer k, <span class="k">return</span> the number of good subarrays of nums.
+
+A good array is an array where the number of different integers in that array is exactly k.
+
+For example, <span class="o">[</span>1,2,3,1,2<span class="o">]</span> has <span class="m">3</span> different integers: 1, 2, and 3.
+A subarray is a contiguous part of an array.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>1,2,1,2,3<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">2</span>
+Output: <span class="m">7</span>
+Explanation: Subarrays formed with exactly <span class="m">2</span> different integers: <span class="o">[</span>1,2<span class="o">]</span>, <span class="o">[</span>2,1<span class="o">]</span>, <span class="o">[</span>1,2<span class="o">]</span>, <span class="o">[</span>2,3<span class="o">]</span>, <span class="o">[</span>1,2,1<span class="o">]</span>, <span class="o">[</span>2,1,2<span class="o">]</span>, <span class="o">[</span>1,2,1,2<span class="o">]</span>
+</code></pre></div><p><strong>有一个滑动窗口的最多 k 个不同的子序列</strong>
+[1, 2] 最多 2 个不同的子序列 [1], [2], [1, 2]</p>
+<p>[1, 2] 最多 1 个不同的子序列 [1], [2]</p>
+<p><strong>有一个滑动窗口的刚好 k 个不同的子序列</strong></p>
+<p>[1, 2] 刚好 2 个不同的子序列 [1, 2]</p>
+<p><strong>why valid subarrays are always equal to length of subarray, the funda of res += j - i + 1？</strong></p>
+<ul>
+<li>
+<p><strong>A = [a,b]</strong> -&gt; <strong>3 valid subarrays</strong> -&gt; <strong>{ [a], [b], [a,b]}</strong></p>
+</li>
+<li>
+<p><strong>B1 = [a,b, c]</strong> -&gt; <strong>6 valid subarrays</strong> -&gt; <strong>{[a], [b], [c], [a,b], [b,c], [a, b, c]}</strong></p>
+<ul>
+<li>
+<p>it <strong>overlaps</strong> with A because of [a, b], thus removing common parts we get: <strong>{[c], [b,c], [a, b, c]}</strong></p>
+</li>
+<li>
+<p>3 * (3 + 1) / 2 - 2 * (2 + 1) / 2 = 3</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>B2 = [b, c]</strong> -&gt; <strong>3 valid subarrays</strong> -&gt; <strong>{ [b], [c],[b,c]}</strong></p>
+<ul>
+<li>
+<p>overlaps with A because of <strong>[b]</strong>, , thus removing common parts we get: <strong>{[c], [b,c]}</strong></p>
+</li>
+<li>
+<p>2 * (2 + 1) / 2 - 1 * (1 + 1) / 2  = 2</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>B3 = [c]</strong> -&gt; <strong>1 valid subarrays</strong> -&gt; <strong>{  [c]}</strong></p>
+<ul>
+<li>
+<p>overlaps with A because of <strong>[b]</strong>, , thus removing common parts we get: <strong>{[c], [b,c]}</strong></p>
+</li>
+<li>
+<p>1 * (1 + 1) / 2  = 1</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Time O(N) for two passes.
+Space O(K) at most K elements in the counter</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div><h2 id="167-two-sum-ii---input-array-is-sorted">167. Two Sum II - Input Array Is Sorted</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers<span class="o">[</span>index1<span class="o">]</span> and numbers<span class="o">[</span>index2<span class="o">]</span> where <span class="m">1</span> &lt;<span class="o">=</span> index1 &lt; index2 &lt;<span class="o">=</span> numbers.length.
 
 Return the indices of the two numbers, index1 and index2, added by one as an integer array <span class="o">[</span>index1, index2<span class="o">]</span> of length 2.
@@ -170,7 +380,7 @@ Your solution must use only constant extra space.
 Input: <span class="nv">numbers</span> <span class="o">=</span> <span class="o">[</span>2,7,11,15<span class="o">]</span>, <span class="nv">target</span> <span class="o">=</span> <span class="m">9</span>
 Output: <span class="o">[</span>1,2<span class="o">]</span>
 Explanation: The sum of <span class="m">2</span> and <span class="m">7</span> is 9. Therefore, <span class="nv">index1</span> <span class="o">=</span> 1, <span class="nv">index2</span> <span class="o">=</span> 2. We <span class="k">return</span> <span class="o">[</span>1, 2<span class="o">]</span>.
-</code></pre></div><h2 id="844-backspace-string-compare">844. Backspace String Compare</h2>
+</code></pre></div><h2 id="844-backspace-string-compare-1">844. Backspace String Compare</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given two strings s and t, <span class="k">return</span> <span class="nb">true</span> <span class="k">if</span> they are equal when both are typed into empty text editors. <span class="s1">&#39;#&#39;</span> means a backspace character.
 
 Note that after backspacing an empty text, the text will <span class="k">continue</span> empty.
