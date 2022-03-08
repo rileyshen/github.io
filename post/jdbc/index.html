@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | JDBC </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/jdbc/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="JDBC"/>
+<meta name="twitter:description" content="认识 JDBC"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>JDBC</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Tue, May 12, 2020
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">14-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>认识 JDBC</p>
+<h1 id="jdbc的演化版本10">JDBC的演化版本1.0</h1>
+<p>通过DriveManager得到Connection，得到PreparedStatement, PreparedStatement执行sql返回结果</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Basic</span> <span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testJdbc</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="c1">// 1.注册驱动
+</span><span class="c1"></span>        <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.mysql.jdbc.Driver&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 2.建立练连接
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://192.168.56.10:3306/test&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">user</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
+        <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">user</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+
+        <span class="c1">// 3. 创建sql模板
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select * from t_user where id = ?&#34;</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">preparedStatement</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">preparedStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+
+        <span class="c1">// 4. 设置模板参考
+</span><span class="c1"></span>        <span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">5</span><span class="o">);</span>
+
+        <span class="c1">// 5. 执行语句
+</span><span class="c1"></span>        <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">preparedStatement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+
+        <span class="c1">// 6. 处理结果
+</span><span class="c1"></span>        <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\t&#34;</span> <span class="o">+</span> <span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">2</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\t&#34;</span> <span class="o">+</span> <span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">3</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\t&#34;</span> <span class="o">+</span> <span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">4</span><span class="o">))</span><span class="err">；</span>
+            
+        <span class="o">}</span>
+
+        <span class="c1">// 7. 释放资源
+</span><span class="c1"></span>        <span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">preparedStement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="获取connection的步骤太复杂需要封装-资源释放太随意不够规范数据库的连接数是有限的如果不及时释放会导致其他请求无法访问应该把释放资源的操作放在finally中保证资源一定会被关闭">获取Connection的步骤太复杂，需要封装； 资源释放太随意，不够规范，数据库的连接数是有限的，如果不及时释放，会导致其他请求无法访问。应该把释放资源的操作放在finally中，保证资源一定会被关闭。</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Basic</span> <span class="o">{</span>
+    <span class="c1">// 抛异常
+</span><span class="c1"></span>    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testJdbc</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+        <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 1. 获得连接
+</span><span class="c1"></span>            <span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select * from t_user where id = ?&#34;</span><span class="o">;</span>
+            <span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">preparedStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+
+            <span class="c1">// 4. 设置模板参考
+</span><span class="c1"></span>            <span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">5</span><span class="o">);</span>
+
+            <span class="c1">// 5. 执行语句
+</span><span class="c1"></span>            <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+
+            <span class="c1">// 6. 处理结果
+</span><span class="c1"></span>            <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\t&#34;</span> <span class="o">+</span> <span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">2</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\t&#34;</span> <span class="o">+</span> <span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">3</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\t&#34;</span> <span class="o">+</span> <span class="n">rs</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">4</span><span class="o">))</span><span class="err">；</span>
+                
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>JdbcUtils 1.0版本</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcUtils</span> <span class="o">{</span>
+
+        <span class="kd">private</span> <span class="kd">static</span> <span class="n">Properties</span> <span class="n">pros</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 只在JdbcUtils类都加载执行一次
+</span><span class="c1"></span>        <span class="kd">static</span> <span class="o">{</span>
+            <span class="c1">// 1. 给pros进行初始化，加载jdbc.properties文件到props对象中
+</span><span class="c1"></span>            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;jdbc.properties&#34;</span><span class="o">);</span>
+                <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+                <span class="n">props</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>  
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="o">}</span>
+
+            <span class="c1">//加载驱动类
+</span><span class="c1"></span>            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;driver&#34;</span><span class="o">));</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 获取连接
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+            <span class="c1">// 得到Connection
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;url&#34;</span><span class="o">),</span>
+                            <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">),</span>
+                            <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">));</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 释放连接
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">free</span> <span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">,</span> <span class="n">Statement</span> <span class="n">st</span><span class="o">,</span> <span class="n">Connection</span> <span class="n">conn</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">rs</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrack</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">st</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">st</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrack</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+				<span class="k">if</span> <span class="o">(</span><span class="n">conn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+					<span class="k">try</span> <span class="o">{</span>
+						<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+					<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+						<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+					<span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="crud">CRUD</h2>
+<p>crud</p>
+<ul>
+<li>dao
+<ul>
+<li>UserDao(interface)</li>
+<li>UserDaoJdbcImpl</li>
+</ul>
+</li>
+<li>pojo
+<ul>
+<li>User</li>
+</ul>
+</li>
+<li>DAOTest</li>
+<li>JdbcUtils</li>
+</ul>
+<p>UserDao</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserDao</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+	<span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">Id</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+	<span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>UserDaoJdbcImpl</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoJdbcImpl</span> <span class="kd">implements</span> <span class="n">UserDao</span> <span class="o">{</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into t_user(name,age, birthday) values (?,?,?) &#34;</span><span class="o">;</span>
+			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setDate</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">Date</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">().</span><span class="na">getTime</span><span class="o">()));</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+<span class="cm">/* 		} catch (SQLExceptoin e) {
+</span><span class="cm">            //转为DaoException（运行时异常）抛出，Service层可以不处理                         
+</span><span class="cm">			throw new DaoException(e.getMessage(), e); */</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from t_user where id=?&#34;</span><span class="o">;</span>
+			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+		 
+        <span class="cm">/* 		} catch (SQLExceptoin e) {
+</span><span class="cm">            //转为DaoException（运行时异常）抛出，Service层可以不处理                         
+</span><span class="cm">			throw new DaoException(e.getMessage(), e); */</span>
+        <span class="o">}</span>   <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update t_user set name=?, age=?, birthday=? where id=? &#34;</span><span class="o">;</span>
+			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setDate</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">Date</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">().</span><span class="na">getTime</span><span class="o">()));</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">4</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+            <span class="cm">/* 		} catch (SQLExceptoin e) {
+</span><span class="cm">            //转为DaoException（运行时异常）抛出，Service层可以不处理                         
+</span><span class="cm">			throw new DaoException(e.getMessage(), e); */</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select id, name, birthday  from t_user where name=? and age=?&#34;</span><span class="o">;</span>
+			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">age</span><span class="o">);</span>
+			<span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+			<span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+				<span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getDate</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+			<span class="cm">/* 		} catch (SQLExceptoin e) {
+</span><span class="cm">            //转为DaoException（运行时异常）抛出，Service层可以不处理                         
+</span><span class="cm">			throw new DaoException(e.getMessage(), e); */</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">userId</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select id, name, age, birthday from t_user where id=?&#34;</span><span class="o">;</span>
+			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">userId</span><span class="o">);</span>
+			<span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+			<span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+				<span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getDate</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+			<span class="cm">/* 		} catch (SQLExceptoin e) {
+</span><span class="cm">            //转为DaoException（运行时异常）抛出，Service层可以不处理                         
+</span><span class="cm">			throw new DaoException(e.getMessage(), e); */</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+	<span class="o">}</span>
+
+</code></pre></div><p>DAOTest</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DAOTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">UserDao</span> <span class="n">userDao</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UserDaoJdbcImpl</span><span class="o">();</span>
+		<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+		<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">19</span><span class="o">);</span>
+		<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;little ming&#34;</span><span class="o">);</span>
+		<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
+		<span class="n">userDao</span><span class="o">.</span><span class="na">addUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>异常处理
+上面的CRUD并没有捕获异常，而是直接往外抛。这会带来两个后果：</p>
+<p>SQLException是编译时异常，Service在调用DAO时必须处理异常，否则编译不通过。如何处理？要么继续抛，交给Controller处理（意义不大），要么try catch（Service层代码很臃肿，不美观）。
+DAO接口有声明异常SQLException，这等于向外界暴露DAO层是JDBC实现。而且针对该接口只能用关系型数据库，耦合度太高了。后期无法切换DAO实现。
+比较好的做法是，将SQLException转为运行时异常抛出，Service层可处理也可不处理。</p>
+<p>DaoException</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DaoException</span> <span class="kd">extends</span> <span class="n">RuntimeException</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">DaoException</span><span class="o">()</span> <span class="o">{</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">DaoException</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">DaoException</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">(</span><span class="n">cause</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">DaoException</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">cause</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="模板方法模式重构">模板方法模式重构</h2>
+<p>繁琐， 如果还有StudentDaoJdbcImpl、TeacherDaoJdbcImpl，那么同样的代码要写好多遍。所以，必须要重构。大体思路是：相同的代码抽取到父类AbstractDao。观察UserDao， 不论是UserDaoLmpl还是StudentDaoJdbcImpl，TeacherDaoJdbcImp，
+只有sql模板和设置模板参数的代码不同。可以把sql和参数抽取成父类方法的形参</p>
+<blockquote>
+<p>String sql = &ldquo;select id, name, age, birthday from t_user where id=?&quot;;</p>
+</blockquote>
+<blockquote>
+<p>ps.setInt(1, userId);</p>
+</blockquote>
+<p>AbstractDao</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractDao</span> <span class="o">{</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span><span class="na">args</span><span class="o">)</span>  <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="c1">// String sql = &#34;insert into t_user(name,age, birthday) values (?,?,?) &#34;;
+</span><span class="c1"></span>
+            <span class="c1">// sql由调用者传入
+</span><span class="c1"></span>			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="c1">// ps.setString(1, user.getName());
+</span><span class="c1"></span>			<span class="c1">// ps.setInt(2, user.getAge());
+</span><span class="c1"></span>			<span class="c1">// ps.setDate(3, new java.sql.Date(user.getBirthday().getTime()));
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLExceptoin</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                      
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>UserDaoImpl</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoImpl</span> <span class="kd">extends</span> <span class="n">AbstractDao</span> <span class="kd">implements</span> <span class="n">UserDao</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into t_user(name, age, birthday) values (?,?,?) &#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">()};</span>
+        
+        <span class="c1">// 调用父类AbstractDao方法
+</span><span class="c1"></span>        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update t_user set name=?, age=?, birthday=? where id=? &#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
+		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="c1">//改
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from t_user where id=?&#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
+		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>如何抽取查询方法?</p>
+<p>user， student都需要用map来装</p>
+<p>父类无法制定一个通用代码满足所有子类的结果集映射，因为只有子类自己知道映射规则。所以，我们只能把结果集映射的权利交还给子类去实现。子类如果需要查询，就必须自己实现AbstractDao的rowMapper方法。</p>
+<p>AbstractDao</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractDao</span> <span class="o">{</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span><span class="na">args</span><span class="o">)</span>  <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="c1">// String sql = &#34;insert into t_user(name,age, birthday) values (?,?,?) &#34;;
+</span><span class="c1"></span>
+            <span class="c1">// sql由调用者传入
+</span><span class="c1"></span>			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="c1">// ps.setString(1, user.getName());
+</span><span class="c1"></span>			<span class="c1">// ps.setInt(2, user.getAge());
+</span><span class="c1"></span>			<span class="c1">// ps.setDate(3, new java.sql.Date(user.getBirthday().getTime()));
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLExceptoin</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                      
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+    <span class="c1">//查询
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> <span class="n">RowMapper</span><span class="o">,</span> <span class="n">rowMapper</span><span class="o">)</span>  <span class="o">{</span>
+    <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+        <span class="c1">// sql由调用者传入
+</span><span class="c1"></span>        <span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+ 
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+        <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="n">rowMapper</span><span class="o">.</span><span class="na">mapRow</span><span class="o">(</span><span class="n">rs</span><span class="o">);</span>
+            <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLExceptoin</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                      
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 定义成抽象方法，让子类去实现
+</span><span class="c1"></span>	<span class="kd">abstract</span> <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">rowMapper</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">);</span>
+       
+</code></pre></div><p>UserDaoImpl</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span>  <span class="s">&#34;select id, name, age, birthday from t_user where id=?&#34;</span><span class="o">;</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">};</span>
+    <span class="n">Object</span> <span class="n">user</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">user</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span>  <span class="s">&#34;select id, name, age, birthday from t_user where name=? and age=?&#34;</span><span class="o">;</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">id</span><span class="o">};</span>
+    <span class="n">Object</span> <span class="n">user</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">user</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">//UserDaoImpl的结果map
+</span><span class="c1"></span><span class="kd">protected</span> <span class="n">Object</span> <span class="nf">rowMapper</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+           <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getDate</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="s">&#34;mapping error&#34;</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="假设现在userdao增加了一个新方法">假设现在UserDao增加了一个新方法?</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserDao</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+	<span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">Id</span><span class="o">);</span>
+	<span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">);</span>
+	<span class="c1">//新增查询方法：根据年龄查询
+</span><span class="c1"></span>	<span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectUsers</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="返回值是listuser而userdaoimpl中实现的映射方法rowmapper只能封装user对象">返回值是List<User>，而UserDaoImpl中实现的映射方法rowMapper()只能封装User对象：</h3>
+<p>直接传方法不行？那我就把这个方法塞进一个对象里，通过对象去调用方法（把需要代理对象执行的代码写在InvocationHandler对象的invoke方法中，再把invocationHandler塞进代理对象供它调用）。</p>
+<p>这种模式其实叫策略模式，而且一般是传入接口的实现类。</p>
+<p>现在子类已经不需要实现父类的抽象方法了（一个规则无法满足不同返回值映射），改为由子类实现RowMapper接口传入匿名对象的方式，所以AbstractDao中的抽象方法可以删除。也就是说AbstractDao已经没有抽象方法了。于是我把它声明为普通类（可以new），并改名为MyJDBCTemplate。而且，使用MyJDBCTemplate时，我决定不再使用继承，而是选择组合方式（组合比继承灵活）。
+RowMapper</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">interfae</span> <span class="n">RowMapper</span> <span class="o">{</span>
+    <span class="c1">// map result 
+</span><span class="c1"></span>    <span class="n">Object</span> <span class="nf">mapRow</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>MyJDBCTemplate</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyJDBCTmplate</span> <span class="o">{</span>
+    <span class="c1">//增删改
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span><span class="na">args</span><span class="o">)</span>  <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="c1">// String sql = &#34;insert into t_user(name,age, birthday) values (?,?,?) &#34;;
+</span><span class="c1"></span>
+            <span class="c1">// sql由调用者传入
+</span><span class="c1"></span>			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="c1">// ps.setString(1, user.getName());
+</span><span class="c1"></span>			<span class="c1">// ps.setInt(2, user.getAge());
+</span><span class="c1"></span>			<span class="c1">// ps.setDate(3, new java.sql.Date(user.getBirthday().getTime()));
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLExceptoin</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                      
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+    <span class="c1">//查询
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> <span class="n">RowMapper</span> <span class="n">rowMapper</span><span class="o">)</span>  <span class="o">{</span>
+    <span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+        <span class="c1">// sql由调用者传入
+</span><span class="c1"></span>        <span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+ 
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+        <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+				<span class="n">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="n">rowMapper</span><span class="o">.</span><span class="na">mapRow</span><span class="o">(</span><span class="n">rs</span><span class="o">);</span>
+				<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+			<span class="o">}</span>
+			<span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLExceptoin</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>                      
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+       
+</code></pre></div><p>UserDaoImpl</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoImpl</span> <span class="kd">implements</span> <span class="n">UserDao</span> <span class="o">{</span>
+    <span class="n">MyDBCTemplate</span> <span class="n">jdbcTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyJDBCTemplate</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into t_user(name, age, birthday) values (?,?,?) &#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">()};</span>
+        
+        <span class="c1">// 调用父类AbstractDao方法
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update t_user set name=?, age=?, birthday=? where id=? &#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">(),</span>  <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
+        
+        <span class="c1">// 调用父类AbstractDao方法
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span>  <span class="s">&#34;select id, name, age, birthday from t_user where id=?&#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">};</span>
+        <span class="n">Object</span> <span class="n">user</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">user</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from t_user where id=?&#34;</span><span class="o">;</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
+    <span class="c1">//调用jdbcTemplate的update方法
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span>  <span class="s">&#34;select id, name, age, birthday from t_user where id=?&#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">id</span><span class="o">};</span>
+        <span class="c1">//调用jdbcTemplate的query方法，传入sql，args， RowMapper匿名对象
+</span><span class="c1"></span>        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="k">new</span> <span class="n">RowMapper</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="n">Object</span> <span class="nf">mapRow</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+                <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+               <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getDate</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+				<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        
+        <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+     <span class="kd">public</span> <span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span>  <span class="s">&#34;select id, name, age, birthday from t_user where name=? and age=?&#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">};</span>
+        <span class="c1">//调用jdbcTemplate的query方法，传入sql，args， RowMapper匿名对象
+</span><span class="c1"></span>        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="k">new</span> <span class="n">RowMapper</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="n">Object</span> <span class="nf">mapRow</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+                <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+               <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getDate</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+				<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        
+        <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+     <span class="kd">public</span> <span class="n">List</span> <span class="nf">selectUser</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span>  <span class="s">&#34;select id, name, age, birthday from t_user where age=?&#34;</span><span class="o">;</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span><span class="n">age</span><span class="o">};</span>
+        <span class="c1">//调用jdbcTemplate的query方法，传入sql，args， RowMapper匿名对象
+</span><span class="c1"></span>        <span class="n">List</span> <span class="n">list</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="k">new</span> <span class="n">RowMapper</span><span class="o">()</span> <span class="o">{</span>
+            <span class="kd">public</span> <span class="n">Object</span> <span class="nf">mapRow</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+                <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">));</span>
+               <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">setBirthday</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getDate</span><span class="o">(</span><span class="s">&#34;birthday&#34;</span><span class="o">));</span>
+				<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span>
+
+ 
+</code></pre></div><p>jdbcUtils 2.0</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JdbcUtils</span> <span class="o">{</span>
+
+        <span class="c1">//初始化一个数据库
+</span><span class="c1"></span>        <span class="kd">private</span> <span class="kd">static</span> <span class="n">MyDataSource</span> <span class="n">dataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyDataSource</span><span class="o">();</span>
+
+        <span class="c1">// 获取连接
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+            <span class="c1">// 从数据源获取Connection并返回
+</span><span class="c1"></span>            <span class="k">return</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+        <span class="o">}</span>
+
+          <span class="c1">// 获取数据源
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kd">static</span> <span class="n">MyDataSource</span> <span class="nf">getDataSource</span><span class="o">()</span> <span class="o">{</span>   
+            <span class="k">return</span> <span class="n">dataSource</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 释放连接
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">free</span> <span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">,</span> <span class="n">Statement</span> <span class="n">st</span><span class="o">,</span> <span class="n">Connection</span> <span class="n">conn</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">rs</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrack</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">st</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">st</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrack</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+				<span class="k">if</span> <span class="o">(</span><span class="n">conn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+					<span class="k">try</span> <span class="o">{</span>
+						<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+					<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+						<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+					<span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>MyDataSource</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyDataSource</span> <span class="o">{</span>
+
+        <span class="c1">//数据库信息，用于连接数据库，放进properties里面
+</span><span class="c1"></span>       <span class="cm">/*  private static String url = &#34;jdbc:mysql://192.168.56.10:3306/test?userSSL-false&#34;;
+</span><span class="cm">        private static String user = &#34;root&#34;;
+</span><span class="cm">        private static String password = &#34;root&#34;; */</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="n">Properties</span> <span class="n">pros</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 数据库信息 
+</span><span class="c1"></span>        <span class="kd">static</span> <span class="o">{</span>
+            <span class="c1">// 1. 给pros进行初始化，加载jdbc.properties文件到props对象中
+</span><span class="c1"></span>            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;jdbc.properties&#34;</span><span class="o">);</span>
+                <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+                <span class="n">props</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">in</span><span class="o">);</span>  
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+<span class="c1">//连接池数据，省略
+</span><span class="c1"></span>        <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">initCount</span> <span class="o">=</span> <span class="n">5</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">currentIdleCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+<span class="c1">//LinkedList充当连接池，removeFirst取出连接，addLast归还连接
+</span><span class="c1"></span>        <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">Connection</span><span class="o">&gt;</span> <span class="n">connectionpool</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+    
+        <span class="kd">public</span> <span class="nf">MyDataSource</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">initCount</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="c1">// 创建RealConnection
+</span><span class="c1"></span>                    <span class="n">Connection</span> <span class="n">realConnection</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;url&#34;</span><span class="o">),</span>
+                                <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">),</span>
+                                <span class="n">props</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">));</span>
+                                <span class="c1">// 将RealConnection传入createProxyConnection(),得到代理连接并加入池中， currentIdleCount++
+</span><span class="c1"></span>                    <span class="n">connectionPool</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">createProxyConnection</span><span class="o">(</span><span class="n">realConnection</span><span class="o">));</span>
+                    <span class="n">currentIdleCount</span><span class="o">++;</span>
+                <span class="o">}</span>
+                <span class="n">Sout</span><span class="o">(</span><span class="s">&#34;...连接池初始化结束&#34;</span> <span class="o">+</span> <span class="n">currentIdleCount</span> <span class="o">+</span> <span class="s">&#34;个Connection...&#34;</span><span class="o">)</span>
+            <span class="o">}</span> <span class="k">catch</span>
+        <span class="o">}</span>
+
+        <span class="c1">// 获取连接
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+            <span class="c1">// 同步代码
+</span><span class="c1"></span>            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">connectionPool</span><span class="o">)</span> <span class="o">{</span>
+
+                <span class="c1">// 连接池中还有空闲连接，从池中取出，currentIdleCount--
+</span><span class="c1"></span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">connectionPool</span><span class="o">.</span><span class="na">removeFirst</span><span class="o">();</span>
+        <span class="o">}</span>
+
+
+        <span class="c1">// 释放连接
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">free</span> <span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">,</span> <span class="n">Statement</span> <span class="n">st</span><span class="o">,</span> <span class="n">Connection</span> <span class="n">conn</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">rs</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrack</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">st</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">st</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrack</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+				<span class="k">if</span> <span class="o">(</span><span class="n">conn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+					<span class="k">try</span> <span class="o">{</span>
+						<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+					<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+						<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+					<span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h1 id="工厂模式重构">工厂模式重构</h1>
+<p>User</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">Date</span> <span class="n">birthday</span><span class="o">;</span>
+
+        <span class="c1">//省略getter、setter...
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></div><p>DaoFactory</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DaoFactory</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="n">UserDao</span> <span class="n">userDao</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="n">DaoFactory</span> <span class="n">daoFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DaoFactory</span><span class="o">();</span>
+
+	<span class="kd">private</span> <span class="nf">DaoFactory</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">Properties</span> <span class="n">prop</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+			<span class="n">InputStream</span> <span class="n">inStream</span> <span class="o">=</span> <span class="n">DaoFactory</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">()</span>
+					<span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;daoconfig.properties&#34;</span><span class="o">);</span>
+			<span class="n">prop</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">inStream</span><span class="o">);</span>
+			<span class="c1">//从配置文件中读取UserDao的实现类全类名
+</span><span class="c1"></span>			<span class="n">String</span> <span class="n">userDaoClass</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;userDao&#34;</span><span class="o">);</span>
+			<span class="n">Class</span> <span class="n">userDaoImplClazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">userDaoClass</span><span class="o">);</span>
+			<span class="c1">//反射创建对象
+</span><span class="c1"></span>			<span class="n">userDao</span> <span class="o">=</span> <span class="o">(</span><span class="n">UserDao</span><span class="o">)</span> <span class="n">userDaoImplClazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">ExceptionInInitializerError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="n">DaoFactory</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">daoFactory</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">UserDao</span> <span class="nf">getUserDao</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">userDao</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>daoconfig.properties</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">userDao</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="na">test</span><span class="o">.</span><span class="na">crudrefactorfinal</span><span class="o">.</span><span class="na">dao</span><span class="o">.</span><span class="na">UserDaoImpl2</span>
+</code></pre></div><p>DAOTest</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DAOTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//通过工厂得到DAO实现类，如果想换成UserDaoImpl2，修改配置即可
+</span><span class="c1"></span>		<span class="n">UserDao</span> <span class="n">userDao</span> <span class="o">=</span> <span class="n">DaoFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getUserDao</span><span class="o">();</span>
+		<span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userDao</span><span class="o">.</span><span class="na">selectUsers</span><span class="o">(</span><span class="n">18</span><span class="o">);</span>
+		<span class="k">for</span> <span class="o">(</span><span class="n">User</span> <span class="n">user</span> <span class="o">:</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>UserDao</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserDao</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+	<span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span>
+	<span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="n">Long</span> <span class="n">Id</span><span class="o">);</span>
+	<span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">);</span>
+	<span class="c1">//新增查询方法：根据年龄查询
+</span><span class="c1"></span>
+    <span class="c1">//MyJDBCTemplate中query的返回值设置成List存在局限性。如果用户想映射出Map呢？所以用Object最好
+</span><span class="c1"></span>	<span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectUsers</span><span class="o">(</span><span class="n">Integer</span> <span class="n">age</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>UserDaoImpl2</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoImpl2</span> <span class="kd">implements</span> <span class="n">UserDao</span> <span class="o">{</span>
+
+	<span class="n">MyJDBCTemplate</span> <span class="n">jdbcTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyJDBCTemplate</span><span class="o">();</span>
+
+	<span class="c1">//增
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addUser</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into t_user(name, age, birthday) values (?,?,?) &#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">()};</span>
+		<span class="c1">//调用jdbcTemplate的update方法
+</span><span class="c1"></span>		<span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="c1">//删
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;update t_user set name=?, age=?, birthday=? where id=? &#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span>
+				<span class="n">user</span><span class="o">.</span><span class="na">getBirthday</span><span class="o">(),</span> <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
+		<span class="c1">//调用jdbcTemplate的update方法
+</span><span class="c1"></span>		<span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="c1">//改
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;delete from t_user where id=?&#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
+		<span class="c1">//调用jdbcTemplate的update方法
+</span><span class="c1"></span>		<span class="k">return</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">getUser</span><span class="o">(</span><span class="n">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select id, name, age, birthday from t_user where id=?&#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">id</span><span class="o">};</span>
+		<span class="c1">//调用jdbcTemplate的query方法
+</span><span class="c1"></span>	<span class="c1">// 	List list = jdbcTemplate.query(sql, args, new RowMapper() {
+</span><span class="c1"></span>	<span class="c1">// 		public Object mapRow(ResultSet rs) throws SQLException {
+</span><span class="c1"></span>	<span class="c1">// 			User user = new User();
+</span><span class="c1"></span>	<span class="c1">// 			user.setId(rs.getInt(&#34;id&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			user.setAge(rs.getInt(&#34;age&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			user.setName(rs.getString(&#34;name&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			user.setBirthday(rs.getDate(&#34;birthday&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			return user;
+</span><span class="c1"></span>	<span class="c1">// 		}
+</span><span class="c1"></span>	<span class="c1">// 	});
+</span><span class="c1"></span>	<span class="c1">// 	return (User)list.get(0);
+</span><span class="c1"></span>	<span class="c1">// }
+</span><span class="c1"></span>    <span class="c1">//调用jdbcTemplate的query方法
+</span><span class="c1"></span>        <span class="n">Object</span> <span class="n">query</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="k">new</span> <span class="n">BeanHandler</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span><span class="n">query</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select id, name, age, birthday from t_user where name=? and age=?&#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">};</span>
+		<span class="c1">//调用jdbcTemplate的query方法
+</span><span class="c1"></span>	<span class="c1">// 	List list = jdbcTemplate.query(sql, args, new RowMapper() {
+</span><span class="c1"></span>	<span class="c1">// 		public Object mapRow(ResultSet rs) throws SQLException {
+</span><span class="c1"></span>	<span class="c1">// 			User user = new User();
+</span><span class="c1"></span>	<span class="c1">// 			user.setId(rs.getInt(&#34;id&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			user.setAge(rs.getInt(&#34;age&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			user.setName(rs.getString(&#34;name&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			user.setBirthday(rs.getDate(&#34;birthday&#34;));
+</span><span class="c1"></span>	<span class="c1">// 			return user;
+</span><span class="c1"></span>	<span class="c1">// 		}
+</span><span class="c1"></span>	<span class="c1">// 	});
+</span><span class="c1"></span>	<span class="c1">// 	return (User)list.get(0);
+</span><span class="c1"></span>	<span class="c1">// }
+</span><span class="c1"></span>       <span class="n">Object</span> <span class="n">query</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="k">new</span> <span class="n">BeanHandler</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span><span class="n">query</span><span class="o">;</span>
+
+
+	<span class="kd">public</span> <span class="n">List</span> <span class="nf">selectUsers</span><span class="o">(</span><span class="n">Integer</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select id, name, age, birthday from t_user where age=?&#34;</span><span class="o">;</span>
+		<span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="n">age</span><span class="o">};</span>
+        <span class="c1">// new BeanHandler,每次都让用户自己写一个匿名内部类实在太烦了，而且findUser和getUser方法返回值都是User，会重复。返回值类型其实是可以穷举的，比如单个Bean，List&lt;Bean&gt;、Map、List&lt;Map&gt;等。我们预先定义几个映射器供用户使用.
+</span><span class="c1"></span>        <span class="n">Object</span> <span class="n">query</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">sql</span><span class="o">,</span> <span class="n">args</span><span class="o">,</span> <span class="k">new</span> <span class="n">BeanHandler</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">List</span><span class="o">)</span><span class="n">query</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>RowMapper</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ResultSetHandler</span> <span class="o">{</span>
+	<span class="c1">//映射结果集
+</span><span class="c1"></span>	<span class="n">Object</span> <span class="nf">handler</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">)</span> <span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyJDBCTemplate</span> <span class="o">{</span>
+	<span class="c1">// 增删改
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span><span class="na">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="c1">// sql由调用者传入
+</span><span class="c1"></span>			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="c1">// 遍历设置模板参数
+</span><span class="c1"></span>			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+				<span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+			<span class="o">}</span>
+			<span class="k">return</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="c1">//查询
+</span><span class="c1"></span>	<span class="kd">public</span> <span class="n">Object</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> <span class="n">ResultSetHandler</span> <span class="n">resultSetHandler</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">conn</span> <span class="o">=</span> <span class="n">JdbcUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+			<span class="c1">// sql由调用者传入
+</span><span class="c1"></span>			<span class="n">ps</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
+			<span class="c1">// 遍历设置模板参数
+</span><span class="c1"></span>			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+				<span class="n">ps</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+			<span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+			<span class="c1">// 映射规则由子类传入
+</span><span class="c1"></span>
+            <span class="c1">//MyJDBCTemplate中query的返回值设置成List存在局限性。如果用户想映射出Map呢？所以用Object最好
+</span><span class="c1"></span>			<span class="k">return</span> <span class="n">resultSetHandler</span><span class="o">.</span><span class="na">handler</span><span class="o">(</span><span class="n">rs</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="n">DaoException</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">free</span><span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">ps</span><span class="o">,</span> <span class="n">conn</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+
+</code></pre></div><h1 id="listener">Listener</h1>
+<h1 id="注解">注解</h1>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nd">@interface</span> <span class="n">注解名称</span><span class="o">{</span>
+    <span class="n">属性列表</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">注解名称</span> <span class="kd">extends</span> <span class="n">Annotation</span><span class="o">{</span>
+    <span class="n">属性列表</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h1 id="threadlocal">ThreadLocal</h1>
+<h2 id="threadlocal其实不存东西threadlocalmap的key也不是thread是threadlocal">ThreadLocal其实不存东西，ThreadLocalMap的key也不是Thread，是ThreadLocal。</h2>
+<hr>
+<h2 id="title-spring-note">title: &ldquo;Spring note&rdquo;</h2>
+<h2 id="disablecomments-false">date: 2021-06-12T15:56:39+08:00
+Description: &ldquo;learning note of Spring 5&rdquo;
+Tags: [
+&ldquo;IOC&rdquo;,&ldquo;AoP&rdquo;,&ldquo;JdbcTemplate&rdquo;,&ldquo;事务管理&rdquo;, &ldquo;Spring5 framework&rdquo;
+]
+Categories: []
+DisableComments: false</h2>
+<h1 id="spring-jdbc-orm">Spring JDBC ORM</h1>
+<p>模板方法，建造者模式</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">st=&gt;start: Start:&gt;http://www.google.com[blank]
+e=&gt;end:&gt;http://www.google.com
+op1=&gt;operation: My Operation
+sub1=&gt;subroutine: My Subroutine
+cond=&gt;condition: Yes
+or No?:&gt;http://www.google.com
+io=&gt;inputoutput: catch something...
+para=&gt;parallel: parallel tasks
+
+st-&gt;op1-&gt;cond
+cond(yes)-&gt;io-&gt;e
+cond(no)-&gt;para
+para(path1, bottom)-&gt;sub1(right)-&gt;op1
+para(path2, top)-&gt;op1
+</code></pre></div><h2 id="本地-branch-和-远程-branch-挂钩错误">本地 branch 和 远程 branch 挂钩错误</h2>
+<p>PS F:\笔记\Spring\minSpring&gt; git status
+On branch InstanStrtg
+Your branch is up to date with &lsquo;origin/BeanDefinition-BeanDefinitionRegistry&rsquo;</p></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/javaee-project/">javaEE project</a><a class="tag" href="/tags/javaee-web/">javaEE web</a><a class="tag" href="/tags/three-tier-system/">Three-tier system</a><a class="tag" href="/tags/thymeleaf/">Thymeleaf</a><a class="tag" href="/tags/templateengine%2eprocess/">TemplateEngine.process</a><a class="tag" href="/tags/jdbc/">JDBC</a><a class="tag" href="/tags/jdbc-template/">JDBC template</a><a class="tag" href="/tags/preparedstatements/">preparedstatements</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

@@ -139,23 +139,31 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">9-minute read</span>
+                <span class="reading-time">10-minute read</span>
             </div>
             
         </div>
 
-        <p>42							
-125	Valid Palindrome	★★	455							
+        <!-- TOC -->
+<ul>
+<li><a href="#backspace-string-compare" >Backspace String Compare</a></li>
+<li><a href="#squares-of-a-sorted-array" >Squares of a Sorted Array</a></li>
+<li><a href="#subarrays-with-k-different-integers" >Subarrays with K Different Integers</a></li>
+<li><a href="#subarray-product-less-than-k" >Subarray Product Less Than K</a></li>
+<li><a href="#sort-colors" >Sort Colors</a></li>
+<li><a href="#trapping-rain-water" >Trapping Rain Water</a></li>
+<li><a href="#two-sum-ii---input-array-is-sorted" >Two Sum II - Input Array Is Sorted</a></li>
+</ul>
+<!-- /TOC -->
+<p>125	Valid Palindrome	★★	455							
 917	Reverse Only Letters	★★	925	986	855</p>
-<p>977	Squares of a Sorted Array	★★								
-merge sort
-992	
-Subarrays with K Different Integers</p>
 <p>259 - 3Sum Smaller</p>
-<p>26 - Remove Duplicates from Sorted Array
-75 - Sort Colors
-713</p>
+<p>26 - Remove Duplicates from Sorted Array</p>
+<ul>
+<li>Sort Colors</li>
+</ul>
 <h2 id="844-backspace-string-compare">844. Backspace String Compare</h2>
+<p><a id="markdown-backspace-string-compare" name="backspace-string-compare"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given two strings s and t, <span class="k">return</span> <span class="nb">true</span> <span class="k">if</span> they are equal when both are typed into empty text editors. <span class="s1">&#39;#&#39;</span> means a backspace character.
 
 Note that after backspacing an empty text, the text will <span class="k">continue</span> empty.
@@ -280,6 +288,7 @@ String t = &ldquo;cd#c&rdquo;;</p>
 </code></pre></div><p>Time Complexity: O(m + n) where m and n are the lengths of strings s and t respectively;
 Space Complexity: O(1) - we do not allocate any memory (just a few variables)</p>
 <h2 id="977-squares-of-a-sorted-array">977 Squares of a Sorted Array</h2>
+<p><a id="markdown-squares-of-a-sorted-array" name="squares-of-a-sorted-array"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums sorted in non-decreasing order, <span class="k">return</span> an array of the squares of each number sorted in non-decreasing order.
 
 
@@ -308,6 +317,7 @@ After sorting, it becomes <span class="o">[</span>0,1,9,16,100<span class="o">]<
 <span class="o">}</span>
 
 </code></pre></div><h2 id="992-subarrays-with-k-different-integers">992. Subarrays with K Different Integers</h2>
+<p><a id="markdown-subarrays-with-k-different-integers" name="subarrays-with-k-different-integers"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums and an integer k, <span class="k">return</span> the number of good subarrays of nums.
 
 A good array is an array where the number of different integers in that array is exactly k.
@@ -368,7 +378,213 @@ Explanation: Subarrays formed with exactly <span class="m">2</span> different in
 </ul>
 <p>Time O(N) for two passes.
 Space O(K) at most K elements in the counter</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div><h2 id="167-two-sum-ii---input-array-is-sorted">167. Two Sum II - Input Array Is Sorted</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">subarraysWithKDistinct</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">atMost</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">k</span><span class="o">)</span> <span class="o">-</span> <span class="n">atMost</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">k</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kt">int</span> <span class="nf">atMost</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">count</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">],</span> <span class="n">0</span><span class="o">)</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">k</span><span class="o">--;</span>
+            <span class="o">}</span>
+            <span class="n">count</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">],</span> <span class="n">count</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">],</span> <span class="n">0</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">count</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">count</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">k</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="n">i</span><span class="o">++;</span>
+             
+        <span class="o">}</span>
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+       <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="713-subarray-product-less-than-k">713. Subarray Product Less Than K</h2>
+<p><a id="markdown-subarray-product-less-than-k" name="subarray-product-less-than-k"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of integers nums and an integer k, <span class="k">return</span> the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>10,5,2,6<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">100</span>
+Output: <span class="m">8</span>
+Explanation: The <span class="m">8</span> subarrays that have product less than <span class="m">100</span> are:
+<span class="o">[</span>10<span class="o">]</span>, <span class="o">[</span>5<span class="o">]</span>, <span class="o">[</span>2<span class="o">]</span>, <span class="o">[</span>6<span class="o">]</span>, <span class="o">[</span>10, 5<span class="o">]</span>, <span class="o">[</span>5, 2<span class="o">]</span>, <span class="o">[</span>2, 6<span class="o">]</span>, <span class="o">[</span>5, 2, 6<span class="o">]</span>
+Note that <span class="o">[</span>10, 5, 2<span class="o">]</span> is not included as the product of <span class="m">100</span> is not strictly less than k.
+Example 2:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>1,2,3<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">0</span>
+Output: <span class="m">0</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">numSubarrayProductLessThanK</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">k</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">*=</span> <span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">];</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">slow</span> <span class="o">&lt;=</span> <span class="n">fast</span> <span class="o">&amp;&amp;</span> <span class="n">sum</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">){</span>
+                <span class="n">sum</span> <span class="o">/=</span><span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">++];</span>
+            <span class="o">}</span>
+            
+            <span class="n">res</span> <span class="o">+=</span> <span class="n">fast</span> <span class="o">-</span> <span class="n">slow</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+            <span class="n">fast</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><blockquote>
+<p>while (slow &lt;= fast &amp;&amp; sum &gt;= k){这里我忽略了 slow 《= fast 下面的 test case 通不过</p>
+</blockquote>
+<p>[1,1,1]
+1</p>
+<h2 id="75sort-colors">75.Sort Colors</h2>
+<p><a id="markdown-sort-colors" name="sort-colors"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.
+
+We will use the integers 0, 1, and <span class="m">2</span> to represent the color red, white, and blue, respectively.
+
+You must solve this problem without using the library<span class="err">&#39;</span>s sort <span class="k">function</span>.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>2,0,2,1,1,0<span class="o">]</span>
+Output: <span class="o">[</span>0,0,1,1,2,2<span class="o">]</span>
+Example 2:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>2,0,1<span class="o">]</span>
+Output: <span class="o">[</span>0,1,2<span class="o">]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sortColors</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">zeroIndex</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="n">swap</span><span class="o">(</span><span class="n">i</span><span class="o">++,</span> <span class="n">zeroIndex</span><span class="o">++,</span> <span class="n">nums</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">2</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="n">swap</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">--,</span> <span class="n">nums</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span>
+            
+        <span class="o">}</span>
+    <span class="o">}</span>
+        
+        <span class="kd">private</span> <span class="kt">void</span> <span class="nf">swap</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+        <span class="o">}</span>
+    
+</code></pre></div><h2 id="trapping-rain-water">Trapping Rain Water</h2>
+<p><a id="markdown-trapping-rain-water" name="trapping-rain-water"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can <span class="nb">trap</span> after raining.
+Input: <span class="nv">height</span> <span class="o">=</span> <span class="o">[</span>0,1,0,2,1,0,1,3,2,1,2,1<span class="o">]</span>
+Output: <span class="m">6</span>
+Explanation: The above elevation map <span class="o">(</span>black section<span class="o">)</span> is represented by array <span class="o">[</span>0,1,0,2,1,0,1,3,2,1,2,1<span class="o">]</span>. In this <span class="k">case</span>, <span class="m">6</span> units of rain water <span class="o">(</span>blue section<span class="o">)</span> are being trapped.
+Example 2:
+
+Input: <span class="nv">height</span> <span class="o">=</span> <span class="o">[</span>4,2,0,3,2,5<span class="o">]</span>
+Output: <span class="m">9</span>
+ 
+</code></pre></div><p><strong>双指针</strong></p>
+<p>每一列宽度是 1， 每一列的雨水高度就是它承担的容量</p>
+<p>height = [0,1,0,2,1,0,1,3,2,1,2,1]
+0 1 2 3 4 5 6 7</p>
+<p>i = 4,
+leftMax = 3, height = 2
+rightMax = 7, height = 3</p>
+<p>取 leftmax - 它本身的 height 就是雨水容量</p>
+<p>就是从头遍历，除去头尾</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">trap</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+    
+       
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">height</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">0</span> <span class="o">||</span> <span class="n">i</span> <span class="o">==</span> <span class="n">height</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="kt">int</span> <span class="n">maxLeft</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">maxRight</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">height</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">r</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">height</span><span class="o">[</span><span class="n">r</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">maxRight</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">maxRight</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">r</span><span class="o">];</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            
+             <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">l</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">l</span><span class="o">--)</span> <span class="o">{</span>
+                 <span class="k">if</span> <span class="o">(</span><span class="n">height</span><span class="o">[</span><span class="n">l</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">maxLeft</span><span class="o">)</span> <span class="o">{</span>
+                     <span class="n">maxLeft</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">l</span><span class="o">];</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            
+            <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">maxLeft</span><span class="o">,</span> <span class="n">maxRight</span><span class="o">)</span> <span class="o">-</span> <span class="n">height</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">sum</span> <span class="o">+=</span> <span class="n">h</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+</code></pre></div><p><strong>动态规划</strong></p>
+<p><strong>双指针的时候， 有重复计算，如果把每一个位置的左边最高纪录在一个数组上， 右边记录在上一个数组上，就避免了重复计算，这就是动态规划</strong></p>
+<p>maxLeft[i] = max(height[i], maxLeft[i - 1]);</p>
+<p>maxRight[i] = max(height[i], maxRight[i + 1]);</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">height</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">&lt;=</span> <span class="n">2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">maxLeft</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">maxRight</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+
+<span class="c1">// 记录每个柱子左边的最高高度的柱子
+</span><span class="c1"></span><span class="n">maxLeft</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">maxLeft</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">heihgt</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">maxLeft</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">]);</span>
+<span class="o">}</span>
+<span class="c1">// 记录每个柱子右边的最高高度的柱子
+</span><span class="c1"></span><span class="n">maxRight</span><span class="o">[</span><span class="n">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">height</span><span class="o">[</span><span class="n">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+    <span class="n">maxRight</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">heihgt</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">maxRight</span><span class="o">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">]);</span>
+<span class="o">}</span>
+<span class="c1">//求和
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">maxLeft</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">maxRight</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">-</span> <span class="n">heigth</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">count</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>单调栈</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">trap</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">height</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">&lt;=</span> <span class="n">2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// 作为右墙入栈，出现入栈元素（右边）比栈顶大，说明左边形成了低洼处，低洼处出栈并计算雨水量
+</span><span class="c1"></span>
+<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">height</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">right</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="c1">// 栈不为空，出现入栈元素（右边）比栈顶大，说明左边形成了低洼处
+</span><span class="c1"></span>    <span class="k">while</span> <span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">height</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">())</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="167-two-sum-ii---input-array-is-sorted">167. Two Sum II - Input Array Is Sorted</h2>
+<p><a id="markdown-two-sum-ii---input-array-is-sorted" name="two-sum-ii---input-array-is-sorted"></a></p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers<span class="o">[</span>index1<span class="o">]</span> and numbers<span class="o">[</span>index2<span class="o">]</span> where <span class="m">1</span> &lt;<span class="o">=</span> index1 &lt; index2 &lt;<span class="o">=</span> numbers.length.
 
 Return the indices of the two numbers, index1 and index2, added by one as an integer array <span class="o">[</span>index1, index2<span class="o">]</span> of length 2.
@@ -380,164 +596,12 @@ Your solution must use only constant extra space.
 Input: <span class="nv">numbers</span> <span class="o">=</span> <span class="o">[</span>2,7,11,15<span class="o">]</span>, <span class="nv">target</span> <span class="o">=</span> <span class="m">9</span>
 Output: <span class="o">[</span>1,2<span class="o">]</span>
 Explanation: The sum of <span class="m">2</span> and <span class="m">7</span> is 9. Therefore, <span class="nv">index1</span> <span class="o">=</span> 1, <span class="nv">index2</span> <span class="o">=</span> 2. We <span class="k">return</span> <span class="o">[</span>1, 2<span class="o">]</span>.
-</code></pre></div><h2 id="844-backspace-string-compare-1">844. Backspace String Compare</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given two strings s and t, <span class="k">return</span> <span class="nb">true</span> <span class="k">if</span> they are equal when both are typed into empty text editors. <span class="s1">&#39;#&#39;</span> means a backspace character.
-
-Note that after backspacing an empty text, the text will <span class="k">continue</span> empty.
-
- 
-
-Example 1:
-
-Input: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;ab#c&#34;</span>, <span class="nv">t</span> <span class="o">=</span> <span class="s2">&#34;ad#c&#34;</span>
-Output: <span class="nb">true</span>
-Explanation: Both s and t become <span class="s2">&#34;ac&#34;</span>.
-</code></pre></div><p><strong>谁小移谁</strong></p>
-<p><strong>无论是移动短板或者长板，我们都只关注移动后的新短板会不会变长，而每次移动的木板都只有三种情况，比原短板短，比原短板长，与原短板相等；如向内移动长板，对于新的木板：1.比原短板短，则新短板更短。2.与原短板相等或者比原短板长，则新短板不变。所以，向内移动长板，一定不能使新短板变长</strong></p>
-<h2 id="15-3sum">15. 3Sum</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums, <span class="k">return</span> all the triplets <span class="o">[</span>nums<span class="o">[</span>i<span class="o">]</span>, nums<span class="o">[</span>j<span class="o">]</span>, nums<span class="o">[</span>k<span class="o">]]</span> such that i !<span class="o">=</span> j, i !<span class="o">=</span> k, and j !<span class="o">=</span> k, and nums<span class="o">[</span>i<span class="o">]</span> + nums<span class="o">[</span>j<span class="o">]</span> + nums<span class="o">[</span>k<span class="o">]</span> <span class="o">==</span> 0.
-
-Notice that the solution <span class="nb">set</span> must not contain duplicate triplets.
-
- 
-
-Example 1:
-
-Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>-1,0,1,2,-1,-4<span class="o">]</span>
-Output: <span class="o">[[</span>-1,-1,2<span class="o">]</span>,<span class="o">[</span>-1,0,1<span class="o">]]</span>
-</code></pre></div><p><strong>对于重复元素：跳过，避免出现重复解</strong>
-<strong>令</strong>左指针 L=i+1L=i+1，右指针 R=n-1R=n−1，当 L&lt;R 时，执行循环**</p>
-<ul>
-<li><strong>当 nums[i]+nums[L]+nums[R]==0nums[i]+nums[L]+nums[R]==0，执行循环，判断左界和右界是否和下一位置重复，去除重复解。并同时将 L,RL,R 移到下一位置，寻找新的解</strong></li>
-<li><strong>和大于 00，说明 nums[R]nums[R] 太大，R 左移</strong></li>
-<li><strong>和小于 00，说明 nums[L]nums[L] 太小，L 右移</strong></li>
-</ul>
-<p><strong>1. sort:</strong>
--4  -1  -1  -1  0   1   2
-k   i                   j</p>
-<p>sum = -3 &lt; 0, i++</p>
-<p><strong>2. 去重:</strong>
--4  -1  -1  -1  0   1   2
-k               i       j
-sum = -2 &lt; 0, i++</p>
-<p><strong>3. 移动:</strong>
--4  -1  -1  -1  0   1   2
-k                   i    j
-sum = -1 &lt; 0, i++</p>
-<p><strong>4. 第二轮:</strong></p>
-<p>-4  -1  -1  -1  0   1   2</p>
-<p>.     k   i             j</p>
-<p>sum = 0 == 0, 加入 res , i++, j&ndash;</p>
-<p><strong>4</strong></p>
-<p>-4  -1  -1  -1  0   1   2</p>
-<p>.     k         i    j // 去重</p>
-<p>sum = 0 == 0, 加入 res</p>
-<p><strong>5，去重，第三轮</strong></p>
-<p>-4  -1  -1  -1  0   1   2</p>
-<p>.                k   i  j // 去重</p>
-<p>sum = 0 == 0, 加入 res</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">threeSum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
-        
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="c1">// 不能大于 0
-</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
-            <span class="o">}</span>
-             <span class="c1">// 去重  nums[i] == nums[i + 1] 就排斥-1， -1 ， 2，或者 0， 0， 0
-</span><span class="c1"></span>             <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
-                <span class="k">continue</span><span class="o">;</span>
-            <span class="o">}</span>
-            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
-            <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
-                <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">j</span><span class="o">--;</span>
-                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">k</span><span class="o">++;</span>
-                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                    <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">nums</span><span class="o">[</span><span class="n">k</span><span class="o">],</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]));</span>
-                    <span class="c1">// 去重
-</span><span class="c1"></span>                    <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="n">j</span><span class="o">--;</span>
-                     <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">k</span> <span class="o">+</span> <span class="n">1</span><span class="o">])</span> <span class="n">k</span><span class="o">++;</span>
-                    <span class="n">j</span><span class="o">--;</span>
-                    <span class="n">k</span><span class="o">++;</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-             
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
-    <span class="o">}</span>
-</code></pre></div><h2 id="16-3sum-closest">16. 3Sum Closest</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
-
-Return the sum of the three integers.
-
-You may assume that each input would have exactly one solution.
-
- 
-
-Example 1:
-
-Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>-1,2,1,-4<span class="o">]</span>, <span class="nv">target</span> <span class="o">=</span> <span class="m">1</span>
-Output: <span class="m">2</span>
-Explanation: The sum that is closest to the target is 2. <span class="o">(</span>-1 + <span class="m">2</span> + <span class="nv">1</span> <span class="o">=</span> 2<span class="o">)</span>.
-
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">threeSumClosest</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-        
-       
-        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
-         <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
-        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
-            
-            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
-                <span class="k">continue</span><span class="o">;</span>
-            <span class="o">}</span>
-            <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
-                <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span><span class="n">nums</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">+</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
-                <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">sum</span> <span class="o">-</span> <span class="n">target</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">res</span> <span class="o">-</span> <span class="n">target</span><span class="o">))</span> <span class="o">{</span>
-                    <span class="n">res</span> <span class="o">=</span> <span class="n">sum</span><span class="o">;</span>
-                <span class="o">}</span>
-                    
-                 <span class="k">if</span> <span class="o">(</span><span class="n">sum</span><span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-                    
-                  
-                     <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
-                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">j</span><span class="o">--;</span>
-                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-                    <span class="n">k</span><span class="o">++;</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-          <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
-           
-    <span class="o">}</span>
-
-</code></pre></div><p><strong>int res = nums[0] + nums[1] + nums[nums.length - 1], 刚开始我设置为     int res = Integer.MAX_VALUE</strong></p>
-<p><strong>但是！！！！ input 为负的时候，Math.abs(res - target))这里 res 因为是正的 max_value - (-1) 会变成 min_value, 这时候 res 就一直是 max_value, 不会变成 sum</strong></p>
-<hr>
-<h2 id="two-sum">Two Sum</h2>
-<p><a href="https://leetcode.com/problems/two-sum/"  target="_blank" >leet</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of integers nums and an integer target, <span class="k">return</span> indices of the two numbers such that they add up to target.
-
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
-
-You can <span class="k">return</span> the answer in any order.
-Example 1:
-
-Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>2,7,11,15<span class="o">]</span>, <span class="nv">target</span> <span class="o">=</span> <span class="m">9</span>
-Output: <span class="o">[</span>0,1<span class="o">]</span>
-Explanation: Because nums<span class="o">[</span>0<span class="o">]</span> + nums<span class="o">[</span>1<span class="o">]</span> <span class="o">==</span> 9, we <span class="k">return</span> <span class="o">[</span>0, 1<span class="o">]</span>.
-Input: <span class="nv">height</span> <span class="o">=</span> <span class="o">[</span>1,8,6,2,5,4,8,3,7<span class="o">]</span>
-Output: <span class="m">49</span>
-Explanation: The above vertical lines are represented by array <span class="o">[</span>1,8,6,2,5,4,8,3,7<span class="o">]</span>. In this <span class="k">case</span>, the max area of water <span class="o">(</span>blue section<span class="o">)</span> the container can contain is 49.
-</code></pre></div><hr>
-<ul>
+</code></pre></div><ul>
 <li>
 <p><a href="https://rileyshen.github.io/post/2pointers1/" >2pointers1</a></p>
+</li>
+<li>
+<p><a href="https://rileyshen.github.io/post/2pointers3/" >2pointers3</a></p>
 </li>
 <li>
 <p><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></p>

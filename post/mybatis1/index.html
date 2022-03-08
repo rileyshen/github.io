@@ -136,10 +136,10 @@
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
                 <span class="date">
-                    Thu, Jul 15, 2021
+                    Wed, Jul 15, 2020
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">9-minute read</span>
+                <span class="reading-time">10-minute read</span>
             </div>
             
         </div>
@@ -260,6 +260,19 @@
 </ul>
 </li>
 <li><a href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" >多对一处理</a></li>
+<li><a href="#%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98" >属性 null 的问题</a>
+<ul>
+<li><a href="#a-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" >a. 级联方式处理映射关系</a></li>
+<li><a href="#b-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" >b. 使用 association 处理映射关系</a></li>
+<li><a href="#c-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" >c. 分步查询</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86" >一对对处理</a>
+<ul>
+<li><a href="#a-collection" >a. collection</a></li>
+<li><a href="#b-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" >b. 分步查询</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#mybatis-plus-%E5%90%AF%E5%8A%A8" >MyBatis-plus 启动</a>
@@ -1086,6 +1099,106 @@ resultMap：自定义映射，用于一对多或多对一或字段名和属性�
 </ul>
 <h3 id="多对一处理">多对一处理</h3>
 <p><a id="markdown-%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" name="%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86"></a></p>
+<h3 id="属性-null-的问题">属性 null 的问题</h3>
+<p><a id="markdown-%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98" name="%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">select * from student s, teacher t where s.tid = t.id
+</code></pre></div><p>teacher 这里属性为 null</p>
+<blockquote>
+<p>Student(id=2, name=bb, teacher=Teacher(id=1, name=null))</p>
+</blockquote>
+<p>思路： 1. 查询所有的学生信息， 2. 根据查询出来的学生 tid， 寻找对应的老师</p>
+<blockquote>
+<p>List<Student> getAllStudent();</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">     <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllStudent&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentTeach&#34;</span><span class="nt">&gt;</span>
+        select * from student;
+      <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+      select * from teacher where id = #{id};
+   <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p><strong>按照查询嵌套处理</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentTeach&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span>  <span class="na">column=</span><span class="s">&#34;id&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span>  <span class="na">column=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!--复杂属性我们单独写--&gt;</span>
+<span class="c">&lt;!--   对象：association --&gt;</span>
+<span class="c">&lt;!--   集合： collection--&gt;</span>
+   <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span> <span class="na">select=</span><span class="s">&#34;getTeacher&#34;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!--   &lt;collection property=&#34;&#34;/&gt;--&gt;</span>
+
+<span class="nt">&lt;/resultMap&gt;</span>
+
+</code></pre></div><blockquote>
+<p>Student(id=1, name=aa, teacher=Teacher(id=1, name=mrs qin))</p>
+</blockquote>
+<p><strong>按照结果嵌套处理</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllStudent2&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentT2&#34;</span><span class="nt">&gt;</span>
+
+   select s.id sid, s.name sname, t.name tname
+   from student s, teacher t
+   where s.tid = t.id;
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentT2&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+
+</code></pre></div><p>这里老师的 id 是 0， 不知道是不是原因..</p>
+<blockquote>
+<p>Student(id=1, name=aa, teacher=Teacher(id=0, name=mrs qin)</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 查询学生信息以及他的老师
+</span><span class="c1"></span>    <span class="n">Student</span> <span class="nf">getStuAndTea</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StuAndTea&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!--      &lt;id property=&#34;id&#34; column=&#34;sid&#34;&gt;&lt;/id&gt;--&gt;</span>
+
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;teacher.id&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+
+
+      <span class="nt">&lt;result</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span> <span class="na">property=</span><span class="s">&#34;teacher.name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+
+
+   <span class="nt">&lt;/resultMap&gt;</span>
+
+<span class="c">&lt;!-- left join --&gt;</span>
+   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStuAndTea&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
+      select * from student s left join teacher t on s.tid = t.id where s.id = #{id};
+      select s.id sid, s.name sname, t.name tname from student s left join teacher t on s.tid = t.id where s.id = #{id};
+   <span class="nt">&lt;/select&gt;</span>
+
+</code></pre></div><p>resultMap：设置自定义映射</p>
+<p>属性：</p>
+<p>id：表示自定义映射的唯一标识</p>
+<p>type：查询的数据要映射的实体类的类型</p>
+<p>子标签：</p>
+<p>id：设置主键的映射关系</p>
+<p>result：设置普通字段的映射关系</p>
+<p>association：设置多对一的映射关系</p>
+<p>collection：设置一对多的映射关系</p>
+<p>属性：</p>
+<p>property：设置映射关系中实体类中的属性名</p>
+<p>column：设置映射关系中表中的字段名</p>
+<h4 id="a-级联方式处理映射关系">a. 级联方式处理映射关系</h4>
+<p><a id="markdown-a.-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" name="a.-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"></a></p>
+<h4 id="b-使用-association-处理映射关系">b. 使用 association 处理映射关系</h4>
+<p><a id="markdown-b.-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" name="b.-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"></a></p>
+<h4 id="c-分步查询">c. 分步查询</h4>
+<p><a id="markdown-c.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" name="c.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2"></a></p>
+<h3 id="一对对处理">一对对处理</h3>
+<p><a id="markdown-%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86" name="%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86"></a></p>
+<h4 id="a-collection">a. collection</h4>
+<p><a id="markdown-a.-collection" name="a.-collection"></a></p>
+<h4 id="b-分步查询">b. 分步查询</h4>
+<p><a id="markdown-b.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" name="b.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2"></a></p>
 <h2 id="mybatis-plus-启动">MyBatis-plus 启动</h2>
 <p><a id="markdown-mybatis-plus-%E5%90%AF%E5%8A%A8" name="mybatis-plus-%E5%90%AF%E5%8A%A8"></a></p>
 <p><strong>1.1 启动 mysql-plus</strong></p>

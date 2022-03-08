@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about 2 pointers 3 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/2pointers3/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about 2 pointers 3"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about 2 pointers 3</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">4-minute read</span>
+            </div>
+            
+        </div>
+
+        <!-- TOC -->
+<ul>
+<li><a href="#valid-palindrome" >Valid Palindrome</a></li>
+<li><a href="#assign-cookies" >Assign Cookies</a></li>
+<li><a href="#reverse-only-letters" >Reverse Only Letters</a></li>
+<li><a href="#long-pressed-name" >Long Pressed Name</a></li>
+<li><a href="#interval-list-intersections" >Interval List Intersections</a></li>
+</ul>
+<!-- /TOC -->
+<pre><code>855					
+</code></pre>
+<p>259 - 3Sum Smaller</p>
+<p>26 - Remove Duplicates from Sorted Array</p>
+<ul>
+<li>Sort Colors</li>
+</ul>
+<h2 id="125-valid-palindrome">125. Valid Palindrome</h2>
+<p><a id="markdown-valid-palindrome" name="valid-palindrome"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">A phrase is a palindrome <span class="k">if</span>, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, <span class="k">return</span> <span class="nb">true</span> <span class="k">if</span> it is a palindrome, or <span class="nb">false</span> otherwise.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">s</span> <span class="o">=</span> <span class="s2">&#34;A man, a plan, a canal: Panama&#34;</span>
+Output: <span class="nb">true</span>
+Explanation: <span class="s2">&#34;amanaplanacanalpanama&#34;</span> is a palindrome.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">Character</span><span class="o">.</span><span class="na">isLetterOrDigit</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">))</span> <span class="o">)</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span>
+             <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">Character</span><span class="o">.</span><span class="na">isLetterOrDigit</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">))</span> <span class="o">)</span> <span class="o">{</span>
+                <span class="n">j</span><span class="o">--;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">++)</span> <span class="o">!=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">--))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+          
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="455-assign-cookies">455. Assign Cookies</h2>
+<p><a id="markdown-assign-cookies" name="assign-cookies"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Assume you are an awesome parent and want to give your children some cookies. But, you should give each child at most one cookie.
+
+Each child i has a greed factor g<span class="o">[</span>i<span class="o">]</span>, which is the minimum size of a cookie that the child will be content with<span class="p">;</span> and each cookie j has a size s<span class="o">[</span>j<span class="o">]</span>. If s<span class="o">[</span>j<span class="o">]</span> &gt;<span class="o">=</span> g<span class="o">[</span>i<span class="o">]</span>, we can assign the cookie j to the child i, and the child i will be content. Your goal is to maximize the number of your content children and output the maximum number.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">g</span> <span class="o">=</span> <span class="o">[</span>1,2,3<span class="o">]</span>, <span class="nv">s</span> <span class="o">=</span> <span class="o">[</span>1,1<span class="o">]</span>
+Output: <span class="m">1</span>
+Explanation: You have <span class="m">3</span> children and <span class="m">2</span> cookies. The greed factors of <span class="m">3</span> children are 1, 2, 3. 
+And even though you have <span class="m">2</span> cookies, since their size is both 1, you could only make the child whose greed factor is <span class="m">1</span> content.
+You need to output 1.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findContentChildren</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">g</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">g</span><span class="o">);</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">[</span><span class="n">j</span><span class="o">++]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span>
+            
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="917-reverse-only-letters">917. Reverse Only Letters</h2>
+<p><a id="markdown-reverse-only-letters" name="reverse-only-letters"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"></code></pre></div><p>错误的</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">char</span><span class="o">[]</span> <span class="n">c</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">while</span><span class="o">(!</span><span class="n">Character</span><span class="o">.</span><span class="na">isLetter</span><span class="o">(</span><span class="n">c</span><span class="o">[</span><span class="n">i</span><span class="o">]))</span> <span class="o">{</span> 
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="c1">//这里i 到了3后，直接去了4
+</span><span class="c1"></span>            <span class="k">while</span><span class="o">(!</span><span class="n">Character</span><span class="o">.</span><span class="na">isLetter</span><span class="o">(</span><span class="n">c</span><span class="o">[</span><span class="n">j</span><span class="o">]))</span> <span class="o">{</span>
+                <span class="n">j</span><span class="o">--;</span>
+            <span class="o">}</span> <span class="c1">//这里j 到了3后，直接去了2
+</span><span class="c1"></span>
+            <span class="c1">// while(i &lt; j &amp;&amp; !Character.isLetter(c[i])) { 
+</span><span class="c1"></span>            <span class="c1">//     i++;
+</span><span class="c1"></span>            <span class="c1">// } // 正确的
+</span><span class="c1"></span>            <span class="c1">// while(i &lt; j &amp;&amp; !Character.isLetter(c[j])) {
+</span><span class="c1"></span>            <span class="c1">//     j--;
+</span><span class="c1"></span>            <span class="c1">// }  // 正确的
+</span><span class="c1"></span>            <span class="kt">char</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">c</span><span class="o">[</span><span class="n">i</span><span class="o">];</span> 
+            <span class="n">c</span><span class="o">[</span><span class="n">i</span><span class="o">++]</span> <span class="o">=</span> <span class="n">c</span><span class="o">[</span><span class="n">j</span><span class="o">];</span> <span class="c1">// 导致 2， 4 又一次交换
+</span><span class="c1"></span>            <span class="n">c</span><span class="o">[</span><span class="n">j</span><span class="o">--]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+</code></pre></div><h2 id="925-long-pressed-name">925. Long Pressed Name</h2>
+<p><a id="markdown-long-pressed-name" name="long-pressed-name"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Your friend is typing his name into a keyboard. Sometimes, when typing a character c, the key might get long pressed, and the character will be typed <span class="m">1</span> or more times.
+
+You examine the typed characters of the keyboard. Return True <span class="k">if</span> it is possible that it was your friends name, with some characters <span class="o">(</span>possibly none<span class="o">)</span> being long pressed.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">name</span> <span class="o">=</span> <span class="s2">&#34;alex&#34;</span>, <span class="nv">typed</span> <span class="o">=</span> <span class="s2">&#34;aaleex&#34;</span>
+Output: <span class="nb">true</span>
+Explanation: <span class="s1">&#39;a&#39;</span> and <span class="s1">&#39;e&#39;</span> in <span class="s1">&#39;alex&#39;</span> were long pressed.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isLongPressedName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">typed</span><span class="o">)</span> <span class="o">{</span>
+      
+        
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span>  <span class="n">typed</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="o">++</span><span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">name</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">name</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">==</span> <span class="n">typed</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>   
+            <span class="o">}</span> 
+            <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">0</span> <span class="o">||</span> <span class="n">typed</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)</span> <span class="o">!=</span> <span class="n">typed</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">1</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span> 
+            
+        <span class="o">}</span>
+         <span class="k">return</span> <span class="n">i</span> <span class="o">==</span>  <span class="n">name</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>      
+    <span class="o">}</span>
+</code></pre></div><h2 id="986-interval-list-intersections">986. Interval List Intersections</h2>
+<p><a id="markdown-interval-list-intersections" name="interval-list-intersections"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given two lists of closed intervals, firstList and secondList, where firstList<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>starti, endi<span class="o">]</span> and secondList<span class="o">[</span>j<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>startj, endj<span class="o">]</span>. Each list of intervals is pairwise disjoint and in sorted order.
+
+Return the intersection of these two interval lists.
+
+A closed interval <span class="o">[</span>a, b<span class="o">]</span> <span class="o">(</span>with a &lt;<span class="o">=</span> b<span class="o">)</span> denotes the <span class="nb">set</span> of real numbers x with a &lt;<span class="o">=</span> x &lt;<span class="o">=</span> b.
+
+The intersection of two closed intervals is a <span class="nb">set</span> of real numbers that are either empty or represented as a closed interval. For example, the intersection of <span class="o">[</span>1, 3<span class="o">]</span> and <span class="o">[</span>2, 4<span class="o">]</span> is <span class="o">[</span>2, 3<span class="o">]</span>.
+
+Input: <span class="nv">firstList</span> <span class="o">=</span> <span class="o">[[</span>1,3<span class="o">]</span>,<span class="o">[</span>5,9<span class="o">]]</span>, <span class="nv">secondList</span> <span class="o">=</span> <span class="o">[]</span>
+Output: <span class="o">[]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">      
+        <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">firstList</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">secondList</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">firstList</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">],</span> <span class="n">secondList</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">0</span><span class="o">]);</span>
+            <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">firstList</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">],</span> <span class="n">secondList</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">1</span><span class="o">]);</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">});</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">firstList</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">secondList</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">i</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">j</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">// 一个二维 List&lt;int[]&gt; 转化成一个二维数组 int[][]
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="na">toArray</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">0</span><span class="o">][]</span> <span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div><ul>
+<li><a href="https://rileyshen.github.io/post/2pointers1/" >2pointers1</a></li>
+<li><a href="https://rileyshen.github.io/post/2pointers2/" >2pointers2</a></li>
+<li><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></li>
+</ul>
+<hr>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL</p>
+<p>感谢：她们都有题库在 github 上直接有，都是大神, 都富有详细解法，对新人特别适合了解解题思路</p>
+<ul>
+<li>
+<p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p>
+</li>
+<li>
+<p>宫水三叶</p>
+</li>
+<li>
+<p>Grandyang (<a href="https://www.cnblogs.com/grandyang/">https://www.cnblogs.com/grandyang/</a>)</p>
+</li>
+<li>
+<p>花花酱（油管频道视频）</p>
+</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/2-pointers/">2 pointers</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

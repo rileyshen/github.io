@@ -6,11 +6,11 @@
     <description>Recent content in MyBatis-Plus on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 15 Jul 2021 13:04:19 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/mybatis-plus/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Jul 2020 13:04:19 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/mybatis-plus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MyBatis-Plus for Beginners 1</title>
       <link>https://rileyshen.github.io/post/mybatis1/</link>
-      <pubDate>Thu, 15 Jul 2021 13:04:19 +0800</pubDate>
+      <pubDate>Wed, 15 Jul 2020 13:04:19 +0800</pubDate>
       
       <guid>https://rileyshen.github.io/post/mybatis1/</guid>
       
@@ -130,6 +130,19 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86&#34; &gt;多对一处理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98&#34; &gt;属性 null 的问题&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#a-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB&#34; &gt;a. 级联方式处理映射关系&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#b-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB&#34; &gt;b. 使用 association 处理映射关系&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#c-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2&#34; &gt;c. 分步查询&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86&#34; &gt;一对对处理&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#a-collection&#34; &gt;a. collection&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#b-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2&#34; &gt;b. 分步查询&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#mybatis-plus-%E5%90%AF%E5%8A%A8&#34; &gt;MyBatis-plus 启动&lt;/a&gt;
@@ -956,6 +969,106 @@ resultMap：自定义映射，用于一对多或多对一或字段名和属性�
 &lt;/ul&gt;
 &lt;h3 id=&#34;多对一处理&#34;&gt;多对一处理&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86&#34; name=&#34;%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;属性-null-的问题&#34;&gt;属性 null 的问题&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98&#34; name=&#34;%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;select * from student s, teacher t where s.tid = t.id
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;teacher 这里属性为 null&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Student(id=2, name=bb, teacher=Teacher(id=1, name=null))&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;思路： 1. 查询所有的学生信息， 2. 根据查询出来的学生 tid， 寻找对应的老师&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;List&lt;Student&gt; getAllStudent();&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;     &lt;span class=&#34;nt&#34;&gt;&amp;lt;select&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getAllStudent&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;resultMap=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;StudentTeach&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+        select * from student;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;select&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getTeacher&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;resultType=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Teacher&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+      select * from teacher where id = #{id};
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;按照查询嵌套处理&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;resultMap&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;StudentTeach&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Student&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--复杂属性我们单独写--&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--   对象：association --&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--   集合： collection--&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;association&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;teacher&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tid&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;javaType=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Teacher&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;select=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getTeacher&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--   &amp;lt;collection property=&amp;#34;&amp;#34;/&amp;gt;--&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/resultMap&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Student(id=1, name=aa, teacher=Teacher(id=1, name=mrs qin))&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;按照结果嵌套处理&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;select&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getAllStudent2&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;resultMap=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;StudentT2&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+
+   select s.id sid, s.name sname, t.name tname
+   from student s, teacher t
+   where s.tid = t.id;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;resultMap&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;StudentT2&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Student&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;sid&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;sname&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;association&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;teacher&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;javaType=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Teacher&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tname&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/association&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/resultMap&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里老师的 id 是 0， 不知道是不是原因..&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Student(id=1, name=aa, teacher=Teacher(id=0, name=mrs qin)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// 查询学生信息以及他的老师
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;Student&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getStuAndTea&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@Param&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;resultMap&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;StuAndTea&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Student&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!--      &amp;lt;id property=&amp;#34;id&amp;#34; column=&amp;#34;sid&amp;#34;&amp;gt;&amp;lt;/id&amp;gt;--&amp;gt;&lt;/span&gt;
+
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;sid&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;sname&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
+
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;teacher.id&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tid&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
+
+
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;result&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;column=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;tname&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;property=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;teacher.name&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&amp;lt;/result&amp;gt;&lt;/span&gt;
+
+
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resultMap&amp;gt;&lt;/span&gt;
+
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- left join --&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;select&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;getStuAndTea&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;resultMap=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Student&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+      select * from student s left join teacher t on s.tid = t.id where s.id = #{id};
+      select s.id sid, s.name sname, t.name tname from student s left join teacher t on s.tid = t.id where s.id = #{id};
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;resultMap：设置自定义映射&lt;/p&gt;
+&lt;p&gt;属性：&lt;/p&gt;
+&lt;p&gt;id：表示自定义映射的唯一标识&lt;/p&gt;
+&lt;p&gt;type：查询的数据要映射的实体类的类型&lt;/p&gt;
+&lt;p&gt;子标签：&lt;/p&gt;
+&lt;p&gt;id：设置主键的映射关系&lt;/p&gt;
+&lt;p&gt;result：设置普通字段的映射关系&lt;/p&gt;
+&lt;p&gt;association：设置多对一的映射关系&lt;/p&gt;
+&lt;p&gt;collection：设置一对多的映射关系&lt;/p&gt;
+&lt;p&gt;属性：&lt;/p&gt;
+&lt;p&gt;property：设置映射关系中实体类中的属性名&lt;/p&gt;
+&lt;p&gt;column：设置映射关系中表中的字段名&lt;/p&gt;
+&lt;h4 id=&#34;a-级联方式处理映射关系&#34;&gt;a. 级联方式处理映射关系&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-a.-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB&#34; name=&#34;a.-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;b-使用-association-处理映射关系&#34;&gt;b. 使用 association 处理映射关系&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-b.-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB&#34; name=&#34;b.-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;c-分步查询&#34;&gt;c. 分步查询&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-c.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2&#34; name=&#34;c.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;一对对处理&#34;&gt;一对对处理&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86&#34; name=&#34;%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;a-collection&#34;&gt;a. collection&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-a.-collection&#34; name=&#34;a.-collection&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;b-分步查询&#34;&gt;b. 分步查询&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-b.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2&#34; name=&#34;b.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;mybatis-plus-启动&#34;&gt;MyBatis-plus 启动&lt;/h2&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-mybatis-plus-%E5%90%AF%E5%8A%A8&#34; name=&#34;mybatis-plus-%E5%90%AF%E5%8A%A8&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1.1 启动 mysql-plus&lt;/strong&gt;&lt;/p&gt;
@@ -1229,7 +1342,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
     <item>
       <title>MyBatis-Plus for Beginners 2</title>
       <link>https://rileyshen.github.io/post/mybatis2/</link>
-      <pubDate>Fri, 15 Jan 2021 13:04:19 +0800</pubDate>
+      <pubDate>Wed, 15 Jul 2020 13:04:19 +0800</pubDate>
       
       <guid>https://rileyshen.github.io/post/mybatis2/</guid>
       
@@ -1431,6 +1544,246 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;公司里规范数据库是is_deleted-业务层-boolean后写-deleted&#34;&gt;公司里规范数据库是is_deleted, 业务层 Boolean后写 deleted；&lt;/h4&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/mybatis1/&#34; &gt;mybatis1&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>MyBatis-Plus for Beginners 3</title>
+      <link>https://rileyshen.github.io/post/mybatis3/</link>
+      <pubDate>Wed, 15 Jul 2020 13:04:19 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/mybatis3/</guid>
+      
+        <description>&lt;p&gt;常用插件&lt;/p&gt;
+&lt;h2 id=&#34;mybatis-plus-常用插件&#34;&gt;MyBatis-plus 常用插件&lt;/h2&gt;
+&lt;h3 id=&#34;40-乐观锁&#34;&gt;4.0 乐观锁&lt;/h3&gt;
+&lt;p&gt;主要适用场景：当要更新一条记录的时候，希望这条记录没有被别人更新，也就是说实现线程安全的数据更新&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;乐观锁实现方式：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;取出记录时，获取当前&lt;strong&gt;version&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;更新时，带上这个&lt;strong&gt;version&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;执行更新时， &lt;strong&gt;set version = newVersion where version = oldVersion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果version不对，就更新失败&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.1表右键里面加字段version属性&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.2修改实体类&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Version
+private Integer version;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;4.3创建配置文件&lt;/strong&gt;
+创建包config，创建文件MybatisPlusConfig.java&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Configuration
+@MapperScan(&amp;#34;com.atguigu.mybatis_plus.mapper&amp;#34;)
+public class MybatisPlusConfig {
+/**
+ * 乐观锁插件
+ */
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInterceptor();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;4.4测试&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在entity里面添加自动填充&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;  private Date updateTime;
+
+  @Version
+  @TableField(fill = FieldFill.INSERT)
+  private Integer version;
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;在handle里面添加执行方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt; @Override
+    public void insertFill(MetaObject metaObject) {
+        this.setFieldValByName(&amp;#34;createTime&amp;#34;,new Date(),metaObject);
+        this.setFieldValByName(&amp;#34;updateTime&amp;#34;,new Date(),metaObject);
+        this.setFieldValByName(&amp;#34;version&amp;#34;,1,metaObject);
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;测试&lt;/p&gt;
+&lt;p&gt;IDE中快捷生成返回值 Ctrl + Alt + v&lt;/p&gt;
+&lt;p&gt;user.setVersion(user.getVersion() + 1);mp中自动做&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Test
+public void testOptimisticLock() {
+//根据id查询
+User user = userMapper.selectById(1L);
+//修改
+user.setName(&amp;#34;张三&amp;#34;);
+//        user.setVersion(user.getVersion() + 1); 这行mp自动做了，不需要我们手动做
+userMapper.updateById(user);
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;插入李四，version为1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;  @Test
+   public void testAdd() {
+       User user = new User();
+       user.setName(&amp;#34;李四&amp;#34;);
+       user.setAge(20);
+       user.setEmail(&amp;#34;1243@qq.com&amp;#34;);
+
+       int insert = userMapper.insert(user);
+       System.out.println(insert);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;输入李四id号加L&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt; @Test
+    public void testOptimisticLock() {
+        //根据id查询
+        User user = userMapper.selectById(1369872842425233409L);
+        //修改
+        user.setName(&amp;#34;张三&amp;#34;);
+//        user.setVersion(user.getVersion() + 1); 这行mp自动做了，不需要我们手动做
+        userMapper.updateById(user);
+
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;&amp;lsquo;1369872842425233409&amp;rsquo;, &amp;lsquo;张三&amp;rsquo;, &amp;lsquo;20&amp;rsquo;, &amp;lsquo;&lt;a href=&#34;mailto:1243@qq.com&#34;&gt;1243@qq.com&lt;/a&gt;&amp;rsquo;, &amp;lsquo;2021-03-11 12:48:31&amp;rsquo;, &amp;lsquo;2021-03-11 12:52:15&amp;rsquo;, &amp;lsquo;2&amp;rsquo;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;结果完成，version变成2&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5.0分页查询&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5.1分页插件&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;/**
+ * 分页插件
+ */
+@Bean
+public PaginationInterceptor paginationInterceptor() {
+    return new PaginationInterceptor();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;5.2编写分页代码&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;插件page对象，传入两个参数，当前页和每页记录数&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Test
+public void testSelectPage() {
+    Page&amp;lt;User&amp;gt; page = new Page(1,3);
+    Page&amp;lt;User&amp;gt; userPage = userMapper.selectPage(page, null);
+    //返回对象得到分页所有数据
+    long pages = userPage.getPages(); //总页数
+    long current = userPage.getCurrent(); //当前页
+    List&amp;lt;User&amp;gt; records = userPage.getRecords(); //查询数据集合
+    long total = userPage.getTotal(); //总记录数
+    boolean hasNext = userPage.hasNext();  //下一页
+    boolean hasPrevious = userPage.hasPrevious(); //上一页
+
+    System.out.println(pages);
+    System.out.println(current);
+    System.out.println(records);
+    System.out.println(total);
+    System.out.println(hasNext);
+    System.out.println(hasPrevious);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;5.3简单条件查询用map&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
+//简单条件查询
+@Test
+public void testSelect2() {
+    Map&amp;lt;String, Object&amp;gt; columnMap = new HashMap&amp;lt;&amp;gt;();
+    columnMap.put(&amp;#34;name&amp;#34;,&amp;#34;Jack&amp;#34;);
+    columnMap.put(&amp;#34;age&amp;#34;,20);
+    List&amp;lt;User&amp;gt; users = userMapper.selectByMap(columnMap);
+    System.out.println(users);
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;6.0 逻辑删除&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;物理删除：真实删除，将对应数据从数据库中删除，之后查询不到此条被删除数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;逻辑删除：假删除，将对应数据中代表是否被删除字段状态修改为“被删除状态”，之后在数据库中仍旧能看到此条数据记录&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;6.1 数据库右键增加deleted&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6.2实体类修改&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;添加deleted 字段，并加上 @TableLogic 注解&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@TableLogic
+@TableField(fill = FieldFill.INSERT)
+private Integer deleted;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;6.3执行类修改&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;0未删除，1已删除&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Override
+    public void insertFill(MetaObject metaObject) {
+        this.setFieldValByName(&amp;#34;createTime&amp;#34;,new Date(),metaObject);
+        this.setFieldValByName(&amp;#34;updateTime&amp;#34;,new Date(),metaObject);
+        this.setFieldValByName(&amp;#34;version&amp;#34;,1,metaObject);
+        this.setFieldValByName(&amp;#34;deleted&amp;#34;,0,metaObject);
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;6.4配置（可选）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;application.properties 加入以下配置，此为默认值，如果你的默认值和mp默认的一样,该配置可无
+mybatis-plus.global-config.db-config.logic-delete-value=1
+mybatis-plus.global-config.db-config.logic-not-delete-value=0&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6.5测试&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;插入王五，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;  @Test
+   public void testAdd() {
+       User user = new User();
+       user.setName(&amp;#34;王五&amp;#34;);
+       user.setAge(20);
+       user.setEmail(&amp;#34;1243@qq.com&amp;#34;);
+
+       int insert = userMapper.insert(user);
+       System.out.println(insert);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;em&gt;1369890832562638849	王五	20	1243@qq.com	2021-03-11 14:00:00	2021-03-11 14:00:00	1	0&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1369890832562638849	王五	20	1243@qq.com	2021-03-11 14:00:00	2021-03-11 14:00:00	1	1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;7.0 wrapper复杂查询操作&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;7.1  ge、gt、le、lt、isNull、isNotNull&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;lt：less than 小于&lt;/li&gt;
+&lt;li&gt;le：less than or equal to 小于等于&lt;/li&gt;
+&lt;li&gt;eq：equal to 等于&lt;/li&gt;
+&lt;li&gt;ne：not equal to 不等于&lt;/li&gt;
+&lt;li&gt;ge：greater than or equal to 大于等于&lt;/li&gt;
+&lt;li&gt;gt：greater than 大于&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;QueryWrapper&amp;lt;User&amp;gt;queryWrapper = new QueryWrapper&amp;lt;&amp;gt;();
+queryWrapper
+.isNull(&amp;#34;name&amp;#34;)
+.ge(&amp;#34;age&amp;#34;, 12)
+.isNotNull(&amp;#34;email&amp;#34;);
+int result = userMapper.delete(queryWrapper);
+System.out.println(&amp;#34;delete return count = &amp;#34; + result);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;eq、ne&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;7.2between、notBetween&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Test
+public void testSelectCount() {
+QueryWrapper&amp;lt;User&amp;gt;queryWrapper = newQueryWrapper&amp;lt;&amp;gt;();
+queryWrapper.between(&amp;#34;age&amp;#34;, 20, 30);
+    Integer count = userMapper.selectCount(queryWrapper); //返回数据数量
+System.out.println(count);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;7.3 like、notLike、likeLeft、likeRight&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;likeLeft(&amp;ldquo;name&amp;rdquo;, &amp;ldquo;王&amp;rdquo;)&amp;mdash;&amp;gt;name like &amp;lsquo;%王&amp;rsquo;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;likeRight(&amp;ldquo;name&amp;rdquo;, &amp;ldquo;王&amp;rdquo;)&amp;mdash;&amp;gt;name like &amp;lsquo;王%&#39;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;
+@Test
+public void testSelectMaps() {
+QueryWrapper&amp;lt;User&amp;gt;queryWrapper = newQueryWrapper&amp;lt;&amp;gt;();
+queryWrapper
+        .select(&amp;#34;name&amp;#34;, &amp;#34;age&amp;#34;)
+        .like(&amp;#34;name&amp;#34;, &amp;#34;e&amp;#34;)
+        .likeRight(&amp;#34;email&amp;#34;, &amp;#34;5&amp;#34;);
+List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt;maps = userMapper.selectMaps(queryWrapper);//返回值是Map列表
+maps.forEach(System.out::println);
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;7.4 orderBy、orderByDesc、orderByAsc&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;@Test
+public void testSelectListOrderBy() {
+QueryWrapper&amp;lt;User&amp;gt;queryWrapper = newQueryWrapper&amp;lt;&amp;gt;();
+queryWrapper.orderByDesc(&amp;#34;age&amp;#34;, &amp;#34;id&amp;#34;);
+List&amp;lt;User&amp;gt;users = userMapper.selectList(queryWrapper);
+users.forEach(System.out::println);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h4 id=&#34;ok-its-time-for-mybatis3hahahugoshortcode-s0-hbhb&#34;&gt;Ok, It&amp;rsquo;s time for &lt;a href=&#34;https://rileyshen.github.io/post/mybatis3/&#34; &gt;mybatis3&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/mybatis2/&#34; &gt;mybatis2&lt;/a&gt;&lt;/p&gt;</description>
       
     </item>
     
