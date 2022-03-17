@@ -145,8 +145,52 @@
         </div>
 
         <p>a full-stack web application for users to understand java web system</p>
+<!-- TOC -->
+<ul>
+<li><a href="#qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82" >QQZone 业务需求</a>
+<ul>
+<li><a href="#%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82" >业务需求</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1" >数据库设计</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%8C%83%E5%BC%8F" >数据库的范式</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E6%98%AF%E7%9B%B8%E6%82%96%E7%9A%84%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%83%85%E5%86%B5%E5%81%9A%E4%B8%80%E4%B8%AA%E9%80%89%E6%8B%A9" >数据库设计的范式和数据库的查询性能很多时候是相悖的，我们需要根据实际的业务情况做一个选择</a></li>
+</ul>
+</li>
+<li><a href="#step1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1" >step1. 数据库设计</a></li>
+<li><a href="#step2-pojo" >step2. pojo</a></li>
+<li><a href="#step3-myssm" >step3. myssm</a></li>
+<li><a href="#step4-dao" >step4. DAO</a>
+<ul>
+<li><a href="#applicationxml-after-dao" >application.xml after DAO</a></li>
+</ul>
+</li>
+<li><a href="#step5-service" >step5. SERVICE</a>
+<ul>
+<li><a href="#applicationxml-after-service" >application.xml after service</a></li>
+</ul>
+</li>
+<li><a href="#step6-controller" >step6. CONTROLLER</a>
+<ul>
+<li><a href="#applicationxml-after-controller" >application.xml after controller</a></li>
+<li><a href="#artifact-qqwar-exploded-error-during-artifact-deployment-see-server-log-for-details" >Artifact qq:war exploded: Error during artifact deployment. See server log for details</a></li>
+<li><a href="#nosuchfiledexception-fid" >NoSuchFiledException-fid</a></li>
+<li><a href="#can-not-set-comlearnqqzonepojouserbasic-field-comlearnqqzonepojotopicauthor-to-javalanginteger" >Can not set com.learn.qqzone.pojo.UserBasic field com.learn.qqzone.pojo.Topic.author to java.lang.Integer</a></li>
+<li><a href="#%E6%B1%87%E6%80%BB" >汇总</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B1%87%E6%80%BB" >汇总</a>
+<ul>
+<li><a href="#%E6%97%A5%E6%9C%9F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96" >日期和字符串之间的格式化</a></li>
+<li><a href="#thymeleaf-%E4%B8%AD%E4%BD%BF%E7%94%A8dates-%E8%BF%99%E4%B8%AA%E5%85%AC%E5%85%B1%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1" >thymeleaf 中使用#dates 这个公共的内置对象</a></li>
+<li><a href="#%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%B6%E6%88%91%E4%BB%AC%E8%AE%BF%E9%97%AE%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%98%AF-httplocalhost8080pro23pagedooperatepagepagelogin" >系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login</a></li>
+<li><a href="#httplocalhost8080pro23pagedooperatepagepagelogin-%E8%AE%BF%E9%97%AE%E8%BF%99%E4%B8%AA-url%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84" >http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login 访问这个 URL，执行的过程是什么样的</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
 <h3 id="qqzone-业务需求">QQZone 业务需求</h3>
+<p><a id="markdown-qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82" name="qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82"></a></p>
 <h4 id="业务需求">业务需求</h4>
+<p><a id="markdown-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82" name="%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82"></a></p>
 <ul>
 <li>
 <ol>
@@ -196,6 +240,7 @@
 </li>
 </ul>
 <h4 id="数据库设计">数据库设计</h4>
+<p><a id="markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1" name="%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"></a></p>
 <ul>
 <li>
 <ol>
@@ -236,10 +281,11 @@
 </li>
 </ul>
 <h4 id="数据库的范式">数据库的范式</h4>
+<p><a id="markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%8C%83%E5%BC%8F" name="%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%8C%83%E5%BC%8F"></a></p>
 <ul>
 <li>
 <ol>
-<li>第一范式：列不可再分</li>
+<li>第一范式：列不可再分 (地址就不能是，因为可分)</li>
 </ol>
 </li>
 <li>
@@ -254,271 +300,19 @@
 </li>
 </ul>
 <h4 id="数据库设计的范式和数据库的查询性能很多时候是相悖的我们需要根据实际的业务情况做一个选择">数据库设计的范式和数据库的查询性能很多时候是相悖的，我们需要根据实际的业务情况做一个选择</h4>
+<p><a id="markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E6%98%AF%E7%9B%B8%E6%82%96%E7%9A%84%EF%BC%8C%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%83%85%E5%86%B5%E5%81%9A%E4%B8%80%E4%B8%AA%E9%80%89%E6%8B%A9" name="%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E6%98%AF%E7%9B%B8%E6%82%96%E7%9A%84%EF%BC%8C%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%83%85%E5%86%B5%E5%81%9A%E4%B8%80%E4%B8%AA%E9%80%89%E6%8B%A9"></a></p>
 <ul>
 <li>查询频次不高的情况下，我们更倾向于提高数据库的设计范式，从而提高存储效率</li>
 <li>查询频次较高的情形，我们更倾向于牺牲数据库的规范度，降低数据库设计的范式，允许特定的冗余，从而提高查询的性能</li>
 </ul>
-<h4 id="qqzone-登录功能实现出现的四个错误">QQZone 登录功能实现出现的四个错误</h4>
-<ul>
-<li>
-<ol>
-<li>URL 没修改，用的还是 fruitdb</li>
-</ol>
-</li>
-<li>
-<ol start="2">
-<li>rsmd.getColumnName() 和 rsmd.getColumnLabel()</li>
-</ol>
-</li>
-<li>
-<ol start="3">
-<li>Can not set com.atguigu.qqzone.pojo.UserBasic field com.atguigu.qqzone.pojo.Topic.author to java.lang.Integer</li>
-</ol>
-</li>
-<li>
-<ol start="4">
-<li>left.html 页面没有样式，同时数据也不展示，原因是：我们是直接去请求的静态页面资源，那么并没有执行 super.processTemplate()，也就是 thymeleaf 没有起作用
-(之前的表单也是这个原因)</li>
-</ol>
-</li>
-</ul>
-<h4 id="解决方法">解决方法</h4>
-<ul>
-<li>
-<ol>
-<li>新增 PageController，添加 page 方法:</li>
-</ol>
-</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">page</span><span class="o">(</span><span class="n">String</span> <span class="n">page</span><span class="o">){</span>
-        <span class="k">return</span> <span class="n">page</span> <span class="o">;</span>       <span class="c1">// frames/left
-</span><span class="c1"></span>    <span class="o">}</span>
-    <span class="n">目的是执行super</span><span class="o">.</span><span class="na">processTemplate</span><span class="o">()</span><span class="n">方法</span><span class="err">，</span><span class="n">让thymeleaf生效</span>
-</code></pre></div><p>昨日内容：</p>
-<ol>
-<li>
-<p>top.html页面显示登录者昵称、判断是否是自己的空间
-1)显示登录者昵称： ${session.userBasic.nickName}
-2)判断是否是自己的空间 : ${session.userBasic.id!=session.friend.id}
-如果不是期望的效果，首先考虑将两者的id都显示出来</p>
-</li>
-<li>
-<p>点击左侧的好友链接，进入好友空间</p>
-<ol>
-<li>
-<p>根据id获取指定userBasic信息，查询这个userBasic的topicList，然后覆盖friend对应的value</p>
-</li>
-<li>
-<p>main页面应该展示friend中的topicList，而不是userBasic中的topicList</p>
-</li>
-<li>
-<p>跳转后，在左侧（left）中显示整个index页面</p>
-<ul>
-<li>问题：在left页面显示整个index布局</li>
-<li>解决：给超链接添加target属性：   target=&quot;_top&quot; 保证在顶层窗口显示整个index页面</li>
-</ul>
-</li>
-<li>
-<p>top.html页面需要修改： &ldquo;欢迎进入${session.friend}&rdquo;
-top.html页面的返回自己空间的超链接需要修改：
-<a th:href="@{|/user.do?operate=friend&id=${session.userBasic.id}|}" target="_top"></p>
-</li>
-</ol>
-</li>
-<li>
-<p>日志详情页面实现</p>
-<ol>
-<li>已知topic的id，需要根据topic的id获取特定topic</li>
-<li>获取这个topic关联的所有的回复</li>
-<li>如果某个回复有主人回复，需要查询出来</li>
-</ol>
-<ul>
-<li>在TopicController中获取指定的topic</li>
-<li>具体这个topic中关联多少个Reply，由ReplyService内部实现</li>
-</ul>
-<ol start="4">
-<li>获取到的topic中的author只有id，那么需要在topicService的getTopic方法中封装，在查询topic本身信息时，同时调用userBasicService中的获取userBasic方法，给author属性赋值</li>
-<li>同理，在reply类中也有author，而且这个author也是只有id，那么我们也需要根据id查询得到author，最后设置关联</li>
-</ol>
-</li>
-<li>
-<p>添加回复</p>
-</li>
-<li>
-<p>删除回复</p>
-<ol>
-<li>如果回复有关联的主人回复，需要先删除主人回复</li>
-<li>删除回复
-Cannot delete or update a parent row: a foreign key constraint fails
-(<code>qqzonedb</code>.<code>t_host_reply</code>, CONSTRAINT <code>FK_host_reply</code> FOREIGN KEY (<code>reply</code>) REFERENCES <code>t_reply</code> (<code>id</code>))
-我们在删除回复表记录时，发现删除失败，原因是：在主人回复表中仍然有记录引用待删除的回复这条记录
-如果需要删除主表数据，需要首先删除子表数据</li>
-</ol>
-</li>
-<li>
-<p>删除日志</p>
-<ol>
-<li>删除日志，首先需要考虑是否有关联的回复</li>
-<li>删除回复，首先需要考虑是否有关联的主人回复</li>
-<li>另外，如果不是自己的空间，则不能删除日志</li>
-</ol>
-</li>
-</ol>
-<p>今日内容：</p>
-<ol>
-<li>
-<p>日期和字符串之间的格式化
-/*
-// String -&gt; java.util.Date
-String dateStr1 = &ldquo;2021-12-30 12:59:59&rdquo;;
-SimpleDateFormat sdf = new SimpleDateFormat(&ldquo;yyyy-MM-dd HH:mm:ss&rdquo;);
-try {
-Date date1 = sdf.parse(dateStr1);
-} catch (ParseException e) {
-e.printStackTrace();
-}</p>
-<p>// Date -&gt; String
-Date date2 = new Date();
-String dateStr2 = sdf.format(date2);
-*/</p>
-</li>
-<li>
-<p>thymeleaf中使用#dates这个公共的内置对象
-${#dates.format(topic.topicDate ,&lsquo;yyyy-MM-dd HH:mm:ss&rsquo;)}</p>
-</li>
-<li>
-<p>系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;page=login
-为什么不是： http://localhost:8080/pro23/login.html  ?
-答： 如果是后者，那么属于直接访问静态页面。那么页面上的thymeleaf表达式（标签）浏览器是不能识别的
-我们访问前者的目的其实就是要执行 ViewBaseServlet中的processTemplete()</p>
-</li>
-<li>
-<p>http://localhost:8080/pro23/page.do?operate=page&amp;page=login 访问这个URL，执行的过程是什么样的？
-答：
-http://  localhost   :8080   /pro23          /page.do                        ?operate=page&amp;page=login
-协议       ServerIP   port    context root    request.getServletPath()         query string</p>
-<ol>
-<li>DispatcherServlet -&gt; urlPattern :  *.do  拦截/page.do</li>
-<li>request.getServletPath() -&gt;  /page.do</li>
-<li>解析处理字符串，将/page.do -&gt; page</li>
-<li>拿到page这个字符串，然后去IOC容器（BeanFactory）中寻找id=page的那个bean对象   -&gt; PageController.java</li>
-<li>获取operate的值 -&gt; page    因此得知，应该执行 PageController中的page()方法</li>
-<li>PageController中的page方法定义如下：
-public String page(String page){
-return page ;
-}</li>
-<li>在queryString:   ?operate=page&amp;page=login 中 获取请求参数，参数名是page，参数值是login
-因此page方法的参数page值会被赋上&quot;login&quot;
-然后return &ldquo;login&rdquo; , return 给 谁？？</li>
-<li>因为PageController的page方法是DispatcherServlet通过反射调用的
-method.invoke(&hellip;.) ;
-因此，字符串&quot;login&quot;返回给DispatcherServlet</li>
-<li>DispatcherServlet接收到返回值，然后处理视图
-目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
-当前，返回&quot;login&quot;，不带前缀
-那么执行  super.processTemplete(&ldquo;login&rdquo;,request,response);</li>
-<li>此时ViewBaseServlet中的processTemplete方法会执行，效果是：
-在&quot;login&quot;这个字符串前面拼接 &ldquo;/&rdquo;  (其实就是配置文件中view-prefixe配置的值)
-在&quot;login&quot;这个字符串后面拼接 &ldquo;.html&rdquo; (其实就是配置文件中view-suffix配置的值)
-最后进行服务器转发</li>
-</ol>
-</li>
-<li>
-<p>目前我们进行javaweb项目开发的“套路”是这样的：</p>
-<ol>
-<li>拷贝 myssm包</li>
-<li>新建配置文件applicationContext.xml或者可以不叫这个名字，在web.xml中指定文件名</li>
-<li>在web.xml文件中配置：
-<ol>
-<li>配置前缀和后缀，这样thymeleaf引擎就可以根据我们返回的字符串进行拼接，再跳转
-<context-param>
-<param-name>view-prefix</param-name>
-<param-value>/</param-value>
-</context-param>
-<context-param>
-<param-name>view-suffix</param-name>
-<param-value>.html</param-value>
-</context-param></li>
-<li>配置监听器要读取的参数，目的是加载IOC容器的配置文件（也就是applicationContext.xml）
-<context-param>
-<param-name>contextConfigLocation</param-name>
-<param-value>applicationContext.xml</param-value>
-</context-param></li>
-</ol>
-</li>
-<li>开发具体的业务模块：
-1） 一个具体的业务模块纵向上由几个部分组成：
-<ul>
-<li>html页面</li>
-<li>POJO类</li>
-<li>DAO接口和实现类</li>
-<li>Service接口和实现类</li>
-<li>Controller 控制器组件
-2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
-3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
-4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
-例如：
-public class UserDAOImpl extends BaseDAO<User> implements UserDAO{}
-5） Service是业务控制类，这一层我们只需要记住一点：
-- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
-- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
-6） Controller类的编写规则
-① 在applicationContext.xml中配置Controller
-&lt;bean id=&ldquo;user&rdquo; class=&ldquo;com.atguigu.qqzone.controllers.UserController&gt;
-那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
-② 在Controller中设计的方法名需要和operate的值一致
-public String login(String loginId , String pwd , HttpSession session){
-return &ldquo;index&rdquo;;
-}
-因此，我们的登录验证的表单如下：
-<form th:action="@{/user.do}" method="post">
-<inut type="hidden" name="operate" value="login"/>
-</form>
-③ 在表单中，组件的name属性和Controller中方法的参数名一致
-<input type="text" name="loginId" />
-public String login(String loginId , String pwd , HttpSession session){
-④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
-if(&ldquo;request&rdquo;.equals&hellip;) else if(&ldquo;response&rdquo;.equals&hellip;.) else if(&ldquo;session&rdquo;.equals&hellip;.){
-直接赋值
-}else{
-此处才是从request的请求参数中获取
-request.getParameter(&ldquo;loginId&rdquo;) &hellip;..
-}
-7）  DispatcherServlet中步骤大致分为：
-0. 从application作用域获取IOC容器
-1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
-2. 准备operate指定的方法所要求的参数
-3. 调用operate指定的方法
-4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理</li>
-</ul>
-<ol start="8">
-<li>为什么DispatcherServlet能够从application作用域获取到IOC容器？
-ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
-<ol>
-<li>解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入</li>
-<li>将IOC容器保存到application作用域</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<p>修改BaseDAO，让其支持properties文件以及druid数据源连接池
-讲解了两种方式：</p>
-<ol>
-<li>直接自己配置properties，然后读取，然后加载驱动&hellip;..</li>
-<li>使用druid连接池技术，那么properties中的key是有要求的</li>
-</ol>
-</li>
-</ol>
-<h4 id="step1-数据库设计">step1. 数据库设计</h4>
+<h3 id="step1-数据库设计">step1. 数据库设计</h3>
+<p><a id="markdown-step1.-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1" name="step1.-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"></a></p>
 <ul>
 <li>
 <p>数据库主键最好不要跟业务有关，比如主键设计为学生学号，但是将来学校合并等，主键就比较麻烦</p>
 </li>
 <li>
-<p>多对多关联会产生中间的第三张表</p>
+<p><strong>多对多关联会产生中间的第三张表</strong></p>
 </li>
 </ul>
 <p>一号用户好友是二号，1 号用户好友是 3 号</p>
@@ -632,7 +426,10 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
 </span><span class="c1">-- /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 </span><span class="c1">-- /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 </span><span class="c1"></span><span class="w">
-</span></code></pre></div><h4 id="pojo">pojo</h4>
+</span></code></pre></div><h3 id="step2-pojo">step2. pojo</h3>
+<p><a id="markdown-step2.-pojo" name="step2.-pojo"></a></p>
+<p><strong>根据数据库的 5 张表创建 5 个实体</strong></p>
+<p><strong>先写完表格对应的参数后，思考彼此之间的关系</strong></p>
 <ul>
 <li>UserBasic</li>
 </ul>
@@ -642,8 +439,12 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
     <span class="kd">private</span> <span class="n">String</span> <span class="n">pwd</span> <span class="o">;</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">headImg</span> <span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">UserDetail</span> <span class="n">userDetail</span><span class="o">;</span> <span class="c1">// 1对1
+<span class="c1">// 写完基本情况后思考彼此关系：
+</span><span class="c1">// UserBasic需要有UserDetail，查询用户详情
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">UserDetail</span> <span class="n">userDetail</span><span class="o">;</span> <span class="c1">// 1对1
+</span><span class="c1">// 1个用户会拥有多个日志
 </span><span class="c1"></span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Topic</span><span class="o">&gt;</span> <span class="n">topicList</span><span class="o">;</span> <span class="c1">// 1对多
+</span><span class="c1">// 1个用户会拥有多个好友
 </span><span class="c1"></span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="n">friendList</span><span class="o">;</span> <span class="c1">// 多对多
 </span></code></pre></div><ul>
 <li>UserDetail
@@ -661,16 +462,15 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
 </code></pre></div><ul>
 <li>Reply</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">loginId</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">nickName</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">pwd</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">String</span> <span class="n">headImg</span> <span class="o">;</span>
-
-    <span class="kd">private</span> <span class="n">UserDetail</span> <span class="n">userDetail</span><span class="o">;</span> <span class="c1">// 1对1
-</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Topic</span><span class="o">&gt;</span> <span class="n">topicList</span><span class="o">;</span> <span class="c1">// 1对多
-</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="n">friendList</span><span class="o">;</span> <span class="c1">// 多对多
-</span></code></pre></div><ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">     <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">replyDate</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">UserBasic</span> <span class="n">author</span> <span class="o">;</span>  <span class="c1">//M:1
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Topic</span> <span class="n">topic</span> <span class="o">;</span>       <span class="c1">//M:1
+</span><span class="c1"></span>
+    <span class="kd">private</span> <span class="n">HostReply</span> <span class="n">hostReply</span><span class="o">;</span> <span class="c1">// 1 : 1
+</span><span class="c1"></span>   
+</code></pre></div><ul>
 <li>Topic</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Topic</span> <span class="o">{</span>
@@ -679,319 +479,570 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
     <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span> <span class="o">;</span>
     <span class="kd">private</span> <span class="n">Date</span> <span class="n">topicDate</span> <span class="o">;</span>
     <span class="kd">private</span> <span class="n">UserBasic</span> <span class="n">author</span> <span class="o">;</span> <span class="c1">// 多对1
-</span><span class="c1"></span>
-    <span class="c1">// 会有多个reply
+</span><span class="c1">// 写完基本情况后思考彼此关系：
+</span><span class="c1">// 一个日志中会有多个reply
 </span><span class="c1"></span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Reply</span><span class="o">&gt;</span> <span class="n">replyList</span><span class="o">;</span> <span class="c1">// 1对多
 </span></code></pre></div><ul>
 <li>HostReply</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">;</span>
     <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Date</span> <span class="n">replyDate</span> <span class="o">;</span>
-    <span class="kd">private</span> <span class="n">UserBasic</span> <span class="n">author</span> <span class="o">;</span>  <span class="c1">//M:1
-</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Topic</span> <span class="n">topic</span> <span class="o">;</span>       <span class="c1">//M:1
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">hostReplyDate</span> <span class="o">;</span>
+    <span class="kd">private</span> <span class="n">UserBasic</span> <span class="n">author</span> <span class="o">;</span> <span class="c1">//M:1
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">Reply</span> <span class="n">reply</span> <span class="o">;</span>   <span class="c1">//1:1
 </span><span class="c1"></span>
-    <span class="kd">private</span> <span class="n">HostReply</span> <span class="n">hostReply</span><span class="o">;</span> <span class="c1">// 1 : 1
-</span><span class="c1"></span><span class="o">}</span>
-</code></pre></div><h4 id="dao">dao</h4>
-<h3 id="filter">Filter</h3>
-<figure><img src="/images/jwb9.png"
-         alt="image"/><figcaption>
-            <h4>servlets</h4>
-        </figcaption>
-</figure>
+<span class="o">}</span>
+</code></pre></div><h3 id="step3-myssm">step3. myssm</h3>
+<p><a id="markdown-step3.-myssm" name="step3.-myssm"></a></p>
+<p><strong>包含 util， baseDAO 等文件</strong></p>
+<p>目前我们进行 javaweb 项目开发的“套路”是这样的：</p>
+<ol>
+<li>
+<p>拷贝 myssm 包</p>
+</li>
+<li>
+<p>新建配置文件 applicationContext.xml 或者可以不叫这个名字，在 web.xml 中指定文件名</p>
+</li>
+<li>
+<p>在 web.xml 文件中配置：</p>
+<ol>
+<li>配置前缀和后缀，这样 thymeleaf 引擎就可以根据我们返回的字符串进行拼接，再跳转</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;context-param&gt;</span>
+                              <span class="nt">&lt;param-name&gt;</span>view-prefix<span class="nt">&lt;/param-name&gt;</span>
+                              <span class="nt">&lt;param-value&gt;</span>/<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/context-param&gt;</span>
+  <span class="nt">&lt;context-param&gt;</span>
+      <span class="nt">&lt;param-name&gt;</span>view-suffix<span class="nt">&lt;/param-name&gt;</span>
+      <span class="nt">&lt;param-value&gt;</span>.html<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/context-param&gt;</span>
+</code></pre></div><ol start="2">
+<li>配置监听器要读取的参数，目的是加载 IOC 容器的配置文件（也就是 applicationContext.xml）</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;context-param&gt;</span>
+      <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+      <span class="nt">&lt;param-value&gt;</span>applicationContext.xml<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/context-param&gt;</span>
+</code></pre></div></li>
+</ol>
+<hr>
+<p>😼😼😼😼😼😼😼😼</p>
+<p><strong>开发具体的业务模块</strong></p>
+<ol>
+<li>
+<p>一个具体的业务模块纵向上由几个部分组成：</p>
+<ul>
+<li>html 页面</li>
+<li>POJO 类</li>
+<li>DAO 接口和实现类</li>
+<li>Service 接口和实现类</li>
+<li>Controller 控制器组件</li>
+</ul>
+</li>
+</ol>
+<p>😼😼😼😼😼😼😼😼</p>
+<hr>
+<h3 id="step4-dao">step4. DAO</h3>
+<p><a id="markdown-step4.-dao" name="step4.-dao"></a></p>
+<hr>
+<p>😼😼😼😼😼😼😼😼</p>
+<p><strong>业务需求</strong></p>
+<ul>
+<li>
+<ol>
+<li>用户登录</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>登录成功，显示主界面。左侧显示好友列表；上端显示欢迎词。如果不是自己的空间，显示超链接：返回自己的空间；下端显示日志列表</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>查看日志详情：
+<ul>
+<li>日志本身的信息（作者头像、昵称、日志标题、日志内容、日志的日期）</li>
+<li>回复列表（回复者的头像、昵称、回复内容、回复日期）</li>
+<li>主人回复信息</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>删除日志</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>删除特定回复</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>删除特定主人回复</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>添加日志、添加回复、添加主人回复</li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li>点击左侧好友链接，进入好友的空间</li>
+</ol>
+</li>
+</ul>
+<p>😼😼😼😼😼😼😼😼</p>
+<hr>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserBasicDAO</span><span class="o">{</span>
+    <span class="c1">// 用户登录:跟据账户和密码获取特定用户信息
+</span><span class="c1"></span>    <span class="n">UserBasic</span> <span class="nf">getUserBasic</span><span class="o">(</span><span class="n">String</span> <span class="n">loginId</span><span class="o">,</span> <span class="n">String</span> <span class="n">pwd</span><span class="o">);</span>
+    
+    <span class="c1">// 左侧显示好友列表:获取指定用户的所有好友列表
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="nf">getUserBasicList</span><span class="o">(</span><span class="n">UserBasic</span><span class="o">,</span> <span class="n">userBasic</span><span class="o">);</span>
 
+    <span class="c1">// 下端显示日志列表:  根据id查询UserBasic的信息
+</span><span class="c1"></span>
+
+<span class="o">}</span>
+
+</code></pre></div><p><strong>新人困惑为什么这个需求不写到上面， 因为， 上面是操作的是 UserBasic 实体阿</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TopicDAO</span><span class="o">{</span>
+    <span class="c1">// 下端显示日志列表:  根据UserBasic查询日志
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Topic</span><span class="o">&gt;</span> <span class="nf">getTopicList</span><span class="o">(</span><span class="n">UserBasic</span><span class="o">,</span> <span class="n">userBasic</span><span class="o">);</span>
+    
+    <span class="c1">// 获取特定日志信息
+</span><span class="c1"></span>    <span class="n">Topic</span> <span class="nf">getTopic</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">);</span>
+    
+    <span class="c1">// 增加日志
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="nf">addTopic</span><span class="o">(</span><span class="n">Topic</span> <span class="n">topic</span><span class="o">);</span>
+
+    <span class="c1">// 删除日志
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="nf">delTopic</span><span class="o">(</span><span class="n">Topic</span> <span class="n">topic</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+</code></pre></div><p><strong>回复需求</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ReplyDAO</span><span class="o">{</span>
+    <span class="c1">// 获取指定日志的回复列表
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Reply</span><span class="o">&gt;</span> <span class="nf">getReplyList</span><span class="o">(</span><span class="n">Topic</span> <span class="n">topic</span><span class="o">);</span>
+    
+    <span class="c1">// 增加日志
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="nf">addReply</span><span class="o">(</span> <span class="n">Reply</span>  <span class="n">reply</span><span class="o">);</span>
+
+    <span class="c1">// 删除日志
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="nf">delReply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+</code></pre></div><p><strong>主人回复需求</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HostReplyDAO</span><span class="o">{</span>
+    <span class="c1">// 获取指定日志的回复列表
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">HostReply</span><span class="o">&gt;</span> <span class="nf">getReplyList</span><span class="o">(</span><span class="n">Topic</span> <span class="n">topic</span><span class="o">);</span>
+    
+    <span class="c1">// 增加日志
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="n">add</span> <span class="nf">HostReply</span><span class="o">(</span> <span class="n">Reply</span>  <span class="n">reply</span><span class="o">);</span>
+
+    <span class="c1">// 删除日志
+</span><span class="c1"></span>    <span class="kt">void</span> <span class="n">del</span> <span class="nf">HostReply</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+</code></pre></div><p><strong>impl 实现</strong></p>
+<p><strong>左侧显示好友列表:获取指定用户的所有好友列表</strong></p>
 <blockquote>
-<p>A -&gt;B -&gt; C demo3.service() -&gt; C -&gt; B -&gt; A</p>
+<p>List<UserBasic> getUserBasicList(UserBasic, userBasic)</p>
 </blockquote>
-<h4 id="过滤器-filter">过滤器 Filter</h4>
-<ul>
-<li>
-<p>Filter 也属于 Servlet 规范</p>
-</li>
-<li>
-<p>Filter 开发步骤：新建类实现 Filter 接口，然后实现其中的三个方法：init、doFilter、destroy<br>
-配置 Filter，可以用注解@WebFilter，也可以使用 xml 文件 <filter> <filter-mapping></p>
-</li>
-<li>
-<p>Filter 在配置时，和 servlet 一样，也可以配置通配符，例如 @WebFilter(&quot;*.do&rdquo;)表示拦截所有以.do 结尾的请求</p>
-</li>
-<li>
-<p>过滤器链</p>
-<ul>
-<li>执行的顺序依次是： A B C demo03 C2 B2 A2</li>
-<li>如果采取的是注解的方式进行配置，那么过滤器链的拦截顺序是按照全类名的先后顺序排序的</li>
-<li>如果采取的是 xml 的方式进行配置，那么按照配置的先后顺序进行排序</li>
-</ul>
-</li>
-</ul>
-<p>chorme:                                                               tomcat</p>
-<ul>
-<li>http://ip:port/project/resource  〰️ ▶️ Filter                         target rescouce
-.                                                             authorized   ▶️   html, jsp, Servlet</li>
-</ul>
-<p>.                                 ◀️ 〰️ unauthorized</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@WebFilter</span><span class="o">(</span><span class="n">filterName</span> <span class="o">=</span><span class="s">&#34;ManagerFilter&#34;</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;/pages/manager/*&#34;</span><span class="o">,</span> <span class="s">&#34;/manager/bookServlet&#34;</span><span class="o">})</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
-<span class="cm">/**
-</span><span class="cm">* doFilter method
-</span><span class="cm">*/</span>
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">servletRequest</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">servletResponse</span><span class="o">,</span> <span class="n">FilterChain</span>
-<span class="n">filterChain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
-<span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">servletRequest</span><span class="o">;</span>
-<span class="n">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">httpServletRequest</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
-<span class="n">Object</span> <span class="n">user</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">);</span>
-<span class="c1">// 
-</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-<span class="n">servletRequest</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/login.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">servletRequest</span><span class="o">,</span><span class="n">servletResponse</span><span class="o">);</span>
-<span class="k">return</span><span class="o">;</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-<span class="c1">// 
-</span><span class="c1"></span><span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">servletRequest</span><span class="o">,</span><span class="n">servletResponse</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="事务管理">事务管理</h3>
-<h4 id="涉及到的组件">涉及到的组件</h4>
-<ul>
-<li>OpenSessionInViewFilter</li>
-<li>TransactionManager</li>
-<li>ThreadLocal</li>
-<li>ConnUtil</li>
-<li>BaseDAO</li>
-</ul>
-<h4 id="threadlocal">ThreadLocal</h4>
-<ul>
-<li>get() , set(obj)</li>
-<li>ThreadLocal 称之为本地线程 。 我们可以通过 set 方法在当前线程上存储数据、通过 get 方法在当前线程上获取数据</li>
-<li>set 方法源码分析：</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-         <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span> <span class="c1">//获取当前的线程
-</span><span class="c1"></span>         <span class="n">ThreadLocalMap</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getMap</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>    <span class="c1">//每一个线程都维护各自的一个容器（ThreadLocalMap）
-</span><span class="c1"></span>         <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-             <span class="n">map</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>          <span class="c1">//这里的key对应的是ThreadLocal，因为我们的组件中需要传输（共享）的对象可能会有多个（不止Connection）
-</span><span class="c1"></span>         <span class="k">else</span>
-             <span class="n">createMap</span><span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>           <span class="c1">//默认情况下map是没有初始化的，那么第一次往其中添加数据时，会去初始化
-</span><span class="c1"></span>     <span class="o">}</span>
-</code></pre></div><ul>
-<li>get 方法源码分析</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">     <span class="kd">public</span> <span class="n">T</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
-         <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span> <span class="c1">//获取当前的线程
-</span><span class="c1"></span>         <span class="n">ThreadLocalMap</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getMap</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>    <span class="c1">//获取和这个线程（企业）相关的ThreadLocalMap（也就是工作纽带的集合）
-</span><span class="c1"></span>         <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-             <span class="n">ThreadLocalMap</span><span class="o">.</span><span class="na">Entry</span> <span class="n">e</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">getEntry</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>   <span class="c1">//this指的是ThreadLocal对象，通过它才能知道是哪一个工作纽带
-</span><span class="c1"></span>             <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                 <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
-                 <span class="n">T</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span><span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>     <span class="c1">//entry.value就可以获取到工具箱了
-</span><span class="c1"></span>                 <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-             <span class="o">}</span>
-         <span class="o">}</span>
-         <span class="k">return</span> <span class="n">setInitialValue</span><span class="o">();</span>
-     <span class="o">}</span>
-</code></pre></div><figure><img src="/images/jwb10.png"
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t_user_basic</span><span class="w"> </span><span class="n">t1</span><span class="w">
+</span><span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">t_friend</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">uid</span><span class="w">
+</span><span class="w">    </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">t_user_basic</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">fid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t3</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>也可拆开,  String sql = &ldquo;select fid from t_friend where uid= ?&quot;;</p>
+<p>返回的只有 id 值</p>
+<p><strong>这行到了后端会报错，在数据库上查询没事</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span><span class="w"> </span><span class="n">fid</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t_friend</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></code></pre></div><figure><img src="/images/jwb15.png"
          alt="image"/><figcaption>
-            <h4>servlets</h4>
+            <h4>DAO impl</h4>
         </figcaption>
 </figure>
 
-<figure><img src="/images/jwb11.png"
+<figure><img src="/images/jwb16.png"
          alt="image"/><figcaption>
-            <h4>servlets</h4>
+            <h4>DAO impl</h4>
         </figcaption>
 </figure>
 
-<figure><img src="/images/jwb12.png"
-         alt="image"/><figcaption>
-            <h4>servlets</h4>
-        </figcaption>
-</figure>
+<h4 id="applicationxml-after-dao">application.xml after DAO</h4>
+<p><a id="markdown-application.xml-after-dao" name="application.xml-after-dao"></a></p>
+<p><strong>跟 mybatis 的 xml 配置区分，这里写的是 DAO 和 server 实现方法对象， 后者写的是方法</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;beans&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;userBasicDAO&#34;</span> <span class="na">class =</span> <span class="s">com.learn.qqzone.DAO.impl.UserBasicDAOImpl/</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;topicDAO&#34;</span> <span class="na">class =</span> <span class="s">com.learn.qqzone.DAO.impl.TopicDAOImpl/</span><span class="nt">&gt;</span>
+   
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><h3 id="step5-service">step5. SERVICE</h3>
+<p><a id="markdown-step5.-service" name="step5.-service"></a></p>
+<p><strong>面向业务</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserBasicService</span> <span class="o">{</span>
+        <span class="c1">// 跟据账户和密码获取特定用户信息
+</span><span class="c1"></span>    <span class="n">UserBasic</span> <span class="nf">login</span><span class="o">(</span><span class="n">String</span> <span class="n">loginId</span><span class="o">,</span> <span class="n">String</span> <span class="n">pwd</span><span class="o">);</span>
 
-<h4 id="threadlocal-and-filter-manage-transactions">ThreadLocal and Filter manage transactions</h4>
-<h4 id="modify-jdbcutils">modify JdbcUtils</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">Connection</span><span class="o">&gt;</span> <span class="n">conns</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadLocal</span><span class="o">&lt;&gt;();</span>
-<span class="c1">//  Connection conn = null;
-</span><span class="c1"></span><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conns</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
-</code></pre></div><h4 id="basedao">BaseDao</h4>
-<h4 id="filter-add-try-catch-to-service">Filter add try-catch to Service</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@WebFilter</span><span class="o">(</span><span class="n">filterName</span> <span class="o">=</span><span class="s">&#34;TransactionFilter&#34;</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">&#34;/*&#34;</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransactionFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
-<span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">servletRequest</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">servletResponse</span><span class="o">,</span> <span class="n">FilterChain</span>
-<span class="n">filterChain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
-<span class="k">try</span> <span class="o">{</span>
-<span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">servletRequest</span><span class="o">,</span><span class="n">servletResponse</span><span class="o">);</span>
-<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">commitAndClose</span><span class="o">();</span><span class="c1">// 提交事务
-</span><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">rollbackAndClose</span><span class="o">();</span><span class="c1">//回滚事务
-</span><span class="c1"></span><span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-<span class="o">}</span>
-<span class="o">}</span>
+    <span class="c1">// 获取指定用户的所有好友列表
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="nf">getFriendList</span><span class="o">(</span><span class="n">UserBasic</span> <span class="n">userBasic</span><span class="o">);</span>
 
-</code></pre></div><h4 id="throw-new-runexception-in-baseservlet-to-filter">throw new RunException() in BaseServlet to Filter</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
-<span class="k">try</span> <span class="o">{</span>
-<span class="c1">// 
-</span><span class="c1"></span><span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="n">action</span><span class="o">,</span> <span class="n">HttpServletRequest</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
-<span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-<span class="c1">// System.out.println(method);
-</span><span class="c1">// 
-</span><span class="c1"></span><span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
-<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-<span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span><span class="c1">// throw new RunException Filter 
-</span><span class="c1"></span><span class="o">}</span>
 <span class="o">}</span>
+</code></pre></div><p>impl</p>
+<p><strong>String sql = &ldquo;select fid from t_friend where uid= ?&quot;; 所以返回的只有 id 值</strong></p>
+<p><strong>根据 id 再查用户列表</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserBasicServiceImpl</span> <span class="kd">implements</span> <span class="n">UserBasicService</span> <span class="o">{</span>
 
-</code></pre></div><h4 id="tomcat-display-error-page">tomcat display error page</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
-<span class="o">&lt;!--</span><span class="n">error</span><span class="o">-</span><span class="n">code</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span><span class="n">500</span><span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span>
-<span class="o">&lt;!--</span><span class="n">location</span><span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="n">location</span><span class="o">&gt;/</span><span class="n">pages</span><span class="o">/</span><span class="n">error</span><span class="o">/</span><span class="n">error500</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">location</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
-<span class="o">&lt;!--</span><span class="n">error</span><span class="o">-</span><span class="n">page</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
-<span class="o">&lt;!--</span><span class="n">error</span><span class="o">-</span><span class="n">code</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span><span class="n">404</span><span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span>
-<span class="o">&lt;!--</span><span class="n">location</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="n">location</span><span class="o">&gt;/</span><span class="n">pages</span><span class="o">/</span><span class="n">error</span><span class="o">/</span><span class="n">error404</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">location</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
-</code></pre></div><h3 id="listener">listener</h3>
-<ul>
-<li>ServletContextListener - 监听 ServletContext 对象的创建和销毁的过程</li>
-<li>HttpSessionListener - 监听 HttpSession 对象的创建和销毁的过程</li>
-<li>ServletRequestListener - 监听 ServletRequest 对象的创建和销毁的过程</li>
-<li>ServletContextAttributeListener - 监听 ServletContext 的保存作用域的改动(add,remove,replace)</li>
-<li>HttpSessionAttributeListener - 监听 HttpSession 的保存作用域的改动(add,remove,replace)</li>
-<li>ServletRequestAttributeListener - 监听 ServletRequest 的保存作用域的改动(add,remove,replace)</li>
-<li>HttpSessionBindingListener - 监听某个对象在 Session 域中的创建与移除</li>
-<li>HttpSessionActivationListener - 监听某个对象在 Session 域中的序列化和反序列化</li>
-</ul>
-<h4 id="contextloaderlistener">ContextLoaderListener</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
-<span class="c1">//监听上下文启动，在上下文启动的时候去创建IOC容器,然后将其保存到application作用域
-</span><span class="c1">//后面中央控制器再从application作用域中去获取IOC容器
-</span><span class="c1"></span><span class="nd">@WebListener</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContextLoaderListener</span> <span class="kd">implements</span> <span class="n">ServletContextListener</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">UserBasicDAO</span> <span class="n">userBasicDAO</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextInitialized</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">servletContextEvent</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">//1.获取ServletContext对象
-</span><span class="c1"></span>        <span class="n">ServletContext</span> <span class="n">application</span> <span class="o">=</span> <span class="n">servletContextEvent</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
-        <span class="c1">//2.获取上下文的初始化参数
-</span><span class="c1"></span>        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="na">getInitParameter</span><span class="o">(</span><span class="s">&#34;contextConfigLocation&#34;</span><span class="o">);</span>
-        <span class="c1">//3.创建IOC容器
-</span><span class="c1"></span>        <span class="n">BeanFactory</span> <span class="n">beanFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-        <span class="c1">//4.将IOC容器保存到application作用域
-</span><span class="c1"></span>        <span class="n">application</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;beanFactory&#34;</span><span class="o">,</span><span class="n">beanFactory</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="n">UserBasic</span> <span class="nf">login</span><span class="o">(</span><span class="n">String</span> <span class="n">loginId</span><span class="o">,</span> <span class="n">String</span> <span class="n">pwd</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">UserBasic</span> <span class="n">userBasic</span> <span class="o">=</span> <span class="n">userBasicDAO</span><span class="o">.</span><span class="na">getUserBasic</span><span class="o">(</span><span class="n">loginId</span><span class="o">,</span> <span class="n">pwd</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">userBasic</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextDestroyed</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">servletContextEvent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="nf">getFriendList</span><span class="o">(</span><span class="n">UserBasic</span> <span class="n">userBasic</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="n">userBasicList</span> <span class="o">=</span> <span class="n">userBasicDAO</span><span class="o">.</span><span class="na">getUserBasicList</span><span class="o">(</span><span class="n">userBasic</span><span class="o">);</span>
 
-    <span class="o">}</span>
-<span class="o">}</span>
+        <span class="c1">//  String sql = &#34;select fid from t_friend where uid= ?&#34;; 所以返回的只有id值
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="n">friendList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">userBasicList</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+        <span class="c1">// 根据 id 再查用户列表
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">userBasicList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">UserBasic</span> <span class="n">friend</span><span class="o">=</span> <span class="n">userBasicList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="n">friend</span> <span class="o">=</span> <span class="n">userBasicDAO</span><span class="o">.</span><span class="na">getUserBasicById</span><span class="o">(</span><span class="n">friend</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+            <span class="n">friendList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">friend</span><span class="o">);</span>
 
-</code></pre></div><figure><img src="/images/jwb13.png"
-         alt="image"/><figcaption>
-            <h4>servlets</h4>
-        </figcaption>
-</figure>
-
-<h3 id="json">JSON</h3>
-<h4 id="json--javabean">JSON &amp;&amp; JavaBean</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;AA&#34;</span><span class="o">);</span>
-<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
-<span class="n">String</span> <span class="n">personJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">person</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">);</span>
-
-<span class="n">Person</span> <span class="n">person1</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">,</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span>
-</code></pre></div><h4 id="json--list">JSON &amp;&amp; List</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;AA&#34;</span><span class="o">));</span>
-<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;BB&#34;</span><span class="o">));</span>
-
-<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
-<span class="c1">// transfer to json string
-</span><span class="c1"></span><span class="n">String</span> <span class="n">personJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">personList</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">);</span>
-
-<span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">,</span> <span class="k">new</span> <span class="n">PersonListType</span><span class="o">().</span><span class="na">getType</span><span class="o">());</span>
-</code></pre></div><h4 id="json--map">JSON &amp;&amp; Map</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;()</span>
-<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;AA&#34;</span><span class="o">));</span>
-<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;BB&#34;</span><span class="o">));</span>
-
-<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
-<span class="c1">// transfer to json string
-</span><span class="c1"></span><span class="n">String</span> <span class="n">personJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">personMap</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">);</span>
-
-<span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personMap2</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">,</span> <span class="k">new</span> <span class="n">TypeToken</span><span class="o">&lt;</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">Person</span><span class="o">&gt;&gt;(){}.</span><span class="na">getType</span><span class="o">());</span>
-</code></pre></div><h3 id="ajax">AJAX</h3>
-<h3 id="use-ajax-invalidate-the-username">use AJAX invalidate the username</h3>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">ajaxExistsUsername</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span>
-<span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-<span class="c1">// get username
-</span><span class="c1"></span><span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
-<span class="c1">//  userService.existsUsername();
-</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">existsUsername</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">existsUsername</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
-<span class="c1">// 
-</span><span class="c1"></span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">resultMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
-<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;existsUsername&#34;</span><span class="o">,</span><span class="n">existsUsername</span><span class="o">);</span>
-<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
-<span class="n">String</span> <span class="n">json</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">resultMap</span><span class="o">);</span>
-<span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="n">json</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span><span class="o">(</span><span class="s">&#34;#username&#34;</span><span class="o">).</span><span class="na">blur</span><span class="o">(</span><span class="n">function</span> <span class="o">()</span> <span class="o">{</span>
-<span class="c1">//1 get username
-</span><span class="c1"></span><span class="n">var</span> <span class="n">username</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
-<span class="n">$</span><span class="o">.</span><span class="na">getJSON</span><span class="o">(</span><span class="s">&#34;http://localhost:8080/book/userServlet&#34;</span><span class="o">,</span><span class="s">&#34;action=ajaxExistsUsername&amp;username=&#34;</span> <span class="o">+</span>
-<span class="n">username</span><span class="o">,</span><span class="n">function</span> <span class="o">(</span><span class="n">data</span><span class="o">)</span> <span class="o">{</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">existsUsername</span><span class="o">)</span> <span class="o">{</span>
-<span class="n">$</span><span class="o">(</span><span class="s">&#34;span.errorMsg&#34;</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="s">&#34;xxxx！&#34;</span><span class="o">);</span>
-<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-<span class="n">$</span><span class="o">(</span><span class="s">&#34;span.errorMsg&#34;</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="s">&#34;xxxx！&#34;</span><span class="o">);</span>
-<span class="o">}</span>
-<span class="o">});</span>
-<span class="o">});</span>
-</code></pre></div><h3 id="use-ajax-to-add-the-item-to-the-cart">use AJAX to add the item to the cart</h3>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">addItem</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-
-<span class="c1">//        System.out.println(&#34;bookId: &#34; + request.getParameter(&#34;id&#34;));
-</span><span class="c1"></span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;request head reference value: &#34;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;Referer&#34;</span><span class="o">));</span>
-<span class="c1">//        2.1 : 获取请求的参数，商品编号
-</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">WebUtils</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">),</span> <span class="n">0</span><span class="o">);</span>
-<span class="c1">//        2.2： 调用bookService.queryBookById(id): Book得到图书的信息
-</span><span class="c1"></span>        <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-<span class="c1">//        2.3： 把图书信息，转换成CartItem商品项
-</span><span class="c1"></span>        <span class="n">CartItem</span> <span class="n">cartItem</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CartItem</span><span class="o">(</span><span class="n">book</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">book</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">1</span><span class="o">,</span> <span class="n">book</span><span class="o">.</span><span class="na">getPrice</span><span class="o">(),</span> <span class="n">book</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
-<span class="c1">//        2.4: 调用Cart.addItem(CartItem);添加商品项
-</span><span class="c1"></span>        <span class="n">Cart</span> <span class="n">cart</span> <span class="o">=</span> <span class="o">(</span><span class="n">Cart</span><span class="o">)</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;cart&#34;</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">cart</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">cart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cart</span><span class="o">();</span>
-            <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;cart&#34;</span><span class="o">,</span> <span class="n">cart</span><span class="o">);</span>
         <span class="o">}</span>
-        <span class="n">cart</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="n">cartItem</span><span class="o">);</span>
-
-<span class="c1">//        2.5: 重定向回商品列表页面
-</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cart</span><span class="o">);</span>
-        <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;lastName&#34;</span><span class="o">,</span> <span class="n">cartItem</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-        <span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getContextPath</span><span class="o">());</span>
-
-<span class="c1">//use AJAX to add the item to the cart
-</span><span class="c1"></span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">resultMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;();</span>
-<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;totalCount&#34;</span><span class="o">,</span> <span class="n">cart</span><span class="o">.</span><span class="na">getTotalCount</span><span class="o">());</span>
-<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;lastName&#34;</span><span class="o">,</span><span class="n">cartItem</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
-<span class="n">String</span> <span class="n">resultMapJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">resultMap</span><span class="o">);</span>
-<span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="n">resultMapJsonString</span><span class="o">);</span>
-
+        <span class="k">return</span> <span class="n">friendList</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre></div><hr>
+<span class="o">}</span>
+
+</code></pre></div><p><strong>TopicService &amp;&amp; impl</strong></p>
+<p><strong>参考 TopicDAO</strong></p>
+<h4 id="applicationxml-after-service">application.xml after service</h4>
+<p><a id="markdown-application.xml-after-service" name="application.xml-after-service"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;beans&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;userSerive&#34;</span> <span class="na">class =</span> <span class="s">com.learn.qqzone.service.impl.UserBasicSeriveImpl</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name =</span> <span class="s">&#34;userBasicDAO&#34;</span> <span class="na">ref =</span> <span class="s">&#34;userBasicDAO&#34;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+    
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;topicSerive&#34;</span> <span class="na">class =</span> <span class="s">com.learn.qqzone.service.impl.TopicSeriveImpl</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;property</span> <span class="na">name =</span> <span class="s">&#34;topicDAO&#34;</span> <span class="na">ref =</span> <span class="s">&#34;topicDAO&#34;</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div><h3 id="step6-controller">step6. CONTROLLER</h3>
+<p><a id="markdown-step6.-controller" name="step6.-controller"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">UserBasicService</span> <span class="n">userBasicService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="n">String</span> <span class="n">loginId</span><span class="o">,</span> <span class="n">String</span> <span class="n">pwd</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">UserBasic</span> <span class="n">userBasic</span> <span class="o">=</span> <span class="n">userBasicService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">loginId</span><span class="o">,</span> <span class="n">pwd</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">userBasic</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">&#34;index&#34;</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>这样还不够，因为 index 上还需要好友列表，所以还要查询好友列表和日记列表</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">UserBasicService</span> <span class="n">userBasicService</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">TopicService</span> <span class="n">topicService</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">login</span><span class="o">(</span><span class="n">String</span> <span class="n">loginId</span><span class="o">,</span> <span class="n">String</span> <span class="n">pwd</span><span class="o">,</span> <span class="n">HttpSession</span> <span class="n">session</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="k">if</span> <span class="o">(</span><span class="n">userBasic</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+             <span class="n">UserBasic</span> <span class="n">userBasic</span> <span class="o">=</span> <span class="n">userBasicService</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">loginId</span><span class="o">,</span> <span class="n">pwd</span><span class="o">);</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="n">friendList</span> <span class="o">=</span> <span class="n">userBasicService</span><span class="o">.</span><span class="na">getFriendList</span><span class="o">(</span><span class="n">userBasic</span><span class="o">);</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">Topic</span><span class="o">&gt;</span> <span class="n">topicList</span> <span class="o">=</span> <span class="n">TopicService</span><span class="o">.</span><span class="na">getTopicList</span><span class="o">(</span><span class="n">userBasic</span><span class="o">);</span>
+            <span class="n">userBasic</span><span class="o">.</span><span class="na">setFriendList</span><span class="o">(</span><span class="n">friendList</span><span class="o">);</span>
+            <span class="n">userBasic</span><span class="o">.</span><span class="na">setTopicList</span><span class="o">(</span><span class="n">topicList</span><span class="o">);</span>
+
+
+<span class="c1">// 补一个session保存信息
+</span><span class="c1"></span>        <span class="n">session</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;userBasic&#34;</span><span class="o">,</span> <span class="n">userBasic</span><span class="o">);</span>
+            <span class="k">return</span> <span class="s">&#34;index&#34;</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">&#34;login&#34;</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="applicationxml-after-controller">application.xml after controller</h4>
+<p><a id="markdown-application.xml-after-controller" name="application.xml-after-controller"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;user&#34;</span> <span class="na">class=</span><span class="s">&#34;com.learn.qqzone.controller.UserController&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;userBasicService&#34;</span> <span class="na">ref=</span><span class="s">&#34;userBasicService&#34;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;topicService&#34;</span> <span class="na">ref=</span><span class="s">&#34;topicService&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</code></pre></div><p><strong>加下以下可以避免一些拼写上错误</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE beans [
+</span><span class="cp">    &lt;!ELEMENT beans (bean*)&gt;</span>
+    <span class="cp">&lt;!ELEMENT bean (property*)&gt;</span>
+    <span class="cp">&lt;!ELEMENT property (#PCDATA)&gt;</span>
+
+    <span class="cp">&lt;!ATTLIST bean id ID #REQUIRED&gt;</span>
+    <span class="cp">&lt;!ATTLIST bean class CDATA #IMPLIED&gt;</span>
+    <span class="cp">&lt;!ATTLIST property name CDATA #IMPLIED&gt;</span>
+    <span class="cp">&lt;!ATTLIST property ref IDREF #IMPLIED&gt;</span>
+]&gt;
+
+</code></pre></div><h4 id="artifact-qqwar-exploded-error-during-artifact-deployment-see-server-log-for-details">Artifact qq:war exploded: Error during artifact deployment. See server log for details</h4>
+<p><a id="markdown-artifact-qq%3Awar-exploded%3A-error-during-artifact-deployment.-see-server-log-for-details" name="artifact-qq%3Awar-exploded%3A-error-during-artifact-deployment.-see-server-log-for-details"></a></p>
+<p><strong>tomcat log</strong></p>
+<p><strong>java.lang.IllegalArgumentException: InputStream cannot be null</strong></p>
+<p>超级想骂人，这个错误弄了很久，看 server.log 说 context.xml 不存在之类的，在这里就卡了半天。试了所有的教程，完全不行， 具体看这里<a href="https://rileyshen.github.io/post/error1/" >error1</a></p>
+<h4 id="nosuchfiledexception-fid">NoSuchFiledException-fid</h4>
+<p><a id="markdown-nosuchfiledexception-fid" name="nosuchfiledexception-fid"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="nf">getUserBasicList</span><span class="o">(</span><span class="n">UserBasic</span> <span class="n">userBasic</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select fid from t_friend where uid = ?&#34;</span>
+    <span class="k">return</span> <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>返回的是 UserBasic， 而它并没有 fid，所以会报错</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">UserBasic</span><span class="o">&gt;</span> <span class="nf">getUserBasicList</span><span class="o">(</span><span class="n">UserBasic</span> <span class="n">userBasic</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select fid as `id` from t_friend where uid = ?&#34;</span>
+    <span class="k">return</span> <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div><p>rsmd.getColumnName() 和 rsmd.getColumnLabel()</p>
+<p>getColumnLabel() 返回 <code>id</code></p>
+<p>getColumnName() 返回 <code>fid</code></p>
+<h4 id="can-not-set-comlearnqqzonepojouserbasic-field-comlearnqqzonepojotopicauthor-to-javalanginteger">Can not set com.learn.qqzone.pojo.UserBasic field com.learn.qqzone.pojo.Topic.author to java.lang.Integer</h4>
+<p><a id="markdown-can-not-set-com.learn.qqzone.pojo.userbasic-field-com.learn.qqzone.pojo.topic.author-to-java.lang.integer" name="can-not-set-com.learn.qqzone.pojo.userbasic-field-com.learn.qqzone.pojo.topic.author-to-java.lang.integer"></a></p>
+<p><strong>不能把 UserBasic 设置到 topic 里面的 author 上去， 因为结果获取的是 Integer</strong></p>
+<p><strong>应该把数字封装成一个 UserBasic 再设置到 author 里面去</strong></p>
+<blockquote>
+<p>java.lang.NoSuchFieldException: userBasicDAO
+at java.lang.Class.getDeclaredField(Class.java:2070)
+at com.learn.myssm.ioc.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:76)
+at com.learn.myssm.listeners.ContextLoaderListener.contextInitialized&gt;(ContextLoaderListener.java:22)</p>
+</blockquote>
+<p>java.lang.NoSuchFieldException: userBasicDAO</p>
+<blockquote>
+<p>//获取当前字段的类型名称
+String typeName = field.getType().getName();
+//判断如果是自定义类型，则需要调用这个自定义类的带一个参数的构造方法，创建出这个自定义的实例对象，然后将实例对象赋值给这个属性</p>
+</blockquote>
+<h4 id="汇总">汇总</h4>
+<p><a id="markdown-%E6%B1%87%E6%80%BB" name="%E6%B1%87%E6%80%BB"></a></p>
+<ol>
+<li>
+<p>top.html 页面显示登录者昵称、判断是否是自己的空间</p>
+<p>1)显示登录者昵称： ${session.userBasic.nickName}</p>
+<p>2)判断是否是自己的空间 : ${session.userBasic.id!=session.friend.id}</p>
+<p>如果不是期望的效果，首先考虑将两者的 id 都显示出来</p>
+</li>
+<li>
+<p>点击左侧的好友链接，进入好友空间</p>
+<ol>
+<li>
+<p>根据 id 获取指定 userBasic 信息，查询这个 userBasic 的 topicList，然后覆盖 friend 对应的 value</p>
+</li>
+<li>
+<p>main 页面应该展示 friend 中的 topicList，而不是 userBasic 中的 topicList</p>
+</li>
+<li>
+<p>跳转后，在左侧（left）中显示整个 index 页面</p>
+<ul>
+<li>
+<p>问题：在 left 页面显示整个 index 布局</p>
+</li>
+<li>
+<p>解决：给超链接添加 target 属性：   target=&quot;_top&rdquo; 保证在顶层窗口显示整个 index 页面</p>
+</li>
+</ul>
+</li>
+<li>
+<p>top.html 页面需要修改： &ldquo;欢迎进入${session.friend}&rdquo;</p>
+<p>top.html 页面的返回自己空间的超链接需要修改：
+<a th:href="@{|/user.do?operate=friend&id=${session.userBasic.id}|}" target="_top"></p>
+</li>
+</ol>
+</li>
+<li>
+<p>日志详情页面实现</p>
+<ol>
+<li>
+<p>已知 topic 的 id，需要根据 topic 的 id 获取特定 topic</p>
+</li>
+<li>
+<p>获取这个 topic 关联的所有的回复</p>
+</li>
+<li>
+<p>如果某个回复有主人回复，需要查询出来</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>在 TopicController 中获取指定的 topic</p>
+</li>
+<li>
+<p>具体这个 topic 中关联多少个 Reply，由 ReplyService 内部实现</p>
+</li>
+</ul>
+<ol start="4">
+<li>
+<p>获取到的 topic 中的 author 只有 id，那么需要在 topicService 的 getTopic 方法中封装，在查询 topic 本身信息时，同时调用 userBasicService 中的获取 userBasic 方法，给 author 属性赋值</p>
+</li>
+<li>
+<p>同理，在 reply 类中也有 author，而且这个 author 也是只有 id，那么我们也需要根据 id 查询得到 author，最后设置关联</p>
+</li>
+</ol>
+</li>
+<li>
+<p>添加回复</p>
+</li>
+<li>
+<p>删除回复</p>
+<ol>
+<li>如果回复有关联的主人回复，需要先删除主人回复</li>
+<li>删除回复
+Cannot delete or update a parent row: a foreign key constraint fails
+(<code>qqzonedb</code>.<code>t_host_reply</code>, CONSTRAINT <code>FK_host_reply</code> FOREIGN KEY (<code>reply</code>) REFERENCES <code>t_reply</code> (<code>id</code>))
+我们在删除回复表记录时，发现删除失败，原因是：在主人回复表中仍然有记录引用待删除的回复这条记录
+如果需要删除主表数据，需要首先删除子表数据</li>
+</ol>
+</li>
+<li>
+<p>删除日志</p>
+<ol>
+<li>删除日志，首先需要考虑是否有关联的回复</li>
+<li>删除回复，首先需要考虑是否有关联的主人回复</li>
+<li>另外，如果不是自己的空间，则不能删除日志</li>
+</ol>
+</li>
+</ol>
+<h3 id="汇总-1">汇总</h3>
+<p><a id="markdown-%E6%B1%87%E6%80%BB" name="%E6%B1%87%E6%80%BB"></a></p>
+<h4 id="1-日期和字符串之间的格式化">1. 日期和字符串之间的格式化</h4>
+<p><a id="markdown-%E6%97%A5%E6%9C%9F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96" name="%E6%97%A5%E6%9C%9F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96"></a></p>
+<p><strong>String -&gt; java.util.Date</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">dateStr1</span> <span class="o">=</span> <span class="s">&#34;2021-12-30 12:59:59&#34;</span><span class="o">;</span>
+<span class="n">SimpleDateFormat</span> <span class="n">sdf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="o">);</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">Date</span> <span class="n">date1</span> <span class="o">=</span> <span class="n">sdf</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">dateStr1</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ParseException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>Date -&gt; String</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Date</span> <span class="n">date2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">dateStr2</span> <span class="o">=</span> <span class="n">sdf</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">date2</span><span class="o">);</span>
+</code></pre></div><h4 id="2-thymeleaf-中使用dates-这个公共的内置对象">2. thymeleaf 中使用#dates 这个公共的内置对象</h4>
+<p><a id="markdown-thymeleaf-%E4%B8%AD%E4%BD%BF%E7%94%A8%23dates-%E8%BF%99%E4%B8%AA%E5%85%AC%E5%85%B1%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1" name="thymeleaf-%E4%B8%AD%E4%BD%BF%E7%94%A8%23dates-%E8%BF%99%E4%B8%AA%E5%85%AC%E5%85%B1%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"></a></p>
+<blockquote>
+<p>${#dates.format(topic.topicDate ,&lsquo;yyyy-MM-dd HH:mm:ss&rsquo;)}</p>
+</blockquote>
+<h4 id="3-系统启动时我们访问的页面是-httplocalhost8080pro23pagedooperatepagepagelogin">3. 系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;page=login</h4>
+<p><a id="markdown-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E8%AE%BF%E9%97%AE%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%98%AF%EF%BC%9A-http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin" name="%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E8%AE%BF%E9%97%AE%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%98%AF%EF%BC%9A-http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin"></a></p>
+<p>为什么不是： http://localhost:8080/pro23/login.html  ?</p>
+<p>如果是后者，那么属于直接访问静态页面。那么页面上的 thymeleaf 表达式（标签）浏览器是不能识别的</p>
+<p>我们访问前者的目的其实就是要执行 ViewBaseServlet 中的 processTemplete()</p>
+<h4 id="4-httplocalhost8080pro23pagedooperatepagepagelogin-访问这个-url执行的过程是什么样的">4. http://localhost:8080/pro23/page.do?operate=page&amp;page=login 访问这个 URL，执行的过程是什么样的</h4>
+<p><a id="markdown-http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin-%E8%AE%BF%E9%97%AE%E8%BF%99%E4%B8%AA-url%EF%BC%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84" name="http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin-%E8%AE%BF%E9%97%AE%E8%BF%99%E4%B8%AA-url%EF%BC%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84"></a></p>
+<blockquote>
+<p>http://  localhost   :8080   /pro23          /page.do                        ?operate=page&amp;page=login
+协议       ServerIP   port    context root    request.getServletPath()         query</p>
+</blockquote>
+<p><strong>string</strong></p>
+<ol>
+<li>
+<p>DispatcherServlet -&gt; urlPattern :  *.do  拦截/page.do</p>
+</li>
+<li>
+<p>request.getServletPath() -&gt;  /page.do</p>
+</li>
+<li>
+<p>解析处理字符串，将/page.do -&gt; page</p>
+</li>
+<li>
+<p>拿到 page 这个字符串，然后去 IOC 容器（BeanFactory）中寻找 id=page 的那个 bean 对象   -&gt; PageController.java</p>
+</li>
+<li>
+<p>获取operate的值 -&gt; page    因此得知，应该执行 PageController中的page()方法</p>
+</li>
+<li>
+<p>PageController中的page方法定义如下：</p>
+</li>
+</ol>
+<blockquote>
+<p>public String page(String page){
+return page ;
+}</p>
+</blockquote>
+<ol start="7">
+<li>在queryString:   ?operate=page&amp;page=login 中 获取请求参数，参数名是page，参数值是login
+因此page方法的参数page值会被赋上&quot;login&rdquo;
+然后return &ldquo;login&rdquo; , return 给 谁？？</li>
+<li>因为PageController的page方法是DispatcherServlet通过反射调用的
+method.invoke(&hellip;.) ;
+因此，字符串&quot;login&quot;返回给DispatcherServlet</li>
+<li>DispatcherServlet接收到返回值，然后处理视图
+目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
+当前，返回&quot;login&quot;，不带前缀
+那么执行  super.processTemplete(&ldquo;login&rdquo;,request,response);</li>
+<li>此时ViewBaseServlet中的processTemplete方法会执行，效果是：
+在&quot;login&quot;这个字符串前面拼接 &ldquo;/&rdquo;  (其实就是配置文件中view-prefixe配置的值)
+在&quot;login&quot;这个字符串后面拼接 &ldquo;.html&rdquo; (其实就是配置文件中view-suffix配置的值)
+最后进行服务器转发</li>
+</ol>
+<p>5.
+4. 
+2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
+3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
+4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
+例如：
+public class UserDAOImpl extends BaseDAO<User> implements UserDAO{}
+5） Service是业务控制类，这一层我们只需要记住一点：
+- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
+- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
+6） Controller类的编写规则
+① 在applicationContext.xml中配置Controller
+&lt;bean id=&ldquo;user&rdquo; class=&ldquo;com.atguigu.qqzone.controllers.UserController&gt;
+那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
+② 在Controller中设计的方法名需要和operate的值一致
+public String login(String loginId , String pwd , HttpSession session){
+return &ldquo;index&rdquo;;
+}
+因此，我们的登录验证的表单如下：
+<form th:action="@{/user.do}" method="post">
+<inut type="hidden" name="operate" value="login"/>
+</form>
+③ 在表单中，组件的name属性和Controller中方法的参数名一致
+<input type="text" name="loginId" />
+public String login(String loginId , String pwd , HttpSession session){
+④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
+if(&ldquo;request&rdquo;.equals&hellip;) else if(&ldquo;response&rdquo;.equals&hellip;.) else if(&ldquo;session&rdquo;.equals&hellip;.){
+直接赋值
+}else{
+此处才是从request的请求参数中获取
+request.getParameter(&ldquo;loginId&rdquo;) &hellip;..
+}
+7）  DispatcherServlet中步骤大致分为：
+0. 从application作用域获取IOC容器
+1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
+2. 准备operate指定的方法所要求的参数
+3. 调用operate指定的方法
+4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理
+8) 为什么DispatcherServlet能够从application作用域获取到IOC容器？
+ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
+1. 解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入
+2. 将IOC容器保存到application作用域</p>
+<ol start="6">
+<li>修改BaseDAO，让其支持properties文件以及druid数据源连接池
+讲解了两种方式：
+<ol>
+<li>直接自己配置properties，然后读取，然后加载驱动&hellip;..</li>
+<li>使用druid连接池技术，那么properties中的key是有要求的</li>
+</ol>
+</li>
+</ol>
+<hr>
 <p><a href="https://rileyshen.github.io/post/javaweb2/" >javaweb2</a>
 <a href="https://rileyshen.github.io/post/javaweb3/" >javaweb3</a>
 <a href="https://rileyshen.github.io/post/javaweb4/" >javaweb4</a>

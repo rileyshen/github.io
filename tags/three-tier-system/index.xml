@@ -17,6 +17,11 @@
         <description>&lt;p&gt;a full-stack web application for users to understand java web system&lt;/p&gt;
 &lt;!-- TOC --&gt;
 &lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#dispatcherservlet-%E5%BC%95%E5%85%A5&#34; &gt;dispatcherServlet 引入&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%A0%B8%E5%BF%83%E6%8E%A7%E5%88%B6%E5%99%A8%E7%BB%9F%E4%B8%80%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0&#34; &gt;核心控制器统一获取参数&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#mvc-service-%E5%92%8C-dao-%E8%AF%A6%E7%BB%86%E5%8C%BA%E5%88%86&#34; &gt;mvc service 和 dao 详细区分&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#mvc-ioc-%E8%80%A6%E5%90%88%E9%97%AE%E9%A2%98&#34; &gt;mvc ioc 耦合问题&lt;/a&gt;
 &lt;ul&gt;
@@ -31,72 +36,10 @@
 &lt;li&gt;&lt;a href=&#34;#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5&#34; &gt;&amp;lt;strong&amp;gt;依赖注入&amp;lt;/strong&amp;gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; &gt;QQZone 业务需求&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#three-tier-system-of-the-project&#34; &gt;three-tier system of the project&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#sp1-create-sql-forms&#34; &gt;sp1. create sql forms&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sp2-javebean-user-id-username-password-email&#34; &gt;sp2. JaveBean User id, username, password, email&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sp3-jdbcutils&#34; &gt;sp3. JdbcUtils&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sp4-basedao&#34; &gt;sp4. BaseDao&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sp5-userdao--test&#34; &gt;sp5. UserDao &amp;amp;amp;&amp;amp;amp; test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sp6-userservice--test&#34; &gt;sp6. UserService &amp;amp;amp;&amp;amp;amp; test&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#sp7-web&#34; &gt;sp7. web&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#file-upload-and-download&#34; &gt;file upload and download&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#file-upload&#34; &gt;file upload&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#commos-fileuploadjar&#34; &gt;commos-fileupload.jar&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#fileupload&#34; &gt;fileupload&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#file-download&#34; &gt;file download&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#cookie--session&#34; &gt;Cookie &amp;amp;amp;&amp;amp;amp; Session&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#use-cookie-to-save-users-information&#34; &gt;use Cookie to save user&amp;amp;rsquo;s information&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#session-to-invalidate-the-user-infomation&#34; &gt;Session to invalidate the user infomation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#order-module&#34; &gt;Order module&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#order-page&#34; &gt;Order page&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#filter&#34; &gt;Filter&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#%E8%BF%87%E6%BB%A4%E5%99%A8-filter&#34; &gt;过滤器 Filter&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86&#34; &gt;事务管理&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E7%BB%84%E4%BB%B6&#34; &gt;涉及到的组件&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#threadlocal&#34; &gt;ThreadLocal&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#threadlocal-and-filter-manage-transactions&#34; &gt;ThreadLocal and Filter manage transactions&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#modify-jdbcutils&#34; &gt;modify JdbcUtils&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#basedao&#34; &gt;BaseDao&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#filter-add-try-catch-to-service&#34; &gt;Filter add try-catch to Service&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#throw-new-runexception-in-baseservlet-to-filter&#34; &gt;throw new RunException in BaseServlet to Filter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#tomcat-display-error-page&#34; &gt;tomcat display error page&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#listener&#34; &gt;listener&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#contextloaderlistener&#34; &gt;ContextLoaderListener&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#json&#34; &gt;JSON&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#json--javabean&#34; &gt;JSON &amp;amp;amp;&amp;amp;amp; JavaBean&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#json--list&#34; &gt;JSON &amp;amp;amp;&amp;amp;amp; List&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#json--map&#34; &gt;JSON &amp;amp;amp;&amp;amp;amp; Map&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#ajax&#34; &gt;AJAX&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#use-ajax-invalidate-the-username&#34; &gt;use AJAX invalidate the username&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#use-ajax-to-add-the-item-to-the-cart&#34; &gt;use AJAX to add the item to the cart&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- /TOC --&gt;
-&lt;h4 id=&#34;dispatcherservlet-引入&#34;&gt;dispatcherServlet 引入&lt;/h4&gt;
+&lt;h3 id=&#34;dispatcherservlet-引入&#34;&gt;dispatcherServlet 引入&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-dispatcherservlet-%E5%BC%95%E5%85%A5&#34; name=&#34;dispatcherservlet-%E5%BC%95%E5%85%A5&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb5.png&#34;
          alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;servlets&lt;/h4&gt;
@@ -105,6 +48,7 @@
 
 &lt;p&gt;用 dispatcherServelet 控制 controller， 把反射放到父类&lt;/p&gt;
 &lt;h4 id=&#34;核心控制器统一获取参数&#34;&gt;核心控制器统一获取参数&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%A0%B8%E5%BF%83%E6%8E%A7%E5%88%B6%E5%99%A8%E7%BB%9F%E4%B8%80%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0&#34; name=&#34;%E6%A0%B8%E5%BF%83%E6%8E%A7%E5%88%B6%E5%99%A8%E7%BB%9F%E4%B8%80%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/springmvc/&#34; &gt;springmvc&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb6.png&#34;
          alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
@@ -1468,8 +1412,52 @@ display username       Set-Cookie:username
       <guid>https://rileyshen.github.io/post/javaweb5/</guid>
       
         <description>&lt;p&gt;a full-stack web application for users to understand java web system&lt;/p&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; &gt;QQZone 业务需求&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; &gt;业务需求&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34; &gt;数据库设计&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%8C%83%E5%BC%8F&#34; &gt;数据库的范式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E6%98%AF%E7%9B%B8%E6%82%96%E7%9A%84%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%83%85%E5%86%B5%E5%81%9A%E4%B8%80%E4%B8%AA%E9%80%89%E6%8B%A9&#34; &gt;数据库设计的范式和数据库的查询性能很多时候是相悖的，我们需要根据实际的业务情况做一个选择&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34; &gt;step1. 数据库设计&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step2-pojo&#34; &gt;step2. pojo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step3-myssm&#34; &gt;step3. myssm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step4-dao&#34; &gt;step4. DAO&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#applicationxml-after-dao&#34; &gt;application.xml after DAO&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step5-service&#34; &gt;step5. SERVICE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#applicationxml-after-service&#34; &gt;application.xml after service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#step6-controller&#34; &gt;step6. CONTROLLER&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#applicationxml-after-controller&#34; &gt;application.xml after controller&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#artifact-qqwar-exploded-error-during-artifact-deployment-see-server-log-for-details&#34; &gt;Artifact qq:war exploded: Error during artifact deployment. See server log for details&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#nosuchfiledexception-fid&#34; &gt;NoSuchFiledException-fid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#can-not-set-comlearnqqzonepojouserbasic-field-comlearnqqzonepojotopicauthor-to-javalanginteger&#34; &gt;Can not set com.learn.qqzone.pojo.UserBasic field com.learn.qqzone.pojo.Topic.author to java.lang.Integer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%B1%87%E6%80%BB&#34; &gt;汇总&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%B1%87%E6%80%BB&#34; &gt;汇总&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%97%A5%E6%9C%9F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96&#34; &gt;日期和字符串之间的格式化&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#thymeleaf-%E4%B8%AD%E4%BD%BF%E7%94%A8dates-%E8%BF%99%E4%B8%AA%E5%85%AC%E5%85%B1%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1&#34; &gt;thymeleaf 中使用#dates 这个公共的内置对象&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%B6%E6%88%91%E4%BB%AC%E8%AE%BF%E9%97%AE%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%98%AF-httplocalhost8080pro23pagedooperatepagepagelogin&#34; &gt;系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;amp;amp;page=login&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#httplocalhost8080pro23pagedooperatepagepagelogin-%E8%AE%BF%E9%97%AE%E8%BF%99%E4%B8%AA-url%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84&#34; &gt;http://localhost:8080/pro23/page.do?operate=page&amp;amp;amp;page=login 访问这个 URL，执行的过程是什么样的&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
 &lt;h3 id=&#34;qqzone-业务需求&#34;&gt;QQZone 业务需求&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; name=&#34;qqzone-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;业务需求&#34;&gt;业务需求&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; name=&#34;%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;ol&gt;
@@ -1519,6 +1507,7 @@ display username       Set-Cookie:username
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;数据库设计&#34;&gt;数据库设计&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34; name=&#34;%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;ol&gt;
@@ -1559,10 +1548,11 @@ display username       Set-Cookie:username
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;数据库的范式&#34;&gt;数据库的范式&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%8C%83%E5%BC%8F&#34; name=&#34;%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%8C%83%E5%BC%8F&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;ol&gt;
-&lt;li&gt;第一范式：列不可再分&lt;/li&gt;
+&lt;li&gt;第一范式：列不可再分 (地址就不能是，因为可分)&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -1577,271 +1567,19 @@ display username       Set-Cookie:username
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4 id=&#34;数据库设计的范式和数据库的查询性能很多时候是相悖的我们需要根据实际的业务情况做一个选择&#34;&gt;数据库设计的范式和数据库的查询性能很多时候是相悖的，我们需要根据实际的业务情况做一个选择&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E6%98%AF%E7%9B%B8%E6%82%96%E7%9A%84%EF%BC%8C%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%83%85%E5%86%B5%E5%81%9A%E4%B8%80%E4%B8%AA%E9%80%89%E6%8B%A9&#34; name=&#34;%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E7%9A%84%E8%8C%83%E5%BC%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E5%BE%88%E5%A4%9A%E6%97%B6%E5%80%99%E6%98%AF%E7%9B%B8%E6%82%96%E7%9A%84%EF%BC%8C%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E6%A0%B9%E6%8D%AE%E5%AE%9E%E9%99%85%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%83%85%E5%86%B5%E5%81%9A%E4%B8%80%E4%B8%AA%E9%80%89%E6%8B%A9&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;查询频次不高的情况下，我们更倾向于提高数据库的设计范式，从而提高存储效率&lt;/li&gt;
 &lt;li&gt;查询频次较高的情形，我们更倾向于牺牲数据库的规范度，降低数据库设计的范式，允许特定的冗余，从而提高查询的性能&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;qqzone-登录功能实现出现的四个错误&#34;&gt;QQZone 登录功能实现出现的四个错误&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;ol&gt;
-&lt;li&gt;URL 没修改，用的还是 fruitdb&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;rsmd.getColumnName() 和 rsmd.getColumnLabel()&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;Can not set com.atguigu.qqzone.pojo.UserBasic field com.atguigu.qqzone.pojo.Topic.author to java.lang.Integer&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;left.html 页面没有样式，同时数据也不展示，原因是：我们是直接去请求的静态页面资源，那么并没有执行 super.processTemplate()，也就是 thymeleaf 没有起作用
-(之前的表单也是这个原因)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;解决方法&#34;&gt;解决方法&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;ol&gt;
-&lt;li&gt;新增 PageController，添加 page 方法:&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;page&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;page&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;page&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;// frames/left
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;目的是执行super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;processTemplate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;方法&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;让thymeleaf生效&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;昨日内容：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;top.html页面显示登录者昵称、判断是否是自己的空间
-1)显示登录者昵称： ${session.userBasic.nickName}
-2)判断是否是自己的空间 : ${session.userBasic.id!=session.friend.id}
-如果不是期望的效果，首先考虑将两者的id都显示出来&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;点击左侧的好友链接，进入好友空间&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;根据id获取指定userBasic信息，查询这个userBasic的topicList，然后覆盖friend对应的value&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;main页面应该展示friend中的topicList，而不是userBasic中的topicList&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;跳转后，在左侧（left）中显示整个index页面&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;问题：在left页面显示整个index布局&lt;/li&gt;
-&lt;li&gt;解决：给超链接添加target属性：   target=&amp;quot;_top&amp;quot; 保证在顶层窗口显示整个index页面&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;top.html页面需要修改： &amp;ldquo;欢迎进入${session.friend}&amp;rdquo;
-top.html页面的返回自己空间的超链接需要修改：
-&lt;a th:href=&#34;@{|/user.do?operate=friend&amp;id=${session.userBasic.id}|}&#34; target=&#34;_top&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;日志详情页面实现&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;已知topic的id，需要根据topic的id获取特定topic&lt;/li&gt;
-&lt;li&gt;获取这个topic关联的所有的回复&lt;/li&gt;
-&lt;li&gt;如果某个回复有主人回复，需要查询出来&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;在TopicController中获取指定的topic&lt;/li&gt;
-&lt;li&gt;具体这个topic中关联多少个Reply，由ReplyService内部实现&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;获取到的topic中的author只有id，那么需要在topicService的getTopic方法中封装，在查询topic本身信息时，同时调用userBasicService中的获取userBasic方法，给author属性赋值&lt;/li&gt;
-&lt;li&gt;同理，在reply类中也有author，而且这个author也是只有id，那么我们也需要根据id查询得到author，最后设置关联&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;添加回复&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;删除回复&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;如果回复有关联的主人回复，需要先删除主人回复&lt;/li&gt;
-&lt;li&gt;删除回复
-Cannot delete or update a parent row: a foreign key constraint fails
-(&lt;code&gt;qqzonedb&lt;/code&gt;.&lt;code&gt;t_host_reply&lt;/code&gt;, CONSTRAINT &lt;code&gt;FK_host_reply&lt;/code&gt; FOREIGN KEY (&lt;code&gt;reply&lt;/code&gt;) REFERENCES &lt;code&gt;t_reply&lt;/code&gt; (&lt;code&gt;id&lt;/code&gt;))
-我们在删除回复表记录时，发现删除失败，原因是：在主人回复表中仍然有记录引用待删除的回复这条记录
-如果需要删除主表数据，需要首先删除子表数据&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;删除日志&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;删除日志，首先需要考虑是否有关联的回复&lt;/li&gt;
-&lt;li&gt;删除回复，首先需要考虑是否有关联的主人回复&lt;/li&gt;
-&lt;li&gt;另外，如果不是自己的空间，则不能删除日志&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;今日内容：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;日期和字符串之间的格式化
-/*
-// String -&amp;gt; java.util.Date
-String dateStr1 = &amp;ldquo;2021-12-30 12:59:59&amp;rdquo;;
-SimpleDateFormat sdf = new SimpleDateFormat(&amp;ldquo;yyyy-MM-dd HH:mm:ss&amp;rdquo;);
-try {
-Date date1 = sdf.parse(dateStr1);
-} catch (ParseException e) {
-e.printStackTrace();
-}&lt;/p&gt;
-&lt;p&gt;// Date -&amp;gt; String
-Date date2 = new Date();
-String dateStr2 = sdf.format(date2);
-*/&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;thymeleaf中使用#dates这个公共的内置对象
-${#dates.format(topic.topicDate ,&amp;lsquo;yyyy-MM-dd HH:mm:ss&amp;rsquo;)}&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login
-为什么不是： http://localhost:8080/pro23/login.html  ?
-答： 如果是后者，那么属于直接访问静态页面。那么页面上的thymeleaf表达式（标签）浏览器是不能识别的
-我们访问前者的目的其实就是要执行 ViewBaseServlet中的processTemplete()&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login 访问这个URL，执行的过程是什么样的？
-答：
-http://  localhost   :8080   /pro23          /page.do                        ?operate=page&amp;amp;page=login
-协议       ServerIP   port    context root    request.getServletPath()         query string&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;DispatcherServlet -&amp;gt; urlPattern :  *.do  拦截/page.do&lt;/li&gt;
-&lt;li&gt;request.getServletPath() -&amp;gt;  /page.do&lt;/li&gt;
-&lt;li&gt;解析处理字符串，将/page.do -&amp;gt; page&lt;/li&gt;
-&lt;li&gt;拿到page这个字符串，然后去IOC容器（BeanFactory）中寻找id=page的那个bean对象   -&amp;gt; PageController.java&lt;/li&gt;
-&lt;li&gt;获取operate的值 -&amp;gt; page    因此得知，应该执行 PageController中的page()方法&lt;/li&gt;
-&lt;li&gt;PageController中的page方法定义如下：
-public String page(String page){
-return page ;
-}&lt;/li&gt;
-&lt;li&gt;在queryString:   ?operate=page&amp;amp;page=login 中 获取请求参数，参数名是page，参数值是login
-因此page方法的参数page值会被赋上&amp;quot;login&amp;quot;
-然后return &amp;ldquo;login&amp;rdquo; , return 给 谁？？&lt;/li&gt;
-&lt;li&gt;因为PageController的page方法是DispatcherServlet通过反射调用的
-method.invoke(&amp;hellip;.) ;
-因此，字符串&amp;quot;login&amp;quot;返回给DispatcherServlet&lt;/li&gt;
-&lt;li&gt;DispatcherServlet接收到返回值，然后处理视图
-目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
-当前，返回&amp;quot;login&amp;quot;，不带前缀
-那么执行  super.processTemplete(&amp;ldquo;login&amp;rdquo;,request,response);&lt;/li&gt;
-&lt;li&gt;此时ViewBaseServlet中的processTemplete方法会执行，效果是：
-在&amp;quot;login&amp;quot;这个字符串前面拼接 &amp;ldquo;/&amp;rdquo;  (其实就是配置文件中view-prefixe配置的值)
-在&amp;quot;login&amp;quot;这个字符串后面拼接 &amp;ldquo;.html&amp;rdquo; (其实就是配置文件中view-suffix配置的值)
-最后进行服务器转发&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;目前我们进行javaweb项目开发的“套路”是这样的：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;拷贝 myssm包&lt;/li&gt;
-&lt;li&gt;新建配置文件applicationContext.xml或者可以不叫这个名字，在web.xml中指定文件名&lt;/li&gt;
-&lt;li&gt;在web.xml文件中配置：
-&lt;ol&gt;
-&lt;li&gt;配置前缀和后缀，这样thymeleaf引擎就可以根据我们返回的字符串进行拼接，再跳转
-&lt;context-param&gt;
-&lt;param-name&gt;view-prefix&lt;/param-name&gt;
-&lt;param-value&gt;/&lt;/param-value&gt;
-&lt;/context-param&gt;
-&lt;context-param&gt;
-&lt;param-name&gt;view-suffix&lt;/param-name&gt;
-&lt;param-value&gt;.html&lt;/param-value&gt;
-&lt;/context-param&gt;&lt;/li&gt;
-&lt;li&gt;配置监听器要读取的参数，目的是加载IOC容器的配置文件（也就是applicationContext.xml）
-&lt;context-param&gt;
-&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-&lt;param-value&gt;applicationContext.xml&lt;/param-value&gt;
-&lt;/context-param&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;开发具体的业务模块：
-1） 一个具体的业务模块纵向上由几个部分组成：
-&lt;ul&gt;
-&lt;li&gt;html页面&lt;/li&gt;
-&lt;li&gt;POJO类&lt;/li&gt;
-&lt;li&gt;DAO接口和实现类&lt;/li&gt;
-&lt;li&gt;Service接口和实现类&lt;/li&gt;
-&lt;li&gt;Controller 控制器组件
-2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
-3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
-4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
-例如：
-public class UserDAOImpl extends BaseDAO&lt;User&gt; implements UserDAO{}
-5） Service是业务控制类，这一层我们只需要记住一点：
-- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
-- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
-6） Controller类的编写规则
-① 在applicationContext.xml中配置Controller
-&amp;lt;bean id=&amp;ldquo;user&amp;rdquo; class=&amp;ldquo;com.atguigu.qqzone.controllers.UserController&amp;gt;
-那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
-② 在Controller中设计的方法名需要和operate的值一致
-public String login(String loginId , String pwd , HttpSession session){
-return &amp;ldquo;index&amp;rdquo;;
-}
-因此，我们的登录验证的表单如下：
-&lt;form th:action=&#34;@{/user.do}&#34; method=&#34;post&#34;&gt;
-&lt;inut type=&#34;hidden&#34; name=&#34;operate&#34; value=&#34;login&#34;/&gt;
-&lt;/form&gt;
-③ 在表单中，组件的name属性和Controller中方法的参数名一致
-&lt;input type=&#34;text&#34; name=&#34;loginId&#34; /&gt;
-public String login(String loginId , String pwd , HttpSession session){
-④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
-if(&amp;ldquo;request&amp;rdquo;.equals&amp;hellip;) else if(&amp;ldquo;response&amp;rdquo;.equals&amp;hellip;.) else if(&amp;ldquo;session&amp;rdquo;.equals&amp;hellip;.){
-直接赋值
-}else{
-此处才是从request的请求参数中获取
-request.getParameter(&amp;ldquo;loginId&amp;rdquo;) &amp;hellip;..
-}
-7）  DispatcherServlet中步骤大致分为：
-0. 从application作用域获取IOC容器
-1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
-2. 准备operate指定的方法所要求的参数
-3. 调用operate指定的方法
-4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol start=&#34;8&#34;&gt;
-&lt;li&gt;为什么DispatcherServlet能够从application作用域获取到IOC容器？
-ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
-&lt;ol&gt;
-&lt;li&gt;解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入&lt;/li&gt;
-&lt;li&gt;将IOC容器保存到application作用域&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;修改BaseDAO，让其支持properties文件以及druid数据源连接池
-讲解了两种方式：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;直接自己配置properties，然后读取，然后加载驱动&amp;hellip;..&lt;/li&gt;
-&lt;li&gt;使用druid连接池技术，那么properties中的key是有要求的&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h4 id=&#34;step1-数据库设计&#34;&gt;step1. 数据库设计&lt;/h4&gt;
+&lt;h3 id=&#34;step1-数据库设计&#34;&gt;step1. 数据库设计&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-step1.-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34; name=&#34;step1.-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;数据库主键最好不要跟业务有关，比如主键设计为学生学号，但是将来学校合并等，主键就比较麻烦&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;多对多关联会产生中间的第三张表&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多对多关联会产生中间的第三张表&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;一号用户好友是二号，1 号用户好友是 3 号&lt;/p&gt;
@@ -1955,7 +1693,10 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;-- /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;pojo&#34;&gt;pojo&lt;/h4&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step2-pojo&#34;&gt;step2. pojo&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-step2.-pojo&#34; name=&#34;step2.-pojo&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;根据数据库的 5 张表创建 5 个实体&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;先写完表格对应的参数后，思考彼此之间的关系&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;UserBasic&lt;/li&gt;
 &lt;/ul&gt;
@@ -1965,8 +1706,12 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;headImg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserDetail&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userDetail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1对1
+&lt;span class=&#34;c1&#34;&gt;// 写完基本情况后思考彼此关系：
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// UserBasic需要有UserDetail，查询用户详情
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserDetail&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userDetail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1对1
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 1个用户会拥有多个日志
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1对多
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 1个用户会拥有多个好友
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 多对多
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;UserDetail
@@ -1984,16 +1729,15 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Reply&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nickName&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;headImg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserDetail&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userDetail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1对1
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1对多
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 多对多
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;replyDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//M:1
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;//M:1
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HostReply&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hostReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1 : 1
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;Topic&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -2002,319 +1746,570 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topicDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 多对1
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
-    &lt;span class=&#34;c1&#34;&gt;// 会有多个reply
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 写完基本情况后思考彼此关系：
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 一个日志中会有多个reply
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Reply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;replyList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1对多
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;HostReply&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;replyDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//M:1
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;//M:1
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hostReplyDate&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;author&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//M:1
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Reply&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reply&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;//1:1
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HostReply&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hostReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 1 : 1
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;dao&#34;&gt;dao&lt;/h4&gt;
-&lt;h3 id=&#34;filter&#34;&gt;Filter&lt;/h3&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb9.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;servlets&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step3-myssm&#34;&gt;step3. myssm&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-step3.-myssm&#34; name=&#34;step3.-myssm&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;包含 util， baseDAO 等文件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;目前我们进行 javaweb 项目开发的“套路”是这样的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;拷贝 myssm 包&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;新建配置文件 applicationContext.xml 或者可以不叫这个名字，在 web.xml 中指定文件名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 web.xml 文件中配置：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;配置前缀和后缀，这样 thymeleaf 引擎就可以根据我们返回的字符串进行拼接，再跳转&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+                              &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;view-prefix&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+                              &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;/&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;view-suffix&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;.html&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;配置监听器要读取的参数，目的是加载 IOC 容器的配置文件（也就是 applicationContext.xml）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+      &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;applicationContext.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;😼😼😼😼😼😼😼😼&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开发具体的业务模块&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;一个具体的业务模块纵向上由几个部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;html 页面&lt;/li&gt;
+&lt;li&gt;POJO 类&lt;/li&gt;
+&lt;li&gt;DAO 接口和实现类&lt;/li&gt;
+&lt;li&gt;Service 接口和实现类&lt;/li&gt;
+&lt;li&gt;Controller 控制器组件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;😼😼😼😼😼😼😼😼&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;step4-dao&#34;&gt;step4. DAO&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-step4.-dao&#34; name=&#34;step4.-dao&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;😼😼😼😼😼😼😼😼&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;业务需求&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;用户登录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;登录成功，显示主界面。左侧显示好友列表；上端显示欢迎词。如果不是自己的空间，显示超链接：返回自己的空间；下端显示日志列表&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;查看日志详情：
+&lt;ul&gt;
+&lt;li&gt;日志本身的信息（作者头像、昵称、日志标题、日志内容、日志的日期）&lt;/li&gt;
+&lt;li&gt;回复列表（回复者的头像、昵称、回复内容、回复日期）&lt;/li&gt;
+&lt;li&gt;主人回复信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;删除日志&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;删除特定回复&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;删除特定主人回复&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;添加日志、添加回复、添加主人回复&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;点击左侧好友链接，进入好友的空间&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;😼😼😼😼😼😼😼😼&lt;/p&gt;
+&lt;hr&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UserBasicDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// 用户登录:跟据账户和密码获取特定用户信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getUserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&#34;c1&#34;&gt;// 左侧显示好友列表:获取指定用户的所有好友列表
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getUserBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
+    &lt;span class=&#34;c1&#34;&gt;// 下端显示日志列表:  根据id查询UserBasic的信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;新人困惑为什么这个需求不写到上面， 因为， 上面是操作的是 UserBasic 实体阿&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TopicDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// 下端显示日志列表:  根据UserBasic查询日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getTopicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&#34;c1&#34;&gt;// 获取特定日志信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getTopic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&#34;c1&#34;&gt;// 增加日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addTopic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// 删除日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;delTopic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;回复需求&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ReplyDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// 获取指定日志的回复列表
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Reply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getReplyList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&#34;c1&#34;&gt;// 增加日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Reply&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;reply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// 删除日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;delReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;主人回复需求&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;HostReplyDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// 获取指定日志的回复列表
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HostReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getReplyList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&#34;c1&#34;&gt;// 增加日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;HostReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Reply&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;reply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// 删除日志
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;del&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;HostReply&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;impl 实现&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;左侧显示好友列表:获取指定用户的所有好友列表&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;A -&amp;gt;B -&amp;gt; C demo3.service() -&amp;gt; C -&amp;gt; B -&amp;gt; A&lt;/p&gt;
+&lt;p&gt;List&lt;UserBasic&gt; getUserBasicList(UserBasic, userBasic)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id=&#34;过滤器-filter&#34;&gt;过滤器 Filter&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Filter 也属于 Servlet 规范&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Filter 开发步骤：新建类实现 Filter 接口，然后实现其中的三个方法：init、doFilter、destroy&lt;br&gt;
-配置 Filter，可以用注解@WebFilter，也可以使用 xml 文件 &lt;filter&gt; &lt;filter-mapping&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Filter 在配置时，和 servlet 一样，也可以配置通配符，例如 @WebFilter(&amp;quot;*.do&amp;rdquo;)表示拦截所有以.do 结尾的请求&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;过滤器链&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;执行的顺序依次是： A B C demo03 C2 B2 A2&lt;/li&gt;
-&lt;li&gt;如果采取的是注解的方式进行配置，那么过滤器链的拦截顺序是按照全类名的先后顺序排序的&lt;/li&gt;
-&lt;li&gt;如果采取的是 xml 的方式进行配置，那么按照配置的先后顺序进行排序&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;chorme:                                                               tomcat&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;http://ip:port/project/resource  〰️ ▶️ Filter                         target rescouce
-.                                                             authorized   ▶️   html, jsp, Servlet&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;.                                 ◀️ 〰️ unauthorized&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@WebFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filterName&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ManagerFilter&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;urlPatterns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/pages/manager/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/manager/bookServlet&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;})&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;AdminFilter&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Filter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;cm&#34;&gt;/**
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;* doFilter method
-&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;*/&lt;/span&gt;
-&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletResponse&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletResponse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FilterChain&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;filterChain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;httpServletRequest&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;HttpSession&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;httpServletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSession&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;user&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getRequestDispatcher&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/login.jsp&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forward&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;servletResponse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filterChain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;servletResponse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;事务管理&#34;&gt;事务管理&lt;/h3&gt;
-&lt;h4 id=&#34;涉及到的组件&#34;&gt;涉及到的组件&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;OpenSessionInViewFilter&lt;/li&gt;
-&lt;li&gt;TransactionManager&lt;/li&gt;
-&lt;li&gt;ThreadLocal&lt;/li&gt;
-&lt;li&gt;ConnUtil&lt;/li&gt;
-&lt;li&gt;BaseDAO&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;threadlocal&#34;&gt;ThreadLocal&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;get() , set(obj)&lt;/li&gt;
-&lt;li&gt;ThreadLocal 称之为本地线程 。 我们可以通过 set 方法在当前线程上存储数据、通过 get 方法在当前线程上获取数据&lt;/li&gt;
-&lt;li&gt;set 方法源码分析：&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-         &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//获取当前的线程
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         &lt;span class=&#34;n&#34;&gt;ThreadLocalMap&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//每一个线程都维护各自的一个容器（ThreadLocalMap）
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-             &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;          &lt;span class=&#34;c1&#34;&gt;//这里的key对应的是ThreadLocal，因为我们的组件中需要传输（共享）的对象可能会有多个（不止Connection）
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
-             &lt;span class=&#34;n&#34;&gt;createMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;           &lt;span class=&#34;c1&#34;&gt;//默认情况下map是没有初始化的，那么第一次往其中添加数据时，会去初始化
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;get 方法源码分析&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;     &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-         &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Thread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;currentThread&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//获取当前的线程
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         &lt;span class=&#34;n&#34;&gt;ThreadLocalMap&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//获取和这个线程（企业）相关的ThreadLocalMap（也就是工作纽带的集合）
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-             &lt;span class=&#34;n&#34;&gt;ThreadLocalMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getEntry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;//this指的是ThreadLocal对象，通过它才能知道是哪一个工作纽带
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                 &lt;span class=&#34;nd&#34;&gt;@SuppressWarnings&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;unchecked&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-                 &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;//entry.value就可以获取到工具箱了
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                 &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;setInitialValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb10.png&#34;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t_user_basic&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t_friend&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;inner&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t_user_basic&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也可拆开,  String sql = &amp;ldquo;select fid from t_friend where uid= ?&amp;quot;;&lt;/p&gt;
+&lt;p&gt;返回的只有 id 值&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这行到了后端会报错，在数据库上查询没事&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t_friend&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uid&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb15.png&#34;
          alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;servlets&lt;/h4&gt;
+            &lt;h4&gt;DAO impl&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb11.png&#34;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb16.png&#34;
          alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;servlets&lt;/h4&gt;
+            &lt;h4&gt;DAO impl&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb12.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;servlets&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
+&lt;h4 id=&#34;applicationxml-after-dao&#34;&gt;application.xml after DAO&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-application.xml-after-dao&#34; name=&#34;application.xml-after-dao&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;跟 mybatis 的 xml 配置区分，这里写的是 DAO 和 server 实现方法对象， 后者写的是方法&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;beans&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;userBasicDAO&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;com.learn.qqzone.DAO.impl.UserBasicDAOImpl/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;topicDAO&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;com.learn.qqzone.DAO.impl.TopicDAOImpl/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+   
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/beans&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step5-service&#34;&gt;step5. SERVICE&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-step5.-service&#34; name=&#34;step5.-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;面向业务&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UserBasicService&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 跟据账户和密码获取特定用户信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;login&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
-&lt;h4 id=&#34;threadlocal-and-filter-manage-transactions&#34;&gt;ThreadLocal and Filter manage transactions&lt;/h4&gt;
-&lt;h4 id=&#34;modify-jdbcutils&#34;&gt;modify JdbcUtils&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadLocal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connection&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadLocal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//  Connection conn = null;
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Connection&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conns&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;basedao&#34;&gt;BaseDao&lt;/h4&gt;
-&lt;h4 id=&#34;filter-add-try-catch-to-service&#34;&gt;Filter add try-catch to Service&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@WebFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filterName&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;TransactionFilter&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;urlPatterns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;/*&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TransactionFilter&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Filter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletResponse&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletResponse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FilterChain&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;filterChain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;filterChain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;doFilter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;servletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;servletResponse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;JdbcUtils&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;commitAndClose&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 提交事务
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;JdbcUtils&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;rollbackAndClose&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//回滚事务
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// 获取指定用户的所有好友列表
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getFriendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;throw-new-runexception-in-baseservlet-to-filter&#34;&gt;throw new RunException() in BaseServlet to Filter&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BaseServlet&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpServlet&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Method&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;method&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getDeclaredMethod&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;action&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;HttpServletResponse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// System.out.println(method);
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;invoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RuntimeException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// throw new RunException Filter 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;impl&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;String sql = &amp;ldquo;select fid from t_friend where uid= ?&amp;quot;; 所以返回的只有 id 值&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;根据 id 再查用户列表&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UserBasicServiceImpl&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasicService&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;tomcat-display-error-page&#34;&gt;tomcat display error page&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;!--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;500&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;!--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error500&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;jsp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;!--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;!--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;404&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;code&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;!--&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error404&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;jsp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;location&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;listener&#34;&gt;listener&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;ServletContextListener - 监听 ServletContext 对象的创建和销毁的过程&lt;/li&gt;
-&lt;li&gt;HttpSessionListener - 监听 HttpSession 对象的创建和销毁的过程&lt;/li&gt;
-&lt;li&gt;ServletRequestListener - 监听 ServletRequest 对象的创建和销毁的过程&lt;/li&gt;
-&lt;li&gt;ServletContextAttributeListener - 监听 ServletContext 的保存作用域的改动(add,remove,replace)&lt;/li&gt;
-&lt;li&gt;HttpSessionAttributeListener - 监听 HttpSession 的保存作用域的改动(add,remove,replace)&lt;/li&gt;
-&lt;li&gt;ServletRequestAttributeListener - 监听 ServletRequest 的保存作用域的改动(add,remove,replace)&lt;/li&gt;
-&lt;li&gt;HttpSessionBindingListener - 监听某个对象在 Session 域中的创建与移除&lt;/li&gt;
-&lt;li&gt;HttpSessionActivationListener - 监听某个对象在 Session 域中的序列化和反序列化&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;contextloaderlistener&#34;&gt;ContextLoaderListener&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
-&lt;span class=&#34;c1&#34;&gt;//监听上下文启动，在上下文启动的时候去创建IOC容器,然后将其保存到application作用域
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//后面中央控制器再从application作用域中去获取IOC容器
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@WebListener&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ContextLoaderListener&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletContextListener&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasicDAO&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicDAO&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;contextInitialized&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServletContextEvent&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletContextEvent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;//1.获取ServletContext对象
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;ServletContext&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;application&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletContextEvent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getServletContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;//2.获取上下文的初始化参数
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;application&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInitParameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;contextConfigLocation&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;//3.创建IOC容器
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;BeanFactory&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;beanFactory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ClassPathXmlApplicationContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;//4.将IOC容器保存到application作用域
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;application&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;beanFactory&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;beanFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;login&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
 
     &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;contextDestroyed&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ServletContextEvent&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;servletContextEvent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getFriendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUserBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;//  String sql = &amp;#34;select fid from t_friend where uid= ?&amp;#34;; 所以返回的只有id值
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 根据 id 再查用户列表
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;friend&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;friend&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicDAO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getUserBasicById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;friend&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;friend&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/jwb13.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;servlets&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h3 id=&#34;json&#34;&gt;JSON&lt;/h3&gt;
-&lt;h4 id=&#34;json--javabean&#34;&gt;JSON &amp;amp;&amp;amp; JavaBean&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;person&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;AA&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;person1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fromJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;json--list&#34;&gt;JSON &amp;amp;&amp;amp; List&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;personList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;AA&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;personList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;BB&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// transfer to json string
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;list&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fromJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PersonListType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;json--map&#34;&gt;JSON &amp;amp;&amp;amp; Map&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;()&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;personList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;AA&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;personList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;BB&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// transfer to json string
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personMap2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fromJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TypeToken&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;(){}.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;ajax&#34;&gt;AJAX&lt;/h3&gt;
-&lt;h3 id=&#34;use-ajax-invalidate-the-username&#34;&gt;use AJAX invalidate the username&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ajaxExistsUsername&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpServletResponse&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;ServletException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// get username
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;username&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;username&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//  userService.existsUsername();
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;existsUsername&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;existsUsername&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;existsUsername&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;existsUsername&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;json&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getWriter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;#username&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;blur&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//1 get username
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;username&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getJSON&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://localhost:8080/book/userServlet&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;action=ajaxExistsUsername&amp;amp;username=&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;username&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;existsUsername&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;span.errorMsg&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;xxxx！&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;span.errorMsg&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;xxxx！&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;use-ajax-to-add-the-item-to-the-cart&#34;&gt;use AJAX to add the item to the cart&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addItem&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpServletResponse&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ServletException&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;//        System.out.println(&amp;#34;bookId: &amp;#34; + request.getParameter(&amp;#34;id&amp;#34;));
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;request head reference value: &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getHeader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Referer&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//        2.1 : 获取请求的参数，商品编号
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;WebUtils&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parseInt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getParameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;id&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//        2.2： 调用bookService.queryBookById(id): Book得到图书的信息
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;Book&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;book&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bookService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;queryBookById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//        2.3： 把图书信息，转换成CartItem商品项
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;CartItem&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cartItem&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CartItem&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;book&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;book&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;book&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPrice&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;book&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPrice&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//        2.4: 调用Cart.addItem(CartItem);添加商品项
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;Cart&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSession&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cart&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Cart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSession&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;cart&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addItem&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cartItem&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;//        2.5: 重定向回商品列表页面
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSession&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;lastName&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cartItem&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sendRedirect&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getContextPath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-
-&lt;span class=&#34;c1&#34;&gt;//use AJAX to add the item to the cart
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;totalCount&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cart&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTotalCount&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;lastName&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cartItem&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resultMapJsonString&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resultMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getWriter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resultMapJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;TopicService &amp;amp;&amp;amp; impl&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;参考 TopicDAO&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;applicationxml-after-service&#34;&gt;application.xml after service&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-application.xml-after-service&#34; name=&#34;application.xml-after-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;beans&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;userSerive&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;com.learn.qqzone.service.impl.UserBasicSeriveImpl&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;userBasicDAO&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;ref =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;userBasicDAO&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+    
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;topicSerive&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;com.learn.qqzone.service.impl.TopicSeriveImpl&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;topicDAO&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;ref =&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;topicDAO&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+   &lt;span class=&#34;nt&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/beans&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step6-controller&#34;&gt;step6. CONTROLLER&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-step6.-controller&#34; name=&#34;step6.-controller&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UserController&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasicService&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;login&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;login&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;index&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;这样还不够，因为 index 上还需要好友列表，所以还要查询好友列表和日记列表&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;UserController&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;UserBasicService&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TopicService&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;login&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpSession&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+       
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+             &lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;login&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;loginId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getFriendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;topicList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TopicService&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTopicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setFriendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;friendList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setTopicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;topicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+
+&lt;span class=&#34;c1&#34;&gt;// 补一个session保存信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;session&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setAttribute&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;userBasic&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;index&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;login&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;applicationxml-after-controller&#34;&gt;application.xml after controller&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-application.xml-after-controller&#34; name=&#34;application.xml-after-controller&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;user&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;com.learn.qqzone.controller.UserController&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;userBasicService&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;ref=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;userBasicService&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;topicService&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;ref=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;topicService&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;加下以下可以避免一些拼写上错误&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;!DOCTYPE beans [
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;    &amp;lt;!ELEMENT beans (bean*)&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;&amp;lt;!ELEMENT bean (property*)&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;&amp;lt;!ELEMENT property (#PCDATA)&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&#34;cp&#34;&gt;&amp;lt;!ATTLIST bean id ID #REQUIRED&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;&amp;lt;!ATTLIST bean class CDATA #IMPLIED&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;&amp;lt;!ATTLIST property name CDATA #IMPLIED&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;cp&#34;&gt;&amp;lt;!ATTLIST property ref IDREF #IMPLIED&amp;gt;&lt;/span&gt;
+]&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;artifact-qqwar-exploded-error-during-artifact-deployment-see-server-log-for-details&#34;&gt;Artifact qq:war exploded: Error during artifact deployment. See server log for details&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-artifact-qq%3Awar-exploded%3A-error-during-artifact-deployment.-see-server-log-for-details&#34; name=&#34;artifact-qq%3Awar-exploded%3A-error-during-artifact-deployment.-see-server-log-for-details&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;tomcat log&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;java.lang.IllegalArgumentException: InputStream cannot be null&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;超级想骂人，这个错误弄了很久，看 server.log 说 context.xml 不存在之类的，在这里就卡了半天。试了所有的教程，完全不行， 具体看这里&lt;a href=&#34;https://rileyshen.github.io/post/error1/&#34; &gt;error1&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;nosuchfiledexception-fid&#34;&gt;NoSuchFiledException-fid&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-nosuchfiledexception-fid&#34; name=&#34;nosuchfiledexception-fid&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getUserBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;select fid from t_friend where uid = ?&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;返回的是 UserBasic， 而它并没有 fid，所以会报错&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getUserBasicList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UserBasic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userBasic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sql&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;select fid as `id` from t_friend where uid = ?&amp;#34;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;rsmd.getColumnName() 和 rsmd.getColumnLabel()&lt;/p&gt;
+&lt;p&gt;getColumnLabel() 返回 &lt;code&gt;id&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;getColumnName() 返回 &lt;code&gt;fid&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;can-not-set-comlearnqqzonepojouserbasic-field-comlearnqqzonepojotopicauthor-to-javalanginteger&#34;&gt;Can not set com.learn.qqzone.pojo.UserBasic field com.learn.qqzone.pojo.Topic.author to java.lang.Integer&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-can-not-set-com.learn.qqzone.pojo.userbasic-field-com.learn.qqzone.pojo.topic.author-to-java.lang.integer&#34; name=&#34;can-not-set-com.learn.qqzone.pojo.userbasic-field-com.learn.qqzone.pojo.topic.author-to-java.lang.integer&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不能把 UserBasic 设置到 topic 里面的 author 上去， 因为结果获取的是 Integer&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;应该把数字封装成一个 UserBasic 再设置到 author 里面去&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;java.lang.NoSuchFieldException: userBasicDAO
+at java.lang.Class.getDeclaredField(Class.java:2070)
+at com.learn.myssm.ioc.ClassPathXmlApplicationContext.&lt;init&gt;(ClassPathXmlApplicationContext.java:76)
+at com.learn.myssm.listeners.ContextLoaderListener.contextInitialized&amp;gt;(ContextLoaderListener.java:22)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;java.lang.NoSuchFieldException: userBasicDAO&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;//获取当前字段的类型名称
+String typeName = field.getType().getName();
+//判断如果是自定义类型，则需要调用这个自定义类的带一个参数的构造方法，创建出这个自定义的实例对象，然后将实例对象赋值给这个属性&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;汇总&#34;&gt;汇总&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%B1%87%E6%80%BB&#34; name=&#34;%E6%B1%87%E6%80%BB&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;top.html 页面显示登录者昵称、判断是否是自己的空间&lt;/p&gt;
+&lt;p&gt;1)显示登录者昵称： ${session.userBasic.nickName}&lt;/p&gt;
+&lt;p&gt;2)判断是否是自己的空间 : ${session.userBasic.id!=session.friend.id}&lt;/p&gt;
+&lt;p&gt;如果不是期望的效果，首先考虑将两者的 id 都显示出来&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击左侧的好友链接，进入好友空间&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;根据 id 获取指定 userBasic 信息，查询这个 userBasic 的 topicList，然后覆盖 friend 对应的 value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;main 页面应该展示 friend 中的 topicList，而不是 userBasic 中的 topicList&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;跳转后，在左侧（left）中显示整个 index 页面&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;问题：在 left 页面显示整个 index 布局&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解决：给超链接添加 target 属性：   target=&amp;quot;_top&amp;rdquo; 保证在顶层窗口显示整个 index 页面&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;top.html 页面需要修改： &amp;ldquo;欢迎进入${session.friend}&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;top.html 页面的返回自己空间的超链接需要修改：
+&lt;a th:href=&#34;@{|/user.do?operate=friend&amp;id=${session.userBasic.id}|}&#34; target=&#34;_top&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;日志详情页面实现&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;已知 topic 的 id，需要根据 topic 的 id 获取特定 topic&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;获取这个 topic 关联的所有的回复&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果某个回复有主人回复，需要查询出来&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在 TopicController 中获取指定的 topic&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;具体这个 topic 中关联多少个 Reply，由 ReplyService 内部实现&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;获取到的 topic 中的 author 只有 id，那么需要在 topicService 的 getTopic 方法中封装，在查询 topic 本身信息时，同时调用 userBasicService 中的获取 userBasic 方法，给 author 属性赋值&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;同理，在 reply 类中也有 author，而且这个 author 也是只有 id，那么我们也需要根据 id 查询得到 author，最后设置关联&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;添加回复&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除回复&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果回复有关联的主人回复，需要先删除主人回复&lt;/li&gt;
+&lt;li&gt;删除回复
+Cannot delete or update a parent row: a foreign key constraint fails
+(&lt;code&gt;qqzonedb&lt;/code&gt;.&lt;code&gt;t_host_reply&lt;/code&gt;, CONSTRAINT &lt;code&gt;FK_host_reply&lt;/code&gt; FOREIGN KEY (&lt;code&gt;reply&lt;/code&gt;) REFERENCES &lt;code&gt;t_reply&lt;/code&gt; (&lt;code&gt;id&lt;/code&gt;))
+我们在删除回复表记录时，发现删除失败，原因是：在主人回复表中仍然有记录引用待删除的回复这条记录
+如果需要删除主表数据，需要首先删除子表数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除日志&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;删除日志，首先需要考虑是否有关联的回复&lt;/li&gt;
+&lt;li&gt;删除回复，首先需要考虑是否有关联的主人回复&lt;/li&gt;
+&lt;li&gt;另外，如果不是自己的空间，则不能删除日志&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;汇总-1&#34;&gt;汇总&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%B1%87%E6%80%BB&#34; name=&#34;%E6%B1%87%E6%80%BB&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;1-日期和字符串之间的格式化&#34;&gt;1. 日期和字符串之间的格式化&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%97%A5%E6%9C%9F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96&#34; name=&#34;%E6%97%A5%E6%9C%9F%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%8B%E9%97%B4%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;String -&amp;gt; java.util.Date&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dateStr1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;2021-12-30 12:59:59&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sdf&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;date1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sdf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dateStr1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ParseException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Date -&amp;gt; String&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;date2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dateStr2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sdf&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;date2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;2-thymeleaf-中使用dates-这个公共的内置对象&#34;&gt;2. thymeleaf 中使用#dates 这个公共的内置对象&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-thymeleaf-%E4%B8%AD%E4%BD%BF%E7%94%A8%23dates-%E8%BF%99%E4%B8%AA%E5%85%AC%E5%85%B1%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1&#34; name=&#34;thymeleaf-%E4%B8%AD%E4%BD%BF%E7%94%A8%23dates-%E8%BF%99%E4%B8%AA%E5%85%AC%E5%85%B1%E7%9A%84%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;${#dates.format(topic.topicDate ,&amp;lsquo;yyyy-MM-dd HH:mm:ss&amp;rsquo;)}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;3-系统启动时我们访问的页面是-httplocalhost8080pro23pagedooperatepagepagelogin&#34;&gt;3. 系统启动时，我们访问的页面是： http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E8%AE%BF%E9%97%AE%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%98%AF%EF%BC%9A-http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin&#34; name=&#34;%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E8%AE%BF%E9%97%AE%E7%9A%84%E9%A1%B5%E9%9D%A2%E6%98%AF%EF%BC%9A-http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;为什么不是： http://localhost:8080/pro23/login.html  ?&lt;/p&gt;
+&lt;p&gt;如果是后者，那么属于直接访问静态页面。那么页面上的 thymeleaf 表达式（标签）浏览器是不能识别的&lt;/p&gt;
+&lt;p&gt;我们访问前者的目的其实就是要执行 ViewBaseServlet 中的 processTemplete()&lt;/p&gt;
+&lt;h4 id=&#34;4-httplocalhost8080pro23pagedooperatepagepagelogin-访问这个-url执行的过程是什么样的&#34;&gt;4. http://localhost:8080/pro23/page.do?operate=page&amp;amp;page=login 访问这个 URL，执行的过程是什么样的&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin-%E8%AE%BF%E9%97%AE%E8%BF%99%E4%B8%AA-url%EF%BC%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84&#34; name=&#34;http%3A%2F%2Flocalhost%3A8080%2Fpro23%2Fpage.do%3Foperate%3Dpage%26page%3Dlogin-%E8%AE%BF%E9%97%AE%E8%BF%99%E4%B8%AA-url%EF%BC%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E8%BF%87%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;http://  localhost   :8080   /pro23          /page.do                        ?operate=page&amp;amp;page=login
+协议       ServerIP   port    context root    request.getServletPath()         query&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;string&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;DispatcherServlet -&amp;gt; urlPattern :  *.do  拦截/page.do&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;request.getServletPath() -&amp;gt;  /page.do&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解析处理字符串，将/page.do -&amp;gt; page&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;拿到 page 这个字符串，然后去 IOC 容器（BeanFactory）中寻找 id=page 的那个 bean 对象   -&amp;gt; PageController.java&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;获取operate的值 -&amp;gt; page    因此得知，应该执行 PageController中的page()方法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PageController中的page方法定义如下：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;public String page(String page){
+return page ;
+}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;在queryString:   ?operate=page&amp;amp;page=login 中 获取请求参数，参数名是page，参数值是login
+因此page方法的参数page值会被赋上&amp;quot;login&amp;rdquo;
+然后return &amp;ldquo;login&amp;rdquo; , return 给 谁？？&lt;/li&gt;
+&lt;li&gt;因为PageController的page方法是DispatcherServlet通过反射调用的
+method.invoke(&amp;hellip;.) ;
+因此，字符串&amp;quot;login&amp;quot;返回给DispatcherServlet&lt;/li&gt;
+&lt;li&gt;DispatcherServlet接收到返回值，然后处理视图
+目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
+当前，返回&amp;quot;login&amp;quot;，不带前缀
+那么执行  super.processTemplete(&amp;ldquo;login&amp;rdquo;,request,response);&lt;/li&gt;
+&lt;li&gt;此时ViewBaseServlet中的processTemplete方法会执行，效果是：
+在&amp;quot;login&amp;quot;这个字符串前面拼接 &amp;ldquo;/&amp;rdquo;  (其实就是配置文件中view-prefixe配置的值)
+在&amp;quot;login&amp;quot;这个字符串后面拼接 &amp;ldquo;.html&amp;rdquo; (其实就是配置文件中view-suffix配置的值)
+最后进行服务器转发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;5.
+4. 
+2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
+3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
+4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
+例如：
+public class UserDAOImpl extends BaseDAO&lt;User&gt; implements UserDAO{}
+5） Service是业务控制类，这一层我们只需要记住一点：
+- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
+- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
+6） Controller类的编写规则
+① 在applicationContext.xml中配置Controller
+&amp;lt;bean id=&amp;ldquo;user&amp;rdquo; class=&amp;ldquo;com.atguigu.qqzone.controllers.UserController&amp;gt;
+那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
+② 在Controller中设计的方法名需要和operate的值一致
+public String login(String loginId , String pwd , HttpSession session){
+return &amp;ldquo;index&amp;rdquo;;
+}
+因此，我们的登录验证的表单如下：
+&lt;form th:action=&#34;@{/user.do}&#34; method=&#34;post&#34;&gt;
+&lt;inut type=&#34;hidden&#34; name=&#34;operate&#34; value=&#34;login&#34;/&gt;
+&lt;/form&gt;
+③ 在表单中，组件的name属性和Controller中方法的参数名一致
+&lt;input type=&#34;text&#34; name=&#34;loginId&#34; /&gt;
+public String login(String loginId , String pwd , HttpSession session){
+④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
+if(&amp;ldquo;request&amp;rdquo;.equals&amp;hellip;) else if(&amp;ldquo;response&amp;rdquo;.equals&amp;hellip;.) else if(&amp;ldquo;session&amp;rdquo;.equals&amp;hellip;.){
+直接赋值
+}else{
+此处才是从request的请求参数中获取
+request.getParameter(&amp;ldquo;loginId&amp;rdquo;) &amp;hellip;..
+}
+7）  DispatcherServlet中步骤大致分为：
+0. 从application作用域获取IOC容器
+1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
+2. 准备operate指定的方法所要求的参数
+3. 调用operate指定的方法
+4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理
+8) 为什么DispatcherServlet能够从application作用域获取到IOC容器？
+ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
+1. 解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入
+2. 将IOC容器保存到application作用域&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;修改BaseDAO，让其支持properties文件以及druid数据源连接池
+讲解了两种方式：
+&lt;ol&gt;
+&lt;li&gt;直接自己配置properties，然后读取，然后加载驱动&amp;hellip;..&lt;/li&gt;
+&lt;li&gt;使用druid连接池技术，那么properties中的key是有要求的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
 &lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/javaweb2/&#34; &gt;javaweb2&lt;/a&gt;
 &lt;a href=&#34;https://rileyshen.github.io/post/javaweb3/&#34; &gt;javaweb3&lt;/a&gt;
 &lt;a href=&#34;https://rileyshen.github.io/post/javaweb4/&#34; &gt;javaweb4&lt;/a&gt;

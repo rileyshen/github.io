@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>java web on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/java-web/</link>
+    <description>Recent content in java web on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://rileyshen.github.io/tags/java-web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Artifact xx exploded: Error during artifact deployment. See server log for details</title>
+      <link>https://rileyshen.github.io/post/error1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/error1/</guid>
+      
+        <description>&lt;p&gt;Bugs and Errors &lt;strong&gt;Artifact xx exploded: Error during artifact deployment. See server log for details&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;check the &lt;strong&gt;Tomcat Localhost log&lt;/strong&gt; first,&lt;/p&gt;
+&lt;p&gt;mine shows:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;java.lang.IllegalArgumentException: InputStream cannot be null
+at javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:117)
+at com.learn.myssm.ioc.ClassPathXmlApplicationContext.&lt;init&gt;&lt;/init&gt;(ClassPathXmlApplicationContext.java:37)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;click the ClassPathXmlApplicationContext&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResourceAsStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//1.创建DocumentBuilderFactory
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DocumentBuilderFactory&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;documentBuilderFactory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DocumentBuilderFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//2.创建DocumentBuilder对象
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DocumentBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;documentBuilder&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;documentBuilderFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newDocumentBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//3.创建Document对象
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Document&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;document&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;documentBuilder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;parse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;WEB-INF/web.xml&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;classpath:applicationContext.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;applicationContext.xml&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;resources/applicationContext.xml&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;pom&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt; &lt;span class=&#34;nt&#34;&gt;&amp;lt;resources&amp;gt;&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/main/resources&lt;span class=&#34;nt&#34;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;includes&amp;gt;&lt;/span&gt;
+                      &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.properties&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                      &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/includes&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;filtering&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filtering&amp;gt;&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;lt;resource&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;directory&amp;gt;&lt;/span&gt;src/main/java&lt;span class=&#34;nt&#34;&gt;&amp;lt;/directory&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;includes&amp;gt;&lt;/span&gt;
+                      &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.properties&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                      &lt;span class=&#34;nt&#34;&gt;&amp;lt;include&amp;gt;&lt;/span&gt;**/*.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/include&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/includes&amp;gt;&lt;/span&gt;
+                  &lt;span class=&#34;nt&#34;&gt;&amp;lt;filtering&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/filtering&amp;gt;&lt;/span&gt;
+              &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resource&amp;gt;&lt;/span&gt;
+          &lt;span class=&#34;nt&#34;&gt;&amp;lt;/resources&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The Code Doesn&amp;rsquo;t Work.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;☕☕☕☕☕☕☕☕&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;method 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**1. move the &lt;code&gt;applicationContext.xml&lt;/code&gt; from &lt;code&gt;resources&lt;/code&gt; to &lt;code&gt;java&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;applicationContext.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;ignore the red warning, tomcat can work now.&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>
