@@ -139,7 +139,7 @@
                     Tue, Jan 12, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">7-minute read</span>
+                <span class="reading-time">8-minute read</span>
             </div>
             
         </div>
@@ -964,10 +964,10 @@ Cannot delete or update a parent row: a foreign key constraint fails
 <p>拿到 page 这个字符串，然后去 IOC 容器（BeanFactory）中寻找 id=page 的那个 bean 对象   -&gt; PageController.java</p>
 </li>
 <li>
-<p>获取operate的值 -&gt; page    因此得知，应该执行 PageController中的page()方法</p>
+<p>获取 operate 的值 -&gt; page    因此得知，应该执行 PageController 中的 page()方法</p>
 </li>
 <li>
-<p>PageController中的page方法定义如下：</p>
+<p>PageController 中的 page 方法定义如下：</p>
 </li>
 </ol>
 <blockquote>
@@ -976,72 +976,292 @@ return page ;
 }</p>
 </blockquote>
 <ol start="7">
-<li>在queryString:   ?operate=page&amp;page=login 中 获取请求参数，参数名是page，参数值是login
-因此page方法的参数page值会被赋上&quot;login&rdquo;
-然后return &ldquo;login&rdquo; , return 给 谁？？</li>
-<li>因为PageController的page方法是DispatcherServlet通过反射调用的
-method.invoke(&hellip;.) ;
-因此，字符串&quot;login&quot;返回给DispatcherServlet</li>
-<li>DispatcherServlet接收到返回值，然后处理视图
-目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
+<li>
+<p>在 queryString:   ?operate=page&amp;page=login 中 获取请求参数，参数名是 page，参数值是 login<br>
+因此 page 方法的参数 page 值会被赋上&quot;login&rdquo;
+然后 return &ldquo;login&rdquo; , return 给 谁？？</p>
+</li>
+<li>
+<p>因为 PageController 的 page 方法是 DispatcherServlet 通过反射调用的 method.invoke(..), 因此，字符串&quot;login&quot;返回 DispatcherServlet</p>
+</li>
+<li>
+<p>DispatcherServlet 接收到返回值，然后处理视图. 目前处理视图的方式有两种： 1.带前缀 redirect:    2.不带前缀
 当前，返回&quot;login&quot;，不带前缀
-那么执行  super.processTemplete(&ldquo;login&rdquo;,request,response);</li>
-<li>此时ViewBaseServlet中的processTemplete方法会执行，效果是：
-在&quot;login&quot;这个字符串前面拼接 &ldquo;/&rdquo;  (其实就是配置文件中view-prefixe配置的值)
-在&quot;login&quot;这个字符串后面拼接 &ldquo;.html&rdquo; (其实就是配置文件中view-suffix配置的值)
-最后进行服务器转发</li>
-</ol>
-<p>5.
-4. 
-2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
-3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
-4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
-例如：
-public class UserDAOImpl extends BaseDAO<User> implements UserDAO{}
-5） Service是业务控制类，这一层我们只需要记住一点：
-- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
-- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
-6） Controller类的编写规则
-① 在applicationContext.xml中配置Controller
-&lt;bean id=&ldquo;user&rdquo; class=&ldquo;com.atguigu.qqzone.controllers.UserController&gt;
-那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
-② 在Controller中设计的方法名需要和operate的值一致
-public String login(String loginId , String pwd , HttpSession session){
-return &ldquo;index&rdquo;;
-}
-因此，我们的登录验证的表单如下：
-<form th:action="@{/user.do}" method="post">
-<inut type="hidden" name="operate" value="login"/>
-</form>
-③ 在表单中，组件的name属性和Controller中方法的参数名一致
-<input type="text" name="loginId" />
-public String login(String loginId , String pwd , HttpSession session){
-④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
-if(&ldquo;request&rdquo;.equals&hellip;) else if(&ldquo;response&rdquo;.equals&hellip;.) else if(&ldquo;session&rdquo;.equals&hellip;.){
-直接赋值
-}else{
-此处才是从request的请求参数中获取
-request.getParameter(&ldquo;loginId&rdquo;) &hellip;..
-}
-7）  DispatcherServlet中步骤大致分为：
-0. 从application作用域获取IOC容器
-1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
-2. 准备operate指定的方法所要求的参数
-3. 调用operate指定的方法
-4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理
-8) 为什么DispatcherServlet能够从application作用域获取到IOC容器？
-ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
-1. 解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入
-2. 将IOC容器保存到application作用域</p>
-<ol start="6">
-<li>修改BaseDAO，让其支持properties文件以及druid数据源连接池
-讲解了两种方式：
-<ol>
-<li>直接自己配置properties，然后读取，然后加载驱动&hellip;..</li>
-<li>使用druid连接池技术，那么properties中的key是有要求的</li>
-</ol>
+那么执行  super.processTemplete(&ldquo;login&rdquo;,request,response);</p>
+</li>
+<li>
+<p>此时 ViewBaseServlet 中的 processTemplete 方法会执行，效果是：</p>
 </li>
 </ol>
+<p>在&quot;login&quot;这个字符串前面拼接 &ldquo;/&rdquo;  (其实就是配置文件中 view-prefixe 配置的值)</p>
+<p>在&quot;login&quot;这个字符串后面拼接 &ldquo;.html&rdquo; (其实就是配置文件中 view-suffix 配置的值)
+最后进行服务器转发</p>
+<h3 id="javaweb-项目开发的-套路">javaweb 项目开发的 套路</h3>
+<ul>
+<li>
+<ol>
+<li>拷贝 myssm 包</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>新建配置文件 applicationContext.xml 或者可以不叫这个名字，在 web.xml 中指定文件名</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>在 web.xml 文件中配置</li>
+</ol>
+</li>
+<li>
+<p>配置前缀和后缀，这样 thymeleaf 引擎就可以根据我们返回的字符串进行拼接，再跳转</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;context-param&gt;</span>
+                                <span class="nt">&lt;param-name&gt;</span>view-prefix<span class="nt">&lt;/param-name&gt;</span>
+                                <span class="nt">&lt;param-value&gt;</span>/<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/context-param&gt;</span>
+    <span class="nt">&lt;context-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>view-suffix<span class="nt">&lt;/param-name&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>.html<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/context-param&gt;</span>
+</code></pre></div></li>
+<li>
+<p>配置监听器要读取的参数，目的是加载 IOC 容器的配置文件（也就是 applicationContext.xml）</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;context-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>applicationContext.xml<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/context-param&gt;</span>
+</code></pre></div></li>
+<li>
+<ol start="4">
+<li>开发具体的业务模块：
+<ul>
+<li>
+<p>一个具体的业务模块纵向上由几个部分组成：</p>
+<ul>
+<li>html 页面</li>
+<li>POJO 类</li>
+<li>DAO 接口和实现类</li>
+<li>Service 接口和实现类</li>
+<li>Controller 控制器组件</li>
+</ul>
+</li>
+<li>
+<p>如果 html 页面有 thymeleaf 表达式，一定不能够直接访问，必须要经过 PageController</p>
+</li>
+<li>
+<p>在 applicationContext.xml 中配置 DAO、Service、Controller，以及三者之间的依赖关系</p>
+</li>
+<li>
+<p>DAO 实现类中 ， 继承 BaseDAO，然后实现具体的接口, 需要注意，BaseDAO 后面的泛型不能写错。
+例如：</p>
+<blockquote>
+<p>public class UserDAOImpl extends BaseDAO<User> implements UserDAO{}</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>
+<p>Service 是业务控制类，这一层我们只需要记住一点</p>
+<ul>
+<li>业务逻辑我们都封装在 service 这一层，不要分散在 Controller 层。也不要出现在 DAO 层（我们需要保证 DAO 方法的单精度特性）</li>
+<li>当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的 service，而不是深入到其他模块的 DAO 细节</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>
+<p>Controller 类的编写规则</p>
+<ul>
+<li>在 applicationContext.xml 中配置 Controller</li>
+</ul>
+<blockquote>
+<p>&lt;bean id=&ldquo;user&rdquo; class=&ldquo;com.atguigu.qqzone.controllers.UserController&gt;</p>
+</blockquote>
+<p>那么，用户在前端发请求时，对应的 servletpath 就是  <code>/user.do</code>  , 其中的 <code>user</code> 就是对应此处的<code>bean</code>的<code>id</code>值</p>
+<ul>
+<li>在 <code>Controller</code> 中设计的方法名需要和 <code>operate</code> 的值一致</li>
+</ul>
+<blockquote>
+<p>public String login(String loginId , String pwd , HttpSession session){
+return &ldquo;index&rdquo;;
+}</p>
+</blockquote>
+<p>因此，我们的登录验证的表单如下</p>
+<blockquote>
+<form th:action="@{/user.do}" method="post">
+</blockquote>
+<pre><code>   &lt;inut type=&quot;hidden&quot; name=&quot;operate&quot; value=&quot;login&quot;/&gt;
+</code></pre>
+<blockquote>
+ </form>
+</blockquote>
+<ul>
+<li>在表单中，组件的 name 属性和 Controller 中方法的参数名一致</li>
+</ul>
+<blockquote>
+<p><input type="text" name="loginId" />
+public String login(String loginId , String pwd , HttpSession session){</p>
+</blockquote>
+<ul>
+<li>另外，需要注意的是： Controller 中的方法中的参数不一定都是通过请求参数获取的</li>
+</ul>
+<blockquote>
+<p>if(&ldquo;request&rdquo;.equals&hellip;) else if(&ldquo;response&rdquo;.equals..) else if(&ldquo;session&rdquo;.equals..){<br>
+直接赋值 <br>
+}else{<br>
+此处才是从 request 的请求参数中获取<br>
+request.getParameter(&ldquo;loginId&rdquo;)
+}</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>DispatcherServlet 中步骤大致分为
+<ul>
+<li>
+<ol start="0">
+<li>从 application 作用域获取 IOC 容器</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>解析 servletPath ， 在 IOC 容器中寻找对应的 Controller 组件</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>准备 operate 指定的方法所要求的参数</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>调用 operate 指定的方法</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>接收到执行 operate 指定的方法的返回值，对返回值进行处理 - 视图处理</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li>
+<p>为什么 DispatcherServlet 能够从 application 作用域获取到 IOC 容器</p>
+<pre><code>ContextLoaderListener 在容器启动时会执行初始化任务，而它的操作就是：
+</code></pre>
+<ul>
+<li>解析 IOC 的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入</li>
+<li>将 IOC 容器保存到 application 作用域</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="代码导出">代码导出</h3>
+<ul>
+<li>
+<ol>
+<li>修改 BaseDAO，让其支持 properties 文件以及 druid 数据源连接池 
+讲解了两种方式：</li>
+</ol>
+<ul>
+<li>
+<ol>
+<li>直接自己配置 properties，然后读取，然后加载驱动</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">DRIVER</span><span class="o">;</span>
+<span class="o">...</span>
+
+<span class="kd">static</span> <span class="o">{</span>
+    <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">ConnUtil</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">().</span><span class="na">getResourcesAsStream</span><span class="o">(</span><span class="s">&#34;jdbc.properties&#34;</span><span class="o">);</span>
+    <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">properties</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+
+        <span class="n">DRIVER</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;jdbc.driver&#34;</span><span class="o">);</span>
+        <span class="o">...</span>
+    <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><ul>
+<li>
+<ol start="2">
+<li>或使用 druid 连接池技术，那么 properties 中的 key 是有要求的</li>
+</ol>
+</li>
+</ul>
+<p><strong>不用数据链接池的时候</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">private</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="nf">createConn</span><span class="o">()</span> <span class="o">{</span>
+     <span class="k">try</span> <span class="o">{</span>
+         <span class="c1">// 1. 加载驱动
+</span><span class="c1"></span>        <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">DRIVER</span><span class="o">);</span>
+         <span class="c1">// 2. 通过驱动管理器获取连接对象
+</span><span class="c1"></span>         <span class="k">return</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="n">URL</span><span class="o">,</span> <span class="n">USER</span><span class="o">,</span> <span class="n">PWD</span><span class="o">);</span>
+     <span class="o">}</span>
+ <span class="o">}</span>
+
+</code></pre></div><p>用<strong>druid 后</strong>， 常用代码还是要熟练</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">private</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="nf">createConn</span><span class="o">()</span> <span class="o">{</span>
+
+     <span class="k">try</span> <span class="o">{</span>
+        <span class="n">DruidDataSource</span> <span class="n">druidDataSource</span> <span class="o">=</span> <span class="k">new</span>  <span class="n">DruidDataSourc</span><span class="o">();</span>
+        <span class="n">druidDataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="n">DRIVER</span><span class="o">);</span>
+        <span class="n">druidDataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="n">URL</span><span class="o">);</span>
+        <span class="n">druidDataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="n">USER</span><span class="o">);</span>
+        <span class="n">druidDataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="n">PWD</span><span class="o">);</span>
+        <span class="o">...</span>
+
+         <span class="k">return</span> <span class="n">druidDataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+     <span class="o">}</span>
+ <span class="o">}</span>
+
+</code></pre></div></li>
+</ul>
+<p><strong>工厂模式</strong></p>
+<pre><code>```java
+static Properties properties = new Properties();
+
+ static {
+    InputStream is = ConnUtil.class.getClassLoader().getResourcesAsStream(&quot;jdbc.properties&quot;);
+    
+    try {
+        properties.load(is);
+
+      
+    } catch(IOException e) {
+        ...
+    }
+}
+
+ private static Connection createConn() {
+
+     try {
+        DataSource druidDataSource = DruidDataSourceFactory. createDataSource(properties);
+        
+        ...
+        
+         return druidDataSource.getConnection();
+     }
+ }
+
+```
+</code></pre>
 <hr>
 <p><a href="https://rileyshen.github.io/post/javaweb2/" >javaweb2</a>
 <a href="https://rileyshen.github.io/post/javaweb3/" >javaweb3</a>

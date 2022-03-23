@@ -139,505 +139,415 @@
                     Tue, Jan 12, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">6-minute read</span>
+                <span class="reading-time">5-minute read</span>
             </div>
             
         </div>
 
         <p>a full-stack web application for users to understand java web system</p>
-<h3 id="复习">复习</h3>
-<h4 id="请你谈谈网站是如何进行访问的">请你谈谈网站是如何进行访问的</h4>
+<!-- TOC -->
 <ul>
-<li>输入一个域名；回车</li>
-<li>检查本机的 C:\Windows\System32\drivers\etc\hosts 配置文件下有没有这个域名映射</li>
-<li>有：直接返回对应的 ip 地址，这个地址中，有我们需要访问的 web 程序，可以直接访问</li>
-</ul>
-<blockquote>
-<p>127.0.0.1 <a href="http://www.rileyshen.github">www.rileyshen.github</a>&hellip;</p>
-</blockquote>
+<li><a href="#filter" >Filter</a>
 <ul>
-<li>没有：去 DNS 服务器找，找到的话就返回，找不到就返回找不到</li>
-</ul>
-<h4 id="servletcontext">ServletContext</h4>
-<p>一个 web 容器启动时，会为创建一个对应的 ServletContext 对象，它代表了当前 web 应用；</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-
-    <span class="n">ServletContext</span> <span class="n">servletContext</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
-    <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="s">&#34;aa&#34;</span><span class="o">;</span>
-    <span class="n">servletContext</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">,</span><span class="n">username</span><span class="o">);</span><span class="c1">//将一个数据保存到了ServletContext中
-</span><span class="c1"></span>     <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">context</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
-    <span class="n">resp</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;text/html&#34;</span><span class="o">);</span>
-    <span class="n">resp</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;utf-8&#34;</span><span class="o">);</span>
-    <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">print</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
-
-</code></pre></div><h4 id="properties">Properties</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;/WEB-INF/classes/db.properties&#34;</span><span class="o">);</span>
-    <span class="n">Properties</span> <span class="n">prop</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
-    <span class="n">prop</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
-    <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">);</span>
-    <span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">print</span><span class="o">(</span><span class="n">username</span><span class="o">+</span><span class="s">&#34;:&#34;</span><span class="o">+</span><span class="n">password</span><span class="o">);</span>
-</code></pre></div><h4 id="下载文件">下载文件</h4>
-<ul>
-<li>要获取下载文件的路径</li>
-<li>下载的文件名</li>
-<li>设置想办法让浏览器能够支持下载我们需要的东西</li>
-<li>获取下载文件的输入流</li>
-<li>创建缓冲区</li>
-<li>获取 OutputStream 对象</li>
-<li>将 FileOutputStream 流写入到 buffer 缓冲区</li>
-<li>使用 OutputStream 将缓冲区中的数据输出到客户端</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-    <span class="c1">// 1. 要获取下载文件的路径
-</span><span class="c1"></span>    <span class="n">String</span> <span class="n">realPath</span> <span class="o">=</span> <span class="s">&#34;D:\\javacode\\javaweb-02servlet\\response\\target\\classes\\1.png&#34;</span><span class="o">;</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;下载文件的路径：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="o">);</span>
-    <span class="c1">// 2. 下载的文件名是啥？
-</span><span class="c1"></span>    <span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="n">realPath</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">realPath</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="s">&#34;\\&#34;</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
-    <span class="c1">// 3. 设置想办法让浏览器能够支持(Content-Disposition)下载我们需要的东西,中文文件名URLEncoder.encode编码，否则有可能乱码
-</span><span class="c1"></span>    <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&#34;Content-Disposition&#34;</span><span class="o">,</span><span class="s">&#34;attachment;filename=&#34;</span><span class="o">+</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span><span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
-    <span class="c1">// 4. 获取下载文件的输入流
-</span><span class="c1"></span>    <span class="n">FileInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">realPath</span><span class="o">);</span>
-    <span class="c1">// 5. 创建缓冲区
-</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
-    <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
-    <span class="c1">// 6. 获取OutputStream对象
-</span><span class="c1"></span>    <span class="n">ServletOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
-    <span class="c1">// 7. 将FileOutputStream流写入到buffer缓冲区,使用OutputStream将缓冲区中的数据输出到客户端！
-</span><span class="c1"></span>    <span class="k">while</span> <span class="o">((</span><span class="n">len</span><span class="o">=</span><span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))&gt;</span><span class="n">0</span><span class="o">){</span>
-        <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span><span class="n">0</span><span class="o">,</span><span class="n">len</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-    <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="o">}</span>
-</code></pre></div><h4 id="4-大作用域">4 大作用域</h4>
-<ul>
-<li>request：客户端向服务器发送请求，产生的数据，用户看完就没用了，比如：新闻，用户看完没用的！</li>
-<li>session：客户端向服务器发送请求，产生的数据，用户用完一会还有用，比如：购物车；</li>
-<li>application：客户端向服务器发送请求，产生的数据，一个用户用完了，其他用户还可能使用，比如：聊天数据；</li>
-</ul>
-<h4 id="监听器">监听器</h4>
-<p>编写一个监听器，实现监听器的接口</p>
-<p>统计网站在线人数 ： 统计 session</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OnlineCountListener</span> <span class="kd">implements</span> <span class="n">HttpSessionListener</span> <span class="o">{</span>
-    <span class="c1">//创建session监听： 看你的一举一动
-</span><span class="c1"></span>    <span class="c1">//一旦创建Session就会触发一次这个事件！
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sessionCreated</span><span class="o">(</span><span class="n">HttpSessionEvent</span> <span class="n">se</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ServletContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">se</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getServletContext</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">se</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
-        <span class="n">Integer</span> <span class="n">onlineCount</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;OnlineCount&#34;</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">onlineCount</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">onlineCount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">onlineCount</span><span class="o">.</span><span class="na">intValue</span><span class="o">();</span>
-            <span class="n">onlineCount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">count</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="n">ctx</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;OnlineCount&#34;</span><span class="o">,</span> <span class="n">onlineCount</span><span class="o">);</span>
-    <span class="o">}</span>
-
-    <span class="c1">//销毁session监听
-</span><span class="c1"></span>    <span class="c1">//一旦销毁Session就会触发一次这个事件！
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sessionDestroyed</span><span class="o">(</span><span class="n">HttpSessionEvent</span> <span class="n">se</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ServletContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">se</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getServletContext</span><span class="o">();</span>
-        <span class="n">Integer</span> <span class="n">onlineCount</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;OnlineCount&#34;</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">onlineCount</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">onlineCount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">onlineCount</span><span class="o">.</span><span class="na">intValue</span><span class="o">();</span>
-            <span class="n">onlineCount</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">count</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="n">ctx</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;OnlineCount&#34;</span><span class="o">,</span> <span class="n">onlineCount</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="cm">/*
-</span><span class="cm">    Session销毁：
-</span><span class="cm">    1. 手动销毁  getSession().invalidate();
-</span><span class="cm">    2. 自动销毁  web.xml中通过配置来添加session过期时间
-</span><span class="cm">     */</span>
-<span class="o">}</span>
-</code></pre></div><h4 id="filter-实现拦截权限">Filter 实现拦截权限</h4>
-<p>用户登录之后才能进入主页！用户注销后就不能进入主页了</p>
-<p>用户登录之后，向 Sesison 中放入用户的数据</p>
-<p>进入主页的时候要判断用户是否已经登录；要求：在过滤器中实现！</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">req</span><span class="o">;</span>
-<span class="n">HttpServletResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">resp</span><span class="o">;</span>
-   <span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="n">Constant</span><span class="o">.</span><span class="na">USER_SESSION</span><span class="o">)==</span><span class="kc">null</span><span class="o">){</span>
-    <span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="s">&#34;/error.jsp&#34;</span><span class="o">);</span>
-    <span class="o">}</span>
-   
-    <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span><span class="n">response</span><span class="o">);</span>
-</code></pre></div><h4 id="jdbc">JDBC</h4>
-<ol>
-<li>导入驱动 jar 包</li>
-<li>注册驱动</li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 功能：
-</span><span class="c1">// 	1.【注册驱动】 ：告诉程序该使用哪一个数据库驱动jar包
-</span><span class="c1">// 	写代码使用Class.forName(&#34;com.mysql.jdbc.Driver&#34;)	
-</span><span class="c1">// ---------Driver源码-----------
-</span><span class="c1"></span><span class="kd">static</span> <span class="o">{</span>
-    <span class="k">try</span> <span class="o">{</span>
-        <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">DriverManager</span><span class="o">.</span><span class="na">registerDriver</span><span class="o">(</span><span class="k">new</span> <span class="n">Driver</span><span class="o">());</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">E</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">&#34;Can&#39;t register driver!&#34;</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="o">------------------------------</span>
-<span class="c1">// 【注意】：mysql5之后的驱动jar包可以省略注册驱动的步骤
-</span><span class="c1">//     2.【获取数据库连接】 
-</span><span class="c1"></span><span class="kd">static</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span><span class="n">String</span> <span class="n">user</span><span class="o">,</span><span class="n">String</span> <span class="n">passward</span><span class="o">)</span>
-    <span class="c1">// url:指定连接路径。语法：jdbc:mysql://ip地址（域名）:端口号/数据库名称
-</span><span class="c1"></span>    <span class="c1">// 例子：jdbc:mysql://localhost:3306/test
-</span><span class="c1"></span>
-</code></pre></div><ol start="3">
-<li>获取数据库连接对象 Connection</li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">功能</span><span class="err">：</span>
-	<span class="n">1</span><span class="o">.</span><span class="na">获取执行sql的对象</span>
-	<span class="n">statement</span> <span class="nf">createStatement</span><span class="o">()</span>
-	<span class="n">preparedStatement</span> <span class="nf">prepareStatement</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">)</span>
-	<span class="n">2</span><span class="o">.</span><span class="na">管理事务</span>
-	<span class="n">开启事务</span> <span class="kt">void</span> <span class="nf">setAutoCommit</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">autocommit</span><span class="o">)</span>
-	<span class="n">提交事务</span> <span class="kt">void</span> <span class="nf">commit</span><span class="o">()</span>
-	<span class="n">回滚事务</span> <span class="kt">void</span> <span class="nf">rollback</span><span class="o">()</span>
-</code></pre></div><ol start="4">
-<li>获取执行 sql 语句的对象 Statement</li>
-<li>执行 sql，接受返回结果
-<ul>
-<li>SQL 注入问题：在拼接 sql 时，有一些 sql 的特殊关键字参与字符串的拼接，会造成安全性问题,PreparedStatement 可以防止该问题出现</li>
+<li><a href="#%E8%BF%87%E6%BB%A4%E5%99%A8-filter" >过滤器 Filter</a></li>
 </ul>
 </li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 预编译的SQL：参数使用？作为占位符
-</span><span class="c1">// e.g :
-</span><span class="c1">// ？用于参数标记
-</span><span class="c1"></span><span class="n">PreparedStatement</span> <span class="n">pstmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">&#34;select * from user where username=? and password=?&#34;</span><span class="o">);</span>
-<span class="c1">// 动态参数绑定
-</span><span class="c1"></span><span class="n">pstmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="n">username</span><span class="o">);</span><span class="c1">// 1指第一个？占位符
-</span><span class="c1"></span><span class="n">pstmt</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">2</span><span class="o">,</span><span class="n">password</span><span class="o">);</span>
-
-</code></pre></div><ol start="6">
-<li>处理结果</li>
-<li>释放资源</li>
-</ol>
-<h4 id="statement-接口提供了三种执行">Statement 接口提供了三种执行</h4>
-<p>Statement 接口提供了三种执行 SQL 语句的方法：executeQuery、executeUpdate 和 execute。使用哪一个方法由 SQL 语句所产生的内容决定</p>
-<h4 id="druidalibaba">druid（Alibaba）</h4>
-<blockquote>
-<p>step: <br>
-1.导入 jar 包 druid-1.0.9.jar<br>
-2.定义 properties 形式的配置文件，可以叫任意名称，放在任意目录<br>
-3.加载配置文件 properties<br>
-4.获取数据库连接池对象：通过工厂类来获取 DruidDataSourceFactory.createDataSource(properties)<br>
-5.获取连接 getconnection<br>
-6.归还连接 close</p>
-</blockquote>
-<h4 id="druid-工具类">druid 工具类</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">   <span class="kd">private</span>  <span class="kd">static</span> <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">;</span>
-    <span class="kd">static</span> <span class="o">{</span>
-        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">DruidUtils</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;/druid.properties&#34;</span><span class="o">);</span>
-            <span class="n">properties</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
-            <span class="n">dataSource</span> <span class="o">=</span> <span class="n">DruidDataSourceFactory</span><span class="o">.</span><span class="na">createDataSource</span><span class="o">(</span><span class="n">properties</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-<span class="c1">// 获取连接对象
-</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Connection</span> <span class="nf">getConnection</span><span class="o">(){</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">return</span>  <span class="kc">null</span><span class="o">;</span>
-    <span class="o">}</span>
-</code></pre></div><h4 id="dbutilsapache">DbUtils（Apache）</h4>
-<h4 id="preparedstatement-和-statement-的区别">PreparedStatement 和 Statement 的区别</h4>
-<blockquote>
-<p>1.Connection 在获取 sql 的对象时<br>
-Statement createStatement()<br>
-PreparedStatement prepareStatement(String sql)<br>
-PreparedStatement 需要传入 sql 语句进行【预编译】，这样效率更高<br>
-2、PreparedStatement 能防止 SQL 注入</p>
-</blockquote>
-<h4 id="queryrunner线程安全">QueryRunner()（线程安全）</h4>
-<blockquote>
-<p>1.创建 QueryRunner 的实现类<br>
-2.使用其 update、query 方法<br>
-update(sql 语句，可变参数)<br>
-query(sql 语句，new BeanHandle&lt;&gt;(类名.class))<br>
-query(sql 语句，new BeanHandle&lt;&gt;(类名.class),可变参数)</p>
-</blockquote>
-<h4 id="resultsethandler-接口转换类型接口">ResultSetHandler 接口：转换类型接口</h4>
+<li><a href="#%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86" >事务管理</a>
 <ul>
-<li><em><strong>BeanHandler 类：实现类，把一条记录转换成对象</strong></em></li>
-<li><em><strong>BeanListHandler 类：实现类，把多条记录转换成 List 集合</strong></em></li>
-<li><em><strong>ScalarHandler 类：实现类，适合获取一行一列的数据</strong></em></li>
+<li><a href="#%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E7%BB%84%E4%BB%B6" >涉及到的组件</a></li>
+<li><a href="#threadlocal" >ThreadLocal</a></li>
+<li><a href="#threadlocal-and-filter-manage-transactions" >ThreadLocal and Filter manage transactions</a></li>
+<li><a href="#modify-jdbcutils" >modify JdbcUtils</a></li>
+<li><a href="#basedao" >BaseDao</a></li>
+<li><a href="#filter-add-try-catch-to-service" >Filter add try-catch to Service</a></li>
+<li><a href="#throw-new-runexception-in-baseservlet-to-filter" >throw new RunException in BaseServlet to Filter</a></li>
+<li><a href="#tomcat-display-error-page" >tomcat display error page</a></li>
 </ul>
-<h4 id="dbutil-工具类">Dbutil 工具类</h4>
+</li>
+<li><a href="#listener" >listener</a>
 <ul>
-<li><em><strong>定义一个类 JDBCUtils</strong></em></li>
-<li><em><strong>提供静态代码块加载配置文件，初始化连接池对象</strong></em></li>
-<li><em><strong>提供方法</strong></em>
+<li><a href="#contextloaderlistener" >ContextLoaderListener</a></li>
+</ul>
+</li>
+<li><a href="#json" >JSON</a>
 <ul>
-<li><em><strong>获取连接方法：通过数据库连接池获取连接</strong></em></li>
-<li><em><strong>释放资源</strong></em></li>
-<li><em><strong>获取连接池的方法</strong></em></li>
+<li><a href="#json--javabean" >JSON &amp;amp;&amp;amp; JavaBean</a></li>
+<li><a href="#json--list" >JSON &amp;amp;&amp;amp; List</a></li>
+<li><a href="#json--map" >JSON &amp;amp;&amp;amp; Map</a></li>
+</ul>
+</li>
+<li><a href="#ajax" >AJAX</a>
+<ul>
+<li><a href="#ajax--%E5%BC%82%E6%AD%A5%E7%9A%84-javascript-and-xml" >Ajax : 异步的 JavaScript and XML</a></li>
+<li><a href="#%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4" >开发步骤</a></li>
+</ul>
+</li>
+<li><a href="#use-ajax-invalidate-the-username" >use AJAX invalidate the username</a></li>
+<li><a href="#use-ajax-to-add-the-item-to-the-cart" >use AJAX to add the item to the cart</a></li>
+</ul>
+<!-- /TOC -->
+<h3 id="filter">Filter</h3>
+<p><a id="markdown-filter" name="filter"></a></p>
+<figure><img src="/images/jwb9.png"
+         alt="image"/><figcaption>
+            <h4>servlets</h4>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>A -&gt;B -&gt; C demo3.service() -&gt; C -&gt; B -&gt; A</p>
+</blockquote>
+<h4 id="过滤器-filter">过滤器 Filter</h4>
+<p><a id="markdown-%E8%BF%87%E6%BB%A4%E5%99%A8-filter" name="%E8%BF%87%E6%BB%A4%E5%99%A8-filter"></a></p>
+<ul>
+<li>
+<p>Filter 也属于 Servlet 规范</p>
+</li>
+<li>
+<p>Filter 开发步骤：新建类实现 Filter 接口，然后实现其中的三个方法：init、doFilter、destroy<br>
+配置 Filter，可以用注解@WebFilter，也可以使用 xml 文件 <filter> <filter-mapping></p>
+</li>
+<li>
+<p>Filter 在配置时，和 servlet 一样，也可以配置通配符，例如 @WebFilter(&quot;*.do&quot;)表示拦截所有以.do 结尾的请求</p>
+</li>
+<li>
+<p>过滤器链</p>
+<ul>
+<li>执行的顺序依次是： A B C demo03 C2 B2 A2</li>
+<li>如果采取的是注解的方式进行配置，那么过滤器链的拦截顺序是按照全类名的先后顺序排序的</li>
+<li>如果采取的是 xml 的方式进行配置，那么按照配置的先后顺序进行排序</li>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DBUtils</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">DruidDataSource</span> <span class="n">dataSource</span><span class="o">;</span>
-
-    <span class="kd">static</span> <span class="o">{</span>
-        <span class="c1">//1.加载配置文件
-</span><span class="c1"></span>        <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
-        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">DBUtils</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;/database.properties&#34;</span><span class="o">);</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">properties</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
-            <span class="c1">//2.获取DataSource
-</span><span class="c1"></span>            <span class="n">dataSource</span> <span class="o">=</span> <span class="o">(</span><span class="n">DruidDataSource</span><span class="o">)</span> <span class="n">DruidDataSourceFactory</span><span class="o">.</span><span class="na">createDataSource</span><span class="o">(</span><span class="n">properties</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-    
-    <span class="cm">/**
-</span><span class="cm">     * 获取资源
-</span><span class="cm">     * @return
-</span><span class="cm">     * @throws SQLException
-</span><span class="cm">     */</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 释放资源
-</span><span class="cm">     * @param conn
-</span><span class="cm">     * @throws SQLException
-</span><span class="cm">     */</span>
-
-     <span class="cm">/**
-</span><span class="cm">     * 获取连接池方法
-</span><span class="cm">     */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">DataSource</span> <span class="nf">getDataSource</span><span class="o">(){</span>
-        <span class="k">return</span> <span class="n">dataSource</span><span class="o">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><h4 id="dbutil-方法">Dbutil 方法</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDaoImpl</span> <span class="kd">implements</span> <span class="n">UserDao</span> <span class="o">{</span>
-    <span class="c1">//1.创建QueryRunner对象，并传递一个数据源对象
-</span><span class="c1"></span>    <span class="kd">private</span> <span class="n">QueryRunner</span> <span class="n">queryRunner</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryRunner</span><span class="o">(</span><span class="n">DBUtils</span><span class="o">.</span><span class="na">getDataSource</span><span class="o">());</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">insert</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Object</span><span class="o">[]</span> <span class="n">params</span><span class="o">={</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getSex</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getAddress</span><span class="o">()};</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">queryRunner</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&#34;insert into user (id,username,password,sex,email,address) values(?,?,?,?,?,?)&#34;</span><span class="o">,</span><span class="n">params</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">update</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Object</span><span class="o">[]</span> <span class="n">params</span><span class="o">={</span><span class="n">user</span><span class="o">.</span><span class="na">getUsername</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getSex</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getEmail</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getAddress</span><span class="o">(),</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">()};</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">queryRunner</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&#34;update user set username=?,password=?,sex=?,email=?,address=? where id = ?&#34;</span><span class="o">,</span><span class="n">params</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">delete</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">queryRunner</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&#34;delete from user where id = ?&#34;</span><span class="o">,</span><span class="n">id</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">User</span> <span class="nf">select</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="c1">//把查询到的记录封装成 指定对象
-</span><span class="c1"></span>            <span class="k">return</span> <span class="n">queryRunner</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="s">&#34;select * from user where id = ?&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">BeanHandler</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;(</span><span class="n">User</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">id</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="o">}</span>
-
-    <span class="cm">/**
-</span><span class="cm">     * 查询所有
-</span><span class="cm">     * @return
-</span><span class="cm">     */</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectAll</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="n">queryRunner</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="s">&#34;select * from user;&#34;</span><span class="o">,</span><span class="k">new</span> <span class="n">BeanListHandler</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;(</span><span class="n">User</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="o">}</span>
-</code></pre></div><h4 id="用-preparedstatement">用 preparedStatement</h4>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="n">PreparedStatement</span> <span class="n">preparedStatement</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">conn</span> <span class="o">=</span> <span class="n">JDBCUtils</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
-            <span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into user(username,password) values(?,?)&#34;</span><span class="o">;</span>
-            <span class="n">preparedStatement</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
-            <span class="n">preparedStatement</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;admin&#34;</span><span class="o">);</span>
-            <span class="n">preparedStatement</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">2</span><span class="o">,</span><span class="s">&#34;admin&#34;</span><span class="o">);</span>
-
-            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">preparedStatement</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-
-
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">){</span>
-            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-        <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
-            <span class="n">JDBCUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">preparedStatement</span><span class="o">,</span><span class="n">conn</span><span class="o">);</span>
-        <span class="o">}</span>
-    <span class="o">}</span>
-</code></pre></div><h4 id="jdbc-固定步骤">jdbc 固定步骤</h4>
+<p>chorme:                                                               tomcat</p>
 <ul>
-<li>加载驱动</li>
-<li>链接数据库</li>
-<li>向数据库发送 SQL 对象 Statement：CRUD</li>
-<li>编写 sql</li>
-<li>执行 SQL</li>
-<li>关闭连接</li>
+<li>http://ip:port/project/resource  〰️ ▶️ Filter                         target rescouce
+.                                                             authorized   ▶️   html, jsp, Servlet</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 配置信息
-</span><span class="c1"></span><span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;characterEncoding=utf-8&#34;</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
-<span class="c1">// 1/ 加载驱动
-</span><span class="c1"></span><span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.mysql.ct.jdbc.Driver&#34;</span><span class="o">);</span>
-<span class="c1">// 2. 链接数据库
-</span><span class="c1"></span><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">DirverManager</span><span class="o">.</span><span class="na">getConnction</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-<span class="c1">// 3. 向数据库发送 SQL 对象 Statement：CRUD
-</span><span class="c1"></span><span class="n">Statement</span> <span class="n">statement</span><span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
-<span class="c1">// 4. 编写 sql
-</span><span class="c1"></span><span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;select * from users&#34;</span><span class="o">;</span>
-<span class="c1">// 5. 执行 SQL
-</span><span class="c1"></span><span class="n">ResultSet</span> <span class="n">resultset</span><span class="o">=</span> <span class="n">statement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
-<span class="k">while</span> <span class="o">(</span><span class="n">resultset</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
-    <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">);</span>
-    <span class="n">resultSet</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">);</span>
+<p>.                                 ◀️ 〰️ unauthorized</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@WebFilter</span><span class="o">(</span><span class="n">filterName</span> <span class="o">=</span><span class="s">&#34;ManagerFilter&#34;</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;/pages/manager/*&#34;</span><span class="o">,</span> <span class="s">&#34;/manager/bookServlet&#34;</span><span class="o">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+<span class="cm">/**
+</span><span class="cm">* doFilter method
+</span><span class="cm">*/</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">servletRequest</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">servletResponse</span><span class="o">,</span> <span class="n">FilterChain</span>
+<span class="n">filterChain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+<span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">servletRequest</span><span class="o">;</span>
+<span class="n">HttpSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">httpServletRequest</span><span class="o">.</span><span class="na">getSession</span><span class="o">();</span>
+<span class="n">Object</span> <span class="n">user</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;user&#34;</span><span class="o">);</span>
+<span class="c1">// 
+</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">servletRequest</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/login.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">servletRequest</span><span class="o">,</span><span class="n">servletResponse</span><span class="o">);</span>
+<span class="k">return</span><span class="o">;</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+<span class="c1">// 
+</span><span class="c1"></span><span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">servletRequest</span><span class="o">,</span><span class="n">servletResponse</span><span class="o">);</span>
 <span class="o">}</span>
-<span class="c1">// 6. 关闭连接
-</span><span class="c1"></span><span class="n">resultSet</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">statement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</code></pre></div><p>用 preparedStatement</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 配置信息
-</span><span class="c1"></span><span class="n">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#34;jdbc:mysql://localhost:3306/jdbc?useUnicode=true&amp;characterEncoding=utf-8&#34;</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="s">&#34;root&#34;</span><span class="o">;</span>
-<span class="c1">// 1/ 加载驱动
-</span><span class="c1"></span><span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;com.mysql.ct.jdbc.Driver&#34;</span><span class="o">);</span>
-<span class="c1">// 2. 链接数据库
-</span><span class="c1"></span><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">DirverManager</span><span class="o">.</span><span class="na">getConnction</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-<span class="c1">// // 3. 向数据库发送 SQL 对象 Statement：CRUD
-</span><span class="c1">// Statement statement= connection.createStatement();
-</span><span class="c1">// 3. 编写 sql
-</span><span class="c1"></span><span class="n">String</span> <span class="n">sql</span> <span class="o">=</span> <span class="s">&#34;insert into users(id, name, password, email, birthday) values(?, ?, ?, ?, ?)&#34;</span><span class="o">;</span>
-<span class="c1">// 4. preparestatement
-</span><span class="c1"></span><span class="n">PreparedStatement</span> <span class="n">preparedStatement</span><span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">preparedStatement</span><span class="o">(</span><span class="n">sql</span><span class="o">);</span>
-<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">4</span><span class="o">);</span>
-<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;aa&#34;</span><span class="o">);</span>
-<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="s">&#34;123456&#34;</span><span class="o">);</span>
-<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">4</span><span class="o">,</span> <span class="s">&#34;123456@qq.com&#34;</span><span class="o">);</span>
-<span class="n">preparedStatement</span><span class="o">.</span><span class="na">setDate</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">Date</span><span class="o">(</span><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span><span class="o">().</span><span class="na">getTime</span><span class="o">()));</span>
-<span class="c1">// 5. 执行 SQL
-</span><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">preparedStatement</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
-<span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">sout</span><span class="o">(</span><span class="s">&#34;success&#34;</span><span class="o">);</span>
 <span class="o">}</span>
-<span class="c1">// 6. 关闭连接
-</span><span class="c1"></span>
-<span class="n">preparedStatement</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-<span class="n">conn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</code></pre></div><h4 id="spring-jdbc-jdbc-template">spring JDBC ：JDBC template</h4>
-<p>Spring 框架对 JDBC 的简单封装。提供了一个 JDBCTemplate 对象简化 JDBC 的开发</p>
-<h5 id="步骤">步骤</h5>
-<blockquote>
-<p>导入 jar 包<br>
-创建 JdbcTemplate 对象。依赖于数据源 DataSource<br>
-JdbcTemplate template = new JdbcTemplate(ds);<br>
-调用 JdbcTemplate 的方法来完成 CRUD 的操作</p>
-<ol>
-<li>update():执行 DML 语句。增、删、改语句</li>
-</ol>
-</blockquote>
-<!-- * 注意：这个方法查询的结果集长度只能是1 --> 
-<blockquote>
-<ol start="2">
-<li>queryForMap():查询结果将结果集封装为 map 集合，将列名作为 key，将值作为 value 将这条记录封装为一个 map 集合</li>
-</ol>
-</blockquote>
-<!-- * 注意：将每一条记录封装为一个Map集合，再将Map集合装载到List集合中 -->
-<blockquote>
-<p>3.queryForList():查询结果将结果集封装为 list 集合</p>
-</blockquote>
-<!-- * query的参数：RowMapper
-				* 一般我们使用BeanPropertyRowMapper实现类。可以完成数据到JavaBean的自动封装
-				* new BeanPropertyRowMapper<类型>(类型.class) -->	
-<blockquote>
-<p>4.query():查询结果，将结果封装为 JavaBean 对象</p>
-</blockquote>
-<!-- * 一般用于聚合函数的查询 -->
-<blockquote>
-<ol start="5">
-<li>queryForObject：查询结果，将结果封装为对象</li>
-</ol>
-</blockquote>
-<h4 id="jdbctemplate-and-preparedstatements">jdbcTemplate and preparedstatements</h4>
-<p>statement 在执行一个查询的时候，数据库将首先查询字符串，然后在执行之前进行解析，编译以及计算执行计划， 如果多次执行相同的查询，那么该预处理步骤就会成为一个性能瓶颈，</p>
-<p>而如果使用 preparedstatements ，则该预处理不走仅被执行一次，因此，会减少执行时间，相比于每次动态创建查询字符串，</p>
-<p>使用 preparedstatements 的另外一个好处就是保护系统免受 sql 注入供给，</p>
-<p>preparedstatements 执行的查询使用起来更安全</p>
-<p>jdbcTemplate 对 preparedstatements 提供了方法 主要是将普通的参数改为 PreparedStatementSetter 来设置传入的参数 方法如下</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">query</span><span class="o">(</span><span class="n">String</span> <span class="n">sql</span><span class="o">,</span> <span class="n">PreparedStatementSetter</span> <span class="n">pss</span><span class="o">,</span> <span class="n">RowMapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">rowMapper</span><span class="o">)</span>
-  <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userList</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="s">&#34;select * from user where id = ?&#34;</span><span class="o">,</span> <span class="n">preparedStatement</span> <span class="o">-&gt;</span> <span class="n">preparedStatement</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="n">id</span><span class="o">),</span> <span class="k">new</span> <span class="n">BeanPropertyRowMapper</span><span class="o">&lt;&gt;(</span><span class="n">User</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
-<span class="n">query</span><span class="o">(</span><span class="n">PreparedStatementCreator</span> <span class="n">psc</span><span class="o">,</span> <span class="n">RowMapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">rowMapper</span><span class="o">)</span>
-
-<span class="kd">public</span> <span class="nf">voidetValues</span><span class="o">(</span><span class="n">PreparedStatement</span> <span class="n">ps</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">{</span>
-<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="o">(</span><span class="n">User</span><span class="o">)</span> <span class="n">users</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
-<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-<span class="n">ps</span><span class="o">.</span><span class="na">setInt</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getAge</span><span class="o">().</span><span class="na">intValue</span><span class="o">());</span>
 <span class="o">}</span>
-
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBatchSize</span><span class="o">()</span> <span class="o">{</span>
-<span class="k">return</span> <span class="n">users</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
-</code></pre></div><h3 id="datasource">DataSource</h3>
-<p>DataSource 用来取代 DriverManager 来获取 Connection，获取速度快，同时可以大幅度提高数据库访问速度。</p>
-<p>特别注意：</p>
-<p>数据源和数据库连接不同，数据源无需创建多个，它是产生数据库连接的工厂，因此整个应用只需要一个数据源即可。</p>
-<p>当数据库访问结束后，程序还是像以前一样关闭数据库连接：conn.close(); 但 conn.close()并没有关闭数据库的物理连接，它仅仅把数据库连接释放，归还给了数据库连接池。</p>
-<hr>
+</code></pre></div><h3 id="事务管理">事务管理</h3>
+<p><a id="markdown-%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86" name="%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86"></a></p>
+<h4 id="涉及到的组件">涉及到的组件</h4>
+<p><a id="markdown-%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E7%BB%84%E4%BB%B6" name="%E6%B6%89%E5%8F%8A%E5%88%B0%E7%9A%84%E7%BB%84%E4%BB%B6"></a></p>
 <ul>
-<li><a href="https://rileyshen.github.io/post/javaweb2/" >javaweb2</a></li>
-<li><a href="https://rileyshen.github.io/post/javaweb3/" >javaweb3</a></li>
-<li><a href="https://rileyshen.github.io/post/javaweb4/" >javaweb4</a></li>
-<li><a href="https://rileyshen.github.io/post/javaweb5/" >javaweb5</a></li>
-<li><a href="https://rileyshen.github.io/post/javaweb6/" >javaweb6</a></li>
-<li><a href="https://rileyshen.github.io/tags/spring/" >spring</a></li>
-<li><a href="https://rileyshen.github.io/post/springmvc/" >springmvc</a></li>
-</ul></div>
+<li>OpenSessionInViewFilter</li>
+<li>TransactionManager</li>
+<li>ThreadLocal</li>
+<li>ConnUtil</li>
+<li>BaseDAO</li>
+</ul>
+<h4 id="threadlocal">ThreadLocal</h4>
+<p><a id="markdown-threadlocal" name="threadlocal"></a></p>
+<ul>
+<li>get() , set(obj)</li>
+<li>ThreadLocal 称之为本地线程 。 我们可以通过 set 方法在当前线程上存储数据、通过 get 方法在当前线程上获取数据</li>
+<li>set 方法源码分析：</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">T</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span> <span class="c1">//获取当前的线程
+</span><span class="c1"></span>         <span class="n">ThreadLocalMap</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getMap</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>    <span class="c1">//每一个线程都维护各自的一个容器（ThreadLocalMap）
+</span><span class="c1"></span>         <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+             <span class="n">map</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>          <span class="c1">//这里的key对应的是ThreadLocal，因为我们的组件中需要传输（共享）的对象可能会有多个（不止Connection）
+</span><span class="c1"></span>         <span class="k">else</span>
+             <span class="n">createMap</span><span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>           <span class="c1">//默认情况下map是没有初始化的，那么第一次往其中添加数据时，会去初始化
+</span><span class="c1"></span>     <span class="o">}</span>
+</code></pre></div><ul>
+<li>get 方法源码分析</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">     <span class="kd">public</span> <span class="n">T</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+         <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span> <span class="c1">//获取当前的线程
+</span><span class="c1"></span>         <span class="n">ThreadLocalMap</span> <span class="n">map</span> <span class="o">=</span> <span class="n">getMap</span><span class="o">(</span><span class="n">t</span><span class="o">);</span>    <span class="c1">//获取和这个线程（企业）相关的ThreadLocalMap（也就是工作纽带的集合）
+</span><span class="c1"></span>         <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+             <span class="n">ThreadLocalMap</span><span class="o">.</span><span class="na">Entry</span> <span class="n">e</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">getEntry</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>   <span class="c1">//this指的是ThreadLocal对象，通过它才能知道是哪一个工作纽带
+</span><span class="c1"></span>             <span class="k">if</span> <span class="o">(</span><span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+                 <span class="n">T</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span><span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>     <span class="c1">//entry.value就可以获取到工具箱了
+</span><span class="c1"></span>                 <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+             <span class="o">}</span>
+         <span class="o">}</span>
+         <span class="k">return</span> <span class="n">setInitialValue</span><span class="o">();</span>
+     <span class="o">}</span>
+</code></pre></div><figure><img src="/images/jwb10.png"
+         alt="image"/><figcaption>
+            <h4>servlets</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/jwb11.png"
+         alt="image"/><figcaption>
+            <h4>servlets</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/jwb12.png"
+         alt="image"/><figcaption>
+            <h4>servlets</h4>
+        </figcaption>
+</figure>
+
+<h4 id="threadlocal-and-filter-manage-transactions">ThreadLocal and Filter manage transactions</h4>
+<p><a id="markdown-threadlocal-and-filter-manage-transactions" name="threadlocal-and-filter-manage-transactions"></a></p>
+<h4 id="modify-jdbcutils">modify JdbcUtils</h4>
+<p><a id="markdown-modify-jdbcutils" name="modify-jdbcutils"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">Connection</span><span class="o">&gt;</span> <span class="n">conns</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadLocal</span><span class="o">&lt;&gt;();</span>
+<span class="c1">//  Connection conn = null;
+</span><span class="c1"></span><span class="n">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">conns</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</code></pre></div><h4 id="basedao">BaseDao</h4>
+<p><a id="markdown-basedao" name="basedao"></a></p>
+<h4 id="filter-add-try-catch-to-service">Filter add try-catch to Service</h4>
+<p><a id="markdown-filter-add-try-catch-to-service" name="filter-add-try-catch-to-service"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@WebFilter</span><span class="o">(</span><span class="n">filterName</span> <span class="o">=</span><span class="s">&#34;TransactionFilter&#34;</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">&#34;/*&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransactionFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">servletRequest</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">servletResponse</span><span class="o">,</span> <span class="n">FilterChain</span>
+<span class="n">filterChain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+<span class="k">try</span> <span class="o">{</span>
+<span class="n">filterChain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">servletRequest</span><span class="o">,</span><span class="n">servletResponse</span><span class="o">);</span>
+<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">commitAndClose</span><span class="o">();</span><span class="c1">// 提交事务
+</span><span class="c1"></span><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">JdbcUtils</span><span class="o">.</span><span class="na">rollbackAndClose</span><span class="o">();</span><span class="c1">//回滚事务
+</span><span class="c1"></span><span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h4 id="throw-new-runexception-in-baseservlet-to-filter">throw new RunException() in BaseServlet to Filter</h4>
+<p><a id="markdown-throw-new-runexception-in-baseservlet-to-filter" name="throw-new-runexception-in-baseservlet-to-filter"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
+<span class="k">try</span> <span class="o">{</span>
+<span class="c1">// 
+</span><span class="c1"></span><span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredMethod</span><span class="o">(</span><span class="n">action</span><span class="o">,</span> <span class="n">HttpServletRequest</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>
+<span class="n">HttpServletResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// System.out.println(method);
+</span><span class="c1">// 
+</span><span class="c1"></span><span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span><span class="c1">// throw new RunException Filter 
+</span><span class="c1"></span><span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h4 id="tomcat-display-error-page">tomcat display error page</h4>
+<p><a id="markdown-tomcat-display-error-page" name="tomcat-display-error-page"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+<span class="o">&lt;!--</span><span class="n">error</span><span class="o">-</span><span class="n">code</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span><span class="n">500</span><span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span>
+<span class="o">&lt;!--</span><span class="n">location</span><span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="n">location</span><span class="o">&gt;/</span><span class="n">pages</span><span class="o">/</span><span class="n">error</span><span class="o">/</span><span class="n">error500</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">location</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+<span class="o">&lt;!--</span><span class="n">error</span><span class="o">-</span><span class="n">page</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+<span class="o">&lt;!--</span><span class="n">error</span><span class="o">-</span><span class="n">code</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span><span class="n">404</span><span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span>
+<span class="o">&lt;!--</span><span class="n">location</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="n">location</span><span class="o">&gt;/</span><span class="n">pages</span><span class="o">/</span><span class="n">error</span><span class="o">/</span><span class="n">error404</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">location</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+</code></pre></div><h3 id="listener">listener</h3>
+<p><a id="markdown-listener" name="listener"></a></p>
+<ul>
+<li>ServletContextListener - 监听 ServletContext 对象的创建和销毁的过程</li>
+<li>HttpSessionListener - 监听 HttpSession 对象的创建和销毁的过程</li>
+<li>ServletRequestListener - 监听 ServletRequest 对象的创建和销毁的过程</li>
+<li>ServletContextAttributeListener - 监听 ServletContext 的保存作用域的改动(add,remove,replace)</li>
+<li>HttpSessionAttributeListener - 监听 HttpSession 的保存作用域的改动(add,remove,replace)</li>
+<li>ServletRequestAttributeListener - 监听 ServletRequest 的保存作用域的改动(add,remove,replace)</li>
+<li>HttpSessionBindingListener - 监听某个对象在 Session 域中的创建与移除</li>
+<li>HttpSessionActivationListener - 监听某个对象在 Session 域中的序列化和反序列化</li>
+</ul>
+<h4 id="contextloaderlistener">ContextLoaderListener</h4>
+<p><a id="markdown-contextloaderlistener" name="contextloaderlistener"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+<span class="c1">//监听上下文启动，在上下文启动的时候去创建IOC容器,然后将其保存到application作用域
+</span><span class="c1">//后面中央控制器再从application作用域中去获取IOC容器
+</span><span class="c1"></span><span class="nd">@WebListener</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContextLoaderListener</span> <span class="kd">implements</span> <span class="n">ServletContextListener</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextInitialized</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">servletContextEvent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//1.获取ServletContext对象
+</span><span class="c1"></span>        <span class="n">ServletContext</span> <span class="n">application</span> <span class="o">=</span> <span class="n">servletContextEvent</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">();</span>
+        <span class="c1">//2.获取上下文的初始化参数
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="na">getInitParameter</span><span class="o">(</span><span class="s">&#34;contextConfigLocation&#34;</span><span class="o">);</span>
+        <span class="c1">//3.创建IOC容器
+</span><span class="c1"></span>        <span class="n">BeanFactory</span> <span class="n">beanFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="c1">//4.将IOC容器保存到application作用域
+</span><span class="c1"></span>        <span class="n">application</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;beanFactory&#34;</span><span class="o">,</span><span class="n">beanFactory</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextDestroyed</span><span class="o">(</span><span class="n">ServletContextEvent</span> <span class="n">servletContextEvent</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><figure><img src="/images/jwb13.png"
+         alt="image"/><figcaption>
+            <h4>servlets</h4>
+        </figcaption>
+</figure>
+
+<h3 id="json">JSON</h3>
+<p><a id="markdown-json" name="json"></a></p>
+<h4 id="json--javabean">JSON &amp;&amp; JavaBean</h4>
+<p><a id="markdown-json-%26%26-javabean" name="json-%26%26-javabean"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1</span><span class="o">,</span><span class="s">&#34;AA&#34;</span><span class="o">);</span>
+<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">personJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">person</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">);</span>
+
+<span class="n">Person</span> <span class="n">person1</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">,</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span>
+</code></pre></div><h4 id="json--list">JSON &amp;&amp; List</h4>
+<p><a id="markdown-json-%26%26-list" name="json-%26%26-list"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;AA&#34;</span><span class="o">));</span>
+<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;BB&#34;</span><span class="o">));</span>
+
+<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+<span class="c1">// transfer to json string
+</span><span class="c1"></span><span class="n">String</span> <span class="n">personJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">personList</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">);</span>
+
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">,</span> <span class="k">new</span> <span class="n">PersonListType</span><span class="o">().</span><span class="na">getType</span><span class="o">());</span>
+</code></pre></div><h4 id="json--map">JSON &amp;&amp; Map</h4>
+<p><a id="markdown-json-%26%26-map" name="json-%26%26-map"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;()</span>
+<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;AA&#34;</span><span class="o">));</span>
+<span class="n">personList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;BB&#34;</span><span class="o">));</span>
+
+<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+<span class="c1">// transfer to json string
+</span><span class="c1"></span><span class="n">String</span> <span class="n">personJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">personMap</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">);</span>
+
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">personMap2</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">personJsonString</span><span class="o">,</span> <span class="k">new</span> <span class="n">TypeToken</span><span class="o">&lt;</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span><span class="n">Person</span><span class="o">&gt;&gt;(){}.</span><span class="na">getType</span><span class="o">());</span>
+</code></pre></div><h3 id="ajax">AJAX</h3>
+<p><a id="markdown-ajax" name="ajax"></a></p>
+<h4 id="ajax--异步的-javascript-and-xml">Ajax : 异步的 JavaScript and XML</h4>
+<p><a id="markdown-ajax-%3A-%E5%BC%82%E6%AD%A5%E7%9A%84-javascript-and-xml" name="ajax-%3A-%E5%BC%82%E6%AD%A5%E7%9A%84-javascript-and-xml"></a></p>
+<p>目的： 用来发送异步的请求，然后当服务器给我响应的时候再进行回调操作</p>
+<p>好处： 提高用户体验；局部刷新：降低服务器负担、减轻浏览器压力、减轻网络带宽压力</p>
+<h4 id="开发步骤">开发步骤</h4>
+<p><a id="markdown-%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4" name="%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4"></a></p>
+<ol>
+<li>
+<p>创建 XMLHttpRequest</p>
+</li>
+<li>
+<p>调用 open 进行设置：&ldquo;GET&rdquo; , URL , true</p>
+</li>
+<li>
+<p>绑定状态改变时执行的回调函数 - onreadystatechange</p>
+</li>
+<li>
+<p>发送请求 - send()</p>
+</li>
+<li>
+<p>编写回调函数，在回调函数中，我们只对 XMLHttpRequest 的 readystate 为 4 的时候感兴趣</p>
+</li>
+</ol>
+<p>我们只对 XMLHttpRequest 的 status 为 200 的时候感兴趣</p>
+<p>0: (Uninitialized) the send( ) method has not yet been invoked.
+1: (Loading) the send( ) method has been invoked, request in progress.
+2: (Loaded) the send( ) method has completed, entire response received.
+3: (Interactive) the response is being parsed.
+4: (Completed) the response has been parsed, is ready for harvesting.</p>
+<p>0 － （未初始化）还没有调用 send()方法
+1 － （载入）已调用 send()方法，正在发送请求
+2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+3 － （交互）正在解析响应内容
+4 － （完成）响应内容解析完成，可以在客户端调用了</p>
+<h3 id="use-ajax-invalidate-the-username">use AJAX invalidate the username</h3>
+<p><a id="markdown-use-ajax-invalidate-the-username" name="use-ajax-invalidate-the-username"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">ajaxExistsUsername</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span>
+<span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+<span class="c1">// get username
+</span><span class="c1"></span><span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
+<span class="c1">//  userService.existsUsername();
+</span><span class="c1"></span><span class="kt">boolean</span> <span class="n">existsUsername</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">existsUsername</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+<span class="c1">// 
+</span><span class="c1"></span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">resultMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;existsUsername&#34;</span><span class="o">,</span><span class="n">existsUsername</span><span class="o">);</span>
+<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">json</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">resultMap</span><span class="o">);</span>
+<span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="n">json</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span><span class="o">(</span><span class="s">&#34;#username&#34;</span><span class="o">).</span><span class="na">blur</span><span class="o">(</span><span class="n">function</span> <span class="o">()</span> <span class="o">{</span>
+<span class="c1">//1 get username
+</span><span class="c1"></span><span class="n">var</span> <span class="n">username</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+<span class="n">$</span><span class="o">.</span><span class="na">getJSON</span><span class="o">(</span><span class="s">&#34;http://localhost:8080/book/userServlet&#34;</span><span class="o">,</span><span class="s">&#34;action=ajaxExistsUsername&amp;username=&#34;</span> <span class="o">+</span>
+<span class="n">username</span><span class="o">,</span><span class="n">function</span> <span class="o">(</span><span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">existsUsername</span><span class="o">)</span> <span class="o">{</span>
+<span class="n">$</span><span class="o">(</span><span class="s">&#34;span.errorMsg&#34;</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="s">&#34;xxxx！&#34;</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+<span class="n">$</span><span class="o">(</span><span class="s">&#34;span.errorMsg&#34;</span><span class="o">).</span><span class="na">text</span><span class="o">(</span><span class="s">&#34;xxxx！&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">});</span>
+<span class="o">});</span>
+</code></pre></div><h3 id="use-ajax-to-add-the-item-to-the-cart">use AJAX to add the item to the cart</h3>
+<p><a id="markdown-use-ajax-to-add-the-item-to-the-cart" name="use-ajax-to-add-the-item-to-the-cart"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">addItem</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+
+<span class="c1">//        System.out.println(&#34;bookId: &#34; + request.getParameter(&#34;id&#34;));
+</span><span class="c1"></span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;request head reference value: &#34;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="s">&#34;Referer&#34;</span><span class="o">));</span>
+<span class="c1">//        2.1 : 获取请求的参数，商品编号
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">WebUtils</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">),</span> <span class="n">0</span><span class="o">);</span>
+<span class="c1">//        2.2： 调用bookService.queryBookById(id): Book得到图书的信息
+</span><span class="c1"></span>        <span class="n">Book</span> <span class="n">book</span> <span class="o">=</span> <span class="n">bookService</span><span class="o">.</span><span class="na">queryBookById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+<span class="c1">//        2.3： 把图书信息，转换成CartItem商品项
+</span><span class="c1"></span>        <span class="n">CartItem</span> <span class="n">cartItem</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CartItem</span><span class="o">(</span><span class="n">book</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">book</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">1</span><span class="o">,</span> <span class="n">book</span><span class="o">.</span><span class="na">getPrice</span><span class="o">(),</span> <span class="n">book</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+<span class="c1">//        2.4: 调用Cart.addItem(CartItem);添加商品项
+</span><span class="c1"></span>        <span class="n">Cart</span> <span class="n">cart</span> <span class="o">=</span> <span class="o">(</span><span class="n">Cart</span><span class="o">)</span> <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;cart&#34;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cart</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">cart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cart</span><span class="o">();</span>
+            <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;cart&#34;</span><span class="o">,</span> <span class="n">cart</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">cart</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="n">cartItem</span><span class="o">);</span>
+
+<span class="c1">//        2.5: 重定向回商品列表页面
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cart</span><span class="o">);</span>
+        <span class="n">request</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;lastName&#34;</span><span class="o">,</span> <span class="n">cartItem</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getContextPath</span><span class="o">());</span>
+
+<span class="c1">//use AJAX to add the item to the cart
+</span><span class="c1"></span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">resultMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;();</span>
+<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;totalCount&#34;</span><span class="o">,</span> <span class="n">cart</span><span class="o">.</span><span class="na">getTotalCount</span><span class="o">());</span>
+<span class="n">resultMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;lastName&#34;</span><span class="o">,</span><span class="n">cartItem</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+<span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">resultMapJsonString</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span><span class="n">resultMap</span><span class="o">);</span>
+<span class="n">resp</span><span class="o">.</span><span class="na">getWriter</span><span class="o">().</span><span class="na">write</span><span class="o">(</span><span class="n">resultMapJsonString</span><span class="o">);</span>
+
+    <span class="o">}</span>
+</code></pre></div><hr>
+<p><a href="https://rileyshen.github.io/post/javaweb2/" >javaweb2</a>
+<a href="https://rileyshen.github.io/post/javaweb3/" >javaweb3</a>
+<a href="https://rileyshen.github.io/post/javaweb4/" >javaweb4</a>
+<a href="https://rileyshen.github.io/post/javaweb5/" >javaweb5</a>
+<a href="https://rileyshen.github.io/tags/spring/" >spring</a>
+<a href="https://rileyshen.github.io/post/springmvc/" >springmvc</a></p></div>
     <div class="post-footer">
         <div class="info">
             
-            <span class="separator"><a class="tag" href="/tags/javaee-project/">javaEE project</a><a class="tag" href="/tags/javaee-web/">javaEE web</a><a class="tag" href="/tags/three-tier-system/">Three-tier system</a><a class="tag" href="/tags/thymeleaf/">Thymeleaf</a><a class="tag" href="/tags/templateengine%2eprocess/">TemplateEngine.process</a><a class="tag" href="/tags/jdbc/">JDBC</a><a class="tag" href="/tags/jdbc-template/">JDBC template</a><a class="tag" href="/tags/preparedstatements/">preparedstatements</a></span>
+            <span class="separator"><a class="tag" href="/tags/javaee-project/">javaEE project</a><a class="tag" href="/tags/javaee-web/">javaEE web</a><a class="tag" href="/tags/three-tier-system/">Three-tier system</a><a class="tag" href="/tags/thymeleaf/">Thymeleaf</a><a class="tag" href="/tags/templateengine%2eprocess/">TemplateEngine.process</a></span>
         </div>
     </div>
 

@@ -2231,10 +2231,10 @@ Cannot delete or update a parent row: a foreign key constraint fails
 &lt;p&gt;拿到 page 这个字符串，然后去 IOC 容器（BeanFactory）中寻找 id=page 的那个 bean 对象   -&amp;gt; PageController.java&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;获取operate的值 -&amp;gt; page    因此得知，应该执行 PageController中的page()方法&lt;/p&gt;
+&lt;p&gt;获取 operate 的值 -&amp;gt; page    因此得知，应该执行 PageController 中的 page()方法&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;PageController中的page方法定义如下：&lt;/p&gt;
+&lt;p&gt;PageController 中的 page 方法定义如下：&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
@@ -2243,72 +2243,292 @@ return page ;
 }&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;ol start=&#34;7&#34;&gt;
-&lt;li&gt;在queryString:   ?operate=page&amp;amp;page=login 中 获取请求参数，参数名是page，参数值是login
-因此page方法的参数page值会被赋上&amp;quot;login&amp;rdquo;
-然后return &amp;ldquo;login&amp;rdquo; , return 给 谁？？&lt;/li&gt;
-&lt;li&gt;因为PageController的page方法是DispatcherServlet通过反射调用的
-method.invoke(&amp;hellip;.) ;
-因此，字符串&amp;quot;login&amp;quot;返回给DispatcherServlet&lt;/li&gt;
-&lt;li&gt;DispatcherServlet接收到返回值，然后处理视图
-目前处理视图的方式有两种： 1.带前缀redirect:    2.不带前缀
+&lt;li&gt;
+&lt;p&gt;在 queryString:   ?operate=page&amp;amp;page=login 中 获取请求参数，参数名是 page，参数值是 login&lt;br&gt;
+因此 page 方法的参数 page 值会被赋上&amp;quot;login&amp;rdquo;
+然后 return &amp;ldquo;login&amp;rdquo; , return 给 谁？？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;因为 PageController 的 page 方法是 DispatcherServlet 通过反射调用的 method.invoke(..), 因此，字符串&amp;quot;login&amp;quot;返回 DispatcherServlet&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DispatcherServlet 接收到返回值，然后处理视图. 目前处理视图的方式有两种： 1.带前缀 redirect:    2.不带前缀
 当前，返回&amp;quot;login&amp;quot;，不带前缀
-那么执行  super.processTemplete(&amp;ldquo;login&amp;rdquo;,request,response);&lt;/li&gt;
-&lt;li&gt;此时ViewBaseServlet中的processTemplete方法会执行，效果是：
-在&amp;quot;login&amp;quot;这个字符串前面拼接 &amp;ldquo;/&amp;rdquo;  (其实就是配置文件中view-prefixe配置的值)
-在&amp;quot;login&amp;quot;这个字符串后面拼接 &amp;ldquo;.html&amp;rdquo; (其实就是配置文件中view-suffix配置的值)
-最后进行服务器转发&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;5.
-4. 
-2） 如果html页面有thymeleaf表达式，一定不能够直接访问，必须要经过PageController
-3） 在applicationContext.xml中配置 DAO、Service、Controller，以及三者之间的依赖关系
-4） DAO实现类中 ， 继承BaseDAO，然后实现具体的接口, 需要注意，BaseDAO后面的泛型不能写错。
-例如：
-public class UserDAOImpl extends BaseDAO&lt;User&gt; implements UserDAO{}
-5） Service是业务控制类，这一层我们只需要记住一点：
-- 业务逻辑我们都封装在service这一层，不要分散在Controller层。也不要出现在DAO层（我们需要保证DAO方法的单精度特性）
-- 当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的service，而不是深入到其他模块的DAO细节
-6） Controller类的编写规则
-① 在applicationContext.xml中配置Controller
-&amp;lt;bean id=&amp;ldquo;user&amp;rdquo; class=&amp;ldquo;com.atguigu.qqzone.controllers.UserController&amp;gt;
-那么，用户在前端发请求时，对应的servletpath就是   /user.do   , 其中的“user”就是对应此处的bean的id值
-② 在Controller中设计的方法名需要和operate的值一致
-public String login(String loginId , String pwd , HttpSession session){
-return &amp;ldquo;index&amp;rdquo;;
-}
-因此，我们的登录验证的表单如下：
-&lt;form th:action=&#34;@{/user.do}&#34; method=&#34;post&#34;&gt;
-&lt;inut type=&#34;hidden&#34; name=&#34;operate&#34; value=&#34;login&#34;/&gt;
-&lt;/form&gt;
-③ 在表单中，组件的name属性和Controller中方法的参数名一致
-&lt;input type=&#34;text&#34; name=&#34;loginId&#34; /&gt;
-public String login(String loginId , String pwd , HttpSession session){
-④ 另外，需要注意的是： Controller中的方法中的参数不一定都是通过请求参数获取的
-if(&amp;ldquo;request&amp;rdquo;.equals&amp;hellip;) else if(&amp;ldquo;response&amp;rdquo;.equals&amp;hellip;.) else if(&amp;ldquo;session&amp;rdquo;.equals&amp;hellip;.){
-直接赋值
-}else{
-此处才是从request的请求参数中获取
-request.getParameter(&amp;ldquo;loginId&amp;rdquo;) &amp;hellip;..
-}
-7）  DispatcherServlet中步骤大致分为：
-0. 从application作用域获取IOC容器
-1. 解析servletPath ， 在IOC容器中寻找对应的Controller组件
-2. 准备operate指定的方法所要求的参数
-3. 调用operate指定的方法
-4. 接收到执行operate指定的方法的返回值，对返回值进行处理 - 视图处理
-8) 为什么DispatcherServlet能够从application作用域获取到IOC容器？
-ContextLoaderListener在容器启动时会执行初始化任务，而它的操作就是：
-1. 解析IOC的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入
-2. 将IOC容器保存到application作用域&lt;/p&gt;
-&lt;ol start=&#34;6&#34;&gt;
-&lt;li&gt;修改BaseDAO，让其支持properties文件以及druid数据源连接池
-讲解了两种方式：
-&lt;ol&gt;
-&lt;li&gt;直接自己配置properties，然后读取，然后加载驱动&amp;hellip;..&lt;/li&gt;
-&lt;li&gt;使用druid连接池技术，那么properties中的key是有要求的&lt;/li&gt;
-&lt;/ol&gt;
+那么执行  super.processTemplete(&amp;ldquo;login&amp;rdquo;,request,response);&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此时 ViewBaseServlet 中的 processTemplete 方法会执行，效果是：&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;在&amp;quot;login&amp;quot;这个字符串前面拼接 &amp;ldquo;/&amp;rdquo;  (其实就是配置文件中 view-prefixe 配置的值)&lt;/p&gt;
+&lt;p&gt;在&amp;quot;login&amp;quot;这个字符串后面拼接 &amp;ldquo;.html&amp;rdquo; (其实就是配置文件中 view-suffix 配置的值)
+最后进行服务器转发&lt;/p&gt;
+&lt;h3 id=&#34;javaweb-项目开发的-套路&#34;&gt;javaweb 项目开发的 套路&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;拷贝 myssm 包&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;新建配置文件 applicationContext.xml 或者可以不叫这个名字，在 web.xml 中指定文件名&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;在 web.xml 文件中配置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;配置前缀和后缀，这样 thymeleaf 引擎就可以根据我们返回的字符串进行拼接，再跳转&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;view-prefix&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+                                &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;/&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;view-suffix&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;.html&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;配置监听器要读取的参数，目的是加载 IOC 容器的配置文件（也就是 applicationContext.xml）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;context-param&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-name&amp;gt;&lt;/span&gt;contextConfigLocation&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-name&amp;gt;&lt;/span&gt;
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;param-value&amp;gt;&lt;/span&gt;applicationContext.xml&lt;span class=&#34;nt&#34;&gt;&amp;lt;/param-value&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/context-param&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;开发具体的业务模块：
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一个具体的业务模块纵向上由几个部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;html 页面&lt;/li&gt;
+&lt;li&gt;POJO 类&lt;/li&gt;
+&lt;li&gt;DAO 接口和实现类&lt;/li&gt;
+&lt;li&gt;Service 接口和实现类&lt;/li&gt;
+&lt;li&gt;Controller 控制器组件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果 html 页面有 thymeleaf 表达式，一定不能够直接访问，必须要经过 PageController&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 applicationContext.xml 中配置 DAO、Service、Controller，以及三者之间的依赖关系&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DAO 实现类中 ， 继承 BaseDAO，然后实现具体的接口, 需要注意，BaseDAO 后面的泛型不能写错。
+例如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;public class UserDAOImpl extends BaseDAO&lt;User&gt; implements UserDAO{}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Service 是业务控制类，这一层我们只需要记住一点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;业务逻辑我们都封装在 service 这一层，不要分散在 Controller 层。也不要出现在 DAO 层（我们需要保证 DAO 方法的单精度特性）&lt;/li&gt;
+&lt;li&gt;当某一个业务功能需要使用其他模块的业务功能时，尽量的调用别人的 service，而不是深入到其他模块的 DAO 细节&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Controller 类的编写规则&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 applicationContext.xml 中配置 Controller&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;lt;bean id=&amp;ldquo;user&amp;rdquo; class=&amp;ldquo;com.atguigu.qqzone.controllers.UserController&amp;gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;那么，用户在前端发请求时，对应的 servletpath 就是  &lt;code&gt;/user.do&lt;/code&gt;  , 其中的 &lt;code&gt;user&lt;/code&gt; 就是对应此处的&lt;code&gt;bean&lt;/code&gt;的&lt;code&gt;id&lt;/code&gt;值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;Controller&lt;/code&gt; 中设计的方法名需要和 &lt;code&gt;operate&lt;/code&gt; 的值一致&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;public String login(String loginId , String pwd , HttpSession session){
+return &amp;ldquo;index&amp;rdquo;;
+}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;因此，我们的登录验证的表单如下&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;form th:action=&#34;@{/user.do}&#34; method=&#34;post&#34;&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;   &amp;lt;inut type=&amp;quot;hidden&amp;quot; name=&amp;quot;operate&amp;quot; value=&amp;quot;login&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+ &lt;/form&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;在表单中，组件的 name 属性和 Controller 中方法的参数名一致&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;input type=&#34;text&#34; name=&#34;loginId&#34; /&gt;
+public String login(String loginId , String pwd , HttpSession session){&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;另外，需要注意的是： Controller 中的方法中的参数不一定都是通过请求参数获取的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;if(&amp;ldquo;request&amp;rdquo;.equals&amp;hellip;) else if(&amp;ldquo;response&amp;rdquo;.equals..) else if(&amp;ldquo;session&amp;rdquo;.equals..){&lt;br&gt;
+直接赋值 &lt;br&gt;
+}else{&lt;br&gt;
+此处才是从 request 的请求参数中获取&lt;br&gt;
+request.getParameter(&amp;ldquo;loginId&amp;rdquo;)
+}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;DispatcherServlet 中步骤大致分为
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;从 application 作用域获取 IOC 容器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;解析 servletPath ， 在 IOC 容器中寻找对应的 Controller 组件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;准备 operate 指定的方法所要求的参数&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;调用 operate 指定的方法&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;接收到执行 operate 指定的方法的返回值，对返回值进行处理 - 视图处理&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;为什么 DispatcherServlet 能够从 application 作用域获取到 IOC 容器&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ContextLoaderListener 在容器启动时会执行初始化任务，而它的操作就是：
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;解析 IOC 的配置文件，创建一个一个的组件，并完成组件之间依赖关系的注入&lt;/li&gt;
+&lt;li&gt;将 IOC 容器保存到 application 作用域&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;代码导出&#34;&gt;代码导出&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;修改 BaseDAO，让其支持 properties 文件以及 druid 数据源连接池 
+讲解了两种方式：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;直接自己配置 properties，然后读取，然后加载驱动&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DRIVER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ConnUtil&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClassLoader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getResourcesAsStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;jdbc.properties&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;load&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;n&#34;&gt;DRIVER&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;jdbc.driver&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IOException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;或使用 druid 连接池技术，那么 properties 中的 key 是有要求的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;不用数据链接池的时候&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Connection&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createConn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+     &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+         &lt;span class=&#34;c1&#34;&gt;// 1. 加载驱动
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;forName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DRIVER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+         &lt;span class=&#34;c1&#34;&gt;// 2. 通过驱动管理器获取连接对象
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DriverManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getConnection&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;用&lt;strong&gt;druid 后&lt;/strong&gt;， 常用代码还是要熟练&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Connection&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createConn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+     &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;DruidDataSource&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;druidDataSource&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;DruidDataSourc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;druidDataSource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setDriverClassName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DRIVER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;druidDataSource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setDriverClassName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;druidDataSource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setDriverClassName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;druidDataSource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setDriverClassName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+
+         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;druidDataSource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getConnection&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+ &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;工厂模式&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```java
+static Properties properties = new Properties();
+
+ static {
+    InputStream is = ConnUtil.class.getClassLoader().getResourcesAsStream(&amp;quot;jdbc.properties&amp;quot;);
+    
+    try {
+        properties.load(is);
+
+      
+    } catch(IOException e) {
+        ...
+    }
+}
+
+ private static Connection createConn() {
+
+     try {
+        DataSource druidDataSource = DruidDataSourceFactory. createDataSource(properties);
+        
+        ...
+        
+         return druidDataSource.getConnection();
+     }
+ }
+
+```
+&lt;/code&gt;&lt;/pre&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/javaweb2/&#34; &gt;javaweb2&lt;/a&gt;
 &lt;a href=&#34;https://rileyshen.github.io/post/javaweb3/&#34; &gt;javaweb3&lt;/a&gt;
@@ -2320,11 +2540,216 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
     </item>
     
     <item>
-      <title>java web project--learning through building 6</title>
+      <title>java web project--learning through building 5</title>
       <link>https://rileyshen.github.io/post/javaweb6/</link>
       <pubDate>Tue, 12 Jan 2021 11:56:39 +0800</pubDate>
       
       <guid>https://rileyshen.github.io/post/javaweb6/</guid>
+      
+        <description>&lt;p&gt;a full-stack web application for users to understand java web system&lt;/p&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E4%B9%A6%E5%9F%8E%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; &gt;书城业务需求&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; &gt;业务需求&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34; &gt;数据库设计&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#index-%E9%A1%B5%E9%9D%A2&#34; &gt;index 页面&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E9%87%91%E9%A2%9D%E7%9A%84%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98&#34; &gt;金额的精度问题&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%BF%87%E6%BB%A4%E5%99%A8%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E5%90%88%E6%B3%95%E7%94%A8%E6%88%B7&#34; &gt;过滤器判断是否是合法用户&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#vue&#34; &gt;Vue&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#axios&#34; &gt;Axios&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#axios-%E6%89%A7%E8%A1%8C-ajax-%E6%93%8D%E4%BD%9C%E7%9A%84%E6%AD%A5%E9%AA%A4&#34; &gt;Axios 执行 Ajax 操作的步骤&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;h3 id=&#34;书城业务需求&#34;&gt;书城业务需求&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E4%B9%A6%E5%9F%8E%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; name=&#34;%E4%B9%A6%E5%9F%8E%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;业务需求&#34;&gt;业务需求&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34; name=&#34;%E4%B8%9A%E5%8A%A1%E9%9C%80%E6%B1%82&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;需求分析&lt;/li&gt;
+&lt;li&gt;数据库设计&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;实体分析
+&lt;ul&gt;
+&lt;li&gt;图书                Book&lt;/li&gt;
+&lt;li&gt;用户                User&lt;/li&gt;
+&lt;li&gt;订单                OrderBean&lt;/li&gt;
+&lt;li&gt;订单详情             OrderItem&lt;/li&gt;
+&lt;li&gt;购物车项             CartItem&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;实体属性分析
+&lt;ul&gt;
+&lt;li&gt;图书 : 书名、作者、价格、销量、库存、封面、状态&lt;/li&gt;
+&lt;li&gt;用户 : 用户名、密码、邮箱&lt;/li&gt;
+&lt;li&gt;订单 : 订单编号、订单日期、订单金额、订单数量、订单状态、用户&lt;/li&gt;
+&lt;li&gt;订单详情 : 图书、数量、所属订单&lt;/li&gt;
+&lt;li&gt;购物车项 : 图书、数量、所属用户&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;数据库设计&#34;&gt;数据库设计&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34; name=&#34;%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;index-页面&#34;&gt;index 页面&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-index-%E9%A1%B5%E9%9D%A2&#34; name=&#34;index-%E9%A1%B5%E9%9D%A2&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新建 BookDAO 、 BookDAOImpl ： getBookList()&lt;/li&gt;
+&lt;li&gt;新建 BookService 、 BookServiceImpl : getBookList()&lt;/li&gt;
+&lt;li&gt;新建 BookController : index()&lt;/li&gt;
+&lt;li&gt;编辑 index.html&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;金额的精度问题&#34;&gt;金额的精度问题&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E9%87%91%E9%A2%9D%E7%9A%84%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98&#34; name=&#34;%E9%87%91%E9%A2%9D%E7%9A%84%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;double vs bigdecimal&lt;/p&gt;
+&lt;h4 id=&#34;过滤器判断是否是合法用户&#34;&gt;过滤器判断是否是合法用户&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E8%BF%87%E6%BB%A4%E5%99%A8%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E5%90%88%E6%B3%95%E7%94%A8%E6%88%B7&#34; name=&#34;%E8%BF%87%E6%BB%A4%E5%99%A8%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E6%98%AF%E5%90%88%E6%B3%95%E7%94%A8%E6%88%B7&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;解决方法：新建 SessionFilter ， 用来判断 session 中是否保存了 currUser&lt;/li&gt;
+&lt;li&gt;如果没有 currUser，表明当前不是一个登录合法的用户，应该跳转到登录页面让其登录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;vue&#34;&gt;Vue&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-vue&#34; name=&#34;vue&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;{{}} - 相当于 innerText&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;v-bind:attr 绑定属性值。例如，v-bind:value - 绑定 value 值
+简写：    :value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;v-model 双向绑定&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;v-model:value   , 简写  v-model&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;v-if , v-else , v-show&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;v-if 和 v-else 之间不能有其他的节点&lt;/p&gt;
+&lt;p&gt;v-show 是通过样式表 display 来控制节点是否显示&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;v-for 迭代&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;v-for={fruit in fruitList}&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;v-on 绑定事件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;其他&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;trim:去除首尾空格 , split() , join()&lt;/li&gt;
+&lt;li&gt;watch 表示侦听属性&lt;/li&gt;
+&lt;li&gt;生命周期&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;axios&#34;&gt;Axios&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-axios&#34; name=&#34;axios&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Axios 是 Ajax 的一个框架,简化 Ajax 操作&lt;/p&gt;
+&lt;h4 id=&#34;axios-执行-ajax-操作的步骤&#34;&gt;Axios 执行 Ajax 操作的步骤&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-axios-%E6%89%A7%E8%A1%8C-ajax-%E6%93%8D%E4%BD%9C%E7%9A%84%E6%AD%A5%E9%AA%A4&#34; name=&#34;axios-%E6%89%A7%E8%A1%8C-ajax-%E6%93%8D%E4%BD%9C%E7%9A%84%E6%AD%A5%E9%AA%A4&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;添加并引入 axios 的 js 文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;客户端向服务器端异步发送普通参数值&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;基本格式： axios().then().catch()&lt;/li&gt;
+&lt;li&gt;示例&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;axios&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;method&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;POST&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;....&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;uname&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;lina&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ok&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){})&lt;/span&gt;          &lt;span class=&#34;c1&#34;&gt;//成功响应时执行的回调        value.data可以获取到服务器响应内容
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;reason&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){});&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;//有异常时执行的回调          reason.response.data可以获取到响应的内容
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre&gt;&lt;code&gt;                                                        reason.message / reason.stack 可以查看错误的信息
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;客户端向服务器发送 JSON 格式的数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;什么是 JSON&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;JSON 是一种数据格式&lt;/p&gt;
+&lt;p&gt;XML 也是一种数据格式&lt;/p&gt;
+&lt;p&gt;XML 格式表示两个学员信息的代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;students&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;student&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;s001&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sname&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;jim&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/sname&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/age&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/student&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;student&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sid&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;s002&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sname&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;tom&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/sname&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/age&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/student&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/students&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;JSON 格式表示两个学员信息的代码如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[{sid:&amp;ldquo;s001&amp;rdquo;,age:18},{sid:&amp;ldquo;s002&amp;rdquo;,age:19}]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;JSON 表达数据更简洁，更能够节约网络带宽&lt;/li&gt;
+&lt;li&gt;客户端发送 JSON 格式的数据给服务器端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;客户端中 params 需要修改成：ata:&lt;/li&gt;
+&lt;li&gt;服务器获取参数值不再是 request.getParameter()&amp;hellip;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;StringBuffer&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stringBuffer&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;StringBuffer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;BufferedReader&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bufferedReader&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getReader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bufferedReader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readLine&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())!=&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;stringBuffer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stringBuffer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;我们会发现 str 的内容如下：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;{&amp;ldquo;uname&amp;rdquo;:&amp;ldquo;lina&amp;rdquo;,&amp;ldquo;pwd&amp;rdquo;:&amp;ldquo;ok&amp;rdquo;}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;服务器端给客户端响应 JSON 格式的字符串，然后客户端需要将字符串转化成 js Object&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/javaweb2/&#34; &gt;javaweb2&lt;/a&gt;
+&lt;a href=&#34;https://rileyshen.github.io/post/javaweb3/&#34; &gt;javaweb3&lt;/a&gt;
+&lt;a href=&#34;https://rileyshen.github.io/post/javaweb4/&#34; &gt;javaweb4&lt;/a&gt;
+&lt;a href=&#34;https://rileyshen.github.io/post/javaweb5/&#34; &gt;javaweb5&lt;/a&gt;
+&lt;a href=&#34;https://rileyshen.github.io/tags/spring/&#34; &gt;spring&lt;/a&gt;
+&lt;a href=&#34;https://rileyshen.github.io/post/springmvc/&#34; &gt;springmvc&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>java web project--learning through building 7</title>
+      <link>https://rileyshen.github.io/post/javaweb7/</link>
+      <pubDate>Tue, 12 Jan 2021 11:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/javaweb7/</guid>
       
         <description>&lt;p&gt;a full-stack web application for users to understand java web system&lt;/p&gt;
 &lt;!-- TOC --&gt;
@@ -2358,7 +2783,12 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
 &lt;li&gt;&lt;a href=&#34;#json--map&#34; &gt;JSON &amp;amp;amp;&amp;amp;amp; Map&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#ajax&#34; &gt;AJAX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#ajax&#34; &gt;AJAX&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#ajax--%E5%BC%82%E6%AD%A5%E7%9A%84-javascript-and-xml&#34; &gt;Ajax : 异步的 JavaScript and XML&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4&#34; &gt;开发步骤&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#use-ajax-invalidate-the-username&#34; &gt;use AJAX invalidate the username&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#use-ajax-to-add-the-item-to-the-cart&#34; &gt;use AJAX to add the item to the cart&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -2618,6 +3048,40 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
 &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;personMap2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;fromJson&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;personJsonString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TypeToken&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;(){}.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;ajax&#34;&gt;AJAX&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-ajax&#34; name=&#34;ajax&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;ajax--异步的-javascript-and-xml&#34;&gt;Ajax : 异步的 JavaScript and XML&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-ajax-%3A-%E5%BC%82%E6%AD%A5%E7%9A%84-javascript-and-xml&#34; name=&#34;ajax-%3A-%E5%BC%82%E6%AD%A5%E7%9A%84-javascript-and-xml&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;目的： 用来发送异步的请求，然后当服务器给我响应的时候再进行回调操作&lt;/p&gt;
+&lt;p&gt;好处： 提高用户体验；局部刷新：降低服务器负担、减轻浏览器压力、减轻网络带宽压力&lt;/p&gt;
+&lt;h4 id=&#34;开发步骤&#34;&gt;开发步骤&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4&#34; name=&#34;%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;创建 XMLHttpRequest&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;调用 open 进行设置：&amp;ldquo;GET&amp;rdquo; , URL , true&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;绑定状态改变时执行的回调函数 - onreadystatechange&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;发送请求 - send()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;编写回调函数，在回调函数中，我们只对 XMLHttpRequest 的 readystate 为 4 的时候感兴趣&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我们只对 XMLHttpRequest 的 status 为 200 的时候感兴趣&lt;/p&gt;
+&lt;p&gt;0: (Uninitialized) the send( ) method has not yet been invoked.
+1: (Loading) the send( ) method has been invoked, request in progress.
+2: (Loaded) the send( ) method has completed, entire response received.
+3: (Interactive) the response is being parsed.
+4: (Completed) the response has been parsed, is ready for harvesting.&lt;/p&gt;
+&lt;p&gt;0 － （未初始化）还没有调用 send()方法
+1 － （载入）已调用 send()方法，正在发送请求
+2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+3 － （交互）正在解析响应内容
+4 － （完成）响应内容解析完成，可以在客户端调用了&lt;/p&gt;
 &lt;h3 id=&#34;use-ajax-invalidate-the-username&#34;&gt;use AJAX invalidate the username&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-use-ajax-invalidate-the-username&#34; name=&#34;use-ajax-invalidate-the-username&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;ajaxExistsUsername&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpServletRequest&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpServletResponse&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;throws&lt;/span&gt;
@@ -2691,11 +3155,11 @@ ContextLoaderListener在容器启动时会执行初始化任务，而它的操�
     </item>
     
     <item>
-      <title>java web project--learning through building 7</title>
-      <link>https://rileyshen.github.io/post/javaweb7/</link>
+      <title>java web project--learning through building 8</title>
+      <link>https://rileyshen.github.io/post/javaweb8/</link>
       <pubDate>Tue, 12 Jan 2021 11:56:39 +0800</pubDate>
       
-      <guid>https://rileyshen.github.io/post/javaweb7/</guid>
+      <guid>https://rileyshen.github.io/post/javaweb8/</guid>
       
         <description>&lt;p&gt;a full-stack web application for users to understand java web system&lt;/p&gt;
 &lt;h3 id=&#34;复习&#34;&gt;复习&lt;/h3&gt;

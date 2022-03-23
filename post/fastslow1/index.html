@@ -139,7 +139,7 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">14-minute read</span>
+                <span class="reading-time">16-minute read</span>
             </div>
             
         </div>
@@ -153,8 +153,8 @@
 <li><a href="#reorder-list-143" >Reorder List 143</a></li>
 <li><a href="#remove-duplicates-from-sorted-array-26" >Remove Duplicates from Sorted Array 26</a></li>
 <li><a href="#find-the-duplicate-number-287" >Find the Duplicate Number 287</a></li>
-<li><a href="#maximum-twin-sum-of-a-linked-lis" >Maximum Twin Sum of a Linked Lis</a></li>
-<li><a href="#delete-the-middle-node-of-a-linked-list" >Delete the Middle Node of a Linked List</a></li>
+<li><a href="#maximum-twin-sum-of-a-linked-li" >Maximum Twin Sum of a Linked Li</a></li>
+<li><a href="#delete-the-middle-node-of-a-linked-lis" >Delete the Middle Node of a Linked Lis</a></li>
 <li><a href="#convert-sorted-list-to-binary-search-tree-109" >Convert Sorted List to Binary Search Tree 109</a></li>
 <li><a href="#car-fleet-ii-1776" >Car Fleet II 1776</a></li>
 </ul>
@@ -518,8 +518,8 @@ Output: <span class="m">2</span>
     <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
 <span class="o">}</span>
 
-</code></pre></div><h2 id="maximum-twin-sum-of-a-linked-li">Maximum Twin Sum of a Linked Li</h2>
-<p><a id="markdown-maximum-twin-sum-of-a-linked-lis" name="maximum-twin-sum-of-a-linked-lis"></a>s</p>
+</code></pre></div><h2 id="maximum-twin-sum-of-a-linked-l">Maximum Twin Sum of a Linked L</h2>
+<p><a id="markdown-maximum-twin-sum-of-a-linked-li" name="maximum-twin-sum-of-a-linked-li"></a>i</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">In a linked list of size n, where n is even, the ith node <span class="o">(</span>0-indexed<span class="o">)</span> of the linked list is known as the twin of the <span class="o">(</span>n-1-i<span class="o">)</span>th node, <span class="k">if</span> <span class="m">0</span> &lt;<span class="o">=</span> i &lt;<span class="o">=</span> <span class="o">(</span>n / 2<span class="o">)</span> - 1.
 
 For example, <span class="k">if</span> <span class="nv">n</span> <span class="o">=</span> 4, <span class="k">then</span> node <span class="m">0</span> is the twin of node 3, and node <span class="m">1</span> is the twin of node 2. These are the only nodes with twins <span class="k">for</span> <span class="nv">n</span> <span class="o">=</span> 4.
@@ -593,8 +593,8 @@ Thus, the maximum twin sum of the linked list is 6.
         <span class="n">maxSum</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxSum</span><span class="o">,</span> <span class="n">head</span><span class="o">.</span><span class="na">val</span> <span class="o">+</span> <span class="n">prev</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
         <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre></div><h2 id="delete-the-middle-node-of-a-linked-lis">Delete the Middle Node of a Linked Lis</h2>
-<p><a id="markdown-delete-the-middle-node-of-a-linked-list" name="delete-the-middle-node-of-a-linked-list"></a>t</p>
+</code></pre></div><h2 id="delete-the-middle-node-of-a-linked-li">Delete the Middle Node of a Linked Li</h2>
+<p><a id="markdown-delete-the-middle-node-of-a-linked-lis" name="delete-the-middle-node-of-a-linked-lis"></a>s</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given the head of a linked list. Delete the middle node, and <span class="k">return</span> the head of the modified linked list.
 
 The middle node of a linked list of size n is the ⌊n / 2⌋th node from the start using 0-based indexing, where ⌊x⌋ denotes the largest integer less than or equal to x.
@@ -747,12 +747,117 @@ For simplicity, cars can be considered as points moving along the number line. T
 
 Return an array answer, where answer<span class="o">[</span>i<span class="o">]</span> is the time, in seconds, at which the ith car collides with the next car, or -1 <span class="k">if</span> the car does not collide with the next car. Answers within 10-5 of the actual answers are accepted.
 
-
 Example 1:
 
 Input: <span class="nv">cars</span> <span class="o">=</span> <span class="o">[[</span>1,2<span class="o">]</span>,<span class="o">[</span>2,1<span class="o">]</span>,<span class="o">[</span>4,3<span class="o">]</span>,<span class="o">[</span>7,2<span class="o">]]</span>
 Output: <span class="o">[</span>1.00000,-1.00000,3.00000,-1.00000<span class="o">]</span>
 Explanation: After exactly one second, the first car will collide with the second car, and form a car fleet with speed <span class="m">1</span> m/s. After exactly <span class="m">3</span> seconds, the third car will collide with the fourth car, and form a car fleet with speed <span class="m">2</span> m/s.
+</code></pre></div><p><strong>Imagine a,b,c on the road, if the a catches b later than b catched c, then a won&rsquo;t catch b but b+c</strong></p>
+<p>Complexity</p>
+<p>Time O(n)</p>
+<p>Space O(n)</p>
+<p><strong>a, b, c, d, 如果 c 追上了 d， b 就有 3 个情况： 能追上； 追不上 c， 但是追上 d； c, d 都追不上</strong></p>
+<p>此处的详细说明：</p>
+<ol>
+<li>如果当前车的车速 &lt;= 栈顶车的车速，则当前车永远无法追上栈顶车，因此总是可以 pop 出栈顶车；</li>
+<li>否则，如果当前车的车速 &gt; 栈顶车：
+2.1 如果栈顶车的追上更右侧车辆的时间为 -1 (永远追不上)，则不能 pop 出;
+2.2 否则，则判断在 “理想状态(即栈顶车不会追上更右侧车)”下 ，当前车的追上栈顶车的时间 T
+(也就是下面代码里的式子)，如果 T &gt; res<a href="%e5%8d%b3%e6%a0%88%e9%a1%b6%e8%bd%a6%e7%9a%84%e5%ae%9e%e9%99%85%e8%bf%bd%e5%8f%8a%e6%97%b6%e9%97%b4" >st.top()</a>，
+说明不能在右侧车追上更右侧车之前追上，应当 pop；否则能在碰撞前追上。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">double</span><span class="o">[]</span> <span class="nf">getCollisionTimes</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">cars</span><span class="o">)</span> <span class="o">{</span>
+        
+        
+       <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">double</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">],</span> <span class="n">s</span> <span class="o">=</span> <span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">peekLast</span><span class="o">(),</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">cars</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">0</span><span class="o">],</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">cars</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+                
+                <span class="cm">/** Now we have either one of situations
+</span><span class="cm">                    1. c1 is slower than c2
+</span><span class="cm">                    2. c1 potentially catches c2 AFTER c2 vanishes
+</span><span class="cm">                    
+</span><span class="cm">                    Claim: no car before c1 will vanish into c2 
+</span><span class="cm">                    
+</span><span class="cm">                    1. ==&gt; cars before c1 will vanish into c1 first before catching c2 
+</span><span class="cm">                    2. &lt;==&gt; c2 &#34;vanishes&#34; into another car even before c1 catches it
+</span><span class="cm">                
+</span><span class="cm">                    
+</span><span class="cm">                Either way, c2 can not be catched by c1 or cars beofre c1 ==&gt; poll it out from stack
+</span><span class="cm">                
+</span><span class="cm">                */</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">&lt;=</span> <span class="n">s2</span> <span class="o">||</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span> <span class="o">*</span> <span class="o">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">p</span><span class="o">)</span> <span class="o">/</span> <span class="o">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s2</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="n">res</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">res</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">stack</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">peekLast</span><span class="o">(),</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">cars</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">0</span><span class="o">],</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">cars</span><span class="o">[</span><span class="n">j</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+                <span class="n">res</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span> <span class="o">*</span> <span class="o">(</span><span class="n">p2</span> <span class="o">-</span> <span class="n">p</span><span class="o">)</span> <span class="o">/</span> <span class="o">(</span><span class="n">s</span> <span class="o">-</span> <span class="n">s2</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">stack</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>O(N\log N)O(NlogN)</p>
+<p>一个相对直观的思路是：我们按照时间大小顺序，先找出最先相遇的两辆车，再找出随后相遇的两辆车，最终找出最后相遇的两辆车。由于两辆车相遇后会「变为一辆车」，因此最多找 n-1n−1 次即可。</p>
+<p>我们使用优先队列来维护这一关系。优先队列的每个元素 \textit{Node}Node 代表每次「相遇」，它具有三个属性：距离起点较近的车 \textit{low}low，距离起点较远的车 \textit{high}high，以及它们相撞所需的时间 tt。</p>
+<p>初始时，最先相撞的两辆车，一定来自两辆直接相邻的车。因此，我们首先遍历 \textit{cars}cars 数组，将 n-1n−1 对相邻的车加入到优先队列当中。</p>
+<p>随后，我们不断取出优先队列的头部元素 \textit{Node}Node，随后：</p>
+<p>将第 \textit{Node}.\textit{low}Node.low 辆车的相遇时间设置为 \textit{Node}.\textit{t}Node.t，放入结果数组中。
+将第 \textit{Node}.\textit{low}Node.low 辆车以某种形式「删除」。因为两车相遇后，由于两车的速度都变为较慢车的速度，故随后的时间里就只需要考虑第 \textit{Node}.\textit{high}Node.high 辆车。
+第 \textit{Node}.\textit{low}Node.low 辆车被删除后，离第 \textit{Node}.\textit{high}Node.high 辆车后面最近的那辆车也发生了变化。因此，要找出删除后离第 \textit{Node}.\textit{high}Node.high 辆车后面最近的那辆车，并将该车与第 \textit{Node}.\textit{high}Node.high 辆车放入优先队列当中</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">id</span><span class="o">;</span> <span class="c1">// car_id
+</span><span class="c1"></span>        <span class="kt">double</span> <span class="n">time</span><span class="o">;</span> <span class="c1">// the time for collision with the next car
+</span><span class="c1"></span>        
+        <span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="kt">int</span> <span class="n">_id</span><span class="o">,</span> <span class="kt">double</span> <span class="n">_time</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">id</span> <span class="o">=</span> <span class="n">_id</span><span class="o">;</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">_time</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">double</span><span class="o">[]</span> <span class="nf">getCollisionTimes</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">cars</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">pq</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;(</span><span class="n">200000</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Double</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">time</span><span class="o">,</span> <span class="n">b</span><span class="o">.</span><span class="na">time</span><span class="o">));</span>
+        
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="o">][</span><span class="n">1</span><span class="o">])</span> <span class="o">{</span> <span class="c1">// if there could be collision for i-th car and i+1-th car
+</span><span class="c1"></span>                <span class="n">pq</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="o">(</span><span class="kt">double</span><span class="o">)(</span><span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">])</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)(</span><span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">cars</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="o">][</span><span class="n">1</span><span class="o">])));</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="kt">double</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">);</span>
+        <span class="n">TreeSet</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeSet</span><span class="o">&lt;&gt;();</span> <span class="c1">// used to record all alive cars
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ts</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">while</span> <span class="o">(!</span><span class="n">pq</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">res</span><span class="o">[</span><span class="n">cur</span><span class="o">.</span><span class="na">id</span><span class="o">]</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">)</span> <span class="c1">// this means such car is already processed in previous steps
+</span><span class="c1"></span>                <span class="k">continue</span><span class="o">;</span>
+            <span class="n">res</span><span class="o">[</span><span class="n">cur</span><span class="o">.</span><span class="na">id</span><span class="o">]</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">time</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">ts</span><span class="o">.</span><span class="na">lower</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">id</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="c1">// if there is no previous car, no need for update
+</span><span class="c1"></span>                <span class="k">continue</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">lower</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">id</span><span class="o">);</span> <span class="c1">// find the previous alive car
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="na">higher</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">id</span><span class="o">);</span> <span class="c1">// find the next car, since this is the next car of the previous car now
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">cars</span><span class="o">[</span><span class="n">prev</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">cars</span><span class="o">[</span><span class="n">next</span><span class="o">][</span><span class="n">1</span><span class="o">])</span> <span class="o">{</span> <span class="c1">// update the information of previous car
+</span><span class="c1"></span>                <span class="n">pq</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="n">prev</span><span class="o">,</span> <span class="o">(</span><span class="kt">double</span><span class="o">)(</span><span class="n">cars</span><span class="o">[</span><span class="n">next</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">cars</span><span class="o">[</span><span class="n">prev</span><span class="o">][</span><span class="n">0</span><span class="o">])</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)(</span><span class="n">cars</span><span class="o">[</span><span class="n">prev</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">cars</span><span class="o">[</span><span class="n">next</span><span class="o">][</span><span class="n">1</span><span class="o">])));</span> 
+            <span class="o">}</span>
+            <span class="n">ts</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">id</span><span class="o">);</span> <span class="c1">// such car is dead, remove it
+</span><span class="c1"></span>        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
 </code></pre></div><p>😼😼😼😼</p>
 <ul>
 <li>😼<a href="https://rileyshen.github.io/post/2pointers1/" >2pointers1</a></li>

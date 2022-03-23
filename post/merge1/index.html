@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about Merge Intervals 1 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/merge1/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about Merge Intervals 1"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about Merge Intervals 1</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">24-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>my Merge Intervalsleet code list <a href="https://leetcode.com/list?selectedList=9471z7uh"  target="_blank" >leetcode</a></p>
+<!-- TOC -->
+<ul>
+<li><a href="#insert-interval-57" >Insert Interval 57</a></li>
+<li><a href="#employee-free-time-759" >Employee Free Time 759</a></li>
+<li><a href="#merge-intervals-56" >Merge Intervals 56</a></li>
+<li><a href="#the-skyline-problem-218" >The Skyline Problem 218</a></li>
+<li><a href="#non-overlapping-intervals-435" >Non-overlapping Intervals 435</a></li>
+<li><a href="#meeting-rooms-252" >Meeting Rooms 252</a></li>
+<li><a href="#meeting-rooms-ii-253" >Meeting Rooms II 253</a></li>
+<li><a href="#linked-list-cycle-141" >Linked List Cycle 141</a></li>
+<li><a href="#linked-list-cycle-ii-142" >Linked List Cycle II 142</a></li>
+<li><a href="#happy-number-202" >Happy Number 202</a></li>
+<li><a href="#reorder-list-143" >Reorder List 143</a></li>
+<li><a href="#remove-duplicates-from-sorted-array-26" >Remove Duplicates from Sorted Array 26</a></li>
+<li><a href="#find-the-duplicate-number-287" >Find the Duplicate Number 287</a></li>
+<li><a href="#maximum-twin-sum-of-a-l" >Maximum Twin Sum of a L</a></li>
+<li><a href="#delete-the-middle-node-of-a-li" >Delete the Middle Node of a Li</a></li>
+<li><a href="#convert-sorted-list-to-binary-search-tree-109" >Convert Sorted List to Binary Search Tree 109</a></li>
+<li><a href="#car-fleet-ii-1776" >Car Fleet II 1776</a></li>
+</ul>
+<!-- /TOC -->
+<p>区间合并模式是一个用来处理有区间重叠的很高效的技术。在设计到区间的很多问题中，通常咱们需要要么判断是否有重叠，要么合并区间，如果他们重叠的话。这个模式是这么起作用的：</p>
+<p>怎么识别啥时候用合并区间模式呀？</p>
+<p>当你需要产生一堆相互之间没有交集的区间的时候
+当你听到重叠区间的时候
+经典题目：</p>
+<h2 id="insert-interval-57">Insert Interval 57</h2>
+<p><a id="markdown-insert-interval-57" name="insert-interval-57"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an array of non-overlapping intervals intervals where intervals<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>starti, endi<span class="o">]</span> represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval <span class="nv">newInterval</span> <span class="o">=</span> <span class="o">[</span>start, end<span class="o">]</span> that represents the start and end of another interval.
+
+Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals <span class="o">(</span>merge overlapping intervals <span class="k">if</span> necessary<span class="o">)</span>.
+
+Return intervals after the insertion.
+
+Example 1:
+
+Input: <span class="nv">intervals</span> <span class="o">=</span> <span class="o">[[</span>1,3<span class="o">]</span>,<span class="o">[</span>6,9<span class="o">]]</span>, <span class="nv">newInterval</span> <span class="o">=</span> <span class="o">[</span>2,5<span class="o">]</span>
+Output: <span class="o">[[</span>1,5<span class="o">]</span>,<span class="o">[</span>6,9<span class="o">]]</span>
+
+</code></pre></div><p>input:[
+[1, 2]
+[3, 5]
+[6, 7]
+[8, 10]
+[12, 16]
+]</p>
+<p>newInterval[4, 8]</p>
+<p><strong>[1, 2]中 2 点结束， 早于 4 点开始, 所以 res 中添加 [1, 2]</strong></p>
+<blockquote>
+<p>while (i &lt; intervals.length() &amp;&amp; intervals[i][1] &lt; newInterval[0]) {
+res.add(new int[]{intervals[i][0], intervals[i][1]});
+}</p>
+</blockquote>
+<p>res:
+[1， 2]
+[]</p>
+<p><strong>[3, 5]中 和 4 发生了 overlap， 跳出循环</strong></p>
+<blockquote>
+<p>while (i &lt; intervals.length() &amp;&amp; intervals[i][0] &lt;= newInterval[1]) {
+newInterval[0] = Math.min(intervals[i][0], new Interval[0]); // newInterval[3, 8], [3, 8], [3, 10]
+newInterval[1] = Math.max(intervals[i][1], new Interval[1]); 
+i++;
+}</p>
+</blockquote>
+<p><strong>更新完 newInterval， 加入 res</strong></p>
+<p><strong>[12, 16]中 8 结束的时间小于 12 开始的时间，所以肯定没交集</strong></p>
+<p>☕
+推荐山景城一姐 <a href="https://www.youtube.com/watch?v=E9IYRG_WYcM"  target="_blank" >youtube</a>
+:coffee：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span><span class="o">[][]</span> <span class="nf">insert</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">intervals</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">newInterval</span><span class="o">)</span> <span class="o">{</span>
+      
+        <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">newInterval</span><span class="o">[</span><span class="n">0</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="n">i</span><span class="o">++;</span>
+        <span class="o">}</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">newInterval</span><span class="o">[</span><span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">newInterval</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">newInterval</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]);</span>
+            <span class="n">newInterval</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">newInterval</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]);</span>
+            <span class="n">i</span><span class="o">++;</span>
+        <span class="o">}</span>
+        
+        <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">newInterval</span><span class="o">);</span>
+         <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="n">i</span><span class="o">++;</span>
+        <span class="o">}</span>
+        
+        
+        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="na">toArray</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">()][]);</span>
+    <span class="o">}</span>
+
+
+</code></pre></div><h2 id="employee-free-time-759">Employee Free Time 759</h2>
+<p><a id="markdown-employee-free-time-759" name="employee-free-time-759"></a></p>
+<figure><img src="/images/merge1.png"
+         alt="image"/><figcaption>
+            <h4>merge Intervals</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/merge2.png"
+         alt="image"/><figcaption>
+            <h4>merge Intervals</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Interval</span><span class="o">&gt;</span> <span class="nf">employeeFreeTime</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Interval</span><span class="o">&gt;&gt;</span> <span class="n">schedule</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Interval</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Interval</span><span class="o">&gt;</span> <span class="n">intervals</span> <span class="o">:</span> <span class="n">schedule</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">Interval</span> <span class="n">interval</span> <span class="o">:</span> <span class="n">intervals</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">interval</span><span class="o">.</span><span class="na">start</span><span class="o">,</span> <span class="n">0</span><span class="o">});</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">interval</span><span class="o">.</span><span class="na">end</span><span class="o">,</span> <span class="n">1</span><span class="o">});</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="n">list</span><span class="o">.</span><span class="na">sort</span><span class="o">((</span><span class="n">p1</span><span class="o">,</span> <span class="n">p2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">p1</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">!=</span> <span class="n">p2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">?</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p1</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">p2</span><span class="o">[</span><span class="n">0</span><span class="o">])</span> <span class="o">:</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p1</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">p2</span><span class="o">[</span><span class="n">1</span><span class="o">]));</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">begin</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">pair</span> <span class="o">:</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">pair</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">--;</span>
+            <span class="o">}</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">Interval</span><span class="o">(</span><span class="n">pair</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">pair</span><span class="o">[</span><span class="n">0</span><span class="o">]));</span>
+                <span class="n">begin</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">begin</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">).</span><span class="na">end</span> <span class="o">=</span> <span class="n">pair</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+                <span class="n">begin</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="n">res</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Interval</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">start</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">end</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">Interval</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nf">Interval</span><span class="o">(</span><span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="merge-intervals-56">Merge Intervals 56</h2>
+<p><a id="markdown-merge-intervals-56" name="merge-intervals-56"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of intervals where intervals<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>starti, endi<span class="o">]</span>, merge all overlapping intervals, and <span class="k">return</span> an array of the non-overlapping intervals that cover all the intervals in the input.
+
+Example 1:
+
+Input: <span class="nv">intervals</span> <span class="o">=</span> <span class="o">[[</span>1,3<span class="o">]</span>,<span class="o">[</span>2,6<span class="o">]</span>,<span class="o">[</span>8,10<span class="o">]</span>,<span class="o">[</span>15,18<span class="o">]]</span>
+Output: <span class="o">[[</span>1,6<span class="o">]</span>,<span class="o">[</span>8,10<span class="o">]</span>,<span class="o">[</span>15,18<span class="o">]]</span>
+Explanation: Since intervals <span class="o">[</span>1,3<span class="o">]</span> and <span class="o">[</span>2,6<span class="o">]</span> overlaps, merge them into <span class="o">[</span>1,6<span class="o">]</span>.
+Example 2:
+
+Constraints:
+
+<span class="m">1</span> &lt;<span class="o">=</span> intervals.length &lt;<span class="o">=</span> <span class="m">104</span>
+intervals<span class="o">[</span>i<span class="o">]</span>.length <span class="o">==</span> <span class="m">2</span>
+<span class="m">0</span> &lt;<span class="o">=</span> starti &lt;<span class="o">=</span> endi &lt;<span class="o">=</span> <span class="m">104</span>
+</code></pre></div><p>时间复杂度 O ( n log ⁡ n ) ，空间 O ( n )</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span><span class="o">[][]</span> <span class="nf">merge</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">intervals</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">intervals</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">intervals</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">intervals</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span><span class="n">a</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span><span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        
+    
+        
+        
+        <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span> <span class="c1">// [1, 3] -&gt;
+</span><span class="c1"></span>        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">// start from 1
+</span><span class="c1"></span>            <span class="kt">int</span><span class="o">[]</span> <span class="n">end</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span> <span class="c1">// end = [1, 3] vs intervals[1][0]
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">end</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">])</span> <span class="o">{</span> <span class="c1">// 3 &gt; 2
+</span><span class="c1"></span>                <span class="n">end</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">end</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">]);</span> <span class="c1">// end = [1, 6]
+</span><span class="c1"></span>            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="o">}</span>  
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="na">toArray</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">()][</span><span class="n">2</span><span class="o">]);</span>    
+    <span class="o">}</span>
+</code></pre></div><h2 id="the-skyline-problem-218">The Skyline Problem 218</h2>
+<p><a id="markdown-the-skyline-problem-218" name="the-skyline-problem-218"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">A city<span class="s1">&#39;s skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Given the locations and heights of all the buildings, return the skyline formed by these buildings collectively.
+</span><span class="s1">
+</span><span class="s1">The geometric information of each building is given in the array buildings where buildings[i] = [lefti, righti, heighti]:
+</span><span class="s1">
+</span><span class="s1">lefti is the x coordinate of the left edge of the ith building.
+</span><span class="s1">righti is the x coordinate of the right edge of the ith building.
+</span><span class="s1">heighti is the height of the ith building.
+</span><span class="s1">You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.
+</span><span class="s1">
+</span><span class="s1">The skyline should be represented as a list of &#34;key points&#34; sorted by their x-coordinate in the form [[x1,y1],[x2,y2],...]. Each key point is the left endpoint of some horizontal segment in the skyline except the last point in the list, which always has a y-coordinate 0 and is used to mark the skyline&#39;</span>s termination where the rightmost building ends. Any ground between the leftmost and rightmost buildings should be part of the skyline<span class="err">&#39;</span>s contour.
+
+Note: There must be no consecutive horizontal lines of equal height in the output skyline. For instance, <span class="o">[</span>...,<span class="o">[</span><span class="m">2</span> 3<span class="o">]</span>,<span class="o">[</span><span class="m">4</span> 5<span class="o">]</span>,<span class="o">[</span><span class="m">7</span> 5<span class="o">]</span>,<span class="o">[</span><span class="m">11</span> 5<span class="o">]</span>,<span class="o">[</span><span class="m">12</span> 7<span class="o">]</span>,...<span class="o">]</span> is not acceptable<span class="p">;</span> the three lines of height <span class="m">5</span> should be merged into one in the final output as such: <span class="o">[</span>...,<span class="o">[</span><span class="m">2</span> 3<span class="o">]</span>,<span class="o">[</span><span class="m">4</span> 5<span class="o">]</span>,<span class="o">[</span><span class="m">12</span> 7<span class="o">]</span>,...<span class="o">]</span>
+
+
+Example 1:
+
+Input: <span class="nv">buildings</span> <span class="o">=</span> <span class="o">[[</span>2,9,10<span class="o">]</span>,<span class="o">[</span>3,7,15<span class="o">]</span>,<span class="o">[</span>5,12,12<span class="o">]</span>,<span class="o">[</span>15,20,10<span class="o">]</span>,<span class="o">[</span>19,24,8<span class="o">]]</span>
+Output: <span class="o">[[</span>2,10<span class="o">]</span>,<span class="o">[</span>3,15<span class="o">]</span>,<span class="o">[</span>7,12<span class="o">]</span>,<span class="o">[</span>12,0<span class="o">]</span>,<span class="o">[</span>15,10<span class="o">]</span>,<span class="o">[</span>20,8<span class="o">]</span>,<span class="o">[</span>24,0<span class="o">]]</span>
+Explanation:
+Figure A shows the buildings of the input.
+Figure B shows the skyline formed by those buildings. The red points in figure B represent the key points in the output list.
+</code></pre></div><p>[[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">getSkyline</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">buildings</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="cm">/*
+</span><span class="cm">        [L, R, H]   -&gt; [L, R]       [R, H]
+</span><span class="cm">        [[2,9,10],      [2,-10],    [9,10]
+</span><span class="cm">        [3,7,15],       [3,-15],    [7,15] 
+</span><span class="cm">        [5,12,12],      [5,-12],    [12,12]
+</span><span class="cm">        [15,20,10],
+</span><span class="cm">        [19,24,8]]
+</span><span class="cm">        
+</span><span class="cm">        用正负区分是左端点还是右端点
+</span><span class="cm">        然后排列他们, 但是高度是按降序排列处理
+</span><span class="cm">        [2,-10],
+</span><span class="cm">        [3,-15],
+</span><span class="cm">        [5,-12],
+</span><span class="cm">         [7,15]
+</span><span class="cm">         [9,10]
+</span><span class="cm">        */</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">buildLines</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">points</span> <span class="o">:</span> <span class="n">buildings</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">buildLines</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">points</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="o">-</span><span class="n">points</span><span class="o">[</span><span class="n">2</span><span class="o">]});</span>
+            <span class="n">buildLines</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">points</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">points</span><span class="o">[</span><span class="n">2</span><span class="o">]});</span>
+        <span class="o">}</span>
+        
+        <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">buildLines</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">!=</span> <span class="n">b</span><span class="o">[</span><span class="n">0</span><span class="o">])</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">a</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+        
+        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">maxHeap</span> <span class="o">=</span> <span class="k">new</span>  <span class="n">PriorityQueue</span><span class="o">&lt;&gt;((</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="o">);</span>
+        <span class="n">maxHeap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">preHightest</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">points</span> <span class="o">:</span> <span class="n">buildLines</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">points</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>    <span class="c1">// h[1] &lt; 0, that means it meets a new building, so add it to pq
+</span><span class="c1"></span>                <span class="n">maxHeap</span><span class="o">.</span><span class="na">add</span><span class="o">(-</span><span class="n">points</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">maxHeap</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">points</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span> <span class="c1">// h[1] &gt;=0, that means it has reached the end of the building, so remove it from pq
+</span><span class="c1"></span>            <span class="o">}</span>
+            <span class="c1">// the current max height in all encountered buildings
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">curHeight</span> <span class="o">=</span> <span class="n">maxHeap</span><span class="o">.</span><span class="na">peek</span><span class="o">();</span>
+             <span class="c1">// if the max height is different from the previous one, that means a critical point is met, add to result list
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">curHeight</span> <span class="o">!=</span> <span class="n">preHightest</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">points</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">curHeight</span><span class="o">));</span>
+                <span class="n">preHightest</span> <span class="o">=</span> <span class="n">curHeight</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>Time complexity = O(n^2)</p>
+<p>O(n) space</p>
+<p>优先队列的 remove 操作需要先经过 O(n)O(n) 的复杂度进行查找，再通过 O(\log{n})O(logn) 的复杂度进行删除。因此整个 remove 操作的复杂度是 O(n)O(n) 的，这导致了我们算法整体复杂度为 O(n^2)</p>
+<p>☕☕☕</p>
+<p>O(nlogn) time</p>
+<p>首先考虑，如果只给一个建筑 [x, y, h]，那么答案是多少？</p>
+<p>很明显输出的解将会是 [[x, h], [y, 0]]，也就是左上角和右下角坐标。</p>
+<p>接下来考虑，如果有建筑 A B C D E，我们知道了建筑 A B C 输出的解和 D E 输出的解，那么怎么把这两组解合并，得到 A B C D E 输出的解。</p>
+<p>{{0,2,3},       {2,5,3}}</p>
+<blockquote>
+<p>left: [[0, 3], [2, 0]] //左上角, 右下</p>
+</blockquote>
+<blockquote>
+<p>right: [[2, 3], [5, 0]] //左上角, 右下</p>
+</blockquote>
+<p><strong>第一轮， left:[0, 3], right:[2, 3]</strong></p>
+<p>x1 = 0, x2 = 2</p>
+<p>leftH = temp[1]; // 3</p>
+<p>res.add[0, 3]</p>
+<p><strong>第二轮， left:[2, 0], right:[2, 3]</strong></p>
+<p>x1 = 2, x2 = 2</p>
+<p>leftH = temp[1]; // 0 
+rightH = right.pollFirst()[1]; // 3</p>
+<p>res 不加</p>
+<p><strong>第三轮， right:[5, 0]</strong></p>
+<p>x = 5</p>
+<p>rightH = right.pollFirst()[1]; // 0</p>
+<p>res.add[5, 0]</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">getSkyline</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">buildings</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="n">merge</span><span class="o">(</span><span class="n">buildings</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">buildings</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+ <span class="o">}</span>
+
+ <span class="kd">private</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="nf">merge</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">buildings</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lo</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hi</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">LinkedList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">lo</span> <span class="o">&gt;</span> <span class="n">hi</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+     <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">lo</span> <span class="o">==</span> <span class="n">hi</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">buildings</span><span class="o">[</span><span class="n">lo</span><span class="o">][</span><span class="n">0</span><span class="o">],</span> <span class="n">buildings</span><span class="o">[</span><span class="n">lo</span><span class="o">][</span><span class="n">2</span><span class="o">]});</span> <span class="c1">//  [[x, h], [y, 0]]
+</span><span class="c1"></span>         <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">buildings</span><span class="o">[</span><span class="n">lo</span><span class="o">][</span><span class="n">1</span><span class="o">],</span> <span class="n">0</span><span class="o">});</span>
+         <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+     <span class="o">}</span>
+
+     <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">lo</span> <span class="o">+</span> <span class="o">(</span><span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span><span class="o">)/</span><span class="n">2</span><span class="o">;</span>
+     <span class="n">LinkedList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">left</span> <span class="o">=</span> <span class="n">merge</span><span class="o">(</span><span class="n">buildings</span><span class="o">,</span> <span class="n">lo</span><span class="o">,</span> <span class="n">mid</span><span class="o">);</span> <span class="c1">// left: [[0, 3], [2, 0]] 
+</span><span class="c1"></span>    <span class="n">LinkedList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">right</span> <span class="o">=</span> <span class="n">merge</span><span class="o">(</span><span class="n">buildings</span><span class="o">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">hi</span><span class="o">);</span> <span class="c1">// right: [[2, 3], [5, 0]]
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">leftH</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">rightH</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(!</span><span class="n">left</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="o">!</span><span class="n">right</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">long</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()?</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">:</span> <span class="n">left</span><span class="o">.</span><span class="na">peekFirst</span><span class="o">()[</span><span class="n">0</span><span class="o">];</span> <span class="c1">// 0
+</span><span class="c1"></span>            <span class="kt">long</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">right</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()?</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">:</span> <span class="n">right</span><span class="o">.</span><span class="na">peekFirst</span><span class="o">()[</span><span class="n">0</span><span class="o">];</span> <span class="c1">// 2
+</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">x1</span> <span class="o">&lt;</span> <span class="n">x2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">();</span>  <span class="c1">// [0, 3]
+</span><span class="c1"></span>                <span class="n">x</span> <span class="o">=</span> <span class="n">temp</span><span class="o">[</span><span class="n">0</span><span class="o">];</span> <span class="c1">// 0
+</span><span class="c1"></span>                <span class="n">leftH</span> <span class="o">=</span> <span class="n">temp</span><span class="o">[</span><span class="n">1</span><span class="o">];</span> <span class="c1">// 3
+</span><span class="c1"></span>            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">x1</span> <span class="o">&gt;</span> <span class="n">x2</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">right</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">();</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">temp</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+                <span class="n">rightH</span> <span class="o">=</span> <span class="n">temp</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="na">peekFirst</span><span class="o">()[</span><span class="n">0</span><span class="o">];</span>
+                <span class="n">leftH</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">()[</span><span class="n">1</span><span class="o">];</span>
+                <span class="n">rightH</span> <span class="o">=</span> <span class="n">right</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">()[</span><span class="n">1</span><span class="o">];</span>
+            <span class="o">}</span>
+            <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">leftH</span><span class="o">,</span> <span class="n">rightH</span><span class="o">);</span>    <span class="c1">// 3
+</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="n">h</span> <span class="o">!=</span> <span class="n">res</span><span class="o">.</span><span class="na">peekLast</span><span class="o">()[</span><span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">x</span><span class="o">,</span> <span class="n">h</span><span class="o">});</span> <span class="c1">// [0, 3]
+</span><span class="c1"></span>            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+</code></pre></div><h2 id="non-overlapping-intervals-435">Non-overlapping Intervals 435</h2>
+<p><a id="markdown-non-overlapping-intervals-435" name="non-overlapping-intervals-435"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of intervals intervals where intervals<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>starti, endi<span class="o">]</span>, <span class="k">return</span> the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">intervals</span> <span class="o">=</span> <span class="o">[[</span>1,2<span class="o">]</span>,<span class="o">[</span>2,3<span class="o">]</span>,<span class="o">[</span>3,4<span class="o">]</span>,<span class="o">[</span>1,3<span class="o">]]</span>
+Output: <span class="m">1</span>
+Explanation: <span class="o">[</span>1,3<span class="o">]</span> can be removed and the rest of the intervals are non-overlapping.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">eraseOverlapIntervals</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">intervals</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">intervals</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span> 
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">intervals</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+        
+        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">1</span><span class="o">];</span> 
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> 
+        
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="o">){</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">];</span> 
+                <span class="n">count</span><span class="o">++;</span> 
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">count</span><span class="o">;</span> 
+    <span class="o">}</span>
+
+    <span class="c1">//  int end = Integer.MIN_VALUE;
+</span><span class="c1"></span>    <span class="c1">//     int count = 0;
+</span><span class="c1"></span>    <span class="c1">//     for (Interval interval : intervals) {
+</span><span class="c1"></span>    <span class="c1">//         if (interval.start &gt;= end) end = interval.end;
+</span><span class="c1"></span>    <span class="c1">//         else count++;
+</span><span class="c1"></span>    <span class="c1">//     }
+</span><span class="c1"></span>
+    <span class="c1">//     return count;
+</span><span class="c1"></span>    <span class="c1">// }
+</span><span class="c1"></span>
+      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">eraseOverlapIntervals</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">intervals</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">[[</span><span class="n">1</span><span class="o">,</span><span class="n">100</span><span class="o">],[</span><span class="n">11</span><span class="o">,</span><span class="n">22</span><span class="o">],[</span><span class="n">1</span><span class="o">,</span><span class="n">11</span><span class="o">],[</span><span class="n">2</span><span class="o">,</span><span class="n">12</span><span class="o">]]</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">intervals</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">b</span><span class="o">[</span><span class="n">0</span><span class="o">]));</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">intervals</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+        
+        
+        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        
+        
+       
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+                <span class="n">len</span><span class="o">++;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">len</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">eraseOverlapIntervals</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">intervals</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">intervals</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">intervals</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">b</span><span class="o">[</span><span class="n">0</span><span class="o">]));</span>
+        <span class="kt">int</span> <span class="n">prevEnd</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">intervals</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">prevEnd</span> <span class="o">&gt;</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">0</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+                <span class="n">prevEnd</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">],</span> <span class="n">prevEnd</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">prevEnd</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">1</span><span class="o">];</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="meeting-rooms-252">Meeting Rooms 252</h2>
+<p><a id="markdown-meeting-rooms-252" name="meeting-rooms-252"></a></p>
+<h2 id="meeting-rooms-ii-253">Meeting Rooms II 253</h2>
+<p><a id="markdown-meeting-rooms-ii-253" name="meeting-rooms-ii-253"></a></p>
+<p>Merge Intervals (medium)</p>
+<p>Insert Interval (medium)</p>
+<p>Intervals Intersection (medium)</p>
+<p>Conflicting Appointments (medium)</p>
+<ol start="5">
+<li>Pattern: Cyclic Sort，循环排序
+这种模式讲述的是一直很好玩的方法：可以用来处理数组中的数值限定在一定的区间的问题。这种模式一个个遍历数组中的元素，如果当前这个数它不在其应该在的位置的话，咱们就把它和它应该在的那个位置上的数交换一下。你可以尝试将该数放到其正确的位置上，但这复杂度就会是O(n^2)。这样的话，可能就不是最优解了。因此循环排序的优势就体现出来了。</li>
+</ol>
+<p>咋鉴别这种模式？</p>
+<p>这些问题一般设计到排序好的数组，而且数值一般满足于一定的区间
+如果问题让你需要在排好序/翻转过的数组中，寻找丢失的/重复的/最小的元素</p>
+<p>经典题目：</p>
+<p>Cyclic Sort (easy)</p>
+<p>Find the Missing Number (easy)</p>
+<p>Find all Missing Numbers (easy)</p>
+<p>Find the Duplicate Number (easy)</p>
+<p>Find all Duplicate Numbers (easy)</p>
+<ol start="6">
+<li>Pattern: In-place Reversal of a LinkedList，链表翻转</li>
+</ol>
+<p>在众多问题中，题目可能需要你去翻转链表中某一段的节点。通常，要求都是你得原地翻转，就是重复使用这些已经建好的节点，而不使用额外的空间。这个时候，原地翻转模式就要发挥威力了。</p>
+<p>这种模式每次就翻转一个节点。一般需要用到多个变量，一个变量指向头结点（下图中的current），另外一个（previous）则指向咱们刚刚处理完的那个节点。在这种固定步长的方式下，你需要先将当前节点（current）指向前一个节点（previous），再移动到下一个。同时，你需要将previous总是更新到你刚刚新鲜处理完的节点，以保证正确性。</p>
+<p>咱们怎么去甄别这种模式呢？</p>
+<p>如果你被问到需要去翻转链表，要求不能使用额外空间的时候
+经典题目：</p>
+<p>Reverse a LinkedList (easy)</p>
+<p>Reverse a Sub-list (medium)</p>
+<p>Reverse every K-element Sub-list (medium)</p>
+<ol start="7">
+<li>Pattern: Tree Breadth First Search，树上的BFS
+这种模式基于宽搜（Breadth First Search (BFS)），适用于需要遍历一颗树。借助于队列数据结构，从而能保证树的节点按照他们的层数打印出来。打印完当前层所有元素，才能执行到下一层。所有这种需要遍历树且需要一层一层遍历的问题，都能用这种模式高效解决。</li>
+</ol>
+<p>这种树上的BFS模式是通过把根节点加到队列中，然后不断遍历直到队列为空。每一次循环中，我们都会把队头结点拿出来（remove），然后对其进行必要的操作。在删除每个节点的同时，其孩子节点，都会被加到队列中。</p>
+<p>识别树上的BFS模式：</p>
+<p>如果你被问到去遍历树，需要按层操作的方式（也称作层序遍历）
+经典题目：</p>
+<p>Binary Tree Level Order Traversal (easy)</p>
+<p>Reverse Level Order Traversal (easy)</p>
+<p>Zigzag Traversal (medium)</p>
+<p>Level Averages in a Binary Tree (easy)</p>
+<p>Minimum Depth of a Binary Tree (easy)</p>
+<p>Level Order Successor (easy)</p>
+<p>Connect Level Order Siblings (medium)</p>
+<ol start="8">
+<li>Pattern: Tree Depth First Search，树上的DFS
+树形DFS基于深搜（Depth First Search (DFS)）技术来实现树的遍历。</li>
+</ol>
+<p>咱们可以用递归（或是显示栈，如果你想用迭代方式的话）来记录遍历过程中访问过的父节点。</p>
+<p>该模式的运行方式是从根节点开始，如果该节点不是叶子节点，我们需要干三件事：</p>
+<p>需要区别我们是先处理根节点（pre-order，前序），处理孩子节点之间处理根节点（in-order，中序），还是处理完所有孩子再处理根节点（post-order，后序）。
+递归处理当前节点的左右孩子。
+识别树形DFS：</p>
+<p>你需要按前中后序的DFS方式遍历树
+如果该问题的解一般离叶子节点比较近。
+经典题目：</p>
+<p>Binary Tree Path Sum (easy)</p>
+<p>All Paths for a Sum (medium)</p>
+<p>Sum of Path Numbers (medium)</p>
+<p>Path With Given Sequence (medium)</p>
+<p>Count Paths for a Sum (medium)</p>
+<ol start="9">
+<li>Pattern: Two Heaps，双堆类型
+很多问题中，我们被告知，我们拿到一大把可以分成两队的数字。为了解决这个问题，我们感兴趣的是，怎么把数字分成两半？使得：小的数字都放在一起，大的放在另外一半。双堆模式就能高效解决此类问题。</li>
+</ol>
+<p>正如名字所示，该模式用到了两个堆，是不是很难猜？一个最小堆用来找最小元素；一个最大堆，拿到最大元素。这种模式将一半的元素放在最大堆中，这样你可以从这一堆中秒找到最大元素。同理，把剩下一半丢到最小堆中，O(1)时间找到他们中的最小元素。通过这样的方式，这一大堆元素的中位数就可以从两个堆的堆顶拿到数字，从而计算出来。</p>
+<p>判断双堆模式的秘诀：</p>
+<p>这种模式在优先队列，计划安排问题（Scheduling）中有奇效
+如果问题让你找一组数中的最大/最小/中位数
+有时候，这种模式在涉及到二叉树数据结构时也特别有用
+经典题目：</p>
+<p>Find the Median of a Number Stream (medium)</p>
+<p>Sliding Window Median (hard)</p>
+<p>Maximize Capital (hard)</p>
+<ol start="10">
+<li>Pattern: Subsets，子集类型，一般都是使用多重DFS
+超级多的编程面试问题都会涉及到排列和组合问题。子集问题模式讲的是用BFS来处理这些问题。</li>
+</ol>
+<p>这个模式是这样的：</p>
+<p>给一组数字 [1, 5, 3]</p>
+<p>我们从空集开始：[[]]
+把第一个数（1），加到之前已经存在的集合中：[[], [1]];
+把第二个数（5），加到之前的集合中得到：[[], [1], [5], [1,5]];
+再加第三个数（3），则有：[[], [1], [5], [1,5], [3], [1,3], [5,3], [1,5,3]].
+该模式的详细步骤如下：</p>
+<p>如果判断这种子集模式：</p>
+<p>问题需要咱们去找数字的组合或是排列
+经典题目：</p>
+<p>Subsets (easy)</p>
+<p>Subsets With Duplicates (easy)</p>
+<p>Permutations (medium)</p>
+<p>String Permutations by changing case (medium)</p>
+<p>Balanced Parentheses (hard)</p>
+<p>Unique Generalized Abbreviations (hard)</p>
+<ol start="11">
+<li>Pattern: Modified Binary Search，改造过的二分
+当你需要解决的问题的输入是排好序的数组，链表，或是排好序的矩阵，要求咱们寻找某些特定元素。这个时候的不二选择就是二分搜索。这种模式是一种超级牛的用二分来解决问题的方式。</li>
+</ol>
+<p>对于一组满足上升排列的数集来说，这种模式的步骤是这样的：</p>
+<p>首先，算出左右端点的中点。最简单的方式是这样的：middle = (start + end) / 2。但这种计算方式有不小的概率会出现整数越界。因此一般都推荐另外这种写法：middle = start + (end — start) / 2
+如果要找的目标改好和中点所在的数值相等，我们返回中点的下标就行
+如果目标不等的话：我们就有两种移动方式了
+如果目标比中点在的值小（key &lt; arr[middle]）：将下一步搜索空间放到左边（end = middle - 1）
+如果比中点的值大，则继续在右边搜索，丢弃左边：left = middle + 1
+图示该过程的话，如下图所示：</p>
+<p>经典题目：</p>
+<p>Order-agnostic Binary Search (easy)</p>
+<p>Ceiling of a Number (medium)</p>
+<p>Next Letter (medium)</p>
+<p>Number Range (medium)</p>
+<p>Search in a Sorted Infinite Array (medium)</p>
+<p>Minimum Difference Element (medium)</p>
+<p>Bitonic Array Maximum (easy)</p>
+<ol start="12">
+<li>Pattern: Top ‘K’ Elements，前K个系列
+任何让我们求解最大/最小/最频繁的K个元素的题，都遵循这种模式。</li>
+</ol>
+<p>用来记录这种前K类型的最佳数据结构就是堆了（译者注：在Java中，改了个名，叫优先队列（PriorityQueue））。这种模式借助堆来解决很多这种前K个数值的问题。</p>
+<p>这个模式是这样的：</p>
+<p>根据题目要求，将K个元素插入到最小堆或是最大堆。
+遍历剩下的还没访问的元素，如果当前出来到的这个元素比堆顶元素大，那咱们把堆顶元素先删除，再加当前元素进去。</p>
+<p>注意这种模式下，咱们不需要去排序数组，因为堆具有这种良好的局部有序性，这对咱们需要解决问题就够了。</p>
+<p>识别最大K个元素模式：</p>
+<p>如果你需要求最大/最小/最频繁的前K个元素
+如果你需要通过排序去找一个特定的数
+经典题目：</p>
+<p>Top ‘K’ Numbers (easy)</p>
+<p>Kth Smallest Number (easy)</p>
+<p>‘K’ Closest Points to the Origin (easy)</p>
+<p>Connect Ropes (easy)</p>
+<p>Top ‘K’ Frequent Numbers (medium)</p>
+<p>Frequency Sort (medium)</p>
+<p>Kth Largest Number in a Stream (medium)</p>
+<p>‘K’ Closest Numbers (medium)</p>
+<p>Maximum Distinct Elements (medium)</p>
+<p>Sum of Elements (medium)</p>
+<p>Rearrange String (hard)</p>
+<ol start="13">
+<li>Pattern: K-way merge，多路归并
+K路归并能帮咱们解决那些涉及到多组排好序的数组的问题。</li>
+</ol>
+<p>每当你的输入是K个排好序的数组，你就可以用堆来高效顺序遍历其中所有数组的所有元素。你可以将每个数组中最小的一个元素加入到最小堆中，从而得到全局最小值。当我们拿到这个全局最小值之后，再从该元素所在的数组里取出其后面紧挨着的元素，加入堆。如此往复直到处理完所有的元素。</p>
+<p>该模式是这样的运行的：</p>
+<p>把每个数组中的第一个元素都加入最小堆中
+取出堆顶元素（全局最小），将该元素放入排好序的结果集合里面
+将刚取出的元素所在的数组里面的下一个元素加入堆
+重复步骤2，3，直到处理完所有数字
+识别K路归并：</p>
+<p>该问题的输入是排好序的数组，链表或是矩阵
+如果问题让咱们合并多个排好序的集合，或是需要找这些集合中最小的元素
+经典题目：</p>
+<p>Merge K Sorted Lists (medium)</p>
+<p>Kth Smallest Number in M Sorted Lists (Medium)</p>
+<p>Kth Smallest Number in a Sorted Matrix (Hard)</p>
+<p>Smallest Number Range (Hard)</p>
+<ol start="14">
+<li>Pattern: 0/1 Knapsack (Dynamic Programming)，0/1背包类型</li>
+</ol>
+<p><a href="https://leetcode.com/list/5ve5zu13/">https://leetcode.com/list/5ve5zu13/</a></p>
+<p>经典题目：</p>
+<p>0/1 Knapsack (medium)</p>
+<p>Equal Subset Sum Partition (medium)</p>
+<p>Subset Sum (medium)</p>
+<p>Minimum Subset Sum Difference (hard)</p>
+<ol start="15">
+<li>Pattern: Topological Sort (Graph)，拓扑排序类型
+拓扑排序模式用来寻找一种线性的顺序，这些元素之间具有依懒性。比如，如果事件B依赖于事件A，那A在拓扑排序顺序中排在B的前面。</li>
+</ol>
+<p>这种模式定义了一种简单方式来理解拓扑排序这种技术。</p>
+<p>这种模式是这样奏效的：</p>
+<p>初始化 a) 借助于HashMap将图保存成邻接表形式。 b) 找到所有的起点，用HashMap来帮助记录每个节点的入度
+创建图，找到每个节点的入度 a) 利用输入，把图建好，然后遍历一下图，将入度信息记录在HashMap中
+找所有的起点 a) 所有入度为0的节点，都是有效的起点，而且我们讲他们都加入到一个队列中
+排序 a) 对每个起点，执行以下步骤 —i) 把它加到结果的顺序中 — ii)将其在图中的孩子节点取到 — iii)将其孩子的入度减少1 — iv)如果孩子的入度变为0，则改孩子节点成为起点，将其加入队列中 b) 重复（a）过程，直到起点队列为空。</p>
+<p>拓扑排序模式识别：</p>
+<p>待解决的问题需要处理无环图
+你需要以一种有序的秩序更新输入元素
+需要处理的输入遵循某种特定的顺序
+经典题目：</p>
+<p>Topological Sort (medium)</p>
+<p>Tasks Scheduling (medium)</p>
+<p>Tasks Scheduling Order (medium)</p>
+<p>All Tasks Scheduling Orders (hard)</p>
+<p>Alien Dictionary (hard)</p>
+<p>大家好好练练这些题目，面试中遇到中高等难度的题目，应该就能解得不错了。</p>
+<p>第二门则是单独将动态规划（DP）的题目进行了细分。</p>
+<p>提到算法，绕不开的重点和难点就肯定会包括动态规划 &ndash; DP，本文就把经典的DP问题按照分类列一下，大家可以按照Recursion，Top-Down，Bottom-Up三种方式都练一练。俗话说，熟能生巧，多练才是提高算法的不二法宝。</p>
+<p>课程详细的内容，可以参考这里：</p>
+<p>Grokking Dynamic Programming Patterns for Coding Interviews
+​www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews?aff=K7qB</p>
+<p>该门课程中, 作者将DP的问题分成以下几类:</p>
+<ol>
+<li>0/1 Knapsack, 0/1背包，6个题
+0/1 Knapsack，0/1背包问题</li>
+</ol>
+<p>Equal Subset Sum Partition，相等子集划分问题</p>
+<p>Subset Sum，子集和问题</p>
+<p>Minimum Subset Sum Difference，子集和的最小差问题</p>
+<p>Count of Subset Sum，相等子集和的个数问题</p>
+<p>Target Sum，寻找目标和的问题</p>
+<ol start="2">
+<li>Unbounded Knapsack，无限背包，5个题
+Unbounded Knapsack，无限背包</li>
+</ol>
+<p>Rod Cutting，切钢条问题</p>
+<p>Coin Change，换硬币问题</p>
+<p>Minimum Coin Change，凑齐每个数需要的最少硬币问题</p>
+<p>Maximum Ribbon Cut，丝带的最大值切法</p>
+<ol start="3">
+<li>Fibonacci Numbers，斐波那契数列，6个题
+Fibonacci numbers，斐波那契数列问题</li>
+</ol>
+<p>Staircase，爬楼梯问题</p>
+<p>Number factors，分解因子问题</p>
+<p>Minimum jumps to reach the end，蛙跳最小步数问题</p>
+<p>Minimum jumps with fee，蛙跳带有代价的问题</p>
+<p>House thief，偷房子问题</p>
+<ol start="4">
+<li>Palindromic Subsequence，回文子系列，5个题
+Longest Palindromic Subsequence，最长回文子序列</li>
+</ol>
+<p>Longest Palindromic Substring，最长回文子字符串</p>
+<p>Count of Palindromic Substrings，最长子字符串的个数问题</p>
+<p>Minimum Deletions in a String to make it a Palindrome，怎么删掉最少字符构成回文</p>
+<p>Palindromic Partitioning，怎么分配字符，形成回文</p>
+<ol start="5">
+<li>Longest Common Substring，最长子字符串系列，13个题
+Longest Common Substring，最长相同子串</li>
+</ol>
+<p>Longest Common Subsequence，最长相同子序列</p>
+<p>Minimum Deletions &amp; Insertions to Transform a String into another，字符串变换</p>
+<p>Longest Increasing Subsequence，最长上升子序列</p>
+<p>Maximum Sum Increasing Subsequence，最长上升子序列和</p>
+<p>Shortest Common Super-sequence，最短超级子序列</p>
+<p>Minimum Deletions to Make a Sequence Sorted，最少删除变换出子序列</p>
+<p>Longest Repeating Subsequence，最长重复子序列</p>
+<p>Subsequence Pattern Matching，子序列匹配</p>
+<p>Longest Bitonic Subsequence，最长字节子序列</p>
+<p>Longest Alternating Subsequence，最长交差变换子序列</p>
+<p>Edit Distance，编辑距离</p>
+<p>Strings Interleaving，交织字符串</p>
+<h2 id="linked-list-cycle-141">Linked List Cycle 141</h2>
+<p><a id="markdown-linked-list-cycle-141" name="linked-list-cycle-141"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given head, the head of a linked list, determine <span class="k">if</span> the linked list has a cycle in it.
+
+There is a cycle in a linked list <span class="k">if</span> there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail<span class="err">&#39;</span>s next pointer is connected to. Note that pos is not passed as a parameter.
+
+Return <span class="nb">true</span> <span class="k">if</span> there is a cycle in the linked list. Otherwise, <span class="k">return</span> false.
+
+ 
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>3,2,0,-4<span class="o">]</span>, <span class="nv">pos</span> <span class="o">=</span> <span class="m">1</span>
+Output: <span class="nb">true</span>
+Explanation: There is a cycle in the linked list, where the tail connects to the 1st node <span class="o">(</span>0-indexed<span class="o">)</span>.
+</code></pre></div><p><strong>wrong answer, fast, slow at the head position</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasCycle</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">fast</span> <span class="o">==</span> <span class="n">slow</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    
+    <span class="o">}</span>
+</code></pre></div><p><strong>不用去判断 corner case， 都包含了</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasCycle</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">slow</span> <span class="o">==</span> <span class="n">fast</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="linked-list-cycle-ii-142">Linked List Cycle II 142</h2>
+<p><a id="markdown-linked-list-cycle-ii-142" name="linked-list-cycle-ii-142"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the head of a linked list, <span class="k">return</span> the node where the cycle begins. If there is no cycle, <span class="k">return</span> null.
+
+There is a cycle in a linked list <span class="k">if</span> there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail<span class="err">&#39;</span>s next pointer is connected to <span class="o">(</span>0-indexed<span class="o">)</span>. It is -1 <span class="k">if</span> there is no cycle. Note that pos is not passed as a parameter.
+
+Do not modify the linked list.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>3,2,0,-4<span class="o">]</span>, <span class="nv">pos</span> <span class="o">=</span> <span class="m">1</span>
+Output: tail connects to node index <span class="m">1</span>
+Explanation: There is a cycle in the linked list, where tail connects to the second node.
+</code></pre></div><figure><img src="/images/fs1.png"
+         alt="image"/><figcaption>
+            <h4>fast slow points</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        
+    <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    
+        <span class="k">if</span> <span class="o">(</span><span class="n">fast</span> <span class="o">==</span> <span class="n">slow</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        
+            <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="n">slow</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> 
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+        <span class="o">}</span>  
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="happy-number-202">Happy Number 202</h2>
+<p><a id="markdown-happy-number-202" name="happy-number-202"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Write an algorithm to determine <span class="k">if</span> a number n is happy.
+
+A happy number is a number defined by the following process:
+
+Starting with any positive integer, replace the number by the sum of the squares of its digits.
+Repeat the process <span class="k">until</span> the number equals <span class="m">1</span> <span class="o">(</span>where it will stay<span class="o">)</span>, or it loops endlessly in a cycle which does not include 1.
+Those numbers <span class="k">for</span> which this process ends in <span class="m">1</span> are happy.
+Return <span class="nb">true</span> <span class="k">if</span> n is a happy number, and <span class="nb">false</span> <span class="k">if</span> not.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">n</span> <span class="o">=</span> <span class="m">19</span>
+Output: <span class="nb">true</span>
+Explanation:
+<span class="m">12</span> + <span class="nv">92</span> <span class="o">=</span> <span class="m">82</span>
+<span class="m">82</span> + <span class="nv">22</span> <span class="o">=</span> <span class="m">68</span>
+<span class="m">62</span> + <span class="nv">82</span> <span class="o">=</span> <span class="m">100</span>
+<span class="m">12</span> + <span class="m">02</span> + <span class="nv">02</span> <span class="o">=</span> <span class="m">1</span>
+</code></pre></div><p>statement that if a number ain&rsquo;t happy then it will lead to a <strong>cycle</strong> &hellip; and whenever you hear the word cycle the first thing you should remember is &ldquo;Floyd&rsquo;s cycle-finding algorithm&rdquo; also known as &ldquo;Tortoise and the Hare algorithm&rdquo;</p>
+<p><strong>快慢指针</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isHappy</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="n">n</span><span class="o">,</span><span class="n">f</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span> <span class="c1">// slow , fast
+</span><span class="c1"></span>        
+        <span class="k">do</span><span class="o">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">compute</span><span class="o">(</span><span class="n">s</span><span class="o">);</span> <span class="c1">// slow computes only once
+</span><span class="c1"></span>            <span class="n">f</span> <span class="o">=</span> <span class="n">compute</span><span class="o">(</span><span class="n">compute</span><span class="o">(</span><span class="n">f</span><span class="o">));</span> <span class="c1">// fast computes 2 times
+</span><span class="c1"></span>            
+            <span class="k">if</span><span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span><span class="k">return</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// if we found 1 then happy indeed !!!
+</span><span class="c1"></span>        <span class="o">}</span><span class="k">while</span><span class="o">(</span><span class="n">s</span> <span class="o">!=</span> <span class="n">f</span><span class="o">);</span> <span class="c1">// else at some point they will meet in the cycle
+</span><span class="c1"></span>        
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// it&#39;s a cycle , not happy at all !!!
+</span><span class="c1"></span>          
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compute</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">n</span> <span class="o">!=</span> <span class="n">0</span><span class="o">){</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="o">(</span><span class="n">n</span><span class="o">%</span><span class="n">10</span><span class="o">)*(</span><span class="n">n</span><span class="o">%</span><span class="n">10</span><span class="o">);</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">n</span><span class="o">/</span><span class="n">10</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="reorder-list-143">Reorder List 143</h2>
+<p><a id="markdown-reorder-list-143" name="reorder-list-143"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - <span class="m">1</span> → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - <span class="m">1</span> → L2 → Ln - <span class="m">2</span> → …
+You may not modify the values in the list<span class="err">&#39;</span>s nodes. Only nodes themselves may be changed.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4<span class="o">]</span>
+Output: <span class="o">[</span>1,4,2,3<span class="o">]</span>
+
+</code></pre></div><p><strong>split into two halves, merge</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reorderList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">midNode</span> <span class="o">=</span> <span class="n">midNode</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+        
+       
+       
+        
+        <span class="n">ListNode</span> <span class="n">newNode</span> <span class="o">=</span> <span class="n">reverse</span><span class="o">(</span><span class="n">midNode</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+        <span class="n">midNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        
+        
+        <span class="n">ListNode</span> <span class="n">cur1</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">cur2</span> <span class="o">=</span> <span class="n">newNode</span><span class="o">,</span> <span class="n">cur</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">cur1</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">cur2</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">cur</span> <span class="o">=</span> <span class="n">cur1</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">cur1</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">cur2</span><span class="o">;</span>
+            
+            <span class="n">cur1</span> <span class="o">=</span> <span class="n">cur2</span><span class="o">;</span>
+            <span class="n">cur2</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+       
+    <span class="o">}</span>
+    
+   <span class="n">ListNode</span> <span class="nf">midNode</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
+         <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span>  <span class="n">head</span><span class="o">,</span> <span class="n">slow</span>  <span class="o">=</span>  <span class="n">head</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">fast</span> <span class="o">=</span>  <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span>  <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+   <span class="o">}</span>
+    
+    <span class="n">ListNode</span> <span class="nf">reverse</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">curr</span> <span class="o">=</span>  <span class="n">head</span><span class="o">,</span> <span class="n">prev</span><span class="o">=</span>  <span class="kc">null</span><span class="o">,</span> <span class="n">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">curr</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">next</span>  <span class="o">=</span>  <span class="n">curr</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">curr</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span>  <span class="n">prev</span> <span class="o">;</span>
+            <span class="n">prev</span> <span class="o">=</span>  <span class="n">curr</span><span class="o">;</span>
+            <span class="n">curr</span>  <span class="o">=</span>  <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">prev</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>TIME COMPLEXITY : O(n)</p>
+<p>SPACE COMPLEXITY : O(1)</p>
+<p><strong>Single traversal</strong>
+<a href="https://leetcode.com/problems/reorder-list/discuss/1640806/Java-or-2-Approach-or-2-Pointer-Approach"  target="_blank" >leetcode solution</a></p>
+<figure><img src="/images/fs2.png"
+         alt="image"/><figcaption>
+            <h4>fast slow points</h4>
+        </figcaption>
+</figure>
+
+<p>1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6
+left                     right</p>
+<p>1 -&gt; 6 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 
+left           right</p>
+<p><strong>recursion call</strong></p>
+<p><strong>错误的回溯</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reorderList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">reorder</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+<span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">reorder</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">cur</span><span class="o">,</span> <span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">reorder</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+        
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">cur</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+         <span class="k">if</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">cur</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+       
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>1 -&gt; 2 -&gt; 3 -&gt; 4 
+cur             head
+next
+cur.next = 4</p>
+<p><strong>新循环 cur 又是 1</strong></p>
+<p><strong>这跟传参有关，所以每次都是从 1 开始， 但是弄成全局模式，就是下面讨巧的方法就可以</strong></p>
+<p>1 -&gt; 2 -&gt; 3 -&gt; 4 
+cur       head</p>
+<p><strong>所以报错说有环，因为 cur 这个值无法储存</strong></p>
+<p><strong>用一个 ListNode[] 储存</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">reorderList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">ListNode</span><span class="o">[]</span> <span class="n">cur</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">reorder</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">reorder</span><span class="o">(</span><span class="n">ListNode</span><span class="o">[]</span> <span class="n">cur</span><span class="o">,</span> <span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">reorder</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span>  <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+            <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">next</span> <span class="o">==</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>非常讨巧的方法</strong>
+<a href="https://leetcode.com/problems/reorder-list/discuss/1059115/JAVA-One-Pass-Recursive-Solution-With-Animation-Explanation"  target="_blank" >leetcode</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="kd">private</span> <span class="n">ListNode</span> <span class="n">temp</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isStop</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reorderList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">isStop</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">reorder</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">reorder</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+        <span class="n">reorder</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+
+        <span class="k">if</span> <span class="o">(!</span><span class="n">isStop</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">temp</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">temp</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">temp</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">isStop</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="remove-duplicates-from-sorted-array-26">Remove Duplicates from Sorted Array 26</h2>
+<p><a id="markdown-remove-duplicates-from-sorted-array-26" name="remove-duplicates-from-sorted-array-26"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, <span class="k">if</span> there are k elements after removing the duplicates, <span class="k">then</span> the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+
+Return k after placing the final result in the first k slots of nums.
+
+Do not allocate extra space <span class="k">for</span> another array. You must <span class="k">do</span> this by modifying the input array in-place with O<span class="o">(</span>1<span class="o">)</span> extra memory.
+
+Custom Judge:
+
+The judge will <span class="nb">test</span> your solution with the following code:
+
+int<span class="o">[]</span> <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>...<span class="o">]</span><span class="p">;</span> // Input array
+int<span class="o">[]</span> <span class="nv">expectedNums</span> <span class="o">=</span> <span class="o">[</span>...<span class="o">]</span><span class="p">;</span> // The expected answer with correct length
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">removeDuplicates</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">!=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">nums</span><span class="o">[++</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="o">}</span>
+            <span class="n">j</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="find-the-duplicate-number-287">Find the Duplicate Number 287</h2>
+<p><a id="markdown-find-the-duplicate-number-287" name="find-the-duplicate-number-287"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of integers nums containing n + <span class="m">1</span> integers where each integer is in the range <span class="o">[</span>1, n<span class="o">]</span> inclusive.
+
+There is only one repeated number in nums, <span class="k">return</span> this repeated number.
+
+You must solve the problem without modifying the array nums and uses only constant extra space.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>1,3,4,2,2<span class="o">]</span>
+Output: <span class="m">2</span>
+</code></pre></div><p><strong>其核心思想快慢指针在之前的题目 Linked List Cycle II 中就有应用，这里应用的更加巧妙一些，由于题目限定了区间 [1,n]，所以可以巧妙的利用坐标和数值之间相互转换，而由于重复数字的存在，那么一定会形成环，用快慢指针可以找到环并确定环的起始位置</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findDuplicate</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span><span class="o">(</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span><span class="n">0</span> <span class="o">)</span>
+                <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">slow</span><span class="o">=</span><span class="n">0</span><span class="o">,</span> <span class="n">fast</span><span class="o">=</span><span class="n">0</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">]];</span>
+            <span class="k">while</span><span class="o">(</span><span class="n">slow</span> <span class="o">!=</span> <span class="n">fast</span><span class="o">){</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">slow</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">])</span>
+                    <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">]];</span>
+            <span class="o">}</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+            <span class="k">while</span><span class="o">(</span><span class="n">slow</span> <span class="o">!=</span> <span class="n">fast</span><span class="o">){</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">slow</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">])</span>
+                    <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">];</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+</code></pre></div><p><strong>Bit Manipulation，  对于 int 32 位，统计 nums[0..n-1]在第 k 位的 1 的总数 b，与 0..n-1 在第 k 位的 1 的总数 a 如果 b &gt; a，说明第 k 位存在重复（多了 1）</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">findDuplicate</span><span class="o">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">32</span><span class="o">;</span> <span class="o">++</span><span class="n">k</span><span class="o">){</span>
+        <span class="kt">int</span> <span class="n">bit</span> <span class="o">=</span> <span class="o">(</span><span class="n">1</span> <span class="o">&lt;&lt;</span> <span class="n">k</span><span class="o">);</span>     <span class="c1">// 1 右移 k 位
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">){</span>
+            <span class="k">if</span><span class="o">((</span><span class="n">i</span> <span class="o">&amp;</span> <span class="n">bit</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">++</span><span class="n">a</span><span class="o">;</span>
+            <span class="k">if</span><span class="o">((</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&amp;</span> <span class="n">bit</span><span class="o">)</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">++</span><span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="n">a</span><span class="o">)</span> <span class="n">res</span> <span class="o">+=</span> <span class="n">bit</span><span class="o">;</span>   <span class="c1">// 重复数的k位
+</span><span class="c1"></span>    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><h2 id="maximum-twin-sum-of-a">Maximum Twin Sum of a</h2>
+<p><a id="markdown-maximum-twin-sum-of-a-l" name="maximum-twin-sum-of-a-l"></a>L</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">In a linked list of size n, where n is even, the ith node <span class="o">(</span>0-indexed<span class="o">)</span> of the linked list is known as the twin of the <span class="o">(</span>n-1-i<span class="o">)</span>th node, <span class="k">if</span> <span class="m">0</span> &lt;<span class="o">=</span> i &lt;<span class="o">=</span> <span class="o">(</span>n / 2<span class="o">)</span> - 1.
+
+For example, <span class="k">if</span> <span class="nv">n</span> <span class="o">=</span> 4, <span class="k">then</span> node <span class="m">0</span> is the twin of node 3, and node <span class="m">1</span> is the twin of node 2. These are the only nodes with twins <span class="k">for</span> <span class="nv">n</span> <span class="o">=</span> 4.
+The twin sum is defined as the sum of a node and its twin.
+
+Given the head of a linked list with even length, <span class="k">return</span> the maximum twin sum of the linked list.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>5,4,2,1<span class="o">]</span>
+Output: <span class="m">6</span>
+Explanation:
+Nodes <span class="m">0</span> and <span class="m">1</span> are the twins of nodes <span class="m">3</span> and 2, respectively. All have twin <span class="nv">sum</span> <span class="o">=</span> 6.
+There are no other nodes with twins in the linked list.
+Thus, the maximum twin sum of the linked list is 6. 
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pairSum</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">head</span><span class="o">.</span><span class="na">val</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">reverse</span><span class="o">(</span><span class="n">slow</span><span class="o">);</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">slow</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">slow</span><span class="o">.</span><span class="na">val</span> <span class="o">+</span> <span class="n">fast</span><span class="o">.</span><span class="na">val</span><span class="o">,</span> <span class="n">sum</span><span class="o">);</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverse</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">ListNode</span> <span class="n">current</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">previous</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">current</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">previous</span><span class="o">;</span>
+            <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="o">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">previous</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+
+</code></pre></div><p><strong>又是回溯，利用 head 到了尾部 null 的时候，倒退的原理</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pairSum</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+ <span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+   <span class="kt">int</span> <span class="n">maxSum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pairSum</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+      <span class="n">maxSum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">computer</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">maxSum</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">computer</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">computer</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+        <span class="n">maxSum</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxSum</span><span class="o">,</span> <span class="n">head</span><span class="o">.</span><span class="na">val</span> <span class="o">+</span> <span class="n">prev</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="delete-the-middle-node-of-a-l">Delete the Middle Node of a L</h2>
+<p><a id="markdown-delete-the-middle-node-of-a-li" name="delete-the-middle-node-of-a-li"></a>i</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given the head of a linked list. Delete the middle node, and <span class="k">return</span> the head of the modified linked list.
+
+The middle node of a linked list of size n is the ⌊n / 2⌋th node from the start using 0-based indexing, where ⌊x⌋ denotes the largest integer less than or equal to x.
+
+For <span class="nv">n</span> <span class="o">=</span> 1, 2, 3, 4, and 5, the middle nodes are 0, 1, 1, 2, and 2, respectively.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,3,4,7,1,2,6<span class="o">]</span>
+Output: <span class="o">[</span>1,3,4,1,2,6<span class="o">]</span>
+Explanation:
+The above figure represents the given linked list. The indices of the nodes are written below.
+Since <span class="nv">n</span> <span class="o">=</span> 7, node <span class="m">3</span> with value <span class="m">7</span> is the middle node, which is marked in red.
+We <span class="k">return</span> the new list after removing this node.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">deleteMiddle</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="n">ListNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">slow</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p><strong>dummy head</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">deleteMiddle</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(-</span><span class="n">1</span><span class="o">),</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">;</span> 
+        <span class="n">dummy</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> 
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">slow</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> 
+    <span class="o">}</span>
+</code></pre></div><h2 id="convert-sorted-list-to-binary-search-tree-109">Convert Sorted List to Binary Search Tree 109</h2>
+<p><a id="markdown-convert-sorted-list-to-binary-search-tree-109" name="convert-sorted-list-to-binary-search-tree-109"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>-10,-3,0,5,9<span class="o">]</span>
+Output: <span class="o">[</span>0,-3,9,-10,null,5<span class="o">]</span>
+Explanation: One possible answer is <span class="o">[</span>0,-3,9,-10,null,5<span class="o">]</span>, which represents the shown height balanced BST.
+</code></pre></div><p>time: O(nlong)</p>
+<p>space: time: O(nlong)</p>
+<p><strong>每次找中点, 想象成一条绳，提起中点作为根节点，分出左右两部分，再提起各自的中点作为根节点……分治下去，这根绳就成了 BST 的模样</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">sortedListToBST</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span><span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+
+
+      <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+      <span class="k">while</span><span class="o">(</span><span class="n">fast</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">slow</span><span class="o">;</span>
+        <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+      <span class="o">}</span>
+      
+     
+      <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">slow</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+      <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">sortedListToBST</span><span class="o">(</span><span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">pre</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">pre</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">sortedListToBST</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+      <span class="o">}</span>   
+      <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>   
+
+</code></pre></div><p><strong>Convert linked list to array then do PreOrder Traversal</strong></p>
+<p><strong>arr[mid] as the root</strong></p>
+<p><strong>(left, mid - 1) as the left sub</strong></p>
+<p><strong>(mid + 1, right) as the right sub</strong></p>
+<p>time: O(N)</p>
+<p>space: time: O(N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">sortedListToBST</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+     <span class="k">while</span> <span class="o">(</span><span class="n">head</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">arr</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+         <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+     <span class="o">}</span>
+     <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">arr</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+ <span class="o">}</span>
+
+ <span class="n">TreeNode</span> <span class="nf">helper</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+     <span class="o">}</span>
+     <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="o">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+     <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">mid</span><span class="o">));</span>
+     <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+     <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+     <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div><p><strong>中序遍历</strong></p>
+<p>时间复杂度：O(n)</p>
+<p>空间复杂度：O(logn)</p>
+<p>方法 1 每次获取数组中点：O(1)，方法 2 每次获取链表中点：O(N)，所以更慢。</p>
+<p>其实直接获取链表头结点：O(1)O(1)，不如直接构建它吧！它对应 BST 最左子树的根节点。</p>
+<p>于是我们先构建左子树，再构建根节点，再构建右子树。——遵循中序遍历。</p>
+<p>其实，BST 的中序遍历，打印的节点值正是这个有序链表的节点值顺序。</p>
+<p>如下图，维护指针 h，从头结点开始，用 h.val 构建节点，构建一个，指针后移一位。</p>
+<p>求出链表结点总个数，用于每次二分求出链表的中点。</p>
+<p>为什么要这么做，因为我们构建的节点值是：从小到大，我们希望在递归中处理节点的顺序和链表结点顺序一一对应</p>
+<p>看看下图的递归树，感受一下二分法怎么做到的。</p>
+<p>用二分后的左链，递归构建左子树，然后用 h.val 创建节点，接上创建好的左子树，再用右链构建右子树，再接上。</p>
+<p>递归中会不断进行二分，直到无法划分就返回 null，即来到递归树的底部</p>
+<p>h.val 创建完结点后，h 指针就后移，锁定出下一个要构建的节点值</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ListNode</span> <span class="n">head</span><span class="o">;</span>
+ <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">sortedListToBST</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">this</span><span class="o">.</span><span class="na">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+     <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">length</span><span class="o">(</span><span class="n">head</span><span class="o">)</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+ <span class="o">}</span>
+
+ <span class="n">TreeNode</span> <span class="nf">helper</span><span class="o">(</span><span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+     <span class="o">}</span>
+     <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="o">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+     <span class="n">TreeNode</span> <span class="n">leftNode</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span> <span class="c1">// 先递归构建左子树
+</span><span class="c1"></span>
+     <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">val</span><span class="o">);</span> <span class="c1">//  // 根据 h.val 构建节点
+</span><span class="c1"></span>     <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span> <span class="c1">//  // h指针步进        
+</span><span class="c1"></span>
+     <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">leftNode</span><span class="o">;</span>
+     <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+     <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+ <span class="o">}</span>
+
+ <span class="kt">int</span> <span class="nf">length</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+      <span class="k">while</span> <span class="o">(</span><span class="n">head</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+          <span class="n">res</span><span class="o">++;</span>
+      <span class="o">}</span>
+      <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+ <span class="o">}</span>
+
+</code></pre></div><h2 id="car-fleet-ii-1776">Car Fleet II 1776</h2>
+<p><a id="markdown-car-fleet-ii-1776" name="car-fleet-ii-1776"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">There are n cars traveling at different speeds in the same direction along a one-lane road. You are given an array cars of length n, where cars<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>positioni, speedi<span class="o">]</span> represents:
+
+positioni is the distance between the ith car and the beginning of the road in meters. It is guaranteed that positioni &lt; positioni+1.
+speedi is the initial speed of the ith car in meters per second.
+For simplicity, cars can be considered as points moving along the number line. Two cars collide when they occupy the same position. Once a car collides with another car, they unite and form a single car fleet. The cars in the formed fleet will have the same position and the same speed, which is the initial speed of the slowest car in the fleet.
+
+Return an array answer, where answer<span class="o">[</span>i<span class="o">]</span> is the time, in seconds, at which the ith car collides with the next car, or -1 <span class="k">if</span> the car does not collide with the next car. Answers within 10-5 of the actual answers are accepted.
+
+Example 1:
+
+Input: <span class="nv">cars</span> <span class="o">=</span> <span class="o">[[</span>1,2<span class="o">]</span>,<span class="o">[</span>2,1<span class="o">]</span>,<span class="o">[</span>4,3<span class="o">]</span>,<span class="o">[</span>7,2<span class="o">]]</span>
+Output: <span class="o">[</span>1.00000,-1.00000,3.00000,-1.00000<span class="o">]</span>
+Explanation: After exactly one second, the first car will collide with the second car, and form a car fleet with speed <span class="m">1</span> m/s. After exactly <span class="m">3</span> seconds, the third car will collide with the fourth car, and form a car fleet with speed <span class="m">2</span> m/s.
+</code></pre></div><p><strong>Imagine a,b,c on the road, if the a catches b later than b catched c, then a won&rsquo;t catch b but b+c</strong></p>
+<p>Complexity</p>
+<p>Time O(n)</p>
+<p>Space O(n)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+</code></pre></div><p>😼😼😼😼</p>
+<ul>
+<li>😼<a href="https://rileyshen.github.io/post/2pointers1/" >2pointers1</a></li>
+<li>😼<a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></li>
+</ul>
+<hr>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL</p>
+<p>感谢：她们都有题库在 github 上直接有，都是大神, 都富有详细解法，对新人特别适合了解解题思路</p>
+<ul>
+<li>
+<p><a href="https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/">https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/</a></p>
+</li>
+<li>
+<p>宫水三叶</p>
+</li>
+<li>
+<p>Grandyang (<a href="https://www.cnblogs.com/grandyang/">https://www.cnblogs.com/grandyang/</a>)</p>
+</li>
+<li>
+<p>花花酱（油管频道视频）</p>
+</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/merge-intervals/">Merge Intervals</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

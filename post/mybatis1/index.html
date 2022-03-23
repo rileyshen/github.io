@@ -139,7 +139,7 @@
                     Wed, Jul 15, 2020
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">10-minute read</span>
+                <span class="reading-time">12-minute read</span>
             </div>
             
         </div>
@@ -253,26 +253,33 @@
 <li><a href="#%E5%85%B3%E9%97%AD" >关闭</a></li>
 </ul>
 </li>
-<li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" >环境搭建</a></li>
-<li><a href="#could-not-find-resource-daoxml" >Could not find resource dao/*.xml</a>
+<li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" >环境搭建</a>
 <ul>
-<li><a href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" >测试环境搭建</a></li>
+<li><a href="#mybatis-%E9%80%9A%E8%BF%87%E5%AD%97%E6%AE%B5%E5%88%AB%E5%90%8D%E8%A7%A3%E5%86%B3%E5%AD%97%E6%AE%B5%E5%90%8D%E5%92%8C%E5%B1%9E%E6%80%A7%E5%90%8D%E7%9A%84%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" >MyBatis 通过字段别名解决字段名和属性名的映射关系</a></li>
+<li><a href="#method-1-%E5%88%AB%E5%90%8D" >method 1 别名</a></li>
+<li><a href="#method-2-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-mapunderscoretocamelcase" >method 2 全局配置 mapUnderscoreToCamelCase</a></li>
+<li><a href="#method-3-resultmap" >method 3 resultMap</a></li>
 </ul>
 </li>
-<li><a href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" >多对一处理</a></li>
-<li><a href="#%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98" >属性 null 的问题</a>
+<li><a href="#could-not-find-resource-daoxml" >Could not find resource dao/*.xml</a></li>
+<li><a href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" >多对一处理</a>
 <ul>
 <li><a href="#a-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" >a. 级联方式处理映射关系</a></li>
 <li><a href="#b-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" >b. 使用 association 处理映射关系</a></li>
-<li><a href="#c-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" >c. 分步查询</a></li>
+<li><a href="#c-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" >c. 分步查询</a>
+<ul>
+<li><a href="#%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%BC%98%E7%82%B9" >分步查询的优点</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86" >一对对处理</a>
+</ul>
+</li>
+<li><a href="#%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%A4%84%E7%90%86" >一对多处理</a>
 <ul>
 <li><a href="#a-collection" >a. collection</a></li>
 <li><a href="#b-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" >b. 分步查询</a></li>
 </ul>
 </li>
+<li><a href="#%E5%8A%A8%E6%80%81-sql" >动态 SQL</a></li>
 </ul>
 </li>
 <li><a href="#mybatis-plus-%E5%90%AF%E5%8A%A8" >MyBatis-plus 启动</a>
@@ -1070,9 +1077,90 @@ resultMap：自定义映射，用于一对多或多对一或字段名和属性�
 <p><a id="markdown-%E5%85%B3%E9%97%AD" name="%E5%85%B3%E9%97%AD"></a></p>
 <h3 id="环境搭建">环境搭建</h3>
 <p><a id="markdown-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" name="%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"></a></p>
-<p>多个学生<strong>关联</strong>一个老师 ： <strong>多对一</strong></p>
-<p>老师， <strong>集合</strong>， 集合里面很多学生， <strong>一对多</strong></p>
-<p>要把表关系设置在多的这一方</p>
+<ul>
+<li>mybatis01
+<ul>
+<li>src
+<ul>
+<li>main
+<ul>
+<li>java
+<ul>
+<li>com.demo.mybatis
+<ul>
+<li>mapper
+<ul>
+<li>DeptMapper</li>
+</ul>
+</li>
+<li>pojo</li>
+<li>utils</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>resources
+<ul>
+<li>com/demo/mybatis
+<ul>
+<li>DeptMapper.xml</li>
+</ul>
+</li>
+<li>jdbc.properties</li>
+<li>log4j.xml</li>
+<li>mybatis-config.xml</li>
+</ul>
+</li>
+<li>test
+<ul>
+<li>java
+<ul>
+<li>com.demo.mybatis</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="mybatis-通过字段别名解决字段名和属性名的映射关系">MyBatis 通过字段别名解决字段名和属性名的映射关系</h4>
+<p><a id="markdown-mybatis-%E9%80%9A%E8%BF%87%E5%AD%97%E6%AE%B5%E5%88%AB%E5%90%8D%E8%A7%A3%E5%86%B3%E5%AD%97%E6%AE%B5%E5%90%8D%E5%92%8C%E5%B1%9E%E6%80%A7%E5%90%8D%E7%9A%84%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" name="mybatis-%E9%80%9A%E8%BF%87%E5%AD%97%E6%AE%B5%E5%88%AB%E5%90%8D%E8%A7%A3%E5%86%B3%E5%AD%97%E6%AE%B5%E5%90%8D%E5%92%8C%E5%B1%9E%E6%80%A7%E5%90%8D%E7%9A%84%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"></a></p>
+<p><strong>实体类</strong></p>
+<blockquote>
+<p>private String empName;</p>
+</blockquote>
+<p><strong>mysql</strong></p>
+<blockquote>
+<p>emp_name</p>
+</blockquote>
+<h4 id="method-1-别名">method 1 别名</h4>
+<p><a id="markdown-method-1-%E5%88%AB%E5%90%8D" name="method-1-%E5%88%AB%E5%90%8D"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllEmp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+    select * from t_emp
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>改为</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllEmp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+    select eid, emp_name empName, age, sex, email from t_emp
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><figure><img src="/images/batis13.png"
+         alt="image"/><figcaption>
+            <h4>ResultMap 配置</h4>
+        </figcaption>
+</figure>
+
+<h4 id="method-2-全局配置-mapunderscoretocamelcase">method 2 全局配置 mapUnderscoreToCamelCase</h4>
+<p><a id="markdown-method-2-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-mapunderscoretocamelcase" name="method-2-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE-mapunderscoretocamelcase"></a></p>
+<p><strong>将下划线自动映射为驼峰</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;settings&gt;</span>
+<span class="c">&lt;!--        将下划线自动映射为驼峰， emp_name : empName--&gt;</span>
+        <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;mapUnderscoreToCamelCase&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/settings&gt;</span>
+</code></pre></div><h4 id="method-3-resultmap">method 3 resultMap</h4>
+<p><a id="markdown-method-3-resultmap" name="method-3-resultmap"></a></p>
 <h3 id="could-not-find-resource-daoxml">Could not find resource dao/*.xml</h3>
 <p><a id="markdown-could-not-find-resource-dao%2F*.xml" name="could-not-find-resource-dao%2F*.xml"></a></p>
 <ul>
@@ -1087,118 +1175,213 @@ resultMap：自定义映射，用于一对多或多对一或字段名和属性�
 <li>target 里面 classes 下面的 dao 都存在 mapper 和 mapper.xml</li>
 </ul>
 <p>但是就是无法读取，所以改为 package 或者 class 才可以</p>
-<h4 id="测试环境搭建">测试环境搭建</h4>
-<p><a id="markdown-%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" name="%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"></a></p>
-<ul>
-<li>导入 lombok</li>
-<li>新建实体类</li>
-<li>新建 Mapper 接口</li>
-<li>建立 Mapper.xml 文件</li>
-<li>在核心配置文件中绑定注册我们的 Mapper 接口或者文件</li>
-<li>测试查询</li>
-</ul>
 <h3 id="多对一处理">多对一处理</h3>
 <p><a id="markdown-%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86" name="%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%A4%84%E7%90%86"></a></p>
-<h3 id="属性-null-的问题">属性 null 的问题</h3>
-<p><a id="markdown-%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98" name="%E5%B1%9E%E6%80%A7-null-%E7%9A%84%E9%97%AE%E9%A2%98"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">select * from student s, teacher t where s.tid = t.id
-</code></pre></div><p>teacher 这里属性为 null</p>
+<p>多个学生<strong>关联</strong>一个老师 ： <strong>多对一</strong></p>
+<p>老师， <strong>集合</strong>， 集合里面很多学生， <strong>一对多</strong></p>
+<p><strong>要把表关系设置在多的这一方</strong></p>
+<p><strong>Emp 实体类</strong></p>
 <blockquote>
-<p>Student(id=2, name=bb, teacher=Teacher(id=1, name=null))</p>
+<p>private Dept dept;</p>
 </blockquote>
-<p>思路： 1. 查询所有的学生信息， 2. 根据查询出来的学生 tid， 寻找对应的老师</p>
-<blockquote>
-<p>List<Student> getAllStudent();</p>
-</blockquote>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">     <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllStudent&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentTeach&#34;</span><span class="nt">&gt;</span>
-        select * from student;
-      <span class="nt">&lt;/select&gt;</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">
-   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getTeacher&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
-      select * from teacher where id = #{id};
-   <span class="nt">&lt;/select&gt;</span>
-</code></pre></div><p><strong>按照查询嵌套处理</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentTeach&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
-   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span>  <span class="na">column=</span><span class="s">&#34;id&#34;</span><span class="nt">/&gt;</span>
-   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span>  <span class="na">column=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
-
-<span class="c">&lt;!--复杂属性我们单独写--&gt;</span>
-<span class="c">&lt;!--   对象：association --&gt;</span>
-<span class="c">&lt;!--   集合： collection--&gt;</span>
-   <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span> <span class="na">select=</span><span class="s">&#34;getTeacher&#34;</span><span class="nt">/&gt;</span>
-<span class="c">&lt;!--   &lt;collection property=&#34;&#34;/&gt;--&gt;</span>
-
-<span class="nt">&lt;/resultMap&gt;</span>
-
-</code></pre></div><blockquote>
-<p>Student(id=1, name=aa, teacher=Teacher(id=1, name=mrs qin))</p>
-</blockquote>
-<p><strong>按照结果嵌套处理</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getAllStudent2&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;StudentT2&#34;</span><span class="nt">&gt;</span>
-
-   select s.id sid, s.name sname, t.name tname
-   from student s, teacher t
-   where s.tid = t.id;
-<span class="nt">&lt;/select&gt;</span>
-
-<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StudentT2&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
-   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span><span class="nt">/&gt;</span>
-   <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span><span class="nt">/&gt;</span>
-   <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;teacher&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Teacher&#34;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span><span class="nt">/&gt;</span>
-   <span class="nt">&lt;/association&gt;</span>
-<span class="nt">&lt;/resultMap&gt;</span>
-
-</code></pre></div><p>这里老师的 id 是 0， 不知道是不是原因..</p>
-<blockquote>
-<p>Student(id=1, name=aa, teacher=Teacher(id=0, name=mrs qin)</p>
-</blockquote>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="c1">// 查询学生信息以及他的老师
-</span><span class="c1"></span>    <span class="n">Student</span> <span class="nf">getStuAndTea</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span> <span class="kt">int</span> <span class="n">id</span><span class="o">);</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;StuAndTea&#34;</span> <span class="na">type=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
-<span class="c">&lt;!--      &lt;id property=&#34;id&#34; column=&#34;sid&#34;&gt;&lt;/id&gt;--&gt;</span>
-
-      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;id&#34;</span> <span class="na">column=</span><span class="s">&#34;sid&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
-      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;name&#34;</span> <span class="na">column=</span><span class="s">&#34;sname&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
-
-      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;teacher.id&#34;</span> <span class="na">column=</span><span class="s">&#34;tid&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
-
-
-      <span class="nt">&lt;result</span> <span class="na">column=</span><span class="s">&#34;tname&#34;</span> <span class="na">property=</span><span class="s">&#34;teacher.name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
-
-
-   <span class="nt">&lt;/resultMap&gt;</span>
-
-<span class="c">&lt;!-- left join --&gt;</span>
-   <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getStuAndTea&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;Student&#34;</span><span class="nt">&gt;</span>
-      select * from student s left join teacher t on s.tid = t.id where s.id = #{id};
-      select s.id sid, s.name sname, t.name tname from student s left join teacher t on s.tid = t.id where s.id = #{id};
-   <span class="nt">&lt;/select&gt;</span>
-
-</code></pre></div><p>resultMap：设置自定义映射</p>
-<p>属性：</p>
-<p>id：表示自定义映射的唯一标识</p>
-<p>type：查询的数据要映射的实体类的类型</p>
-<p>子标签：</p>
-<p>id：设置主键的映射关系</p>
-<p>result：设置普通字段的映射关系</p>
-<p>association：设置多对一的映射关系</p>
-<p>collection：设置一对多的映射关系</p>
-<p>属性：</p>
-<p>property：设置映射关系中实体类中的属性名</p>
-<p>column：设置映射关系中表中的字段名</p>
+<p><strong>在实体类中是 Dept 实体类，在表格中是 int 类</strong></p>
 <h4 id="a-级联方式处理映射关系">a. 级联方式处理映射关系</h4>
 <p><a id="markdown-a.-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" name="a.-%E7%BA%A7%E8%81%94%E6%96%B9%E5%BC%8F%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"></a></p>
-<h4 id="b-使用-association-处理映射关系">b. 使用 association 处理映射关系</h4>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">
+    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;empAndDeptResultMapOne&#34;</span> <span class="na">type=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;eid&#34;</span> <span class="na">column=</span><span class="s">&#34;eid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;empName&#34;</span> <span class="na">column=</span><span class="s">&#34;emp_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;age&#34;</span> <span class="na">column=</span><span class="s">&#34;age&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;sex&#34;</span> <span class="na">column=</span><span class="s">&#34;sex&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;email&#34;</span> <span class="na">column=</span><span class="s">&#34;email&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;dept.did&#34;</span> <span class="na">column=</span><span class="s">&#34;did&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;dept.deptName&#34;</span> <span class="na">column=</span><span class="s">&#34;dept_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+
+
+<span class="c">&lt;!--  级联方式处理映射关系 多对一处理--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpAndDept&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;empAndDeptResultMapOne&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp left join t_dept on t_emp.did = t_dept.did where t_emp.eid = #{eid};
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="b-使用-association-处理映射关系">b. 使用 association 处理映射关系</h4>
 <p><a id="markdown-b.-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB" name="b.-%E4%BD%BF%E7%94%A8-association-%E5%A4%84%E7%90%86%E6%98%A0%E5%B0%84%E5%85%B3%E7%B3%BB"></a></p>
-<h4 id="c-分步查询">c. 分步查询</h4>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;empAndDeptResultMapOne&#34;</span> <span class="na">type=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;eid&#34;</span> <span class="na">column=</span><span class="s">&#34;eid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;empName&#34;</span> <span class="na">column=</span><span class="s">&#34;emp_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;age&#34;</span> <span class="na">column=</span><span class="s">&#34;age&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;sex&#34;</span> <span class="na">column=</span><span class="s">&#34;sex&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;email&#34;</span> <span class="na">column=</span><span class="s">&#34;email&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;dept&#34;</span> <span class="na">javaType=</span><span class="s">&#34;Dept&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;did&#34;</span> <span class="na">column=</span><span class="s">&#34;did&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptName&#34;</span> <span class="na">column=</span><span class="s">&#34;dept_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;/association&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+
+<span class="c">&lt;!--  association 处理映射关系 多对一处理--&gt;</span>
+<span class="c">&lt;!--  javaType 该属性类型--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpAndDept&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;empAndDeptResultMapOne&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp left join t_dept on t_emp.did = t_dept.did where t_emp.eid = #{eid};
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="c-分步查询">c. 分步查询</h4>
 <p><a id="markdown-c.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" name="c.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2"></a></p>
-<h3 id="一对对处理">一对对处理</h3>
-<p><a id="markdown-%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86" name="%E4%B8%80%E5%AF%B9%E5%AF%B9%E5%A4%84%E7%90%86"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">
+    
+       <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;empAndDeptResultMapThree&#34;</span> <span class="na">type=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;eid&#34;</span> <span class="na">column=</span><span class="s">&#34;eid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;empName&#34;</span> <span class="na">column=</span><span class="s">&#34;emp_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;age&#34;</span> <span class="na">column=</span><span class="s">&#34;age&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;sex&#34;</span> <span class="na">column=</span><span class="s">&#34;sex&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;email&#34;</span> <span class="na">column=</span><span class="s">&#34;email&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;dept&#34;</span>
+                     <span class="na">select=</span><span class="s">&#34;com.demo.mybatis.mapper.DeptMapper.getEmpAndDeptByStepTwo&#34;</span>
+                        <span class="na">column=</span><span class="s">&#34;did&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/association&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+<span class="c">&lt;!-- select 是 deptMapper 上面id 的reference --&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpAndDeptByStep&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;empAndDeptResultMapThree&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp where eid = #{eid};
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p><strong>DeptMapper</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.demo.mybatis.mapper.DeptMapper&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!--    Dept getEmpAndDeptByStepTwo(@Param(&#34;did&#34;) Integer did);--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpAndDeptByStepTwo&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Dept&#34;</span><span class="nt">&gt;</span>
+        select * from t_dept where did = #{did}
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><p><strong>结果是 2 个 sql 语句</strong></p>
+<blockquote>
+<p>DEBUG 03-23 15:44:26,621 ==&gt;  Preparing: select * from t_emp where eid = ?;<br>
+DEBUG 03-23 15:44:26,730 ====&gt;  Preparing: select * from t_dept where did = ?<br>
+Emp(eid=3, empName=cc, age=22, sex=女, <a href="mailto:email=123@qq.com">email=123@qq.com</a>, dept=Dept(did=3, deptName=C))</p>
+</blockquote>
+<p><strong>select: 设置分布查询的 sql 的唯一标识(namespace.SQLId 或 mapper 接口的全类名)</strong></p>
+<h5 id="分步查询的优点">分步查询的优点</h5>
+<p><a id="markdown-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%BC%98%E7%82%B9" name="%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%BC%98%E7%82%B9"></a></p>
+<p>分步查询的优点：可以实现延迟加载，但是必须在核心配置文件中设置全局配置信息：</p>
+<p><strong>lazyLoadingEnabled</strong>：延迟加载的全局开关。当开启时，所有关联对象都会延迟加载</p>
+<p><strong>aggressiveLazyLoading</strong>：当开启时，任何方法的调用都会加载该对象的所有属性。 否则，每个
+属性会按需加载</p>
+<p>此时就可以实现按需加载，获取的数据是什么，就只会执行相应的 sql。此时可通过 <strong>association</strong> 和
+<strong>collection</strong>中的 <strong>fetchType</strong> 属性设置当前的分步查询是否使用延迟加载，fetchType=&ldquo;lazy(延迟加
+载)|eager(立即加载)&rdquo;</p>
+<p><strong>mybatis-config.xml</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--    设计mybatis全局配置--&gt;</span>
+    <span class="nt">&lt;settings&gt;</span>
+<span class="c">&lt;!--        将下划线自动映射为驼峰， emp_name : empName--&gt;</span>
+        <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;mapUnderscoreToCamelCase&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!--       延迟加载--&gt;</span>
+        <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;lazyLoadingEnabled&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/settings&gt;</span>
+</code></pre></div><p><strong>结果</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testGetAllEmpAndDept2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">MybatisUtils</span><span class="o">.</span><span class="na">getSqlSession</span><span class="o">();</span>
+
+        <span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="n">Emp</span> <span class="n">emp</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">getEmpAndDeptByStep</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">emp</span><span class="o">.</span><span class="na">getEmpName</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;++++++++++++++++++++++++++++++&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">emp</span><span class="o">.</span><span class="na">getDept</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div><blockquote>
+<p>DEBUG 03-23 16:00:38,203 ==&gt;  Preparing: select * from t_emp where eid = ?;  (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:00:38,257 ==&gt; Parameters: 3(Integer) (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:00:38,331 &lt;==      Total: 1 (BaseJdbcLogger.java:143)</p>
+</blockquote>
+<blockquote>
+<p>cc</p>
+</blockquote>
+<blockquote>
+<p>++++++++++++++++++++++++++++++</p>
+</blockquote>
+<blockquote>
+<p>DEBUG 03-23 16:00:38,332 ==&gt;  Preparing: select * from t_dept where did = ?  (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:00:38,333 ==&gt; Parameters: 3(Integer) (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:00:38,335 &lt;==      Total: 1 (BaseJdbcLogger.java:143)</p>
+</blockquote>
+<blockquote>
+<p>Dept(did=3, deptName=C)</p>
+</blockquote>
+<blockquote>
+<p>Process finished with exit code 0</p>
+</blockquote>
+<p><strong>没有延迟加载</strong></p>
+<blockquote>
+<p>DEBUG 03-23 16:05:20,189 ==&gt;  Preparing: select * from t_emp where eid = ?;  (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:05:20,239 ==&gt; Parameters: 3(Integer) (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:05:20,278 ====&gt;  Preparing: select * from t_dept where did = ?  (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:05:20,279 ====&gt; Parameters: 3(Integer) (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:05:20,283 &lt;====      Total: 1 (BaseJdbcLogger.java:143) 
+DEBUG 03-23 16:05:20,284 &lt;==      Total: 1 (BaseJdbcLogger.java:143)</p>
+</blockquote>
+<blockquote>
+<p>cc</p>
+</blockquote>
+<blockquote>
+<p>++++++++++++++++++++++++++++++</p>
+</blockquote>
+<blockquote>
+<p>Dept(did=3, deptName=C)</p>
+</blockquote>
+<blockquote>
+<p>Process finished with exit code 0</p>
+</blockquote>
+<h3 id="一对多处理">一对多处理</h3>
+<p><a id="markdown-%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%A4%84%E7%90%86" name="%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%A4%84%E7%90%86"></a></p>
 <h4 id="a-collection">a. collection</h4>
 <p><a id="markdown-a.-collection" name="a.-collection"></a></p>
-<h4 id="b-分步查询">b. 分步查询</h4>
+<p><strong>部门实体类</strong></p>
+<blockquote>
+<p>List<Emp> emps;</p>
+</blockquote>
+<p><strong>ofType:表示该属性对应的集合中存储数据类型</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;deptAndEmpResultMap&#34;</span> <span class="na">type=</span><span class="s">&#34;Dept&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;did&#34;</span> <span class="na">column=</span><span class="s">&#34;did&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptName&#34;</span> <span class="na">column=</span><span class="s">&#34;dept_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+
+        <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;emps&#34;</span> <span class="na">ofType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;eid&#34;</span> <span class="na">column=</span><span class="s">&#34;eid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;empName&#34;</span> <span class="na">column=</span><span class="s">&#34;emp_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;age&#34;</span> <span class="na">column=</span><span class="s">&#34;age&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;sex&#34;</span> <span class="na">column=</span><span class="s">&#34;sex&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+            <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;email&#34;</span> <span class="na">column=</span><span class="s">&#34;email&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;/collection&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+
+<span class="c">&lt;!--     Dept getDeptAndEmp(@Param(&#34;did&#34;) Integer did);--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getDeptAndEmp&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;deptAndEmpResultMap&#34;</span><span class="nt">&gt;</span>
+        select * from t_dept left join t_emp on t_dept.did = t_emp.did where t_dept.did = #{did}
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="b-分步查询">b. 分步查询</h4>
 <p><a id="markdown-b.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" name="b.-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2"></a></p>
+<blockquote>
+<p>Dept getDeptByStepOne(@Param(&ldquo;did&rdquo;) Integer did);</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">    <span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;deptAndEmpResultMapOne&#34;</span> <span class="na">type=</span><span class="s">&#34;Dept&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;did&#34;</span> <span class="na">column=</span><span class="s">&#34;did&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptName&#34;</span> <span class="na">column=</span><span class="s">&#34;dept_name&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+
+        <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;emps&#34;</span>
+                    <span class="na">select=</span><span class="s">&#34;com.demo.mybatis.mapper.EmpMapper.getDeptAndEmpByStepTwo&#34;</span>
+                    <span class="na">column=</span><span class="s">&#34;did&#34;</span>
+                    <span class="nt">&gt;</span>
+
+        <span class="nt">&lt;/collection&gt;</span>
+    <span class="nt">&lt;/resultMap&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getDeptByStepOne&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;deptAndEmpResultMapOne&#34;</span><span class="nt">&gt;</span>
+        select * from t_dept where did = #{did}
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><blockquote>
+<p>List<Emp> getDeptAndEmpByStepTwo(@Param(&ldquo;did&rdquo;) Integer did);</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getDeptAndEmpByStepTwo&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp where did = #{did};
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p><strong>分布查询中第二步 resultMap 不需要，直接用 resultType， 但是多对多除外</strong></p>
+<h3 id="动态-sql">动态 SQL</h3>
+<p><a id="markdown-%E5%8A%A8%E6%80%81-sql" name="%E5%8A%A8%E6%80%81-sql"></a></p>
 <h2 id="mybatis-plus-启动">MyBatis-plus 启动</h2>
 <p><a id="markdown-mybatis-plus-%E5%90%AF%E5%8A%A8" name="mybatis-plus-%E5%90%AF%E5%8A%A8"></a></p>
 <p><strong>1.1 启动 mysql-plus</strong></p>
@@ -1464,7 +1647,7 @@ IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动�
 <span class="o">}</span>
 </code></pre></div><h4 id="以上同一个test里面return可以用注入usermapper或者直接用basemapper">以上同一个Test里面return可以用注入userMapper或者直接用baseMapper</h4>
 <p><a id="markdown-%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper" name="%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper"></a></p>
-<h4 id="ok-its-time-for-mybatis2hahahugoshortcode-s12-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></h4>
+<h4 id="ok-its-time-for-mybatis2hahahugoshortcode-s13-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></h4>
 <p><a id="markdown-ok%2C-it's-time-for-mybatis2" name="ok%2C-it's-time-for-mybatis2"></a></p></div>
     <div class="post-footer">
         <div class="info">
