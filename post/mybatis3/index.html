@@ -139,240 +139,705 @@
                     Wed, Jul 15, 2020
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">3-minute read</span>
+                <span class="reading-time">7-minute read</span>
             </div>
             
         </div>
 
         <p>常用插件</p>
-<h2 id="mybatis-plus-常用插件">MyBatis-plus 常用插件</h2>
-<h3 id="40-乐观锁">4.0 乐观锁</h3>
-<p>主要适用场景：当要更新一条记录的时候，希望这条记录没有被别人更新，也就是说实现线程安全的数据更新</p>
-<p><strong>乐观锁实现方式：</strong></p>
-<p>取出记录时，获取当前<strong>version</strong></p>
-<p>更新时，带上这个<strong>version</strong></p>
-<p>执行更新时， <strong>set version = newVersion where version = oldVersion</strong></p>
-<p>如果version不对，就更新失败</p>
-<p><strong>4.1表右键里面加字段version属性</strong></p>
-<p><strong>4.2修改实体类</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Version
-private Integer version;
-</code></pre></div><p><strong>4.3创建配置文件</strong>
-创建包config，创建文件MybatisPlusConfig.java</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Configuration
-@MapperScan(&#34;com.atguigu.mybatis_plus.mapper&#34;)
-public class MybatisPlusConfig {
-/**
- * 乐观锁插件
- */
-    @Bean
-    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
-        return new OptimisticLockerInterceptor();
-    }
-}
-</code></pre></div><p><strong>4.4测试</strong></p>
+<!-- TOC -->
 <ul>
-<li>在entity里面添加自动填充</li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E6%9E%84%E9%80%A0%E5%99%A8%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3" >条件构造器和常用接口</a>
+<ul>
+<li><a href="#querywrapper" >QueryWrapper</a>
+<ul>
+<li><a href="#%E7%BB%84%E8%A3%85%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6" >组装查询条件</a></li>
+<li><a href="#%E7%BB%84%E8%A3%85%E6%8E%92%E5%BA%8F%E6%9D%A1%E4%BB%B6" >组装排序条件</a></li>
+<li><a href="#%E7%BB%84%E8%A3%85%E5%88%A0%E9%99%A4%E6%9D%A1%E4%BB%B6" >组装删除条件</a></li>
+<li><a href="#querywrapper-%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD" >QueryWrapper 修改功能</a></li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7" >条件的优先级</a></li>
+<li><a href="#%E7%BB%84%E8%A3%85-select-%E5%AD%90%E5%8F%A5" >组装 select 子句</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E5%AD%90%E6%9F%A5%E8%AF%A2" >实现子查询</a></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">  private Date updateTime;
-
-  @Version
-  @TableField(fill = FieldFill.INSERT)
-  private Integer version;
-
-}
-</code></pre></div><ul>
-<li>在handle里面添加执行方法</li>
+</li>
+<li><a href="#updatewrapper" >UpdateWrapper</a></li>
+<li><a href="#condition" >condition</a></li>
+<li><a href="#lambdaquerywrappe" >LambdaQueryWrappe</a></li>
+<li><a href="#lambdaupdatewrapper" >LambdaUpdateWrapper</a></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> @Override
-    public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName(&#34;createTime&#34;,new Date(),metaObject);
-        this.setFieldValByName(&#34;updateTime&#34;,new Date(),metaObject);
-        this.setFieldValByName(&#34;version&#34;,1,metaObject);
-    }
-</code></pre></div><ul>
-<li>
-<p>测试</p>
-<p>IDE中快捷生成返回值 Ctrl + Alt + v</p>
-<p>user.setVersion(user.getVersion() + 1);mp中自动做</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
-public void testOptimisticLock() {
-//根据id查询
-User user = userMapper.selectById(1L);
-//修改
-user.setName(&#34;张三&#34;);
-//        user.setVersion(user.getVersion() + 1); 这行mp自动做了，不需要我们手动做
-userMapper.updateById(user);
-
-}
-</code></pre></div><ul>
-<li>插入李四，version为1</li>
+</li>
+<li><a href="#%E6%8F%92%E4%BB%B6" >插件</a>
+<ul>
+<li><a href="#%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6" >分页插件</a>
+<ul>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE%E7%B1%BB" >添加配置类</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a></li>
+</ul>
+</li>
+<li><a href="#xml-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%86%E9%A1%B5" >xml 自定义分页</a>
+<ul>
+<li><a href="#usermapper-%E4%B8%AD%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%B3%95" >UserMapper 中定义接口方法</a></li>
+<li><a href="#usermapperxml-%E4%B8%AD%E7%BC%96%E5%86%99-sql" >UserMapper.xml 中编写 SQL</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B9%90%E8%A7%82%E9%94%81" >乐观锁</a>
+<ul>
+<li><a href="#%E5%9C%BA%E6%99%AF" >场景</a></li>
+<li><a href="#%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81" >乐观锁与悲观锁</a></li>
+<li><a href="#%E6%A8%A1%E6%8B%9F%E4%BF%AE%E6%94%B9%E5%86%B2%E7%AA%81" >模拟修改冲突</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%A2%9E%E5%8A%A0%E5%95%86%E5%93%81%E8%A1%A8" >数据库中增加商品表</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE" >添加数据</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%AE%9E%E4%BD%93" >添加实体</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0-mapper" >添加 mapper</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B9%90%E8%A7%82%E9%94%81%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B" >乐观锁实现流程</a></li>
+<li><a href="#mybatis-plus-%E5%AE%9E%E7%8E%B0%E4%B9%90%E8%A7%82%E9%94%81" >Mybatis-Plus 实现乐观锁</a>
+<ul>
+<li><a href="#%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BD%93%E7%B1%BB" >修改实体类</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E4%B9%90%E8%A7%82%E9%94%81%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE" >添加乐观锁插件配置</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E4%BF%AE%E6%94%B9%E5%86%B2%E7%AA%81" >测试修改冲突</a></li>
+<li><a href="#%E4%BC%98%E5%8C%96%E6%B5%81%E7%A8%8B" >优化流程</a></li>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">  @Test
-   public void testAdd() {
-       User user = new User();
-       user.setName(&#34;李四&#34;);
-       user.setAge(20);
-       user.setEmail(&#34;1243@qq.com&#34;);
-
-       int insert = userMapper.insert(user);
-       System.out.println(insert);
-</code></pre></div><ul>
-<li>输入李四id号加L</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> @Test
-    public void testOptimisticLock() {
-        //根据id查询
-        User user = userMapper.selectById(1369872842425233409L);
-        //修改
-        user.setName(&#34;张三&#34;);
-//        user.setVersion(user.getVersion() + 1); 这行mp自动做了，不需要我们手动做
-        userMapper.updateById(user);
-
-    }
-</code></pre></div><p><em>&lsquo;1369872842425233409&rsquo;, &lsquo;张三&rsquo;, &lsquo;20&rsquo;, &lsquo;<a href="mailto:1243@qq.com">1243@qq.com</a>&rsquo;, &lsquo;2021-03-11 12:48:31&rsquo;, &lsquo;2021-03-11 12:52:15&rsquo;, &lsquo;2&rsquo;</em></p>
-<p>结果完成，version变成2</p>
-<p><strong>5.0分页查询</strong></p>
-<p><strong>5.1分页插件</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/**
- * 分页插件
- */
-@Bean
-public PaginationInterceptor paginationInterceptor() {
-    return new PaginationInterceptor();
-}
-</code></pre></div><p><strong>5.2编写分页代码</strong></p>
-<p><strong>插件page对象，传入两个参数，当前页和每页记录数</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
-public void testSelectPage() {
-    Page&lt;User&gt; page = new Page(1,3);
-    Page&lt;User&gt; userPage = userMapper.selectPage(page, null);
-    //返回对象得到分页所有数据
-    long pages = userPage.getPages(); //总页数
-    long current = userPage.getCurrent(); //当前页
-    List&lt;User&gt; records = userPage.getRecords(); //查询数据集合
-    long total = userPage.getTotal(); //总记录数
-    boolean hasNext = userPage.hasNext();  //下一页
-    boolean hasPrevious = userPage.hasPrevious(); //上一页
-
-    System.out.println(pages);
-    System.out.println(current);
-    System.out.println(records);
-    System.out.println(total);
-    System.out.println(hasNext);
-    System.out.println(hasPrevious);
-}
-</code></pre></div><p><strong>5.3简单条件查询用map</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
-//简单条件查询
-@Test
-public void testSelect2() {
-    Map&lt;String, Object&gt; columnMap = new HashMap&lt;&gt;();
-    columnMap.put(&#34;name&#34;,&#34;Jack&#34;);
-    columnMap.put(&#34;age&#34;,20);
-    List&lt;User&gt; users = userMapper.selectByMap(columnMap);
-    System.out.println(users);
-}
-
-</code></pre></div><p><strong>6.0 逻辑删除</strong></p>
-<ul>
-<li>
-<p>物理删除：真实删除，将对应数据从数据库中删除，之后查询不到此条被删除数据</p>
-</li>
-<li>
-<p>逻辑删除：假删除，将对应数据中代表是否被删除字段状态修改为“被删除状态”，之后在数据库中仍旧能看到此条数据记录</p>
 </li>
 </ul>
-<p><strong>6.1 数据库右键增加deleted</strong></p>
-<p><strong>6.2实体类修改</strong></p>
-<p>添加deleted 字段，并加上 @TableLogic 注解</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@TableLogic
-@TableField(fill = FieldFill.INSERT)
-private Integer deleted;
-</code></pre></div><p><strong>6.3执行类修改</strong></p>
-<p>0未删除，1已删除</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Override
-    public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName(&#34;createTime&#34;,new Date(),metaObject);
-        this.setFieldValByName(&#34;updateTime&#34;,new Date(),metaObject);
-        this.setFieldValByName(&#34;version&#34;,1,metaObject);
-        this.setFieldValByName(&#34;deleted&#34;,0,metaObject);
-    }
-</code></pre></div><p><strong>6.4配置（可选）</strong></p>
-<p><em>application.properties 加入以下配置，此为默认值，如果你的默认值和mp默认的一样,该配置可无
-mybatis-plus.global-config.db-config.logic-delete-value=1
-mybatis-plus.global-config.db-config.logic-not-delete-value=0</em></p>
-<p><strong>6.5测试</strong></p>
+</li>
+<li><a href="#%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE" >通用枚举</a>
 <ul>
-<li>插入王五，</li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%AE%B5-sex" >数据库表添加字段 sex</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B" >创建通用枚举类型</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%89%AB%E6%8F%8F%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE" >配置扫描通用枚举</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">  @Test
-   public void testAdd() {
-       User user = new User();
-       user.setName(&#34;王五&#34;);
-       user.setAge(20);
-       user.setEmail(&#34;1243@qq.com&#34;);
-
-       int insert = userMapper.insert(user);
-       System.out.println(insert);
-</code></pre></div><p><em>1369890832562638849	王五	20	1243@qq.com	2021-03-11 14:00:00	2021-03-11 14:00:00	1	0</em></p>
-<pre><code>1369890832562638849	王五	20	1243@qq.com	2021-03-11 14:00:00	2021-03-11 14:00:00	1	1
-</code></pre>
-<p><strong>7.0 wrapper复杂查询操作</strong></p>
-<p><strong>7.1  ge、gt、le、lt、isNull、isNotNull</strong></p>
+</li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8" >代码生成器</a>
 <ul>
-<li>lt：less than 小于</li>
-<li>le：less than or equal to 小于等于</li>
-<li>eq：equal to 等于</li>
-<li>ne：not equal to 不等于</li>
-<li>ge：greater than or equal to 大于等于</li>
-<li>gt：greater than 大于</li>
+<li><a href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96" >引入依赖</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90" >快速生成</a></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">QueryWrapper&lt;User&gt;queryWrapper = new QueryWrapper&lt;&gt;();
-queryWrapper
-.isNull(&#34;name&#34;)
-.ge(&#34;age&#34;, 12)
-.isNotNull(&#34;email&#34;);
-int result = userMapper.delete(queryWrapper);
-System.out.println(&#34;delete return count = &#34; + result);
-</code></pre></div><ul>
-<li>eq、ne</li>
+</li>
+<li><a href="#%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90" >多数据源</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E8%A1%A8" >创建数据库及表</a></li>
+<li><a href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96" >引入依赖</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90" >配置多数据源</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7-service" >创建用户 service</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%95%86%E5%93%81-service" >创建商品 service</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95" >测试</a></li>
 </ul>
-<p><strong>7.2between、notBetween</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
-public void testSelectCount() {
-QueryWrapper&lt;User&gt;queryWrapper = newQueryWrapper&lt;&gt;();
-queryWrapper.between(&#34;age&#34;, 20, 30);
-    Integer count = userMapper.selectCount(queryWrapper); //返回数据数量
-System.out.println(count);
-}
-</code></pre></div><p><strong>7.3 like、notLike、likeLeft、likeRight</strong></p>
-<p><strong>likeLeft(&ldquo;name&rdquo;, &ldquo;王&rdquo;)&mdash;&gt;name like &lsquo;%王&rsquo;</strong></p>
-<p><strong>likeRight(&ldquo;name&rdquo;, &ldquo;王&rdquo;)&mdash;&gt;name like &lsquo;王%'</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">
-@Test
-public void testSelectMaps() {
-QueryWrapper&lt;User&gt;queryWrapper = newQueryWrapper&lt;&gt;();
-queryWrapper
-        .select(&#34;name&#34;, &#34;age&#34;)
-        .like(&#34;name&#34;, &#34;e&#34;)
-        .likeRight(&#34;email&#34;, &#34;5&#34;);
-List&lt;Map&lt;String, Object&gt;&gt;maps = userMapper.selectMaps(queryWrapper);//返回值是Map列表
-maps.forEach(System.out::println);
-}
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="条件构造器和常用接口">条件构造器和常用接口</h2>
+<p><a id="markdown-%E6%9D%A1%E4%BB%B6%E6%9E%84%E9%80%A0%E5%99%A8%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3" name="%E6%9D%A1%E4%BB%B6%E6%9E%84%E9%80%A0%E5%99%A8%E5%92%8C%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3"></a></p>
+<p>Wrapper ： 条件构造抽象类，最顶端父类</p>
+<ul>
+<li>
+<p>AbstractWrapper ： 用于查询条件封装，生成 sql 的 where 条件</p>
+<ul>
+<li>QueryWrapper ： 查询条件封装</li>
+<li>UpdateWrapper ： Update 条件封装</li>
+<li>AbstractLambdaWrapper ： 使用 Lambda 语法
+<ul>
+<li>LambdaQueryWrapper ：用于 Lambda 语法使用的查询 Wrapper</li>
+<li>LambdaUpdateWrapper ： Lambda 更新封装 Wrapper</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="querywrapper">QueryWrapper</h3>
+<p><a id="markdown-querywrapper" name="querywrapper"></a></p>
+<h4 id="组装查询条件">组装查询条件</h4>
+<p><a id="markdown-%E7%BB%84%E8%A3%85%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6" name="%E7%BB%84%E8%A3%85%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6"></a></p>
+<p><strong>搜索用户名包含 a， 年龄在 20 - 30， 邮箱不为 null</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
 
-</code></pre></div><p><strong>7.4 orderBy、orderByDesc、orderByAsc</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@Test
-public void testSelectListOrderBy() {
-QueryWrapper&lt;User&gt;queryWrapper = newQueryWrapper&lt;&gt;();
-queryWrapper.orderByDesc(&#34;age&#34;, &#34;id&#34;);
-List&lt;User&gt;users = userMapper.selectList(queryWrapper);
-users.forEach(System.out::println);
-}
-</code></pre></div><hr>
-<h4 id="ok-its-time-for-mybatis3hahahugoshortcode-s0-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis3/" >mybatis3</a></h4>
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 用户名包含 a， 年龄在 20 - 30， 邮箱不为null
+</span><span class="c1"></span>        <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">between</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">20</span><span class="o">,</span> <span class="n">30</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">isNotNull</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="组装排序条件">组装排序条件</h4>
+<p><a id="markdown-%E7%BB%84%E8%A3%85%E6%8E%92%E5%BA%8F%E6%9D%A1%E4%BB%B6" name="%E7%BB%84%E8%A3%85%E6%8E%92%E5%BA%8F%E6%9D%A1%E4%BB%B6"></a></p>
+<p><strong>/按年龄降序查询用户，如果年龄相同则按 id 升序排列</strong></p>
+<p>**<strong>SELECT id,name,age,email,deleted FROM user WHERE deleted=0 ORDER BY age DESC,id ASC</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+         <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">orderByDesc</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">orderByAsc</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="组装删除条件">组装删除条件</h4>
+<p><a id="markdown-%E7%BB%84%E8%A3%85%E5%88%A0%E9%99%A4%E6%9D%A1%E4%BB%B6" name="%E7%BB%84%E8%A3%85%E5%88%A0%E9%99%A4%E6%9D%A1%E4%BB%B6"></a></p>
+<p><strong>删除 email 为空的用户</strong></p>
+<p><strong>UPDATE user SET deleted=1 WHERE deleted=0 AND (email IS NULL)</strong></p>
+<p><strong>querywarpper 里面就是放条件， usermapper 承担删除功能</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+    
+        <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">delete</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">delete</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="querywrapper-修改功能">QueryWrapper 修改功能</h4>
+<p><a id="markdown-querywrapper-%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD" name="querywrapper-%E4%BF%AE%E6%94%B9%E5%8A%9F%E8%83%BD"></a></p>
+<p><strong>将（年龄大于 20 并且用户名中包含有 a）或邮箱为 null 的用户信息修改</strong></p>
+<p><strong>UPDATE user SET name=?, email=? WHERE deleted=0 AND (age &gt; ? AND name LIKE ? OR email IS NULL)</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">20</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">or</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">);</span>
+
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;美女&#34;</span><span class="o">);</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">&#34;test@mybatis.com&#34;</span><span class="o">);</span>
+
+        <span class="kt">int</span> <span class="n">update</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">user</span><span class="o">,</span> <span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">update</span><span class="o">);</span>
+
+    <span class="o">}</span>
+</code></pre></div><h4 id="条件的优先级">条件的优先级</h4>
+<p><a id="markdown-%E6%9D%A1%E4%BB%B6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7" name="%E6%9D%A1%E4%BB%B6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"></a></p>
+<p><strong>将用户名中包含有 a 并且（年龄大于 20 或邮箱为 null） 的用户信息修改</strong></p>
+<p><strong>UPDATE user SET name=?, email=? WHERE deleted=0 AND (age &gt; ? AND name LIKE ? OR email IS NULL)</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+         <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">20</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">or</span><span class="o">()</span>
+                        <span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">));</span>
+
+
+        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;帅哥&#34;</span><span class="o">);</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">&#34;test@mybatis.com&#34;</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">update</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">user</span><span class="o">,</span> <span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">update</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="组装-select-子句">组装 select 子句</h4>
+<p><a id="markdown-%E7%BB%84%E8%A3%85-select-%E5%AD%90%E5%8F%A5" name="%E7%BB%84%E8%A3%85-select-%E5%AD%90%E5%8F%A5"></a></p>
+<p><strong>查询用户信息的 username 和 age 字段</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">select</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="s">&#34;email&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;&gt;</span> <span class="n">maps</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectMaps</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">maps</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h4 id="实现子查询">实现子查询</h4>
+<p><a id="markdown-%E5%AE%9E%E7%8E%B0%E5%AD%90%E6%9F%A5%E8%AF%A2" name="%E5%AE%9E%E7%8E%B0%E5%AD%90%E6%9F%A5%E8%AF%A2"></a></p>
+<p><strong>查询 id 小于等于 3 的用户信息</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
+        <span class="n">queryWrapper</span><span class="o">.</span><span class="na">inSql</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">,</span> <span class="s">&#34;select id from user where id &lt;= 100&#34;</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h3 id="updatewrapper">UpdateWrapper</h3>
+<p><a id="markdown-updatewrapper" name="updatewrapper"></a></p>
+<p><strong>将（年龄大于 20 或邮箱为 null）并且用户名中包含有 a 的用户信息修改</strong></p>
+<p><strong>组装 set 子句以及修改条件</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//将（年龄大于20或邮箱为null）并且用户名中包含有a的用户信息修改
+</span><span class="c1"></span>        <span class="c1">//组装set子句以及修改条件
+</span><span class="c1"></span>        <span class="n">UpdateWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">updateWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UpdateWrapper</span><span class="o">&lt;&gt;();</span>
+        <span class="c1">//lambda表达式内的逻辑优先运算
+</span><span class="c1"></span>        <span class="n">updateWrapper</span>
+        <span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">18</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">,</span> <span class="s">&#34;user@atguigu.com&#34;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">20</span><span class="o">).</span><span class="na">or</span><span class="o">().</span><span class="na">isNull</span><span class="o">(</span><span class="s">&#34;email&#34;</span><span class="o">));</span>
+        <span class="c1">//这里必须要创建User对象，否则无法应用自动填充。如果没有自动填充，可以设置为null
+</span><span class="c1"></span>        <span class="c1">//UPDATE t_user SET username=?, age=?,email=? WHERE (username LIKE ? AND
+</span><span class="c1"></span>        <span class="o">(</span><span class="n">age</span> <span class="o">&gt;</span> <span class="o">?</span> <span class="n">OR</span> <span class="n">email</span> <span class="n">IS</span> <span class="n">NULL</span><span class="o">))</span>
+        <span class="c1">//User user = new User();
+</span><span class="c1"></span>        <span class="c1">//user.setName(&#34;张三&#34;);
+</span><span class="c1"></span>        <span class="c1">//int result = userMapper.update(user, updateWrapper);
+</span><span class="c1"></span>        <span class="c1">//UPDATE t_user SET age=?,email=? WHERE (username LIKE ? AND (age &gt; ? OR
+</span><span class="c1"></span>        <span class="c1">//email IS NULL))
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">updateWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h3 id="condition">condition</h3>
+<p><a id="markdown-condition" name="condition"></a></p>
+<p>在真正开发的过程中，组装条件是常见的功能，而这些条件数据来源于用户输入，是可选的，</p>
+<p>因此我们在组装这些条件时，必须先判断用户是否选择了这些条件，若选择则需要组装该条件，</p>
+<p>若没有选择则一定不能组装，以免影响SQL执行的结果</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test08</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//定义查询条件，有可能为null（用户未输入或未选择）
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">ageBegin</span> <span class="o">=</span> <span class="n">10</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">ageEnd</span> <span class="o">=</span> <span class="n">24</span><span class="o">;</span>
+    <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">//StringUtils.isNotBlank() com.baomidou.mybatisplus.core.toolkit 里面的判断某字符串是否不为空且长度不为0且不由空白符(whitespace)
+</span><span class="c1"></span>    <span class="c1">//构成
+</span><span class="c1"></span>    <span class="k">if</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">username</span><span class="o">)){</span>
+    <span class="n">queryWrapper</span><span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">,</span><span class="s">&#34;a&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">ageBegin</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+    <span class="n">queryWrapper</span><span class="o">.</span><span class="na">ge</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">ageBegin</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">ageEnd</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+    <span class="n">queryWrapper</span><span class="o">.</span><span class="na">le</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">ageEnd</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//SELECT id,username AS name,age,email,is_deleted FROM t_user WHERE (age &gt;=
+</span><span class="c1"></span>    <span class="o">?</span> <span class="n">AND</span> <span class="n">age</span> <span class="o">&lt;=</span> <span class="o">?)</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>使用带 condition 参数的重载方法构建查询条件，简化代码的编写</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">test08</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//定义查询条件，有可能为null（用户未输入或未选择）
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">ageBegin</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">ageEnd</span> <span class="o">=</span> <span class="n">24</span><span class="o">;</span>
+    <span class="n">QueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueryWrapper</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">//StringUtils.isNotBlank() com.baomidou.mybatisplus.core.toolkit 里面的判断某字符串是否不为空且长度不为0且不由空白符(whitespace)
+</span><span class="c1"></span>    <span class="c1">//构成
+</span><span class="c1"></span>    <span class="n">queryWarpper</span>
+        <span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">name</span><span class="o">),</span> <span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="n">name</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">ge</span><span class="o">(</span><span class="n">ageBegin</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">,</span> <span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">ageBegin</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">le</span><span class="o">((</span><span class="n">ageEnd</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">,</span> <span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">ageEnd</span><span class="o">);</span>
+
+    
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="lambdaquerywrappe">LambdaQueryWrappe</h3>
+<p><a id="markdown-lambdaquerywrappe" name="lambdaquerywrappe"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">test08</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//定义查询条件，有可能为null（用户未输入或未选择）
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">ageBegin</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Integer</span> <span class="n">ageEnd</span> <span class="o">=</span> <span class="n">24</span><span class="o">;</span>
+    <span class="n">LamdaQueryWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">queryWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LamdaQueryWrapper</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">//StringUtils.isNotBlank() com.baomidou.mybatisplus.core.toolkit 里面的判断某字符串是否不为空且长度不为0且不由空白符(whitespace)
+</span><span class="c1"></span>    <span class="c1">//构成
+</span><span class="c1"></span>    <span class="n">queryWarpper</span>
+        <span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">name</span><span class="o">),</span> <span class="n">User</span><span class="o">::</span><span class="n">getName</span><span class="o">,</span> <span class="n">name</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">ge</span><span class="o">(</span><span class="n">ageBegin</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">,</span> <span class="n">User</span><span class="o">::</span><span class="n">getAge</span><span class="o">,</span> <span class="n">ageBegin</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">le</span><span class="o">((</span><span class="n">ageEnd</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">,</span> <span class="n">User</span><span class="o">::</span><span class="n">getAge</span><span class="o">,</span> <span class="n">ageEnd</span><span class="o">);</span>
+
+    
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="n">queryWrapper</span><span class="o">);</span>
+    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="lambdaupdatewrapper">LambdaUpdateWrapper</h3>
+<p><a id="markdown-lambdaupdatewrapper" name="lambdaupdatewrapper"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">//将（年龄大于20或邮箱为null）并且用户名中包含有a的用户信息修改
+</span><span class="c1"></span>        <span class="c1">//组装set子句以及修改条件
+</span><span class="c1"></span>        <span class="n">LambdaUpdateWrapper</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">updateWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LambdaUpdateWrapper</span><span class="o">&lt;&gt;();</span>
+        <span class="c1">//lambda表达式内的逻辑优先运算
+</span><span class="c1"></span>        <span class="n">updateWrapper</span>
+        <span class="o">.</span><span class="na">like</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">getName</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">getAge</span><span class="o">,</span> <span class="n">20</span><span class="o">).</span><span class="na">or</span><span class="o">().</span><span class="na">isNull</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">getEmail</span><span class="o">));</span>
+       
+        <span class="n">updateWrapper</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">getName</span><span class="o">,</span> <span class="s">&#34;b&#34;</span><span class="o">).</span><span class="na">set</span><span class="o">(</span><span class="n">User</span><span class="o">::</span><span class="n">getEmail</span><span class="o">,</span> <span class="s">&#34;qw.com&#34;</span><span class="o">);</span>
+
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">updateWrapper</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="插件">插件</h2>
+<p><a id="markdown-%E6%8F%92%E4%BB%B6" name="%E6%8F%92%E4%BB%B6"></a></p>
+<h3 id="分页插件">分页插件</h3>
+<p><a id="markdown-%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6" name="%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"></a></p>
+<h4 id="1添加配置类">1.添加配置类</h4>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE%E7%B1%BB" name="%E6%B7%BB%E5%8A%A0%E9%85%8D%E7%BD%AE%E7%B1%BB"></a></p>
+<blockquote>
+<p>config -&gt; MyBatisPlusConfig</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@MapperScan</span><span class="o">(</span><span class="s">&#34;com.atguigu.mybatisplus.mapper&#34;</span><span class="o">)</span> <span class="c1">//可以将主类中的注解移到此处
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MybatisPlusConfig</span> <span class="o">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">MybatisPlusInterceptor</span> <span class="nf">mybatisPlusInterceptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">MybatisPlusInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MybatisPlusInterceptor</span><span class="o">();</span>
+    <span class="n">interceptor</span><span class="o">.</span><span class="na">addInnerInterceptor</span><span class="o">(</span><span class="k">new</span>
+    <span class="n">PaginationInnerInterceptor</span><span class="o">(</span><span class="n">DbType</span><span class="o">.</span><span class="na">MYSQL</span><span class="o">));</span>
+    <span class="k">return</span> <span class="n">interceptor</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="2测试">2.测试</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testPage</span><span class="o">(){</span>
+    <span class="c1">//设置分页参数
+</span><span class="c1"></span>    <span class="n">Page</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">page</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Page</span><span class="o">&lt;&gt;(</span><span class="n">1</span><span class="o">,</span> <span class="n">5</span><span class="o">);</span>
+    <span class="n">userMapper</span><span class="o">.</span><span class="na">selectPage</span><span class="o">(</span><span class="n">page</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="c1">//获取分页数据
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getRecords</span><span class="o">();</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;当前页：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getCurrent</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;每页显示的条数：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getSize</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总记录数：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getTotal</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总页数：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getPages</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;是否有上一页：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;是否有下一页：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">hasNext</span><span class="o">());</span>
+<span class="o">}</span>
+
+</code></pre></div><h3 id="xml-自定义分页">xml 自定义分页</h3>
+<p><a id="markdown-xml-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%86%E9%A1%B5" name="xml-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%88%86%E9%A1%B5"></a></p>
+<h4 id="1usermapper-中定义接口方法">1.UserMapper 中定义接口方法</h4>
+<p><a id="markdown-usermapper-%E4%B8%AD%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%B3%95" name="usermapper-%E4%B8%AD%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%B3%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm">* 根据年龄查询用户列表，分页显示
+</span><span class="cm">* @param page 分页对象,xml中可以从里面进行取值,传递参数 Page 即自动分页,必须放在第一位
+</span><span class="cm">* @param age 年龄
+</span><span class="cm">* @return
+</span><span class="cm">*/</span>
+<span class="n">Page</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">selectPageVo</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;page&#34;</span><span class="o">)</span> <span class="n">Page</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">page</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">)</span>
+<span class="n">Integer</span> <span class="n">age</span><span class="o">);</span>
+</code></pre></div><h4 id="2usermapperxml-中编写-sql">2.UserMapper.xml 中编写 SQL</h4>
+<p><a id="markdown-usermapper.xml-%E4%B8%AD%E7%BC%96%E5%86%99-sql" name="usermapper.xml-%E4%B8%AD%E7%BC%96%E5%86%99-sql"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--SQL片段，记录基础字段--&gt;</span>
+<span class="nt">&lt;sql</span> <span class="na">id=</span><span class="s">&#34;BaseColumns&#34;</span><span class="nt">&gt;</span>id,username,age,email<span class="nt">&lt;/sql&gt;</span>
+<span class="c">&lt;!--IPage&lt;User&gt; selectPageVo(Page&lt;User&gt; page, Integer age);--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selectPageVo&#34;</span> <span class="na">resultType=</span><span class="s">&#34;User&#34;</span><span class="nt">&gt;</span>
+SELECT <span class="nt">&lt;include</span> <span class="na">refid=</span><span class="s">&#34;BaseColumns&#34;</span><span class="nt">&gt;&lt;/include&gt;</span> FROM t_user WHERE age &gt; #
+{age}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="3测试">3.测试</h4>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelectPageVo</span><span class="o">(){</span>
+<span class="c1">//设置分页参数
+</span><span class="c1"></span><span class="n">Page</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">page</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Page</span><span class="o">&lt;&gt;(</span><span class="n">1</span><span class="o">,</span> <span class="n">5</span><span class="o">);</span>
+<span class="n">userMapper</span><span class="o">.</span><span class="na">selectPageVo</span><span class="o">(</span><span class="n">page</span><span class="o">,</span> <span class="n">20</span><span class="o">);</span>
+<span class="c1">//获取分页数据
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="na">getRecords</span><span class="o">();</span>
+<span class="n">list</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;当前页：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getCurrent</span><span class="o">());</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;每页显示的条数：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getSize</span><span class="o">());</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总记录数：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getTotal</span><span class="o">());</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总页数：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">getPages</span><span class="o">());</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;是否有上一页：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">hasPrevious</span><span class="o">());</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;是否有下一页：&#34;</span><span class="o">+</span><span class="n">page</span><span class="o">.</span><span class="na">hasNext</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="乐观锁">乐观锁</h3>
+<p><a id="markdown-%E4%B9%90%E8%A7%82%E9%94%81" name="%E4%B9%90%E8%A7%82%E9%94%81"></a></p>
+<h4 id="1场景">1.场景</h4>
+<p><a id="markdown-%E5%9C%BA%E6%99%AF" name="%E5%9C%BA%E6%99%AF"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">一件商品，成本价是80元，售价是100元。老板先是通知小李，说你去把商品价格增加50元。小
+李正在玩游戏，耽搁了一个小时。正好一个小时后，老板觉得商品价格增加到150元，价格太
+高，可能会影响销量。又通知小王，你把商品价格降低30元。
+<span class="c1">###</span>
+此时，小李和小王同时操作商品后台系统。小李操作的时候，系统先取出商品价格100元；小王
+也在操作，取出的商品价格也是100元。小李将价格加了50元，并将100+50<span class="o">=</span>150元存入了数据
+库；小王将商品减了30元，并将100-30<span class="o">=</span>70元存入了数据库。是的，如果没有锁，小李的操作就
+完全被小王的覆盖了。
+<span class="c1">###</span>
+现在商品价格是70元，比成本价低10元。几分钟后，这个商品很快出售了1千多件商品，老板亏1
+万多。
+
+</code></pre></div><h4 id="2乐观锁与悲观锁">2.乐观锁与悲观锁</h4>
+<p><a id="markdown-%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81" name="%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">###</span>
+上面的故事，如果是乐观锁，小王保存价格前，会检查下价格是否被人修改过了。如果被修改过
+了，则重新取出的被修改后的价格，150元，这样他会将120元存入数据库。
+如果是悲观锁，小李取出数据后，小王只能等小李操作完之后，才能对价格进行操作，也会保证
+最终的价格是120元。
+</code></pre></div><h4 id="3模拟修改冲突">3.模拟修改冲突</h4>
+<p><a id="markdown-%E6%A8%A1%E6%8B%9F%E4%BF%AE%E6%94%B9%E5%86%B2%E7%AA%81" name="%E6%A8%A1%E6%8B%9F%E4%BF%AE%E6%94%B9%E5%86%B2%E7%AA%81"></a></p>
+<h5 id="31-数据库中增加商品表">3.1 数据库中增加商品表</h5>
+<p><a id="markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%A2%9E%E5%8A%A0%E5%95%86%E5%93%81%E8%A1%A8" name="%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%A2%9E%E5%8A%A0%E5%95%86%E5%93%81%E8%A1%A8"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t_product</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">bigint</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;主键ID&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;商品名称&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">price</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;价格&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">version</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">comment</span><span class="w"> </span><span class="s1">&#39;乐观锁版本号&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><h5 id="32-添加数据">3.2 添加数据</h5>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE" name="%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE"></a></p>
+<blockquote>
+<p>insert into t_product (id, name, price) values (1, &lsquo;外星人笔记本&rsquo;, 100);</p>
+</blockquote>
+<h5 id="33-添加实体">3.3 添加实体</h5>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0%E5%AE%9E%E4%BD%93" name="%E6%B7%BB%E5%8A%A0%E5%AE%9E%E4%BD%93"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">version</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="34-添加-mapper">3.4 添加 mapper</h5>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0-mapper" name="%E6%B7%BB%E5%8A%A0-mapper"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ProductMapper</span> <span class="kd">extends</span> <span class="n">BaseMapper</span><span class="o">&lt;</span><span class="n">Projuct</span><span class="o">&gt;{}</span>
+</code></pre></div><h5 id="35-测试">3.5 测试</h5>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testConcurrentUpdate</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 小李
+</span><span class="c1"></span>    <span class="n">Projuct</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小李取出的价格： &#34;</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+
+     <span class="c1">// 小王
+</span><span class="c1"></span>    <span class="n">Projuct</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小王取出的价格： &#34;</span> <span class="o">+</span> <span class="n">p2</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+
+    <span class="c1">// 小李价格加了 50， 存入数据库
+</span><span class="c1"></span>    <span class="n">p1</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">+</span> <span class="n">50</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">res1</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">p1</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小李修改价格： &#34;</span> <span class="o">+</span> <span class="n">res1</span><span class="o">);</span>
+
+    <span class="c1">// 小王价格减了 30， 存入数据库
+</span><span class="c1"></span>    <span class="n">p2</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">-</span> <span class="n">30</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">res2</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">p2</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小王修改价格： &#34;</span> <span class="o">+</span> <span class="n">res2</span><span class="o">);</span>
+
+    <span class="c1">// 最后价格
+</span><span class="c1"></span>    <span class="n">Product</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;价格： &#34;</span> <span class="o">+</span>  <span class="n">p3</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>最后结果是 70</strong></p>
+<h4 id="4乐观锁实现流程">4.乐观锁实现流程</h4>
+<p><a id="markdown-%E4%B9%90%E8%A7%82%E9%94%81%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B" name="%E4%B9%90%E8%A7%82%E9%94%81%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B"></a></p>
+<p>数据库中添加 version 字段</p>
+<p>取出记录时，获取当前 version</p>
+<blockquote>
+<p>select id, name, price, version from product where id=1</p>
+</blockquote>
+<p>更新时，version + 1，如果 where 语句中的 version 版本不对，则更新失败</p>
+<blockquote>
+<p>update product set price=price + 50, <code>version</code>=<code>version</code> + 1 where id=1 and <code>version</code>=1</p>
+</blockquote>
+<h4 id="5mybatis-plus-实现乐观锁">5.Mybatis-Plus 实现乐观锁</h4>
+<p><a id="markdown-mybatis-plus-%E5%AE%9E%E7%8E%B0%E4%B9%90%E8%A7%82%E9%94%81" name="mybatis-plus-%E5%AE%9E%E7%8E%B0%E4%B9%90%E8%A7%82%E9%94%81"></a></p>
+<h5 id="51-修改实体类">5.1 修改实体类</h5>
+<p><a id="markdown-%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BD%93%E7%B1%BB" name="%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BD%93%E7%B1%BB"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Long</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">price</span><span class="o">;</span>
+    <span class="nd">@Version</span>
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">version</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h5 id="52-添加乐观锁插件配置">5.2 添加乐观锁插件配置</h5>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0%E4%B9%90%E8%A7%82%E9%94%81%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE" name="%E6%B7%BB%E5%8A%A0%E4%B9%90%E8%A7%82%E9%94%81%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="n">MybatisPlusInterceptor</span> <span class="nf">mybatisPlusInterceptor</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">MybatisPlusInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MybatisPlusInterceptor</span><span class="o">();</span>
+    <span class="c1">//添加分页插件
+</span><span class="c1"></span>    <span class="n">interceptor</span><span class="o">.</span><span class="na">addInnerInterceptor</span><span class="o">(</span><span class="k">new</span> <span class="n">PaginationInnerInterceptor</span><span class="o">(</span><span class="n">Dbtype</span><span class="o">.</span><span class="na">MYSQL</span><span class="o">));</span>
+    <span class="c1">//添加乐观锁插件
+</span><span class="c1"></span>    <span class="n">interceptor</span><span class="o">.</span><span class="na">addInnerInterceptor</span> <span class="o">(</span><span class="k">new</span> <span class="n">OptimisticLockerInnerInterceptor</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">interceptor</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>加入后同样的代码，得到结果是 150， p2 没执行</p>
+<h5 id="53-测试修改冲突">5.3 测试修改冲突</h5>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95%E4%BF%AE%E6%94%B9%E5%86%B2%E7%AA%81" name="%E6%B5%8B%E8%AF%95%E4%BF%AE%E6%94%B9%E5%86%B2%E7%AA%81"></a></p>
+<blockquote>
+<p>小李查询商品信息：</p>
+</blockquote>
+<blockquote>
+<p>SELECT id,name,price,version FROM t_product WHERE id=?</p>
+</blockquote>
+<blockquote>
+<p>小王查询商品信息：</p>
+</blockquote>
+<blockquote>
+<p>SELECT id,name,price,version FROM t_product WHERE id=?</p>
+</blockquote>
+<blockquote>
+<p>小李修改商品价格，自动将 version+1</p>
+</blockquote>
+<blockquote>
+<p>UPDATE t_product SET name=?, price=?, version=? WHERE id=? AND version=?</p>
+</blockquote>
+<blockquote>
+<p>Parameters: 外星人笔记本(String), 150(Integer), 1(Integer), 1(Long), 0(Integer)</p>
+</blockquote>
+<blockquote>
+<p>小王修改商品价格，此时 version 已更新，条件不成立，修改失败</p>
+</blockquote>
+<blockquote>
+<p>UPDATE t_product SET name=?, price=?, version=? WHERE id=? AND version=?</p>
+</blockquote>
+<blockquote>
+<p>Parameters: 外星人笔记本(String), 70(Integer), 1(Integer), 1(Long), 0(Integer)</p>
+</blockquote>
+<blockquote>
+<p>最终，小王修改失败，查询价格：150</p>
+</blockquote>
+<blockquote>
+<p>SELECT id,name,price,version FROM t_product WHERE id=?</p>
+</blockquote>
+<h5 id="54-优化流程">5.4 优化流程</h5>
+<p><a id="markdown-%E4%BC%98%E5%8C%96%E6%B5%81%E7%A8%8B" name="%E4%BC%98%E5%8C%96%E6%B5%81%E7%A8%8B"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testConcurrentUpdate</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">// 小李
+</span><span class="c1"></span>    <span class="n">Projuct</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小李取出的价格： &#34;</span> <span class="o">+</span> <span class="n">p1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span> <span class="c1">// version 0
+</span><span class="c1"></span>
+     <span class="c1">// 小王
+</span><span class="c1"></span>    <span class="n">Projuct</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小王取出的价格： &#34;</span> <span class="o">+</span> <span class="n">p2</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>  <span class="c1">// version 0
+</span><span class="c1"></span>
+    <span class="c1">// 小李价格加了 50， 存入数据库
+</span><span class="c1"></span>    <span class="n">p1</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">+</span> <span class="n">50</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">res1</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">p1</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小李修改价格： &#34;</span> <span class="o">+</span> <span class="n">res1</span><span class="o">);</span>  <span class="c1">// version 1
+</span><span class="c1"></span>
+    <span class="c1">// 小王价格减了 30， 存入数据库
+</span><span class="c1"></span>    <span class="n">p2</span><span class="o">.</span><span class="na">setPrice</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">-</span> <span class="n">30</span><span class="o">);</span>  <span class="c1">// version 0, 不满足版本号，无法操作
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">res2</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">p2</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;小王修改价格： &#34;</span> <span class="o">+</span> <span class="n">res2</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">res2</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 小王操作失败，重新操作
+</span><span class="c1"></span>        <span class="n">p2</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span> <span class="c1">// version 1, 满足版本号，操作
+</span><span class="c1"></span>        <span class="n">p2</span><span class="o">.</span><span class="na">setPriice</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">-</span> <span class="n">30</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">// 最后价格
+</span><span class="c1"></span>    <span class="n">Product</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">productMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;价格： &#34;</span> <span class="o">+</span>  <span class="n">p3</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p>结果是 120</p>
+<h2 id="通用枚举">通用枚举</h2>
+<p><a id="markdown-%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE" name="%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE"></a></p>
+<p>表中的有些字段值是固定的，例如性别（男或女），此时我们可以使用 MyBatis-Plus 的通用枚举
+来实现</p>
+<h3 id="数据库表添加字段-sex">数据库表添加字段 sex</h3>
+<p><a id="markdown-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%AE%B5-sex" name="%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%AE%B5-sex"></a></p>
+<h3 id="创建通用枚举类型">创建通用枚举类型</h3>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B" name="%E5%88%9B%E5%BB%BA%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Getter</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="n">SexEnum</span> <span class="o">{</span>
+    <span class="n">MALE</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">),</span>
+    <span class="n">FEMALE</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="s">&#34;女&#34;</span><span class="o">);</span>
+
+    <span class="nd">@EnumValue</span> 
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">sex</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sexName</span><span class="o">;</span>
+    <span class="n">SexEnum</span><span class="o">(</span><span class="n">Integer</span> <span class="n">sex</span><span class="o">,</span> <span class="n">String</span> <span class="n">sexName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sex</span> <span class="o">=</span> <span class="n">sex</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sexName</span> <span class="o">=</span> <span class="n">sexName</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p><strong>@EnumValue 的注解很重要，如果没有这个值，后代码中 user.setSex(SexEnum.MALE) 传入的是 sexName， 但是表格需要的是 integer， 0， 1 表示性别。如果需要这个注解以及在配置文件中加入扫描枚举的包</strong></p>
+<h3 id="配置扫描通用枚举">配置扫描通用枚举</h3>
+<p><a id="markdown-%E9%85%8D%E7%BD%AE%E6%89%AB%E6%8F%8F%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE" name="%E9%85%8D%E7%BD%AE%E6%89%AB%E6%8F%8F%E9%80%9A%E7%94%A8%E6%9E%9A%E4%B8%BE"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">mybatis-plus</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nt">configuration</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="c"># 配置MyBatis日志</span><span class="w">
+</span><span class="w"></span><span class="nt">log-impl</span><span class="p">:</span><span class="w"> </span><span class="l">org.apache.ibatis.logging.stdout.StdOutImpl</span><span class="w">
+</span><span class="w"></span><span class="nt">global-config</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="nt">db-config</span><span class="p">:</span><span class="w">
+</span><span class="w"></span><span class="c"># 配置MyBatis-Plus操作表的默认前缀</span><span class="w">
+</span><span class="w"></span><span class="nt">table-prefix</span><span class="p">:</span><span class="w"> </span><span class="l">t_</span><span class="w">
+</span><span class="w"></span><span class="c"># 配置MyBatis-Plus的主键策略</span><span class="w">
+</span><span class="w"></span><span class="nt">id-type</span><span class="p">:</span><span class="w"> </span><span class="l">auto</span><span class="w">
+</span><span class="w"></span><span class="c"># 配置扫描通用枚举</span><span class="w">
+</span><span class="w"></span><span class="nt">type-enums-package</span><span class="p">:</span><span class="w"> </span><span class="l">com.demo.mybatisplus.enums</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><h3 id="测试">测试</h3>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSexEnum</span><span class="o">(){</span>
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;Enum&#34;</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
+    <span class="c1">//设置性别信息为枚举项，会将@EnumValue注解所标识的属性值存储到数据库
+</span><span class="c1"></span>    <span class="n">user</span><span class="o">.</span><span class="na">setSex</span><span class="o">(</span><span class="n">SexEnum</span><span class="o">.</span><span class="na">MALE</span><span class="o">);</span>
+    <span class="c1">//INSERT INTO t_user ( username, age, sex ) VALUES ( ?, ?, ? )
+</span><span class="c1"></span>    <span class="c1">//Parameters: Enum(String), 20(Integer), 1(Integer)
+</span><span class="c1"></span>    <span class="n">userMapper</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="代码生成器">代码生成器</h2>
+<p><a id="markdown-%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8" name="%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8"></a></p>
+<h3 id="引入依赖">引入依赖</h3>
+<p><a id="markdown-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96" name="%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"></a></p>
+<h3 id="快速生成">快速生成</h3>
+<p><a id="markdown-%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90" name="%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90"></a></p>
+<h2 id="多数据源">多数据源</h2>
+<p><a id="markdown-%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90" name="%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"></a></p>
+<h3 id="1-创建数据库及表">1. 创建数据库及表</h3>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E8%A1%A8" name="%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E8%A1%A8"></a></p>
+<blockquote>
+<p>创建数据库 mybatis_plus_1 和 表 product</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="o">`</span><span class="n">mybatis_plus_1</span><span class="o">`</span><span class="w"> </span><span class="cm">/*!40100 DEFAULT CHARACTER SET utf8mb4 */</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="n">use</span><span class="w"> </span><span class="o">`</span><span class="n">mybatis_plus_1</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;主键ID&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;商品名称&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">price</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;价格&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">version</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;乐观锁版本号&#39;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">NAME</span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;外星人笔记本&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">);</span><span class="w">
+</span></code></pre></div><h3 id="2-引入依赖">2. 引入依赖</h3>
+<p><a id="markdown-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96" name="%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.baomidou<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>dynamic-datasource-spring-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>3.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.freemarker<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>freemarker<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.3.31<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><h3 id="3-配置多数据源">3. 配置多数据源</h3>
+<p><a id="markdown-%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90" name="%E9%85%8D%E7%BD%AE%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"></a></p>
+<h3 id="4-创建用户-service">4. 创建用户 service</h3>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7-service" name="%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7-service"></a></p>
+<h3 id="5-创建商品-service">5. 创建商品 service</h3>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA%E5%95%86%E5%93%81-service" name="%E5%88%9B%E5%BB%BA%E5%95%86%E5%93%81-service"></a></p>
+<h3 id="6-测试">6. 测试</h3>
+<p><a id="markdown-%E6%B5%8B%E8%AF%95" name="%E6%B5%8B%E8%AF%95"></a></p>
+<hr>
+<p>Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis3/" >mybatis3</a></p>
 <p><a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></p></div>
     <div class="post-footer">
         <div class="info">

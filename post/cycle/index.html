@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about Cyclic sort </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/cycle/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about Cyclic sort"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about Cyclic sort</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">7-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Cyclic Sort，循环排序</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#missing-number-268" >Missing Number 268</a></li>
+<li><a href="#find-the-duplicate-number-287" >Find the Duplicate Number 287</a></li>
+<li><a href="#find-all-numbers-disappeared-in-an-array-448" >Find All Numbers Disappeared in an Array 448</a></li>
+<li><a href="#find-all-duplicates-in-an-array-442" >Find All Duplicates in an Array 442</a></li>
+<li><a href="#first-missing-positive-41" >First Missing Positive 41</a></li>
+<li><a href="#all-ancestors-of-a-node-in-a-directed-acyclic-graph-2192" >All Ancestors of a Node in a Directed Acyclic Graph 2192</a></li>
+</ul>
+<!-- /TOC -->
+<p>可以用来处理数组中的数值限定在一定的区间的问题。这种模式一个个遍历数组中的元素，如果当前这个数它不在其应该在的位置的话，就把它和它应该在的那个位置上的数交换一下。</p>
+<p>这些问题一般设计到排序好的数组，而且数值一般满足于一定的区间
+如果问题让你需要在排好序/翻转过的数组中，寻找丢失的/重复的/最小的元素</p>
+<p>The idea is simple, if nums[i] != i + 1 and nums[i] != nums[nums[i] - 1], then we swap nums[i] with nums[nums[i] - 1], for example, nums[0] = 4 and nums[3] = 7, then we swap nums[0] with nums[3]. So In the end the array will be sorted and if nums[i] != i + 1, then i + 1 is missing.</p>
+<p>这个方法要好好理解下</p>
+<h2 id="missing-number-268">Missing Number 268</h2>
+<p><a id="markdown-missing-number-268" name="missing-number-268"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array nums containing n distinct numbers in the range <span class="o">[</span>0, n<span class="o">]</span>, <span class="k">return</span> the only number in the range that is missing from the array.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>3,0,1<span class="o">]</span>
+Output: <span class="m">2</span>
+Explanation: <span class="nv">n</span> <span class="o">=</span> <span class="m">3</span> since there are <span class="m">3</span> numbers, so all numbers are in the range <span class="o">[</span>0,3<span class="o">]</span>. <span class="m">2</span> is the missing number in the range since it does not appear in nums.
+</code></pre></div><p>sum 的解法:  sums / triangular numbers (n * (n+1) / 2). Someone could get burned in an interview if they were asked &ldquo;will this approach overflow?&rdquo; They should be able to answer by reasoning that 10000 * 10001 is safely within the range of 32-bit signed integers, and so no, it will not. Or better yet, at which value of n would it overflow, which we can solve by solving the inequality n(n+1) &gt;= 2^31 (n=46340 is the largest safe value, n=46341 is the smallest value which will overflow).</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">missingNumber</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="o">(</span><span class="n">len</span> <span class="o">+</span> <span class="n">0</span><span class="o">)</span> <span class="o">*</span> <span class="o">(</span><span class="n">len</span> <span class="o">+</span> <span class="n">1</span><span class="o">)/</span><span class="n">2</span><span class="o">;</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>XOR 的解法
+a number XOR itself will become 0, any number XOR with 0 will stay unchanged. So if every number from 1&hellip;n XOR with itself except the missing number, the result will be the missing number.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">missingNumber</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">res</span> <span class="o">^=</span> <span class="n">i</span><span class="o">;</span>
+            <span class="n">res</span> <span class="o">^=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="find-the-duplicate-number-287">Find the Duplicate Number 287</h2>
+<p><a id="markdown-find-the-duplicate-number-287" name="find-the-duplicate-number-287"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of integers nums containing n + <span class="m">1</span> integers where each integer is in the range <span class="o">[</span>1, n<span class="o">]</span> inclusive.
+
+There is only one repeated number in nums, <span class="k">return</span> this repeated number.
+
+You must solve the problem without modifying the array nums and uses only constant extra space.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>1,3,4,2,2<span class="o">]</span>
+Output: <span class="m">2</span>
+</code></pre></div><p>Time Complexity: O(n)
+Space Complexity: O(n)</p>
+<p>Using a HashSet to record the occurrence of each number.</p>
+<p>Time Complexity: O(n)
+Space Complexity: O(1)
+Marking visited value within the array
+Since all values of the array are between [1..n] and the array size is n+1，while scanning the array from left to right, we set the nums[n] to its negative value.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">findDuplicate_mark</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span> <span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">idx</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">idx</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">nums</span><span class="o">[</span><span class="n">idx</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>Time Complexity: O(n)
+Space Complexity: O(1)</p>
+<p>he key is to understand how to treat the input array as a linked list.</p>
+<p>Take the array [1,3,4,2] as an example, the index of this array is [0, 1, 2, 3], we can map the index to the nums[n].</p>
+<p>0-&gt;1</p>
+<p>1-&gt;3</p>
+<p>2-&gt;4</p>
+<p>3-&gt;2</p>
+<p>4-&gt;2</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findDuplicate</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span><span class="o">(</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span><span class="n">0</span> <span class="o">)</span>
+                <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">slow</span><span class="o">=</span><span class="n">0</span><span class="o">,</span> <span class="n">fast</span><span class="o">=</span><span class="n">0</span><span class="o">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">]];</span>
+            <span class="k">while</span><span class="o">(</span><span class="n">slow</span> <span class="o">!=</span> <span class="n">fast</span><span class="o">){</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">slow</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">])</span>
+                    <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">]];</span>
+            <span class="o">}</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+            <span class="k">while</span><span class="o">(</span><span class="n">slow</span> <span class="o">!=</span> <span class="n">fast</span><span class="o">){</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">slow</span> <span class="o">==</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">])</span>
+                    <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+                <span class="n">slow</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">slow</span><span class="o">];</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">fast</span><span class="o">];</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">slow</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="find-all-numbers-disappeared-in-an-array-448">Find All Numbers Disappeared in an Array 448</h2>
+<p><a id="markdown-find-all-numbers-disappeared-in-an-array-448" name="find-all-numbers-disappeared-in-an-array-448"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array nums of n integers where nums<span class="o">[</span>i<span class="o">]</span> is in the range <span class="o">[</span>1, n<span class="o">]</span>, <span class="k">return</span> an array of all the integers in the range <span class="o">[</span>1, n<span class="o">]</span> that <span class="k">do</span> not appear in nums.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>4,3,2,7,8,2,3,1<span class="o">]</span>
+Output: <span class="o">[</span>5,6<span class="o">]</span>
+</code></pre></div><p>[4,3,2,7,8,2,3,1] 4 ！= 1 &amp;&amp; 4 ！= nums[3], 4 应该放在索引在 3 的位置
+.     .
+[7,3,2,4,8,2,3,1] 4 处理好了， 处理 7, 7 与 3 交换
+;
+[3,3,2,4,8,2,7,1] 3 应该放在索引在 2 的位置， 
+[2,3,3,4,8,2,7,1] 2 应该在 1 的位置
+[3,2,3,4,8,2,7,1] 3 和 索引在 2 的位置的 3 是相等的，跳过， 到了 8 的位置
+[3,2,3,4,1,2,7,8] 8 与 1 交换
+[1,2,3,4,3,2,7,8] 1 与 3 交换</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">findDisapperdNumbers</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">tmp</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
+                <span class="n">nums</span><span class="o">[</span><span class="n">tmp</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="find-all-duplicates-in-an-array-442">Find All Duplicates in an Array 442</h2>
+<p><a id="markdown-find-all-duplicates-in-an-array-442" name="find-all-duplicates-in-an-array-442"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an integer array nums of length n where all the integers of nums are in the range <span class="o">[</span>1, n<span class="o">]</span> and each integer appears once or twice, <span class="k">return</span> an array of all the integers that appears twice.
+
+You must write an algorithm that runs in O<span class="o">(</span>n<span class="o">)</span> <span class="nb">time</span> and uses only constant extra space.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>4,3,2,7,8,2,3,1<span class="o">]</span>
+Output: <span class="o">[</span>2,3<span class="o">]</span>
+</code></pre></div><p><strong>我的答案会出界，因为比如 8， 我如果用 index 而不是减 1，要取到 8 就会出界</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"> <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>4,3,2,7,8,2,3,1<span class="o">]</span><span class="p">;</span>
+ nums<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> 4<span class="p">;</span>
+ <span class="nv">index</span> <span class="o">=</span> <span class="m">4</span> - <span class="nv">1</span> <span class="o">=</span> 3<span class="p">;</span>
+ nums<span class="o">[</span>3<span class="o">]</span> <span class="o">=</span> 7<span class="p">;</span>
+ <span class="o">(</span><span class="m">7</span> &lt; 0<span class="o">)</span> <span class="o">=</span> false<span class="p">;</span>
+ <span class="nv">7</span> <span class="o">=</span> -7<span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"> <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>4,3,2,-7,8,2,3,1<span class="o">]</span><span class="p">;</span>
+ nums<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> 3<span class="p">;</span>
+ <span class="nv">index</span> <span class="o">=</span> <span class="m">3</span> - <span class="nv">1</span> <span class="o">=</span> 2<span class="p">;</span>
+ nums<span class="o">[</span>2<span class="o">]</span> <span class="o">=</span> 2<span class="p">;</span>
+ <span class="o">(</span><span class="m">2</span> &lt; 0<span class="o">)</span> <span class="o">=</span> false<span class="p">;</span>
+ <span class="nv">2</span> <span class="o">=</span> -2<span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">findDuplicates</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])-</span><span class="n">1</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">index</span><span class="o">+</span><span class="n">1</span><span class="o">));</span>
+            <span class="n">nums</span><span class="o">[</span><span class="n">index</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">nums</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="first-missing-positive-41">First Missing Positive 41</h2>
+<p><a id="markdown-first-missing-positive-41" name="first-missing-positive-41"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an unsorted integer array nums, <span class="k">return</span> the smallest missing positive integer.
+
+You must implement an algorithm that runs in O<span class="o">(</span>n<span class="o">)</span> <span class="nb">time</span> and uses constant extra space.
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>1,2,0<span class="o">]</span>
+Output: <span class="m">3</span>
+</code></pre></div><p>注意空间复杂度，所以不能用 set， set On.</p>
+<p>不能建立新的数组，那么只能覆盖原有数组，思路是把 1 放在数组第一个位置 nums[0]，2 放在第二个位置 nums[1]，即需要把 nums[i] 放在 nums[nums[i] - 1]上，遍历整个数组，如果 nums[i] != i + 1, 而 nums[i] 为整数且不大于 n，另外 nums[i] 不等于 nums[nums[i] - 1] 的话，将两者位置调换，如果不满足上述条件直接跳过，最后再遍历一遍数组，如果对应位置上的数不正确则返回正确的数，参见代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">firstMissingPositive</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">]</span> <span class="o">!=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">nums</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">swap</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+         <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="all-ancestors-of-a-node-in-a-directed-acyclic-graph-2192">All Ancestors of a Node in a Directed Acyclic Graph 2192</h2>
+<p><a id="markdown-all-ancestors-of-a-node-in-a-directed-acyclic-graph-2192" name="all-ancestors-of-a-node-in-a-directed-acyclic-graph-2192"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given a positive integer n representing the number of nodes of a Directed Acyclic Graph <span class="o">(</span>DAG<span class="o">)</span>. The nodes are numbered from <span class="m">0</span> to n - <span class="m">1</span> <span class="o">(</span>inclusive<span class="o">)</span>.
+
+You are also given a 2D integer array edges, where edges<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>fromi, toi<span class="o">]</span> denotes that there is a unidirectional edge from fromi to toi in the graph.
+
+Return a list answer, where answer<span class="o">[</span>i<span class="o">]</span> is the list of ancestors of the ith node, sorted in ascending order.
+
+A node u is an ancestor of another node v <span class="k">if</span> u can reach v via a <span class="nb">set</span> of edges.
+
+Input: <span class="nv">n</span> <span class="o">=</span> 8, <span class="nv">edgeList</span> <span class="o">=</span> <span class="o">[[</span>0,3<span class="o">]</span>,<span class="o">[</span>0,4<span class="o">]</span>,<span class="o">[</span>1,3<span class="o">]</span>,<span class="o">[</span>2,4<span class="o">]</span>,<span class="o">[</span>2,7<span class="o">]</span>,<span class="o">[</span>3,5<span class="o">]</span>,<span class="o">[</span>3,6<span class="o">]</span>,<span class="o">[</span>3,7<span class="o">]</span>,<span class="o">[</span>4,6<span class="o">]]</span>
+Output: <span class="o">[[]</span>,<span class="o">[]</span>,<span class="o">[]</span>,<span class="o">[</span>0,1<span class="o">]</span>,<span class="o">[</span>0,2<span class="o">]</span>,<span class="o">[</span>0,1,3<span class="o">]</span>,<span class="o">[</span>0,1,2,3,4<span class="o">]</span>,<span class="o">[</span>0,1,2,3<span class="o">]]</span>
+Explanation:
+The above diagram represents the input graph.
+- Nodes 0, 1, and <span class="m">2</span> <span class="k">do</span> not have any ancestors.
+- Node <span class="m">3</span> has two ancestors <span class="m">0</span> and 1.
+- Node <span class="m">4</span> has two ancestors <span class="m">0</span> and 2.
+- Node <span class="m">5</span> has three ancestors 0, 1, and 3.
+- Node <span class="m">6</span> has five ancestors 0, 1, 2, 3, and 4.
+- Node <span class="m">7</span> has four ancestors 0, 1, 2, and 3.
+</code></pre></div><p><strong>DFS</strong></p>
+<ul>
+<li>Build graph from parent to kids, and save n empty list into return List ans;</li>
+<li>Traverse all nodes; for each node, recurse to the lowest offspring;</li>
+<li>During recursion, add the ancestor into the corresponding ancestors list for each offspring;</li>
+<li>The recursion terminates once the the ancestor list ends with current ancestor.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">getAncestors</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">edges</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">ans</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayLisy</span><span class="o">&lt;&gt;();</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">directChild</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayLisy</span><span class="o">&lt;&gt;();</span> 
+
+    
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">ans</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;());</span>
+        <span class="n">directChild</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;());</span>
+    <span class="o">}</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">e</span> <span class="o">:</span> <span class="n">edges</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">directChild</span><span class="o">.</span><span class="na">add</span>
+        <span class="nf">dfs</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">ans</span><span class="o">,</span> <span class="n">parentToKids</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">ans</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">int</span> <span class="n">ancestor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">kid</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">ans</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span>  <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">parentToKids</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ancestors</span> <span class="o">=</span> <span class="n">ans</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">kid</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">ancestors</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">||</span> <span class="n">ancestors</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ancestors</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">!=</span> <span class="n">ancestor</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">ancestor</span> <span class="o">!=</span> <span class="n">kid</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ancestors</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ancestor</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">grandKid</span> <span class="o">:</span> <span class="n">parentToKids</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="n">kid</span><span class="o">,</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="n">dfs</span><span class="o">(</span><span class="n">ancestor</span><span class="o">,</span> <span class="n">grandKid</span><span class="o">,</span> <span class="n">ans</span><span class="o">,</span> <span class="n">parentToKids</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><p>Time &amp; space: O(n ^ 2 )</p>
+<hr>
+<ul>
+<li>😼<a href="https://rileyshen.github.io/post/2pointers1/" >2pointers1</a></li>
+<li>😼<a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></li>
+<li>😼<a href="https://rileyshen.github.io/post/fastslow1/" >fastslowpoint</a></li>
+<li>😼<a href="https://rileyshen.github.io/post/merge1/" >MergeIntervals</a></li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/cyclic-sort/">Cyclic sort</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

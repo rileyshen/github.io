@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about reverse LinkedList </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/reverse/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about reverse LinkedList"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about reverse LinkedList</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">8-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>reverse LinkedList pattern in algorithm, 反转套路</p>
+<p>my <a href="https://leetcode.com/list/?selectedList=947yxu9g"  target="_blank" >leetcode</a></p>
+<h2 id="1111">1111</h2>
+<h2 id="222">222</h2>
+<h2 id="swap-nodes-in-pairs-24">Swap Nodes in Pairs 24</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a linked list, swap every two adjacent nodes and <span class="k">return</span> its head. You must solve the problem without modifying the values in the list<span class="err">&#39;</span>s nodes <span class="o">(</span>i.e., only nodes themselves may be changed.<span class="o">)</span>
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4<span class="o">]</span>
+Output: <span class="o">[</span>2,1,4,3<span class="o">]</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">swapPairs</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">((</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)||(</span><span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">))</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="n">ListNode</span> <span class="n">n</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">swapPairs</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+    <span class="n">n</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">swapPairs</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="n">ListNode</span> <span class="n">newHead</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">head</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+    
+    <span class="k">return</span> <span class="n">newHead</span><span class="o">;</span>   
+<span class="o">}</span>
+</code></pre></div><h2 id="reverse-nodes-in-k-group-24">Reverse Nodes in k-Group 24</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the head of a linked list, reverse the nodes of the list k at a time, and <span class="k">return</span> the modified list.
+
+k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k <span class="k">then</span> left-out nodes, in the end, should remain as it is.
+
+You may not alter the values in the list<span class="err">&#39;</span>s nodes, only nodes themselves may be changed.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4,5<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">2</span>
+Output: <span class="o">[</span>2,1,4,3,5<span class="o">]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverseKGroup</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ListNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">count</span> <span class="o">!=</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">count</span><span class="o">++;</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">reverseKGroup</span><span class="o">(</span><span class="n">cur</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">count</span><span class="o">--</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ListNode</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverseKGroup</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+     <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">ListNode</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span> <span class="n">n</span><span class="o">++,</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+        
+        <span class="n">ListNode</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="n">dummy</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="o">;</span> <span class="n">n</span> <span class="o">-=</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="n">tail</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="n">tail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">tail</span><span class="o">;</span>
+            <span class="n">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                 
+<span class="o">}</span>
+</code></pre></div><h2 id="rotate-list">Rotate List</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the head of a linked list, rotate the list to the right by k places.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4,5<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">2</span>
+Output: <span class="o">[</span>4,5,1,2,3<span class="o">]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">rotateRight</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">,</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="n">len</span><span class="o">++;</span>
+        <span class="o">}</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span> <span class="o">-</span> <span class="n">k</span> <span class="o">%</span> <span class="n">len</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+           
+        <span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">slow</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span> 
+    <span class="o">}</span>
+</code></pre></div><h2 id="reverse-linked-list-ii-92">Reverse Linked List II 92</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the head of a singly linked list and two integers left and right where left &lt;<span class="o">=</span> right, reverse the nodes of the list from position left to position right, and <span class="k">return</span> the reversed list.
+
+
+Example 1:
+
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4,5<span class="o">]</span>, <span class="nv">left</span> <span class="o">=</span> 2, <span class="nv">right</span> <span class="o">=</span> <span class="m">4</span>
+Output: <span class="o">[</span>1,4,3,2,5<span class="o">]</span>
+</code></pre></div><p>method 1:</p>
+<p>1 &ndash;&gt; <strong>2 ,   3  ,4</strong>  &ndash;&gt;  5
+p    l          r       s</p>
+<p>.      _______________________
+.     |                      |
+1     2 &lt;&ndash;   3  &lt;&ndash;  4       5
+p      l              ^ r     s
+|_____________________|</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverseBetween</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="c1">//  prev到了反转的前一个
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">ListNode</span> <span class="n">rightNode</span> <span class="o">=</span> <span class="n">prev</span><span class="o">;</span>
+        <span class="c1">// prev 到 right
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">rightNode</span> <span class="o">=</span> <span class="n">rightNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 切除子链接
+</span><span class="c1"></span>        <span class="n">ListNode</span> <span class="n">leftNode</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">rightNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+        <span class="c1">// 切断连接
+</span><span class="c1"></span>        <span class="n">pre</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">rightNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// 反转
+</span><span class="c1"></span>        <span class="n">reverseList</span><span class="o">(</span><span class="n">leftNode</span><span class="o">);</span>
+        <span class="c1">// 连接
+</span><span class="c1"></span>        <span class="n">pre</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">rightNode</span><span class="o">;</span>
+        <span class="n">leftNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+ <span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">reverseList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">head</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+            <span class="n">pre</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+            <span class="n">head</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="o">}</span>
+
+</code></pre></div><p>没通过[3, 5] 1 这个案例，我一直以为 head 不会动</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverseBetween</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ListNode</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">dummy</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">;</span>
+    <span class="c1">//  prev到了反转的前一个
+</span><span class="c1"></span>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">ListNode</span> <span class="n">rightNode</span> <span class="o">=</span> <span class="n">prev</span><span class="o">;</span>
+    <span class="c1">// prev 到 right
+</span><span class="c1"></span>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">rightNode</span> <span class="o">=</span> <span class="n">rightNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 切除子链接
+</span><span class="c1"></span>    <span class="n">ListNode</span> <span class="n">leftNode</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="n">ListNode</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">rightNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+    <span class="c1">// 切断连接
+</span><span class="c1"></span>    <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">rightNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="c1">// 反转
+</span><span class="c1"></span>    <span class="n">reverseList</span><span class="o">(</span><span class="n">leftNode</span><span class="o">);</span>
+    <span class="c1">// 连接
+</span><span class="c1"></span>    <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">rightNode</span><span class="o">;</span>
+    <span class="n">leftNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="kt">void</span> <span class="nf">reverseList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ListNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">head</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>time: ON
+space: O1</p>
+<p>方法一， 找到 left ,right 遍历一次， 反转再遍历一次，如果只遍历一次就用头插法</p>
+<p>9  &ndash;&gt; 7 &ndash;&gt; 2  &ndash;&gt; 5 &ndash;&gt; 4  &ndash;&gt; 3 &ndash;&gt; 6<br>
+.      p     c      n</p>
+<p>把 要反转的都插到 7 后面</p>
+<p>9  &ndash;&gt; 7     2  &lt;&ndash; 5     4  &ndash;&gt; 3 &ndash;&gt; 6<br>
+.      p     c      n     ^
+.      |&mdash;&ndash;|&mdash;&mdash;^     |
+|____________|</p>
+<ul>
+<li>记录 cur 下一个节点 n</li>
+<li>n 下一个节点指向 p 的下一个节点</li>
+<li>p 下一个节点指向 n</li>
+</ul>
+<p>9  &ndash;&gt; 7 &ndash;&gt; 5  &ndash;&gt; 2 &ndash;&gt; 4  &ndash;&gt; 3 &ndash;&gt; 6<br>
+.</p>
+<p>9  &ndash;&gt; 7 &ndash;&gt; 4 &ndash;&gt;  5  &ndash;&gt; 2 &ndash;&gt; 3 &ndash;&gt; 6<br>
+.</p>
+<p>9  &ndash;&gt; 7 &ndash;&gt; 3 &ndash;&gt; 4 &ndash;&gt;  5  &ndash;&gt; 2 &ndash;&gt;  6<br>
+.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverseBetween</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ListNode</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+       <span class="n">dummy</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">;</span>
+        <span class="c1">//  prev到了反转的前一个
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">ListNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="c1">// prev 到 right
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">cur</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">dummy</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+ <span class="o">}</span>
+</code></pre></div><h2 id="odd-even-linked-list-328">Odd Even Linked List 328</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and <span class="k">return</span> the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain as it was in the input.
+
+You must solve the problem in O<span class="o">(</span>1<span class="o">)</span> extra space complexity and O<span class="o">(</span>n<span class="o">)</span> <span class="nb">time</span> complexity.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4,5<span class="o">]</span>
+Output: <span class="o">[</span>1,3,5,2,4<span class="o">]</span> 
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">oddEvenList</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="n">ListNode</span> <span class="n">odd</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="n">ListNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="n">ListNode</span> <span class="n">even</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">even</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">even</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">odd</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">even</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">odd</span> <span class="o">=</span> <span class="n">odd</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">even</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">odd</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">even</span> <span class="o">=</span> <span class="n">even</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="n">odd</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+      
+    <span class="o">}</span>
+</code></pre></div><h2 id="reverse-nodes-in-even-length-groups-2074">Reverse Nodes in Even Length Groups 2074</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given the head of a linked list.
+
+The nodes in the linked list are sequentially assigned to non-empty groups whose lengths form the sequence of the natural numbers <span class="o">(</span>1, 2, 3, 4, ...<span class="o">)</span>. The length of a group is the number of nodes assigned to it. In other words,
+
+The 1st node is assigned to the first group.
+The 2nd and the 3rd nodes are assigned to the second group.
+The 4th, 5th, and 6th nodes are assigned to the third group, and so on.
+Note that the length of the last group may be less than or equal to <span class="m">1</span> + the length of the second to last group.
+
+Reverse the nodes in each group with an even length, and <span class="k">return</span> the head of the modified linked list.
+
+Input: <span class="nv">head</span> <span class="o">=</span> <span class="o">[</span>5,2,6,3,9,1,7,3,8,4<span class="o">]</span>
+Output: <span class="o">[</span>5,6,2,3,9,1,4,8,3,7<span class="o">]</span>
+Explanation:
+- The length of the first group is 1, which is odd, hence no reversal occurs.
+- The length of the second group is 2, which is even, hence the nodes are reversed.
+- The length of the third group is 3, which is odd, hence no reversal occurs.
+- The length of the last group is 4, which is even, hence the nodes are reversed.
+</code></pre></div><p>cur is pointing end of a particular group</p>
+<p>start is pointing starting of a particular group</p>
+<p>while traversing put node&rsquo;s values in stack (LIFO)</p>
+<p>when the count of nodes in a group is == to the count of nodes required for that group and is even</p>
+<p>then move start pointer ahead and update values of nodes in that group.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">ListNode</span> <span class="nf">reverseEvenLengthGroups</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        
+       <span class="kt">int</span> <span class="n">group</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">ListNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+            <span class="n">ListNode</span> <span class="n">start</span>  <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+            
+            <span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">!=</span> <span class="n">group</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">start</span> <span class="o">!=</span> <span class="n">cur</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">start</span><span class="o">.</span><span class="na">val</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">group</span><span class="o">++;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="a-number-after-a-double-reversal-2119">A Number After a Double Reversal 2119</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Reversing an integer means to reverse all its digits.
+
+For example, reversing <span class="m">2021</span> gives 1202. Reversing <span class="m">12300</span> gives <span class="m">321</span> as the leading zeros are not retained.
+Given an integer num, reverse num to get reversed1, <span class="k">then</span> reverse reversed1 to get reversed2. Return <span class="nb">true</span> <span class="k">if</span> reversed2 equals num. Otherwise <span class="k">return</span> false.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">num</span> <span class="o">=</span> <span class="m">526</span>
+Output: <span class="nb">true</span>
+Explanation: Reverse num to get 625, <span class="k">then</span> reverse <span class="m">625</span> to get 526, which equals num.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isSameAfterReversals</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">%</span> <span class="n">10</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/reverse-linkedlist/">reverse LinkedList</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

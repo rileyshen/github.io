@@ -74,5 +74,34 @@ at com.learn.myssm.ioc.ClassPathXmlApplicationContext.&lt;init&gt;&lt;/init&gt;(
       
     </item>
     
+    <item>
+      <title>Mybatis 程序执行成功，数据库却没有改变</title>
+      <link>https://rileyshen.github.io/post/error2/</link>
+      <pubDate>Wed, 01 Dec 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/error2/</guid>
+      
+        <description>&lt;p&gt;出现 mybatis idea 中 updates 返回的数字不为 0， 但数据库没更新&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;insert&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;insertMoreByList&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+        insert into t_emp values 
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;foreach&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;collection=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;emps&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;item=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;emp&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;separator=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;,&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+            (null, #{emp.empName}, #{emp.age}, #{emp.sex}, #{emp.email}, null)
+        &lt;span class=&#34;nt&#34;&gt;&amp;lt;/foreach&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/insert&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在 xml 中配置了 foreach 尝试删除和插入时，idea 中显示了&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;DEBUG  &amp;lt;==    Updates: 4 (BaseJdbcLogger.java:143)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;显示成功，可是数据库一直没更新。&lt;/p&gt;
+&lt;p&gt;因为 mybatis 默认不是自动提交事务的, 所以其实没有修改数据库,&lt;/p&gt;
+&lt;p&gt;刚刚新增完后立即返回的结果,是从 mybatis 为了提高性能设置的缓存里读取的,不是从数据库读取的
+解决的办法有如下两种：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.在 openSession() 的括号里写 true, 设定自动提交事务&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.在代码中加入 sqlSession.commit()&lt;/strong&gt;&lt;/p&gt;
+</description>
+      
+    </item>
+    
   </channel>
 </rss>

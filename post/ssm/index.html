@@ -139,12 +139,35 @@
                     Fri, Apr 16, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">One-minute read</span>
+                <span class="reading-time">2-minute read</span>
             </div>
             
         </div>
 
-        <h3 id="key-point">key point</h3>
+        <!-- mroe -->
+<!-- TOC -->
+<ul>
+<li><a href="#key-point" >key point</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE" >环境配置</a>
+<ul>
+<li><a href="#create-maven-project--packagingwarpackaging" >create maven project:  &lt;packaging&gt;war&lt;/packaging&gt;</a></li>
+<li><a href="#import-dependencies--spring-webmvc-spring-jdbc-spring-aspects-mybatis-mybatis-spring-c3p0-mysql-connector-java-jstl-servlet-api" >import dependencies : spring-webmvc, spring-jdbc, spring-aspects, mybatis, mybatis-spring, c3p0, mysql-connector-java, jstl, servlet-api</a></li>
+<li><a href="#import-bootstrap" >import bootstrap</a></li>
+<li><a href="#webxml" >web.xml</a>
+<ul>
+<li><a href="#%E5%90%AF%E5%8A%A8-spring-%E5%AE%B9%E5%99%A8" >启动 Spring 容器</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-springmvc" >配置 springMVC</a></li>
+<li><a href="#spring-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" >Spring 配置文件</a></li>
+<li><a href="#dbconfigproperties" >dbconfig.properties</a></li>
+<li><a href="#mybatis-configxml" >mybatis-config.xml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="key-point">key point</h2>
+<p><a id="markdown-key-point" name="key-point"></a></p>
 <ul>
 <li>
 <p><em><strong>Pagination</strong></em></p>
@@ -181,9 +204,15 @@
 </li>
 </ul>
 <hr>
+<h2 id="环境配置">环境配置</h2>
+<p><a id="markdown-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE" name="%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"></a></p>
 <h3 id="create-maven-project--packagingwarpackaging">create maven project:  <packaging>war</packaging></h3>
-<h3 id="import-dependencies--spring-webmvc-spring-jdbc-spring-aspects-mybatis-mybatis-spring-c3p0-mysql-connector-java-jstl-servlet-api">import dependencies : spring-webmvc, spring-jdbc, spring-aspects, mybatis, mybatis-spring, c3p0, &gt;mysql-connector-java, jstl, servlet-api</h3>
+<p><a id="markdown-create-maven-project%3A--%3Cpackaging%3Ewar%3C%2Fpackaging%3E" name="create-maven-project%3A--%3Cpackaging%3Ewar%3C%2Fpackaging%3E"></a></p>
+<h3 id="import-dependencies--spring-webmvc-spring-jdbc-spring-aspects-mybatis-mybatis-spring-c3p0-mysql-connector-java-jstl-servlet-api">import dependencies : spring-webmvc, spring-jdbc, spring-aspects, mybatis, mybatis-spring, c3p0, mysql-connector-java, jstl, servlet-api</h3>
+<p><a id="markdown-import-dependencies-%3A-spring-webmvc%2C-spring-jdbc%2C-spring-aspects%2C-mybatis%2C-mybatis-spring%2C-c3p0%2C-mysql-connector-java%2C-jstl%2C-servlet-api" name="import-dependencies-%3A-spring-webmvc%2C-spring-jdbc%2C-spring-aspects%2C-mybatis%2C-mybatis-spring%2C-c3p0%2C-mysql-connector-java%2C-jstl%2C-servlet-api"></a></p>
+<p><strong>tomcat 中已有 jsp 和 servlet-api，servlet-api 用的 scope 是 provided</strong></p>
 <h3 id="import-bootstrap">import bootstrap</h3>
+<p><a id="markdown-import-bootstrap" name="import-bootstrap"></a></p>
 <p><strong>src/webapp/static/bootstrap</strong></p>
 <figure><img src="/images/ssm1.png"
          alt="image"/><figcaption>
@@ -197,15 +226,164 @@
 <li>bootstrap.min.js</li>
 </ul>
 <h3 id="webxml">web.xml</h3>
+<p><a id="markdown-web.xml" name="web.xml"></a></p>
 <p><strong>src/webapp/WEB-INF/web.xml</strong></p>
-<h4 id="spring-context">spring context</h4>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;context-param&gt;</span>
+<h4 id="1-启动-spring-容器">1. 启动 Spring 容器</h4>
+<p><a id="markdown-%E5%90%AF%E5%8A%A8-spring-%E5%AE%B9%E5%99%A8" name="%E5%90%AF%E5%8A%A8-spring-%E5%AE%B9%E5%99%A8"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- 1. 启动 eeded for contextloaderListener --&gt;</span>
+<span class="nt">&lt;context-param&gt;</span>
     <span class="nt">&lt;param-name&gt;</span>comtextConfigLocation<span class="nt">&lt;/param-name&gt;</span>
-    <span class="nt">&lt;param-value&gt;</span>classpath:application.xml<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>classpath:applicationContexr.xml<span class="nt">&lt;/param-value&gt;</span>
 <span class="nt">&lt;/context-param&gt;</span>
-</code></pre></div><blockquote>
-<p>, spring, springmvc, mybatis</p>
+
+<span class="c">&lt;!-- Bootstraps the root web application context before --&gt;</span>
+<span class="nt">&lt;listener&gt;</span>
+    <span class="nt">&lt;listener-class&gt;</span> org.springframework.web.context.ContextLoaderListener<span class="nt">&lt;listener&gt;</span>
+<span class="nt">&lt;/listener&gt;</span>
+
+<span class="c">&lt;!-- 2. springmvc 前端控制器，拦截所有请求 --&gt;</span>
+<span class="nt">&lt;listener&gt;</span>
+    <span class="nt">&lt;listener-class&gt;</span> org.springframework.web.context.conte<span class="nt">&lt;listener&gt;</span>
+<span class="nt">&lt;/listener&gt;</span>
+
+<span class="nt">&lt;servlet&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span> dispatcherServlet<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;servlet-class&gt;</span>....DispatcherServlet <span class="nt">&lt;/servlet-class&gt;</span>
+    <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+
+<span class="nt">&lt;servlet-mapping&gt;</span>
+    <span class="nt">&lt;servlet-name&gt;</span> dispatcherServlet<span class="nt">&lt;/servlet-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span>
+<span class="c">&lt;!-- 字符编码过滤器 --&gt;</span>
+<span class="nt">&lt;filter&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>CharacterEncodingFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;filter-class&gt;</span>....CharacterEncodingFilter<span class="nt">&lt;/filter-class&gt;</span>
+    <span class="nt">&lt;init-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>encoding<span class="nt">&lt;/param-name&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>utf-8<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/init-param&gt;</span>
+    <span class="nt">&lt;init-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>forceRequestencoding<span class="nt">&lt;/param-name&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>true<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/init-param&gt;</span>
+     <span class="nt">&lt;init-param&gt;</span>
+        <span class="nt">&lt;param-name&gt;</span>forceResponsecoding<span class="nt">&lt;/param-name&gt;</span>
+        <span class="nt">&lt;param-value&gt;</span>true<span class="nt">&lt;/param-value&gt;</span>
+    <span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+
+<span class="nt">&lt;filter-mapping&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span> CharacterEncodingFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+<span class="c">&lt;!-- 使用 rest风格的url，将页面普通的psot请求转为指定的delete和put请求 --&gt;</span>
+<span class="nt">&lt;filter&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span>HiddenHttpMethodFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;filter-class&gt;</span>....HiddenHttpMethodFilter<span class="nt">&lt;/filter-class&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+    <span class="nt">&lt;filter-name&gt;</span> HiddenHttpMethodFilter<span class="nt">&lt;/filter-name&gt;</span>
+    <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div><h4 id="2-配置-springmvc">2. 配置 springMVC</h4>
+<p><a id="markdown-%E9%85%8D%E7%BD%AE-springmvc" name="%E9%85%8D%E7%BD%AE-springmvc"></a></p>
+<p><strong>src/webapp/WEB-INF/dispatcherServlet-servlet.xml</strong></p>
+<p>use-default-filter=&ldquo;true&rdquo; 不写就会扫描所有的</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- springMVC配置文件， 包含网站跳转逻辑的控制，配置--&gt;</span>
+<span class="nt">&lt;context</span><span class="err">：component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.demo.crud&#34;</span> <span class="na">use-default-filter=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!-- 只扫描控制器 --&gt;</span>
+    <span class="nt">&lt;context:include-filter</span> <span class="na">type=</span><span class="s">&#34;annotation&#34;</span> <span class="na">expression=</span><span class="s">&#34;..Controller&#34;</span><span class="nt">&gt;</span>
+<span class="err">&lt;</span>/context：component-scan&gt;
+
+<span class="c">&lt;!-- 配置视图解析器，方便页面返回 --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;...view.InternalResourceViewResolver&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;prefix&#34;</span> <span class="na">value=</span><span class="s">&#34;/WEB-INF/views&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;suffix&#34;</span> <span class="na">value=</span><span class="s">&#34;.jsp&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="c">&lt;!-- 两个标准配置 --&gt;</span>
+<span class="c">&lt;!-- 将springmvc不能处理的请求交给tomcat --&gt;</span>
+<span class="nt">&lt;mvc:default-servlet-handler/&gt;</span>
+<span class="nt">&lt;mvc:annotation-driver/&gt;</span>
+
+</code></pre></div><h4 id="3-spring-配置文件">3. Spring 配置文件</h4>
+<p><a id="markdown-spring-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" name="spring-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"></a></p>
+<p><strong>src/main/resouces/applicationContexr.xml</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">
+<span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&#34;com.demo&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- 除了controller什么都扫 --&gt;</span>
+    <span class="nt">&lt;context:exclude-filter</span> <span class="na">type=</span><span class="s">&#34;annotation&#34;</span> <span class="na">expression=</span><span class="s">&#34;..Controller&#34;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/context:component-scan&gt;</span>
+<span class="c">&lt;!-- 主要配置和业务逻辑有关的 --&gt;</span>
+<span class="c">&lt;!-- 数据源，事务控制， --&gt;</span>
+<span class="nt">&lt;context:property-placeholder</span> <span class="na">location=</span><span class="s">&#34;classpath:dbconfig.properties&#34;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;pooledDataSource&#34;</span> <span class="na">class=</span><span class="s">&#34;ComboPooledDataSource&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;jdbcUrl&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.jdbcUrl}&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;driverClass&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.driverClass}&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;user&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.user}&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;password&#34;</span> <span class="na">value=</span><span class="s">&#34;${jdbc.password}&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="c">&lt;!-- 配置和MyBatis整合 --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;sqlSessionFactory&#34;</span> <span class="na">class=</span><span class="s">&#34;org.mybatis.spring.SqlSessionFactoryBean&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!-- 指定mybatis全局配置文件的位置 --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;configLocation&#34;</span> <span class="na">value=</span><span class="s">&#34;classpath:mybatis-config.xml&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;dataSource&#34;</span> <span class="na">ref=</span><span class="s">&#34;pooledDataSource&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+     <span class="c">&lt;!-- 指定mybatis mapper文件的位置 放进 resouces下面的mapper文件夹--&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;mapperLocation&#34;</span> <span class="na">value=</span><span class="s">&#34;classpath:mapper/*.xml&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="c">&lt;!-- 配置扫描器， 将MyBatis接口的实现加入到ioc容器中 --&gt;</span>
+<span class="nt">&lt;bean</span>  <span class="na">class=</span><span class="s">&#34;org.mybatis.spring..mapper.MapperScannerConfiguration&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!-- 扫描所有dao接口的实现， 加入到ioc容器中 --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;basePackage&#34;</span> <span class="na">value=</span><span class="s">&#34;com.demo.crud&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="c">&lt;!-- 事务控制的配置 --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;transactionManager&#34;</span> <span class="na">class=</span><span class="s">&#34;org.springframework.jdbc.datasource.DatasourceTransactionManager&#34;</span><span class="nt">&gt;</span>
+<span class="c">&lt;!-- 控制数据源 --&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;dataSource&#34;</span> <span class="na">ref=</span><span class="s">&#34;pooledDataSource&#34;</span><span class="nt">&gt;&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+<span class="c">&lt;!-- 开启基于注解的事务，使用 xml 配置的事务，（必要主要的都是使用配置） --&gt;</span>
+<span class="nt">&lt;aop:config&gt;</span>
+    <span class="c">&lt;!-- 切入点表达式 --&gt;</span>
+    <span class="nt">&lt;aop:pointcut</span> <span class="na">expression=</span><span class="s">&#34;execution(* com.demo.cr7ud.service..*(..))&#34;</span> <span class="na">id=</span><span class="s">&#34;txPoint&#34;</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!-- 配置事务增强 --&gt;</span>
+    <span class="nt">&lt;aop:advisor</span> <span class="na">advice-ref=</span><span class="s">&#34;txAdvice&#34;</span> <span class="na">pointcut-ref=</span><span class="s">&#34;txPoint&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/aop:config&gt;</span> 
+<span class="c">&lt;!-- 配置事务增强 , 事务如何切入 --&gt;</span>
+<span class="nt">&lt;tx:advice</span> <span class="na">id=</span><span class="s">&#34;txAdvice&#34;</span> <span class="na">transaction-manager=</span><span class="s">&#34;transactionManager&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tx:attributes&gt;</span>
+        <span class="c">&lt;!-- 所有方法都是事务方法 --&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;*&#34;</span><span class="nt">/&gt;</span>
+         <span class="c">&lt;!-- 以get开始的所有方法 --&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">&#34;get*&#34;</span> <span class="na">read-only=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/tx:attributes&gt;</span>
+<span class="nt">&lt;/tx:advice&gt;</span>
+</code></pre></div><p><em><em>（</em> com.demo.cr7ud.service..*()下面的所有类方法，(..)代表参数任意多</em>*</p>
+<h4 id="4-dbconfigproperties">4. dbconfig.properties</h4>
+<p><a id="markdown-dbconfig.properties" name="dbconfig.properties"></a></p>
+<p><strong>src/main/resouces/dbconfig.properties</strong></p>
+<blockquote>
+<p>jdbc.jdbcUrl=</p>
 </blockquote>
+<h4 id="5-mybatis-configxml">5. mybatis-config.xml</h4>
+<p><a id="markdown-mybatis-config.xml" name="mybatis-config.xml"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;settings&gt;</span>
+        <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;mapUnderscoreToCamelCase&#34;</span> <span class="na">value=</span><span class="s">&#34;&#34;</span><span class="err">true</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;typeAliases&gt;</span>
+            <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;com.demo.crud.bean&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/typeAliases&gt;</span>
+    <span class="nt">&lt;/setting&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div><h3 id="sql-表格">sql 表格</h3>
+<h3 id="mybatis-逆向工程生成对应的-bean-以及-mapper">mybatis 逆向工程生成对应的 bean 以及 mapper</h3>
+<h4 id="mybatis-generator-jar-包">mybatis generator jar 包</h4>
+<h4 id="创建一个-mbgxml-文件">创建一个 mbg.xml 文件</h4>
 </div>
     <div class="post-footer">
         <div class="info">

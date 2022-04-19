@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen | MyBatis-Plus for Beginners 1 </title>
+    <title> Riley Shen | MyBatis for Beginners 1 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="description"
-        content="MyBatis-Plus 简易教程">
+        content="MyBatis 简易教程">
     <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
     
 
@@ -47,8 +47,8 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content="MyBatis-Plus for Beginners 1"/>
-<meta name="twitter:description" content="MyBatis-Plus 简易教程"/>
+<meta name="twitter:title" content="MyBatis for Beginners 1"/>
+<meta name="twitter:description" content="MyBatis 简易教程"/>
 
 
     
@@ -131,7 +131,7 @@
     <div class="post-content">
         
         <div class="post-title">
-            <h2>MyBatis-Plus for Beginners 1</h2>
+            <h2>MyBatis for Beginners 1</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
@@ -139,12 +139,12 @@
                     Wed, Jul 15, 2020
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">12-minute read</span>
+                <span class="reading-time">13-minute read</span>
             </div>
             
         </div>
 
-        <p>This tutorial is for newbies who want to learn MyBatis-Plus in a quite easy way.</p>
+        <p>This tutorial is for newbies who want to learn MyBatis in a quite easy way.</p>
 <!-- TOC depthfrom:1 depthto:6 orderedlist:false -->
 <ul>
 <li><a href="#mybatis" >MyBatis</a>
@@ -279,39 +279,51 @@
 <li><a href="#b-%E5%88%86%E6%AD%A5%E6%9F%A5%E8%AF%A2" >b. 分步查询</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8A%A8%E6%80%81-sql" >动态 SQL</a></li>
+<li><a href="#%E5%8A%A8%E6%80%81-sql" >动态 SQL</a>
+<ul>
+<li><a href="#if" >if</a></li>
+<li><a href="#where" >where</a></li>
+<li><a href="#trim" >trim</a></li>
+<li><a href="#choosewhenotherwise" >choose、when、otherwise</a></li>
+<li><a href="#foreach" >foreach</a></li>
+<li><a href="#sql-%E7%89%87%E6%AE%B5" >SQL 片段</a></li>
 </ul>
 </li>
-<li><a href="#mybatis-plus-%E5%90%AF%E5%8A%A8" >MyBatis-plus 启动</a>
+<li><a href="#mybatis-%E7%BC%93%E5%AD%98" >MyBatis 缓存</a>
 <ul>
-<li><a href="#%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%AD%A5%E9%AA%A4%E6%88%91%E4%BB%AC%E5%B0%B1%E5%AE%9E%E7%8E%B0%E4%BA%86-user-%E8%A1%A8%E7%9A%84-crud-%E5%8A%9F%E8%83%BD%E7%94%9A%E8%87%B3%E8%BF%9E-xml-%E6%96%87%E4%BB%B6%E9%83%BD%E4%B8%8D%E7%94%A8%E7%BC%96%E5%86%99" >通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写</a></li>
-<li><a href="#%E9%80%9A%E7%94%A8mapper" >通用Mapper</a></li>
-<li><a href="#mp%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%ACcrud%E5%9C%A8%E5%86%85%E7%BD%AE%E7%9A%84basemapper%E4%B8%AD%E9%83%BD%E5%B7%B2%E5%BE%97%E5%88%B0%E4%BA%86%E5%AE%9E%E7%8E%B0" >MP中的基本CRUD在内置的BaseMapper中都已得到了实现。</a>
+<li><a href="#%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98" >一级缓存</a>
 <ul>
-<li><a href="#--%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9Ccreate" >&#43; #### 插入操作Create</a></li>
-<li><a href="#--retrieve" >&#43; #### Retrieve</a></li>
-<li><a href="#--update" >&#43; #### Update</a></li>
-<li><a href="#--delete" >&#43; #### Delete</a></li>
+<li><a href="#%E4%BD%BF%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%83%85%E5%86%B5" >使一级缓存失效的四种情况</a></li>
 </ul>
 </li>
-<li><a href="#%E9%80%9A%E7%94%A8service" >通用Service</a>
+<li><a href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98" >二级缓存</a>
 <ul>
-<li><a href="#%E5%88%9B%E5%BB%BAservice%E6%8E%A5%E5%8F%A3" >创建Service接口</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BAservice%E5%AE%9E%E7%8E%B0%E7%B1%BB" >创建Service实现类</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA-impl-%E5%8C%85%E5%88%9B%E5%BB%BA-userserviceimpl%E7%BB%A7%E6%89%BF-serviceimpl%E5%AE%9E%E7%8E%B0-userservice" >创建 impl 包，创建 UserServiceImpl，继承 ServiceImpl，实现 UserService</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E7%B1%BB" >创建测试类</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95%E6%95%B0" >测试记录数</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5" >测试批量插入</a></li>
+<li><a href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%BC%80%E5%90%AF%E7%9A%84%E6%9D%A1%E4%BB%B6" >二级缓存开启的条件</a></li>
+<li><a href="#%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E7%9A%84%E6%83%85%E5%86%B5" >二级缓存失效的情况</a></li>
 </ul>
 </li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89mapper" >自定义Mapper</a>
-<ul>
-<li><a href="#%E5%BD%93%E9%80%9A%E7%94%A8mapper%E6%97%A0%E6%B3%95%E6%BB%A1%E8%B6%B3%E6%88%91%E4%BB%AC%E7%9A%84%E9%9C%80%E6%B1%82%E6%97%B6%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%BA%E4%BA%8Emapper%E6%8E%A5%E5%8F%A3%E7%9A%84xml%E6%96%87%E4%BB%B6%E5%B9%B6%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AEsql%E8%AF%AD%E5%8F%A5" >当通用Mapper无法满足我们的需求时，我们可以自定义基于Mapper接口的xml文件，并在xml文件中配置SQL语句</a></li>
+<li><a href="#mybatis-%E7%BC%93%E5%AD%98%E6%9F%A5%E8%AF%A2%E7%9A%84%E9%A1%BA%E5%BA%8F" >MyBatis 缓存查询的顺序</a></li>
 </ul>
 </li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89service" >自定义Service</a>
+<li><a href="#%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B" >逆向工程</a>
 <ul>
-<li><a href="#%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper" >以上同一个Test里面return可以用注入userMapper或者直接用baseMapper</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E5%92%8C%E6%8F%92%E4%BB%B6" >添加依赖和插件</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-mybatis-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" >创建 MyBatis 的核心配置文件</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" >创建逆向工程的配置文件</a></li>
+<li><a href="#%E6%89%A7%E8%A1%8C-mbg-%E6%8F%92%E4%BB%B6%E7%9A%84-generate-%E7%9B%AE%E6%A0%87" >执行 MBG 插件的 generate 目标</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6" >分页插件</a>
+<ul>
+<li><a href="#%E4%BE%9D%E8%B5%96" >依赖</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6" >配置分页插件</a></li>
+<li><a href="#%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8" >分页插件的使用</a>
+<ul>
+<li><a href="#%E5%9C%A8%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%E4%B9%8B%E5%89%8D%E4%BD%BF%E7%94%A8-pagehelperstartpageint-pagenum-int-pagesize%E5%BC%80%E5%90%AF%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD" >在查询功能之前使用 PageHelper.startPageint pageNum, int pageSize开启分页功能</a></li>
+<li><a href="#%E5%9C%A8%E6%9F%A5%E8%AF%A2%E8%8E%B7%E5%8F%96-list-%E9%9B%86%E5%90%88%E4%B9%8B%E5%90%8E%E4%BD%BF%E7%94%A8-pageinfot-pageinfo--new-pageinfolistt-list-int" >在查询获取 list 集合之后，使用 PageInfo&lt;T&gt; pageInfo = new PageInfo&amp;lt;&amp;gt;List&lt;T&gt; list, int</a></li>
+<li><a href="#%E5%88%86%E9%A1%B5%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE" >分页相关数据</a></li>
+</ul>
+</li>
 <li><a href="#ok-its-time-for-mybatis2" >Ok, It&amp;rsquo;s time for mybatis2</a></li>
 </ul>
 </li>
@@ -1382,277 +1394,332 @@ DEBUG 03-23 16:05:20,284 &lt;==      Total: 1 (BaseJdbcLogger.java:143)</p>
 </code></pre></div><p><strong>分布查询中第二步 resultMap 不需要，直接用 resultType， 但是多对多除外</strong></p>
 <h3 id="动态-sql">动态 SQL</h3>
 <p><a id="markdown-%E5%8A%A8%E6%80%81-sql" name="%E5%8A%A8%E6%80%81-sql"></a></p>
-<h2 id="mybatis-plus-启动">MyBatis-plus 启动</h2>
-<p><a id="markdown-mybatis-plus-%E5%90%AF%E5%8A%A8" name="mybatis-plus-%E5%90%AF%E5%8A%A8"></a></p>
-<p><strong>1.1 启动 mysql-plus</strong></p>
-<p><strong>1.2 创建 User 表</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">USER</span><span class="w">
-</span><span class="w"></span><span class="p">(</span><span class="w">
-</span><span class="w"></span><span class="n">id</span><span class="w"> </span><span class="kt">BIGINT</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="k">NOT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;主键ID&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="n">NAME</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;姓名&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="n">age</span><span class="w"> </span><span class="kt">INT</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;年龄&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="n">email</span><span class="w"> </span><span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="no">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="no">NULL</span><span class="w"> </span><span class="n">COMMENT</span><span class="w"> </span><span class="s1">&#39;邮箱&#39;</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="p">);</span><span class="w">
-</span></code></pre></div><p>使用mysqlplus workbench时候，点击table-user</p>
-<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mybatis_plus</span><span class="p">.</span><span class="k">user</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
-</span><span class="w"></span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Jone&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test1@baomidou.com&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w"></span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Jack&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test2@baomidou.com&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w"></span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test3@baomidou.com&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w"></span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Sandy&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test4@baomidou.com&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w"></span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Billie&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test5@baomidou.com&#39;</span><span class="p">);</span><span class="o">`</span><span class="w">
-</span></code></pre></div><p><strong>1.3创建IDE项目</strong></p>
-<ul>
-<li>添加实体entity（dao)User.java</li>
-<li>添加mapper</li>
-</ul>
+<h4 id="if">if</h4>
+<p><a id="markdown-if" name="if"></a></p>
+<p><strong>这个是查询，不是插入</strong></p>
 <blockquote>
-<p>public interface UserMapper extends BaseMapper<User> {
-}</p>
+<p>List<Emp> getEmpByCondition(Emp emp);</p>
 </blockquote>
-<p><em><strong>方法一：</strong></em>
-<em><strong>注意：
-IDEA在 userMapper 处报错，因为找不到注入的对象，因为类是动态创建的，但是程序可以正确的执行。
-为了避免报错，可以在 dao 层 的接口上添加 @Repository 注
-通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写！</strong></em></p>
-<p><em><strong>方法二：</strong></em></p>
-<!-- 可以在 dao 层 的接口上添加 @Repository 注 -->
-<p>在<em><strong>test</strong></em>上 <em><strong>@Autowired</strong></em>这边改为 <em><strong>@Resource</strong></em></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus</span><span class="o">;</span>
+<p><strong>where 1=1 是为了当输入的资料不全时还可以有结果</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"> <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpByCondition&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp where 1=1
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;empName != &#39;&#39; and empName != null&#34;</span><span class="nt">&gt;</span>
+            and emp_name = #{empName}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;age != &#39;&#39; and age != null&#34;</span><span class="nt">&gt;</span>
+            and age = #{age}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;sex != &#39;&#39; and sex != null&#34;</span><span class="nt">&gt;</span>
+            and sex = #{sex}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;email != &#39;&#39; and email != null&#34;</span><span class="nt">&gt;</span>
+            and email = #{email}
+        <span class="nt">&lt;/if&gt;</span>
 
-<span class="nd">@SpringBootTest</span>
-<span class="kd">class</span> <span class="nc">MybatisPlusApplicationTests</span> <span class="o">{</span>
-
-	<span class="c1">//@Autowired //默认按类型装配。是spring的注解
-</span><span class="c1"></span>	<span class="nd">@Resource</span> <span class="c1">//默认按名称装配，找不到与名称匹配的bean，则按照类型装配。是J2EE的注解
-</span><span class="c1"></span>	<span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
-
-	<span class="nd">@Test</span>
-	<span class="kt">void</span> <span class="nf">testSelectList</span><span class="o">()</span> <span class="o">{</span>
-		<span class="c1">//selectList()方法的参数：封装了查询条件
-</span><span class="c1"></span>		<span class="c1">//null：无任何查询条件
-</span><span class="c1"></span>		<span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-		<span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span> <span class="c1">// soutc
-</span><span class="c1"></span>	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="通过以上几个简单的步骤我们就实现了-user-表的-crud-功能甚至连-xml-文件都不用编写">通过以上几个简单的步骤，我们就实现了 User 表的 CRUD 功能，甚至连 XML 文件都不用编写</h3>
-<p><a id="markdown-%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%AD%A5%E9%AA%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E5%AE%9E%E7%8E%B0%E4%BA%86-user-%E8%A1%A8%E7%9A%84-crud-%E5%8A%9F%E8%83%BD%EF%BC%8C%E7%94%9A%E8%87%B3%E8%BF%9E-xml-%E6%96%87%E4%BB%B6%E9%83%BD%E4%B8%8D%E7%94%A8%E7%BC%96%E5%86%99" name="%E9%80%9A%E8%BF%87%E4%BB%A5%E4%B8%8A%E5%87%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%AD%A5%E9%AA%A4%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%B1%E5%AE%9E%E7%8E%B0%E4%BA%86-user-%E8%A1%A8%E7%9A%84-crud-%E5%8A%9F%E8%83%BD%EF%BC%8C%E7%94%9A%E8%87%B3%E8%BF%9E-xml-%E6%96%87%E4%BB%B6%E9%83%BD%E4%B8%8D%E7%94%A8%E7%BC%96%E5%86%99"></a></p>
-<p><strong>1.4查看sql输出日志</strong></p>
-<p>配置文件中application.properties:</p>
-<p>mybatis日志</p>
-<blockquote>
-<p>mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.stdout.StdOutImpl</p>
-</blockquote>
-<h3 id="通用mapper">通用Mapper</h3>
-<p><a id="markdown-%E9%80%9A%E7%94%A8mapper" name="%E9%80%9A%E7%94%A8mapper"></a></p>
-<h3 id="mp中的基本crud在内置的basemapper中都已得到了实现">MP中的基本CRUD在内置的BaseMapper中都已得到了实现。</h3>
-<p><a id="markdown-mp%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%ACcrud%E5%9C%A8%E5%86%85%E7%BD%AE%E7%9A%84basemapper%E4%B8%AD%E9%83%BD%E5%B7%B2%E5%BE%97%E5%88%B0%E4%BA%86%E5%AE%9E%E7%8E%B0%E3%80%82" name="mp%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%ACcrud%E5%9C%A8%E5%86%85%E7%BD%AE%E7%9A%84basemapper%E4%B8%AD%E9%83%BD%E5%B7%B2%E5%BE%97%E5%88%B0%E4%BA%86%E5%AE%9E%E7%8E%B0%E3%80%82"></a></p>
-<ul>
-<li>
-<h4 id="插入操作create">插入操作Create</h4>
-</li>
-</ul>
-<p><a id="markdown-%2B-%23%23%23%23-%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9Ccreate" name="%2B-%23%23%23%23-%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9Ccreate"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="o">{</span>
-<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
-<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;lucy&#34;</span><span class="o">);</span>
-<span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
-<span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">&#34;1243@qq.com&#34;</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">insert</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">user</span><span class="o">);</span> <span class="c1">//影响的行数
-</span><span class="c1"></span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">insert</span><span class="o">);</span> <span class="c1">// 
-</span><span class="c1"></span><span class="o">}</span>
-
-</code></pre></div><ul>
-<li>
-<h4 id="retrieve">Retrieve</h4>
-</li>
-</ul>
-<p><a id="markdown-%2B-%23%23%23%23-retrieve" name="%2B-%23%23%23%23-retrieve"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSelect</span><span class="o">(){</span>
-
-    <span class="c1">//按id查询
-</span><span class="c1"></span>    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-
-    <span class="c1">//按id列表查询
-</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectBatchIds</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">));</span>
-    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-
-    <span class="c1">//按条件查询
-</span><span class="c1"></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
-    <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span> <span class="s">&#34;Helen&#34;</span><span class="o">);</span> <span class="c1">//注意此处是表中的列名，不是类中的属性名
-</span><span class="c1"></span>    <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;age&#34;</span><span class="o">,</span> <span class="n">18</span><span class="o">);</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users1</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectByMap</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
-    <span class="n">users1</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
-
-<span class="o">}</span>
-</code></pre></div><ul>
-<li>
-<h4 id="update">Update</h4>
-</li>
-</ul>
-<p><a id="markdown-%2B-%23%23%23%23-update" name="%2B-%23%23%23%23-update"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">(){</span>
-
-    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
-    <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">1L</span><span class="o">);</span>
-    <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">28</span><span class="o">);</span>
-
-    <span class="c1">//注意：update时生成的sql自动是动态sql
-</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">updateById</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;影响的行数：&#34;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><ul>
-<li>
-<h4 id="delete">Delete</h4>
-</li>
-</ul>
-<p><a id="markdown-%2B-%23%23%23%23-delete" name="%2B-%23%23%23%23-delete"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">(){</span>
-
-    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">5</span><span class="o">);</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;影响的行数：&#34;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-<h3 id="通用service">通用Service</h3>
-<p><a id="markdown-%E9%80%9A%E7%94%A8service" name="%E9%80%9A%E7%94%A8service"></a></p>
-<h4 id="创建service接口">创建Service接口</h4>
-<p><a id="markdown-%E5%88%9B%E5%BB%BAservice%E6%8E%A5%E5%8F%A3" name="%E5%88%9B%E5%BB%BAservice%E6%8E%A5%E5%8F%A3"></a></p>
-<p>创建 service 包，创建 UserService，继承 IService</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus.service</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="kd">extends</span> <span class="n">IService</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="o">{</span>
-    
-<span class="o">}</span>
-</code></pre></div><h4 id="创建service实现类">创建Service实现类</h4>
-<p><a id="markdown-%E5%88%9B%E5%BB%BAservice%E5%AE%9E%E7%8E%B0%E7%B1%BB" name="%E5%88%9B%E5%BB%BAservice%E5%AE%9E%E7%8E%B0%E7%B1%BB"></a></p>
-<h4 id="创建-impl-包创建-userserviceimpl继承-serviceimpl实现-userservice">创建 impl 包，创建 UserServiceImpl，继承 ServiceImpl，实现 UserService</h4>
-<p><a id="markdown-%E5%88%9B%E5%BB%BA-impl-%E5%8C%85%EF%BC%8C%E5%88%9B%E5%BB%BA-userserviceimpl%EF%BC%8C%E7%BB%A7%E6%89%BF-serviceimpl%EF%BC%8C%E5%AE%9E%E7%8E%B0-userservice" name="%E5%88%9B%E5%BB%BA-impl-%E5%8C%85%EF%BC%8C%E5%88%9B%E5%BB%BA-userserviceimpl%EF%BC%8C%E7%BB%A7%E6%89%BF-serviceimpl%EF%BC%8C%E5%AE%9E%E7%8E%B0-userservice"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus.service.impl</span><span class="o">;</span>
-
-<span class="nd">@Service</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserServiceImpl</span> <span class="kd">extends</span> <span class="n">ServiceImpl</span><span class="o">&lt;</span><span class="n">UserMapper</span><span class="o">,</span> <span class="n">User</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">UserService</span> <span class="o">{</span>
-
-<span class="o">}</span>
-</code></pre></div><h4 id="创建测试类">创建测试类</h4>
-<p><a id="markdown-%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E7%B1%BB" name="%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E7%B1%BB"></a></p>
-<p>创建ServiceTests</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">com.atguigu.mybatisplus</span><span class="o">;</span>
-
-<span class="nd">@SpringBootTest</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceTests</span> <span class="o">{</span>
-
-    <span class="nd">@Resource</span>
-    <span class="kd">private</span> <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
-
-<span class="o">}</span>
-</code></pre></div><h4 id="测试记录数">测试记录数</h4>
-<p><a id="markdown-%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95%E6%95%B0" name="%E6%B5%8B%E8%AF%95%E8%AE%B0%E5%BD%95%E6%95%B0"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCount</span><span class="o">(){</span>
-
-    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">count</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;总记录数：&#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><h4 id="测试批量插入">测试批量插入</h4>
-<p><a id="markdown-%E6%B5%8B%E8%AF%95%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5" name="%E6%B5%8B%E8%AF%95%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5"></a></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSaveBatch</span><span class="o">(){</span>
-
-    <span class="c1">// SQL长度有限制，海量数据插入单条SQL无法实行，
-</span><span class="c1"></span>    <span class="c1">// 因此MP将批量插入放在了通用Service中实现，而不是通用Mapper
-</span><span class="c1"></span>    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
-    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
-        <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;Helen&#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
-        <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">10</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
-        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="n">userService</span><span class="o">.</span><span class="na">saveBatch</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><h3 id="自定义mapper">自定义Mapper</h3>
-<p><a id="markdown-%E8%87%AA%E5%AE%9A%E4%B9%89mapper" name="%E8%87%AA%E5%AE%9A%E4%B9%89mapper"></a></p>
-<h4 id="当通用mapper无法满足我们的需求时我们可以自定义基于mapper接口的xml文件并在xml文件中配置sql语句">当通用Mapper无法满足我们的需求时，我们可以自定义基于Mapper接口的xml文件，并在xml文件中配置SQL语句</h4>
-<p><a id="markdown-%E5%BD%93%E9%80%9A%E7%94%A8mapper%E6%97%A0%E6%B3%95%E6%BB%A1%E8%B6%B3%E6%88%91%E4%BB%AC%E7%9A%84%E9%9C%80%E6%B1%82%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%BA%E4%BA%8Emapper%E6%8E%A5%E5%8F%A3%E7%9A%84xml%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AEsql%E8%AF%AD%E5%8F%A5" name="%E5%BD%93%E9%80%9A%E7%94%A8mapper%E6%97%A0%E6%B3%95%E6%BB%A1%E8%B6%B3%E6%88%91%E4%BB%AC%E7%9A%84%E9%9C%80%E6%B1%82%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%BA%E4%BA%8Emapper%E6%8E%A5%E5%8F%A3%E7%9A%84xml%E6%96%87%E4%BB%B6%EF%BC%8C%E5%B9%B6%E5%9C%A8xml%E6%96%87%E4%BB%B6%E4%B8%AD%E9%85%8D%E7%BD%AEsql%E8%AF%AD%E5%8F%A5"></a></p>
-<ol>
-<li>接口方法定义</li>
-</ol>
-<p>在UserMapper接口中定义如下方法</p>
-<blockquote>
-<p>List<User> selectAllByName(String name);</p>
-</blockquote>
-<ol start="2">
-<li>创建xml文件
-在resources目录中创建mapper目录，创建UserMapper.xml</li>
-</ol>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
-<span class="cp">&lt;!DOCTYPE mapper PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
-
-<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.atguigu.mybatisplus.mapper.UserMapper&#34;</span><span class="nt">&gt;</span>
-
-   <span class="nt">&lt;sql</span> <span class="na">id=</span><span class="s">&#34;Base_Column_List&#34;</span><span class="nt">&gt;</span>
-       id, name, age, email
-   <span class="nt">&lt;/sql&gt;</span>
-
-    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selectAllByName&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.atguigu.mybatisplus.entity.User&#34;</span><span class="nt">&gt;</span>
-        select
-        <span class="nt">&lt;include</span> <span class="na">refid=</span><span class="s">&#34;Base_Column_List&#34;</span><span class="nt">/&gt;</span>
-        from user
-        where
-        name = #{name}
     <span class="nt">&lt;/select&gt;</span>
-<span class="nt">&lt;/mapper&gt;</span>
-</code></pre></div><p><em><strong>注意：MP中mapper目录是持久层映射文件的默认目录，如果是其他目录，需要配置mapper-locations，例如：</strong></em></p>
-<blockquote>
-<p>mybatis-plus.mapper-locations=classpath:xml/*.xml</p>
+</code></pre></div><h4 id="where">where</h4>
+<p><a id="markdown-where" name="where"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpByCondition&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+    select * from t_emp 
+        <span class="nt">&lt;where&gt;</span>
+            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;empName != &#39;&#39; and empName != null&#34;</span><span class="nt">&gt;</span>
+                 emp_name = #{empName}
+            <span class="nt">&lt;/if&gt;</span>
+            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;age != &#39;&#39; and age != null&#34;</span><span class="nt">&gt;</span>
+                and age = #{age}
+            <span class="nt">&lt;/if&gt;</span>
+            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;sex != &#39;&#39; and sex != null&#34;</span><span class="nt">&gt;</span>
+                and sex = #{sex}
+            <span class="nt">&lt;/if&gt;</span>
+            <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;email != &#39;&#39; and email != null&#34;</span><span class="nt">&gt;</span>
+                and email = #{email}
+            <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;/where&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h4 id="trim">trim</h4>
+<p><a id="markdown-trim" name="trim"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"> <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpByCondition&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp
+        <span class="nt">&lt;trim</span> <span class="na">prefix=</span><span class="s">&#34;where&#34;</span> <span class="na">suffixOverrides=</span><span class="s">&#34;and|or&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;empName != &#39;&#39; and empName != null&#34;</span><span class="nt">&gt;</span>
+             emp_name = #{empName} and
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;age != &#39;&#39; and age != null&#34;</span><span class="nt">&gt;</span>
+            age = #{age} or
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;sex != &#39;&#39; and sex != null&#34;</span><span class="nt">&gt;</span>
+             sex = #{sex} and
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;email != &#39;&#39; and email != null&#34;</span><span class="nt">&gt;</span>
+             email = #{email}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;/trim&gt;</span>
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><blockquote>
+<p>trim 若标签中有内容，否则就没效果</p>
 </blockquote>
-<h3 id="自定义service">自定义Service</h3>
-<p><a id="markdown-%E8%87%AA%E5%AE%9A%E4%B9%89service" name="%E8%87%AA%E5%AE%9A%E4%B9%89service"></a></p>
+<blockquote>
+<p>prefix：在 trim 标签中的内容的前面添加某些内容</p>
+</blockquote>
+<p>prefixOverrides：在 trim 标签中的内容的前面去掉某些内容</p>
+<blockquote>
+<p>suffix：在 trim 标签中的内容的后面添加某些内容</p>
+</blockquote>
+<blockquote>
+<p>suffixOverrides：在 trim 标签中的内容的后面去掉某些内容</p>
+</blockquote>
+<blockquote>
+<p>注意：where 标签不能去掉条件最后多余的 and</p>
+</blockquote>
+<h4 id="choosewhenotherwise">choose、when、otherwise</h4>
+<p><a id="markdown-choose%E3%80%81when%E3%80%81otherwise" name="choose%E3%80%81when%E3%80%81otherwise"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;getEmpByChoose&#34;</span> <span class="na">resultType=</span><span class="s">&#34;Emp&#34;</span><span class="nt">&gt;</span>
+        select * from t_emp
+        <span class="nt">&lt;where&gt;</span>
+            <span class="nt">&lt;choose&gt;</span>
+                <span class="nt">&lt;when</span> <span class="na">test=</span><span class="s">&#34;empName != &#39;&#39; and empName != null&#34;</span><span class="nt">&gt;</span>
+                emp_name = #{empName}
+                <span class="nt">&lt;/when&gt;</span>
+            <span class="nt">&lt;when</span> <span class="na">test=</span><span class="s">&#34;age != &#39;&#39; and age != null&#34;</span><span class="nt">&gt;</span>
+                age = #{age}
+            <span class="nt">&lt;/when&gt;</span>
+            <span class="nt">&lt;when</span> <span class="na">test=</span><span class="s">&#34;sex != &#39;&#39; and sex != null&#34;</span><span class="nt">&gt;</span>
+                sex = #{sex}
+            <span class="nt">&lt;/when&gt;</span>
+            <span class="nt">&lt;when</span> <span class="na">test=</span><span class="s">&#34;email != &#39;&#39; and email != null&#34;</span><span class="nt">&gt;</span>
+                email = #{email}
+            <span class="nt">&lt;/when&gt;</span>
+            <span class="nt">&lt;otherwise&gt;</span>
+                did = 1;
+            <span class="nt">&lt;/otherwise&gt;</span>
+            <span class="nt">&lt;/choose&gt;</span>
+        <span class="nt">&lt;/where&gt;</span>
+    <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><blockquote>
+<p>when 至少有一个</p>
+</blockquote>
+<blockquote>
+<p>otherwise 至多有一个</p>
+</blockquote>
+<h4 id="foreach">foreach</h4>
+<p><a id="markdown-foreach" name="foreach"></a></p>
+<p><strong>通过数组实现批量删除</strong></p>
+<blockquote>
+<p>int deleteMoreByArray(@Param(&ldquo;eids&rdquo;) Integer[] eids);</p>
+</blockquote>
+<blockquote>
+<p>@Param(&ldquo;eids&rdquo;) 要写，不然结果是 Parameter <code>eids</code> not found. Available parameters are [array, arg[0]]</p>
+</blockquote>
+<p><strong>第一种</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="c">&lt;!--     int deleteMoreByArray(Integer eids);--&gt;</span>
+    <span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;deleteMoreByArray&#34;</span><span class="nt">&gt;</span>
+        delete from t_emp where eid in
+    (
+    <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;eids&#34;</span> <span class="na">item=</span><span class="s">&#34;eid&#34;</span> <span class="na">separator=</span><span class="s">&#34;,&#34;</span><span class="nt">&gt;</span>
+        #{eid}
+    <span class="nt">&lt;/foreach&gt;</span>
+    )
+
+    <span class="c">&lt;!-- （）都可以去掉 --&gt;</span>
+     
+    <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;eids&#34;</span> <span class="na">item=</span><span class="s">&#34;eid&#34;</span> <span class="na">separator=</span><span class="s">&#34;,&#34;</span> <span class="na">open=</span><span class="s">&#34;(&#34;</span><span class="err">,</span> <span class="na">close=</span><span class="s">&#34;)&#34;</span><span class="nt">&gt;</span>
+        #{eid}
+    <span class="nt">&lt;/foreach&gt;</span>
+   
+    <span class="nt">&lt;/delete&gt;</span>
+</code></pre></div><p><strong>通过 list 实现批量插入</strong></p>
+<blockquote>
+<p>int insertMoreByList(@Param(&ldquo;emps&rdquo;) List<Emp> emps);</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">  <span class="c">&lt;!--     int deleteMoreByArray(Integer eids);--&gt;</span>
+    <span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;insertMoreByList&#34;</span><span class="nt">&gt;</span>
+        insert into t_emp values 
+        <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;emps&#34;</span> <span class="na">item=</span><span class="s">&#34;emp&#34;</span> <span class="na">separator=</span><span class="s">&#34;,&#34;</span><span class="nt">&gt;</span>
+            (null, #{emp.empName}, #{emp.age}, #{emp.sex}, #{emp.email}, null)
+        <span class="nt">&lt;/foreach&gt;</span>
+    <span class="nt">&lt;/insert&gt;</span>
+</code></pre></div><blockquote>
+<p>DEBUG &lt;==    Updates: 1 (BaseJdbcLogger.java:143)</p>
+</blockquote>
+<p><strong>出现程序执行， 数据库没更新， 因为 mybatis 默认不是自动提交事务的， openSession() 的括号里写 true, 设定自动提交事务,</strong></p>
+<blockquote>
+<p>collection：设置要循环的数组或集合</p>
+</blockquote>
+<blockquote>
+<p>item：表示集合或数组中的每一个数据</p>
+</blockquote>
+<blockquote>
+<p>separator：设置循环体之间的分隔符</p>
+</blockquote>
+<blockquote>
+<p>open：设置 foreach 标签中的内容的开始符</p>
+</blockquote>
+<blockquote>
+<p>close：设置 foreach 标签中的内容的结束符</p>
+</blockquote>
+<h4 id="sql-片段">SQL 片段</h4>
+<p><a id="markdown-sql-%E7%89%87%E6%AE%B5" name="sql-%E7%89%87%E6%AE%B5"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;sql</span> <span class="na">id=</span><span class="s">&#34;empColumns&#34;</span><span class="nt">&gt;</span>
+eid,ename,age,sex,did
+<span class="nt">&lt;/sql&gt;</span>
+select <span class="nt">&lt;include</span> <span class="na">refid=</span><span class="s">&#34;empColumns&#34;</span><span class="nt">&gt;&lt;/include&gt;</span> from t_emp
+</code></pre></div><p><strong>把常用的属性设置为片段，下面就直接引用了</strong></p>
+<h3 id="mybatis-缓存">MyBatis 缓存</h3>
+<p><a id="markdown-mybatis-%E7%BC%93%E5%AD%98" name="mybatis-%E7%BC%93%E5%AD%98"></a></p>
+<h4 id="一级缓存">一级缓存</h4>
+<p><a id="markdown-%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98" name="%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98"></a></p>
+<p>一级缓存是 SqlSession 级别的，通过同一个 SqlSession 查询的数据会被缓存，下次查询相同的数据，就
+会从缓存中直接获取，不会从数据库重新访问</p>
+<h5 id="使一级缓存失效的四种情况">使一级缓存失效的四种情况</h5>
+<p><a id="markdown-%E4%BD%BF%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%83%85%E5%86%B5" name="%E4%BD%BF%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%83%85%E5%86%B5"></a></p>
+<ul>
+<li>
 <ol>
-<li>接口方法定义</li>
+<li>不同的 SqlSession 对应不同的一级缓存</li>
 </ol>
-<p>UserService中添加接口方法</p>
-<blockquote>
-<p>List<User> listAllByName(String name);</p>
-</blockquote>
+</li>
+<li>
 <ol start="2">
-<li>实现接口方法</li>
+<li>同一个 SqlSession 但是查询条件不同</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="nf">listAllByName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">//注入userMap的时候
-</span><span class="c1"></span>    <span class="c1">// 方法1：@Resource
-</span><span class="c1"></span>    <span class="c1">// private UserMapper userMapper
-</span><span class="c1"></span>
-    <span class="c1">// @Override
-</span><span class="c1"></span>    <span class="c1">// public List&lt;User&gt; listAllByName(String name) {
-</span><span class="c1"></span>    <span class="c1">//     return userMapper.selectAllByname(name);
-</span><span class="c1"></span>    <span class="c1">// }
-</span><span class="c1"></span>
+</li>
+<li>
+<ol start="3">
+<li>同一个 SqlSession 两次查询期间执行了任何一次增删改操作</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>同一个 SqlSession 两次查询期间手动清空了缓存</li>
+</ol>
+</li>
+</ul>
+<h4 id="二级缓存">二级缓存</h4>
+<p><a id="markdown-%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98" name="%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98"></a></p>
+<p>二级缓存是 SqlSessionFactory 级别，通过同一个 SqlSessionFactory 创建的 SqlSession 查询的结果会被缓存；此后若再次执行相同的查询语句，结果就会从缓存中获取</p>
+<h5 id="二级缓存开启的条件">二级缓存开启的条件</h5>
+<p><a id="markdown-%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%BC%80%E5%90%AF%E7%9A%84%E6%9D%A1%E4%BB%B6" name="%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%BC%80%E5%90%AF%E7%9A%84%E6%9D%A1%E4%BB%B6"></a></p>
+<ul>
+<li>a&gt;在核心配置文件中，设置全局配置属性 cacheEnabled=&ldquo;true&rdquo;，默认为 true，不需要设置</li>
+<li>b&gt;在映射文件中设置标签**<cache />**</li>
+<li>c&gt;二级缓存必须在 SqlSession 关闭或提交之后有效</li>
+<li>d&gt;查询的数据所转换的实体类类型必须实现序列化的接口</li>
+</ul>
+<h5 id="二级缓存失效的情况">二级缓存失效的情况</h5>
+<p><a id="markdown-%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E7%9A%84%E6%83%85%E5%86%B5" name="%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%E5%A4%B1%E6%95%88%E7%9A%84%E6%83%85%E5%86%B5"></a></p>
+<p>两次查询之间执行了任意的增删改，会使一级和二级缓存同时失效</p>
+<h4 id="mybatis-缓存查询的顺序">MyBatis 缓存查询的顺序</h4>
+<p><a id="markdown-mybatis-%E7%BC%93%E5%AD%98%E6%9F%A5%E8%AF%A2%E7%9A%84%E9%A1%BA%E5%BA%8F" name="mybatis-%E7%BC%93%E5%AD%98%E6%9F%A5%E8%AF%A2%E7%9A%84%E9%A1%BA%E5%BA%8F"></a></p>
+<ul>
+<li>先查询二级缓存，因为二级缓存中可能会有其他程序已经查出来的数据，可以拿来直接使用。</li>
+<li>如果二级缓存没有命中，再查询一级缓存</li>
+<li>如果一级缓存也没有命中，则查询数据库</li>
+<li>SqlSession 关闭之后，一级缓存中的数据会写入二级缓存</li>
+</ul>
+<h3 id="逆向工程">逆向工程</h3>
+<p><a id="markdown-%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B" name="%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B"></a></p>
+<h4 id="1-添加依赖和插件">1. 添加依赖和插件</h4>
+<p><a id="markdown-%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E5%92%8C%E6%8F%92%E4%BB%B6" name="%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E5%92%8C%E6%8F%92%E4%BB%B6"></a></p>
+<h4 id="2-创建-mybatis-的核心配置文件">2. 创建 MyBatis 的核心配置文件</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA-mybatis-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" name="%E5%88%9B%E5%BB%BA-mybatis-%E7%9A%84%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"></a></p>
+<h4 id="3-创建逆向工程的配置文件">3. 创建逆向工程的配置文件</h4>
+<p><a id="markdown-%E5%88%9B%E5%BB%BA%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6" name="%E5%88%9B%E5%BB%BA%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"></a></p>
+<blockquote>
+<p>文件名必须是：generatorConfig.xml</p>
+</blockquote>
+<h4 id="4执行-mbg-插件的-generate-目标">4.执行 MBG 插件的 generate 目标</h4>
+<p><a id="markdown-%E6%89%A7%E8%A1%8C-mbg-%E6%8F%92%E4%BB%B6%E7%9A%84-generate-%E7%9B%AE%E6%A0%87" name="%E6%89%A7%E8%A1%8C-mbg-%E6%8F%92%E4%BB%B6%E7%9A%84-generate-%E7%9B%AE%E6%A0%87"></a></p>
+<blockquote>
+<p>Plugins -&gt; mybatis-generator</p>
+</blockquote>
+<h3 id="分页插件">分页插件</h3>
+<p><a id="markdown-%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6" name="%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"></a></p>
+<h4 id="1-依赖">1. 依赖</h4>
+<p><a id="markdown-%E4%BE%9D%E8%B5%96" name="%E4%BE%9D%E8%B5%96"></a></p>
+<blockquote>
+<p>pagehelper</p>
+</blockquote>
+<h4 id="2-配置分页插件">2. 配置分页插件</h4>
+<p><a id="markdown-%E9%85%8D%E7%BD%AE%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6" name="%E9%85%8D%E7%BD%AE%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"></a></p>
+<p>在 MyBatis 的核心配置文件中配置插件</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugins&gt;</span>
+<span class="c">&lt;!--设置分页插件--&gt;</span>
+<span class="nt">&lt;plugin</span> <span class="na">interceptor=</span><span class="s">&#34;com.github.pagehelper.PageInterceptor&#34;</span><span class="nt">&gt;&lt;/plugin&gt;</span>
+<span class="nt">&lt;/plugins&gt;</span>
+</code></pre></div><h4 id="3-分页插件的使用">3. 分页插件的使用</h4>
+<p><a id="markdown-%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8" name="%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"></a></p>
+<h5 id="在查询功能之前使用-pagehelperstartpageint-pagenum-int-pagesize开启分页功能">在查询功能之前使用 PageHelper.startPage(int pageNum, int pageSize)开启分页功能</h5>
+<p><a id="markdown-%E5%9C%A8%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%E4%B9%8B%E5%89%8D%E4%BD%BF%E7%94%A8-pagehelper.startpageint-pagenum%2C-int-pagesize%E5%BC%80%E5%90%AF%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD" name="%E5%9C%A8%E6%9F%A5%E8%AF%A2%E5%8A%9F%E8%83%BD%E4%B9%8B%E5%89%8D%E4%BD%BF%E7%94%A8-pagehelper.startpageint-pagenum%2C-int-pagesize%E5%BC%80%E5%90%AF%E5%88%86%E9%A1%B5%E5%8A%9F%E8%83%BD"></a></p>
+<blockquote>
+<p>pageNum：当前页的页码</p>
+</blockquote>
+<blockquote>
+<p>pageSize：每页显示的条数</p>
+</blockquote>
+<h5 id="在查询获取-list-集合之后使用-pageinfot-pageinfo--new-pageinfolistt-list-int">在查询获取 list 集合之后，使用 PageInfo<T> pageInfo = new PageInfo&lt;&gt;(List<T> list, int</h5>
+<p><a id="markdown-%E5%9C%A8%E6%9F%A5%E8%AF%A2%E8%8E%B7%E5%8F%96-list-%E9%9B%86%E5%90%88%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BD%BF%E7%94%A8-pageinfo%3Ct%3E-pageinfo-%3D-new-pageinfo%3C%3Elist%3Ct%3E-list%2C-int" name="%E5%9C%A8%E6%9F%A5%E8%AF%A2%E8%8E%B7%E5%8F%96-list-%E9%9B%86%E5%90%88%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BD%BF%E7%94%A8-pageinfo%3Ct%3E-pageinfo-%3D-new-pageinfo%3C%3Elist%3Ct%3E-list%2C-int"></a></p>
+<p>navigatePages)获取分页相关数据</p>
+<blockquote>
+<p>list：分页之后的数据</p>
+</blockquote>
+<blockquote>
+<p>navigatePages：导航分页的页码数</p>
+</blockquote>
+<h5 id="分页相关数据">分页相关数据</h5>
+<p><a id="markdown-%E5%88%86%E9%A1%B5%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE" name="%E5%88%86%E9%A1%B5%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">PageInfo<span class="o">{</span>
+<span class="nv">pageNum</span><span class="o">=</span>8, <span class="nv">pageSize</span><span class="o">=</span>4, <span class="nv">size</span><span class="o">=</span>2, <span class="nv">startRow</span><span class="o">=</span>29, <span class="nv">endRow</span><span class="o">=</span>30, <span class="nv">total</span><span class="o">=</span>30, <span class="nv">pages</span><span class="o">=</span>8,
 
-    <span class="c1">//方法2 baseMapper对象指向当前业务的mapper对象
-</span><span class="c1"></span>    <span class="k">return</span> <span class="n">baseMapper</span><span class="o">.</span><span class="na">selectAllByName</span><span class="o">(</span><span class="s">&#34;Helen&#34;</span><span class="o">);</span>
-<span class="o">}</span>
-</code></pre></div><p>测试</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testListAllByName</span><span class="o">(){</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">listAllByName</span><span class="o">(</span><span class="s">&#34;Helen&#34;</span><span class="o">);</span>
-    <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="nv">list</span><span class="o">=</span>Page<span class="o">{</span><span class="nv">count</span><span class="o">=</span>true, <span class="nv">pageNum</span><span class="o">=</span>8, <span class="nv">pageSize</span><span class="o">=</span>4, <span class="nv">startRow</span><span class="o">=</span>28, <span class="nv">endRow</span><span class="o">=</span>32, <span class="nv">total</span><span class="o">=</span>30,
+<span class="nv">pages</span><span class="o">=</span>8, <span class="nv">reasonable</span><span class="o">=</span>false, <span class="nv">pageSizeZero</span><span class="o">=</span>false<span class="o">}</span>,
 
+<span class="nv">prePage</span><span class="o">=</span>7, <span class="nv">nextPage</span><span class="o">=</span>0, <span class="nv">isFirstPage</span><span class="o">=</span>false, <span class="nv">isLastPage</span><span class="o">=</span>true, <span class="nv">hasPreviousPage</span><span class="o">=</span>true,
+<span class="nv">hasNextPage</span><span class="o">=</span>false, <span class="nv">navigatePages</span><span class="o">=</span>5, navigateFirstPage4, navigateLastPage8,
+
+<span class="nv">navigatepageNums</span><span class="o">=[</span>4, 5, 6, 7, 8<span class="o">]</span>
 <span class="o">}</span>
-</code></pre></div><h4 id="以上同一个test里面return可以用注入usermapper或者直接用basemapper">以上同一个Test里面return可以用注入userMapper或者直接用baseMapper</h4>
-<p><a id="markdown-%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper" name="%E4%BB%A5%E4%B8%8A%E5%90%8C%E4%B8%80%E4%B8%AAtest%E9%87%8C%E9%9D%A2return%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%B3%A8%E5%85%A5usermapper%E6%88%96%E8%80%85%E7%9B%B4%E6%8E%A5%E7%94%A8basemapper"></a></p>
+</code></pre></div><p>常用数据：</p>
+<blockquote>
+<p>pageNum：当前页的页码</p>
+</blockquote>
+<blockquote>
+<p>pageSize：每页显示的条数</p>
+</blockquote>
+<blockquote>
+<p>size：当前页显示的真实条数</p>
+</blockquote>
+<blockquote>
+<p>total：总记录数</p>
+</blockquote>
+<blockquote>
+<p>pages：总页数</p>
+</blockquote>
+<blockquote>
+<p>prePage：上一页的页码</p>
+</blockquote>
+<blockquote>
+<p>nextPage：下一页的页码</p>
+</blockquote>
+<blockquote>
+<p>isFirstPage/isLastPage：是否为第一页/最后一页</p>
+</blockquote>
+<blockquote>
+<p>hasPreviousPage/hasNextPage：是否存在上一页/下一页</p>
+</blockquote>
+<blockquote>
+<p>navigatePages：导航分页的页码数</p>
+</blockquote>
+<blockquote>
+<p>navigatepageNums：导航分页的页码，[1,2,3,4,5]</p>
+</blockquote>
+<p>☕☕☕☕</p>
+<hr>
 <h4 id="ok-its-time-for-mybatis2hahahugoshortcode-s13-hbhb">Ok, It&rsquo;s time for <a href="https://rileyshen.github.io/post/mybatis2/" >mybatis2</a></h4>
 <p><a id="markdown-ok%2C-it's-time-for-mybatis2" name="ok%2C-it's-time-for-mybatis2"></a></p></div>
     <div class="post-footer">
         <div class="info">
             
-            <span class="separator"><a class="tag" href="/tags/mybatis-plus/">MyBatis-Plus</a><a class="tag" href="/tags/crud/">CRUD</a><a class="tag" href="/tags/mapper/">mapper</a><a class="tag" href="/tags/service/">service</a></span>
+            <span class="separator"><a class="tag" href="/tags/mybatis/">MyBatis</a><a class="tag" href="/tags/crud/">CRUD</a><a class="tag" href="/tags/mapper/">mapper</a><a class="tag" href="/tags/service/">service</a></span>
         </div>
     </div>
 
