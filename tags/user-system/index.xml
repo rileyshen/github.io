@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>User System on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/user-system/</link>
+    <description>Recent content in User System on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Mar 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/user-system/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>learning System design as a landscape architect 3</title>
+      <link>https://rileyshen.github.io/post/sys3/</link>
+      <pubDate>Tue, 01 Mar 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/sys3/</guid>
+      
+        <description>&lt;p&gt;Rethink system design in a much fun way, as a former urban planner/landscape planner. Take User System as example&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#whats-is-the-scenario-planning-of-this-project&#34; &gt;what&amp;amp;rsquo;s is the &amp;lt;strong&amp;gt;scenario&amp;lt;/strong&amp;gt; planning of this project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#service&#34; &gt;Service&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#authentication-service&#34; &gt;Authentication Service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#friendship-service&#34; &gt;Friendship Service&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#directed-relationship&#34; &gt;directed relationship&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#store-data-in-sql-db&#34; &gt;store data in SQL DB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#store-data-in-nosql-db&#34; &gt;store data in NoSQL DB&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;p&gt;User System&lt;/p&gt;
+&lt;h2 id=&#34;1-whats-is-the-scenario-planning-of-this-project&#34;&gt;1. what&amp;rsquo;s is the &lt;strong&gt;scenario&lt;/strong&gt; planning of this project&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-what&#39;s-is-the-**scenario**-planning-of-this-project&#34; name=&#34;what&#39;s-is-the-**scenario**-planning-of-this-project&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A system allow users to regest, login, query, modify their information.&lt;/p&gt;
+&lt;p&gt;we need consider the query qps.&lt;/p&gt;
+&lt;p&gt;assume this system support &lt;strong&gt;100 M DAO&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;regest + login + modify QPS&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;100 M * 0.1 / 86400 = 100&lt;/li&gt;
+&lt;li&gt;0.1 = every user regest + login + modify per day&lt;/li&gt;
+&lt;li&gt;Peak = 100 * 3 = 300&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;query QPS&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;100 M * 100 / 86400 = 100 K&lt;/li&gt;
+&lt;li&gt;100 = every user query per day (check friends, update message page, sent message)&lt;/li&gt;
+&lt;li&gt;Peak = 100 k* 3 = 300 k&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Analyzing user system service (zoning function)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;AuthenticationServer: regest, login&lt;/li&gt;
+&lt;li&gt;UserService: user information storage and query&lt;/li&gt;
+&lt;li&gt;FriendService: store friend relate information&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MySQL / PosgreSQL :1k QPS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB / Cassandra NoSQL :10k QPS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis / Memcached : 100k ~ 1m QPS&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;UserSystem is system read heavy and write less frequently, use Cache can&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Demand disassembly
+shops:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;register for sales on&lt;/li&gt;
+&lt;li&gt;set up detail information&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;clients:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;flash sale page&lt;/li&gt;
+&lt;li&gt;buy&lt;/li&gt;
+&lt;li&gt;order&lt;/li&gt;
+&lt;li&gt;pay&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;p&gt;Memcached to improve DB query&lt;/p&gt;
+&lt;p&gt;WOULD CAUSE INCONSISTENT : DIRTY DATA&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-SQL&#34; data-lang=&#34;SQL&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;database&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cache&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;database&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cache&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cache&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;database&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;RECOMMEND&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;database.set(key, user);cache.delete(key)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;User system is heavily Read System,  INCONSISTENT Occurrence probabilities much lower than &lt;code&gt;cache.delete + db.set&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Furthurmore, Use Cache &lt;code&gt;ttl&lt;/code&gt; mechanism&lt;/p&gt;
+&lt;p&gt;Set a short valid time, such as 7 days. Then even if there is a data inconsistency at a very low probability, it will be inconsistent for up to 7 days.&lt;/p&gt;
+&lt;p&gt;It means we allow the database and cache to be inconsistent &amp;ldquo;for a short time&amp;rdquo;, but will eventually be consistent.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cache Aside (more frequently used)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;DB &amp;lt;&amp;mdash;&amp;gt; Web Server &amp;lt;&amp;ndash;&amp;gt; Cache&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cache Through&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Web Server &amp;lt;&amp;mdash;&amp;gt; DB  &amp;lt;&amp;ndash;&amp;gt; Cache&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-service&#34;&gt;2 Service&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-service&#34; name=&#34;service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;21-authentication-service&#34;&gt;2.1 Authentication Service&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-authentication-service&#34; name=&#34;authentication-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;session&lt;/li&gt;
+&lt;li&gt;cookie&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;22-friendship-service&#34;&gt;2.2 Friendship Service&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-friendship-service&#34; name=&#34;friendship-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;directed-relationship&#34;&gt;directed relationship&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-directed-relationship&#34; name=&#34;directed-relationship&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Twitter, Instagram&lt;/p&gt;
+&lt;h4 id=&#34;store-data-in-sql-db&#34;&gt;store data in SQL DB&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-store-data-in-sql-db&#34; name=&#34;store-data-in-sql-db&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Friendship Table&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;from_user_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_user_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;followee&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;get all followees of X&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;select * from friendship where from_user_id=x&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;get all followers of X&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;select * from friendship where to_user_id=x&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;store-data-in-nosql-db&#34;&gt;store data in NoSQL DB&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-store-data-in-nosql-db&#34; name=&#34;store-data-in-nosql-db&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;take Cassandra as an example&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;3 layer NoSQL DB Table&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;row_key: Hash key or Partition Key&lt;/li&gt;
+&lt;li&gt;column_key
+&lt;ul&gt;
+&lt;li&gt;insert(row_key,  column_key, value)&lt;/li&gt;
+&lt;li&gt;column_key can be sorted&lt;/li&gt;
+&lt;li&gt;query(row_key,  column_start, column_end)&lt;/li&gt;
+&lt;li&gt;column_key can be complex type, timestamp + user_id&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;value: serialize data store into value&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how Cassandra store friendship table&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Cassandra key =  row_key + column_key&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;row_key&lt;/strong&gt; user_id 1 &amp;ndash;&amp;gt; &lt;strong&gt;column_key&lt;/strong&gt; &amp;lt;friend_user_id2&amp;gt; &amp;ndash;&amp;gt; &lt;strong&gt;value&lt;/strong&gt; &amp;lt;is_mutual_friend, is_blocked, timestamp&amp;gt;
+.                |
+.                &amp;ndash;&amp;gt; &lt;strong&gt;column_key&lt;/strong&gt; &amp;lt;friend_user_id3&amp;gt;&amp;ndash;&amp;gt; &lt;strong&gt;value&lt;/strong&gt; &amp;lt;is_mutual_friend, is_blocked, timestamp&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;row_key&lt;/strong&gt; user_id 2 &amp;ndash;&amp;gt; &lt;strong&gt;column_key&lt;/strong&gt; &amp;lt;friend_user_id1&amp;gt; &amp;ndash;&amp;gt; &lt;strong&gt;value&lt;/strong&gt; &amp;lt;is_mutual_friend, is_blocked, timestamp&amp;gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how Cassandra store NewsFeed&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;row_key&lt;/strong&gt; owner_id 1 &amp;ndash;&amp;gt; &lt;strong&gt;column_key&lt;/strong&gt; &amp;lt;created_at_1, tweet_id1&amp;gt; &amp;ndash;&amp;gt; &lt;strong&gt;value&lt;/strong&gt; &amp;lt;tweet_data1&amp;gt;
+|
+.                &amp;ndash;&amp;gt; &lt;strong&gt;column_key&lt;/strong&gt; &amp;lt;created_at_2, tweet_id2&amp;gt; &amp;ndash;&amp;gt; &lt;strong&gt;value&lt;/strong&gt; &amp;lt;tweet_data2&amp;gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;SQL VS Nosql&lt;/p&gt;
+&lt;p&gt;SQL &amp;ndash;&amp;gt; &lt;strong&gt;Transaction&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;SQL &amp;ndash;&amp;gt; structured data, index&lt;/p&gt;
+&lt;p&gt;NoSQL &amp;ndash;&amp;gt; Distributed, Auto_scale, Replica&lt;/p&gt;
+&lt;p&gt;more frequently, &lt;code&gt;User Table&lt;/code&gt; would be saved in SQL : multi-index&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Friendship Table&lt;/code&gt; would be saved in NoSQL : more efficient for querying&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;But if we use Cassandra to store User, find users  by email address or phone numberers&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;save User information in UserTable
+&lt;ul&gt;
+&lt;li&gt;Redis: Key = user_id, value = user information&lt;/li&gt;
+&lt;li&gt;Cassandra
+&lt;ul&gt;
+&lt;li&gt;row_key = user_id&lt;/li&gt;
+&lt;li&gt;column_key&lt;/li&gt;
+&lt;li&gt;value&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;create other tables as index
+&lt;ul&gt;
+&lt;li&gt;Redis: Key = email/phone/username, value = user_id&lt;/li&gt;
+&lt;li&gt;Cassandra
+&lt;ul&gt;
+&lt;li&gt;row_key = email/phone/username&lt;/li&gt;
+&lt;li&gt;column_key&lt;/li&gt;
+&lt;li&gt;value&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how to find Mutual Friends between A and B&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;find A&amp;rsquo;s friends list&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;find B&amp;rsquo;s friends list&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;get their intersection&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;improve:&lt;/p&gt;
+&lt;p&gt;use Cache, save their list in Cache&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | System design </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/system/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="System design"/>
+<meta name="twitter:description" content="流程：
+1. 清楚 requirement， 需要看到这个系统提供什么功能， clarify use cases and constraints  discuss assumptions  who (use it) how how many users what does the system do input and out how much data expect to handle how many requests per second expected the expected read to wirte radio    2."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>System design</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Oct 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">3-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>流程：</p>
+<h2 id="1-清楚-requirement-需要看到这个系统提供什么功能-clarify-use-cases-and-constraints">1. 清楚 requirement， 需要看到这个系统提供什么功能， clarify use cases and constraints</h2>
+<ul>
+<li>discuss assumptions
+<ul>
+<li>who (use it)</li>
+<li>how</li>
+<li>how many users</li>
+<li>what does the system do</li>
+<li>input and out</li>
+<li>how much data expect to handle</li>
+<li>how many requests per second expected</li>
+<li>the expected read to wirte radio</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-high-level-design">2. high level design</h2>
+<ul>
+<li>draw
+<ul>
+<li>components and connection</li>
+<li>jusity the idea</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-design-core-componets">3. design core componets</h2>
+<h2 id="4-scale-the-designpotential-solutions-and-trade-offs">4. scale the design，potential solutions and trade-offs</h2>
+<ul>
+<li>identify and address bottlenecks
+<ul>
+<li>load balancer</li>
+<li>horizontal scaling</li>
+<li>caching</li>
+<li>database sharding</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-scale">5. scale</h2>
+<h2 id="basic-concept">basic concept</h2>
+<p>延迟(Latency) : 通过管道需要花费的时间</p>
+<p>带宽(Bandwidth) : 管道的宽度</p>
+<p>吞吐(Throughput) : 每秒钟流过的水的数量就是吞吐</p>
+<h3 id="scalability">scalability</h3>
+<ul>
+<li>Vertical scaling</li>
+</ul>
+<p>MySQL</p>
+<ul>
+<li>Horizontal scaling
+Horizontal scaling (aka scaling out) refers to adding additional nodes or machines to your infrastructure to cope with new demands.</li>
+</ul>
+<p>Cassandra, MongoDB</p>
+<ul>
+<li>Load balancing</li>
+<li>Database replication</li>
+<li>Database partitioning</li>
+<li>Clones</li>
+<li>Databases</li>
+<li>Caches</li>
+<li>Asynchronism</li>
+</ul>
+<h3 id="performance-vs-scalability">Performance vs scalability</h3>
+<h3 id="latency-vs-throughput">Latency vs throughput</h3>
+<p>maximal throughput with acceptable latency</p>
+<h3 id="availability-vs-consistency">Availability vs consistency</h3>
+<h4 id="cp---consistencypartition-tolerance">CP - Consistency/Partition Tolerance</h4>
+<p>could result in a timeout error</p>
+<p>等待分区节点的响应可能会导致延时错误。如果你的业务需求需要原子读写，CP 是一个不错的选择。</p>
+<p>Choose Consistency over Availability when your business requirements dictate atomic reads and writes.</p>
+<h4 id="ap---availabilitypartition-tolerance">AP - Availability/Partition Tolerance</h4>
+<p>the system needs to continue to function in spite of external errors (shopping carts, etc.)</p>
+<p>AP is a good choice if the business needs allow for eventual consistency or when the system needs to continue working despite external errors</p>
+<p>如果业务需求允许最终一致性，或当有外部故障时要求系统继续运行，AP 是一个不错的选择</p>
+<h3 id="rpc-vs-rest">RPC VS REST</h3>
+<p>|  操作                     |  RPC                                  | REST              |
+|  ：&mdash;-                   | ：&mdash;-                                |：&mdash;-             |
+| 注册                      | POST/signup                           |  POST/persons     |
+| 注销                      | POST/resign {&ldquo;personid&rdquo;: &ldquo;1234&rdquo;}      |DELETE/persons/1234 |
+| 读取用户信息               |  GET/readPerson?personid=1234        |GET/persons/1234    |
+| 读取用户物品列表          | GET/readUsersItemsList?personid=1234  |GET/persons/1234/items   |
+| 向用户物品列表添加一项     |Post/addItemToUserItemsList{&ldquo;personid&rdquo;: &ldquo;1234&rdquo;; &ldquo;itemid&rdquo;:&ldquo;456&rdquo;} |POST/persons/1234/items{&ldquo;itemid&rdquo;:&ldquo;456&rdquo;}   |
+| 更新一个物品              | Post/modifyItem{&ldquo;itemid&rdquo;:&ldquo;456&rdquo;;&ldquo;key&rdquo;: &ldquo;value&rdquo; } |PUT/items/456{&ldquo;key&rdquo;: &ldquo;value&rdquo;}   |
+|删除一个物品                | Post/removeItem{&ldquo;itemid&rdquo;:&ldquo;456&rdquo;}     |DELETE/items/456|</p>
+<h3 id="该知道的时间数据">该知道的时间数据</h3>
+<p>|  power            |  Exact Value            | Approx Value        |   Bytes
+|  ：&mdash;-           | ：&mdash;-                   |：&mdash;-               |：&mdash;- 
+|   7               | 128                     |                     |
+|   8               | 256                     |                     |
+|   10              | 1024                    | 1 thousand          | 1 kB
+|   16              | 65,536                  |                     | 64 kB
+|   20              | 1,048,576               | 1 million           | 1 MB
+|   30              |                         | 1 billion           | 1 GB
+|   32              |                         |   billion           | 4 GB
+|   40              |                         | 1 trillion          | 1 TB</p>
+<h4 id="延迟数字">延迟数字</h4>
+<p>2020 年数据</p>
+<h2 id="latency-comparison-numbers">Latency Comparison Numbers</h2>
+<p>L1 cache reference                           0.5 ns</p>
+<p>Branch mispredict                            5   ns</p>
+<p>L2 cache reference                           7   ns                      14x L1 cache</p>
+<p>Mutex lock/unlock                           25   ns</p>
+<p>Main memory reference                      100   ns                      20x L2 cache, 200x L1</p>
+<p>cache</p>
+<p>Compress 1K bytes with Zippy            10,000   ns       10 us</p>
+<p>Send 1 KB bytes over 1 Gbps network     10,000   ns       10 us</p>
+<p>Read 4 KB randomly from SSD*           150,000   ns      150 us          ~1GB/sec SSD</p>
+<p>Read 1 MB sequentially from memory     250,000   ns      250 us</p>
+<p>Round trip within same datacenter      500,000   ns      500 us</p>
+<p>Read 1 MB sequentially from SSD*     1,000,000   ns    1,000 us    1 ms  ~1GB/sec SSD, 4X memory</p>
+<p>HDD seek                            10,000,000   ns   10,000 us   10 ms  20x datacenter roundtrip</p>
+<p>Read 1 MB sequentially from 1 Gbps  10,000,000   ns   10,000 us   10 ms  40x memory, 10X SSD</p>
+<p>Read 1 MB sequentially from HDD     30,000,000   ns   30,000 us   30 ms 120x memory, 30X SSD</p>
+<p>Send packet CA-&gt;Netherlands-&gt;CA    150,000,000   ns  150,000 us  150 ms</p>
+<h2 id="notes">Notes</h2>
+<p>1 ns = 10^-9 seconds
+1 us = 10^-6 seconds = 1,000 ns
+1 ms = 10^-3 seconds = 1,000 us = 1,000,000 ns</p>
+<p><strong>Read sequentially from HDD at 30 MB/s</strong></p>
+<p><strong>Read sequentially from 1 Gbps Ethernet at 100 MB/s</strong></p>
+<p><strong>Read sequentially from SSD at 1 GB/s</strong></p>
+<p><strong>Read sequentially from main memory at 4 GB/s</strong></p>
+<p><strong>6-7 world-wide round trips per second</strong></p>
+<p><strong>2,000 round trips per second within a data center</strong></p>
+<p>以上是 2009 的数据，实际上内存、SSD 和机械硬盘顺序读取速度有了非常大的提升。</p>
+<p>内存：100 秒</p>
+<p>SSD：4.4 小时</p>
+<p>同一数据中心往返：5.8 天</p>
+<p>机械硬盘寻址：23.1 天</p>
+<p><strong>从远程服务器的内存中读数据要比直接从硬盘上读取要快的</strong></p>
+<p>对于读取 1MB 数据，内存、SSD 和磁盘基本差了一个数量级：</p>
+<p>内存： 50 分钟</p>
+<p>SSD： 13.6 小时</p>
+<p>磁盘： 9.5 天</p>
+<p>尤其在设计存储引擎时，很多开源软件（Kafka、Leveldb、Rocksdb）都充分利用了存储介质顺序读、写速度远远快过随机读、写的特性，只做追加写操作来达到最佳性能。</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

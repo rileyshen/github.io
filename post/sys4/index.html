@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | learning System design as a landscape architect 4 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/sys4/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="learning System design as a landscape architect 4"/>
+<meta name="twitter:description" content="Rethink system design in a much fun way, as a former urban planner/landscape planner."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>learning System design as a landscape architect 4</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Tue, Mar 1, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">5-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Design_TinyURL as example</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#prerequisite" >prerequisite</a>
+<ul>
+<li><a href="#how-to-check-next-page-exist-or-not" >How to check next page exist or not</a></li>
+<li><a href="#get-new-content-updates" >Get new content updates</a></li>
+</ul>
+</li>
+<li><a href="#design-tiny-url" >Design Tiny URL</a></li>
+<li><a href="#whats-is-the-scenario-planning-of-this-project" >what&amp;rsquo;s is the &lt;strong&gt;scenario&lt;/strong&gt; planning of this project</a></li>
+<li><a href="#service" >Service</a>
+<ul>
+<li><a href="#url-service" >URL Service</a></li>
+<li><a href="#storage" >storage</a>
+<ul>
+<li><a href="#select" >select</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#scale" >Scale</a>
+<ul>
+<li><a href="#use-cache-aside-to-reduce-response-time" >use Cache Aside to reduce response time</a></li>
+<li><a href="#use-geolocation-to-reduce-response-time" >use geolocation to reduce response time</a></li>
+<li><a href="#sharding-key" >Sharding Key</a></li>
+<li><a href="#multi-region" >multi region</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<p>Design_TinyURL</p>
+<h2 id="prerequisite">prerequisite</h2>
+<p><a id="markdown-prerequisite" name="prerequisite"></a></p>
+<p>Rest API : put the information into the paths, /api/submissions/  &ndash;&gt; you want to submit</p>
+<p>wrong ones:</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">/api/accounts/create/</span>
+<span class="err">/api/accounts/1/delete/</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">POST</span> <span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">accounts</span><span class="o">/</span>
+<span class="nx">DELETE</span> <span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">accounts</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+<span class="nx">GET</span> <span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">accounts</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+<span class="nx">PUT</span> <span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">accounts</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span>
+</code></pre></div><blockquote>
+<p>Design News Feed API</p>
+</blockquote>
+<ul>
+<li>design api get News Feeds list</li>
+</ul>
+<blockquote>
+<p>GET <a href="https://www.facebook.com/api/newsfeed/">https://www.facebook.com/api/newsfeed/</a></p>
+</blockquote>
+<blockquote>
+<p>GET <a href="https://api.facebook.com/newsfeed/">https://api.facebook.com/newsfeed/</a></p>
+</blockquote>
+<ul>
+<li>
+<p>return content format
+clearify JSON or XML</p>
+</li>
+<li>
+<p>design Pagination</p>
+</li>
+</ul>
+<p>website</p>
+<blockquote>
+<p>/api/website/?page=1</p>
+</blockquote>
+<p>News Feed &ndash;&gt; Endless Pagination</p>
+<blockquote>
+<p>/api/newsfeed/?max_id=1000</p>
+</blockquote>
+<h3 id="how-to-check-next-page-exist-or-not">How to check next page exist or not</h3>
+<p><a id="markdown-how-to-check-next-page-exist-or-not" name="how-to-check-next-page-exist-or-not"></a></p>
+<p>Fetch next_max_id</p>
+<div class="highlight"><pre class="chroma"><code class="language-BASH" data-lang="BASH"><span class="nv">PAGE_SIZE</span> <span class="o">=</span> <span class="m">20</span>
+get max_id from request
+<span class="k">if</span> no max_id
+    get the updated PAGE_SIZE + <span class="m">1</span>
+<span class="k">else</span> 
+    get id &lt;<span class="o">=</span> max_id updated PAGE_SIZE + <span class="m">1</span>
+
+<span class="k">if</span> the data is <span class="m">21</span> pages, sign the <span class="m">21</span> id as next_max_id
+
+<span class="k">return</span> data:
+<span class="o">{</span>
+    <span class="s1">&#39;next_max_id&#39;</span>:next_max_id,
+    <span class="s1">&#39;items&#39;</span>:<span class="o">[</span>...nomore than PAGE_SIZE data<span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="get-new-content-updates">Get new content updates</h3>
+<p><a id="markdown-get-new-content-updates" name="get-new-content-updates"></a></p>
+<blockquote>
+<p>GET /api/newsfeed/?min_id=<id></p>
+</blockquote>
+<ul>
+<li>
+<p>design Mentions data format</p>
+<ul>
+<li>customize a hyperlink</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="design-tiny-url">Design Tiny URL</h2>
+<p><a id="markdown-design-tiny-url" name="design-tiny-url"></a></p>
+<h2 id="1-whats-is-the-scenario-planning-of-this-project">1. what&rsquo;s is the <strong>scenario</strong> planning of this project</h2>
+<p><a id="markdown-what's-is-the-**scenario**-planning-of-this-project" name="what's-is-the-**scenario**-planning-of-this-project"></a></p>
+<p>transfer Long URL into Short URL</p>
+<p>click Short URL will redirect to the original one.</p>
+<blockquote>
+<p>Q: shall we need a one to one mapping to get shorten URL</p>
+</blockquote>
+<blockquote>
+<p>Q: short URLs expire after a period</p>
+</blockquote>
+<ol>
+<li>
+<p>DAO (weibo as example) 100M</p>
+</li>
+<li>
+<p>generate a post contains Tiny URL</p>
+</li>
+</ol>
+<ul>
+<li>assume 0.1 post contains Tiny URL per person per day</li>
+<li>write QPS: 100 M * 0.1 / 86400 ~ 100</li>
+<li>Peak write QPS = 100 * 2 = 200</li>
+</ul>
+<ol start="3">
+<li>click a post contains Tiny URL</li>
+</ol>
+<ul>
+<li>assume 1 post contains Tiny URL per person per day</li>
+</ul>
+<ul>
+<li>average Read QPS = 100 M * 1 / 86400 ~ 1 k</li>
+<li>Peak Read QPS = 100 * 2 = 2 k</li>
+</ul>
+<ol start="4">
+<li>Storage estimates</li>
+</ol>
+<ul>
+<li>100 M * 0.1 ~ 10 M</li>
+<li>avergae per URL 100 ~ 1 G</li>
+<li>1 T disk for 3 years</li>
+</ul>
+<p>2 k QPS: MySQL with SSD</p>
+<hr>
+<ul>
+<li>
+<p>MySQL / PosgreSQL :1k QPS</p>
+</li>
+<li>
+<p>MongoDB / Cassandra NoSQL :10k QPS</p>
+</li>
+<li>
+<p>Redis / Memcached : 100k ~ 1m QPS</p>
+</li>
+</ul>
+<hr>
+<h2 id="2-service">2 Service</h2>
+<p><a id="markdown-service" name="service"></a></p>
+<h3 id="21-url-service">2.1 URL Service</h3>
+<p><a id="markdown-url-service" name="url-service"></a></p>
+<p>provide 2 methods</p>
+<ul>
+<li>UrlService.encode(long_ur)</li>
+<li>UrlService.decode(short_ur)</li>
+</ul>
+<p>interface design</p>
+<ul>
+<li>
+<p>GET /&lt;short_url&gt;</p>
+<ul>
+<li>return a Http redirect response</li>
+</ul>
+</li>
+<li>
+<p>POST /data/shorten</p>
+<ul>
+<li>Data = {url:http://xx}</li>
+<li>return a short ul</li>
+</ul>
+</li>
+</ul>
+<h2 id="storage">storage</h2>
+<p><a id="markdown-storage" name="storage"></a></p>
+<h3 id="select">select</h3>
+<p><a id="markdown-select" name="select"></a></p>
+<p>SQL VS NoSQL</p>
+<p>need transcation? &ndash;No, NoSQL + 1
+need complex SQL Query? &ndash;No, NoSQL + 1
+code is not complex &ndash; NoSQL + 1
+QPS, 2 K QPS &ndash; SQL + 1
+Scalability, consider the storage and QPS &ndash; SQL + 1
+<strong>need Sequential ID</strong> ? &ndash;depend the algorithm choose here</p>
+<ul>
+<li>SQL provide auto-increment Sequential ID</li>
+</ul>
+<blockquote>
+<p>how to shorten that long URL into a tiny URL (6 characters)</p>
+</blockquote>
+<p>method 1:
+random generate shortUrl, put into database</p>
+<p>simple, but would become very slow as data grows</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><p>or NoSql</p>
+<p>table 1 : query Short by Long</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">row_key=longURL, column_key=ShortURL, value=null or timestamp
+</code></pre></div><p>table 2 : query Long by  Short</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">row_key=shortURL, column_key=longURL, value=null or timestamp
+</code></pre></div><p>method 2: Base62</p>
+<p>effient, but require Sequential ID</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">shortURLtoID</span><span class="o">(</span><span class="n">String</span> <span class="n">shortURL</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">shortURL</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">id</span> <span class="o">=</span> <span class="n">id</span> <span class="o">*</span> <span class="n">62</span> <span class="o">+</span> <span class="n">toBase62</span><span class="o">(</span><span class="n">shortURL</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="n">String</span> <span class="nf">idToshortURL</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">chars</span> <span class="o">=</span> <span class="s">&#34;012...Z&#34;</span><span class="o">;</span> <span class="c1">// 0-9, a-z, A-Z
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">short_url</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">id</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">short_url</span> <span class="o">=</span> <span class="n">chars</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">id</span> <span class="o">%</span> <span class="n">62</span><span class="o">)</span> <span class="o">+</span> <span class="n">short_url</span><span class="o">;</span>
+        <span class="n">id</span> <span class="o">=</span> <span class="n">id</span> <span class="o">/</span> <span class="n">62</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">short_url</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">6</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">short_url</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span> <span class="o">+</span> <span class="n">short_url</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">short_url</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">id</span><span class="w">                </span><span class="n">longUrl</span><span class="p">(</span><span class="k">index</span><span class="o">=</span><span class="k">true</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="mi">1</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><h2 id="scale">Scale</h2>
+<p><a id="markdown-scale" name="scale"></a></p>
+<blockquote>
+<p>how to reduce response time</p>
+</blockquote>
+<h3 id="use-cache-aside-to-reduce-response-time">use Cache Aside to reduce response time</h3>
+<p><a id="markdown-use-cache-aside-to-reduce-response-time" name="use-cache-aside-to-reduce-response-time"></a></p>
+<p>data in Cache</p>
+<ul>
+<li>long to short (generate new short url)</li>
+<li>short to long (query short url)</li>
+</ul>
+<figure><img src="/images/system7.png"
+         alt="image"/><figcaption>
+            <h4>Cache Aside</h4>
+        </figcaption>
+</figure>
+
+<h3 id="use-geolocation-to-reduce-response-time">use geolocation to reduce response time</h3>
+<p><a id="markdown-use-geolocation-to-reduce-response-time" name="use-geolocation-to-reduce-response-time"></a></p>
+<p>Optimize server access speed
+• Different regions, use different web servers
+• Resolve users in different regions to different servers through DNS</p>
+<p>Optimize data access speed
+• Use Centralized MySQL+Distributed Memcached
+• One MySQL with multiple Memcached, Memcached distributed across regions</p>
+<figure><img src="/images/system8.png"
+         alt="image"/><figcaption>
+            <h4>dns</h4>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>how about it is not weibo but twitter, DAO is ten times larger then weibo?</p>
+</blockquote>
+<blockquote>
+<p>how to scale with high QPS problem</p>
+</blockquote>
+<p>Vertical Sharding vs Horizontal Sharding</p>
+<p>Vertical sharding :Vertical partitioning involves creating tables with fewer columns and using additional tables to store the remaining columns</p>
+<p><strong>Tiny URL only has two column, it doesn&rsquo;t need vertical Sharding here</strong></p>
+<h3 id="sharding-key">Sharding Key</h3>
+<p><a id="markdown-sharding-key" name="sharding-key"></a></p>
+<ul>
+<li>
+<p>one Long url mappting to multiple short url</p>
+<ul>
+<li>use Cache store all Lont to Short</li>
+<li>create short url for one long url, if Cache Miss happens, just create new short url</li>
+</ul>
+</li>
+<li>
+<p>one Long url mappting to one short url</p>
+<ul>
+<li>use ramdon to generate Short Url
+<ul>
+<li>two table, one is Long to Short, one is Short to Long</li>
+</ul>
+</li>
+<li>base 62
+<ul>
+<li>Relational database only support auto increase id in one mathine</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- Sequential ID in multiple machines? -->
+<!-- zookeeper, however, it is not recommend use Sequential ID in tiny url -->
+<ul>
+<li>base62 sharding key
+<ul>
+<li>Hash(long_url) % 62 as Sharding key, put in short url column</li>
+</ul>
+</li>
+</ul>
+<p>old short key: AB1234</p>
+<p>now short key: Hash(long_url) % 62 + AB1234</p>
+<p>cons: the number of machine is not more than 62</p>
+<h3 id="multi-region">multi region</h3>
+<p><a id="markdown-multi-region" name="multi-region"></a></p>
+<p>DB USE, UB CHINA</p>
+<blockquote>
+<p>To create a custom URL</p>
+</blockquote>
+<p><strong>random</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><p>just put custom url into shortkey</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">custom_url</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">aa</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><p><strong>base62</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">                         </span><span class="n">customUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">         </span><span class="n">xxx</span><span class="w">
+</span></code></pre></div><p>adding a new column is not recommended, it will waste space.</p>
+<ul>
+<li>
+<p>create a table store custom_url</p>
+</li>
+<li>
+<p>CustomURLTable</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">custom_url</span><span class="w">                </span><span class="n">longUrl</span><span class="p">(</span><span class="k">index</span><span class="o">=</span><span class="k">true</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">aa</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><ul>
+<li>create custom url (query and insert in CustomURLTable)</li>
+<li>create short url by long url
+<ul>
+<li>check whether CustomURLTable exist or not</li>
+<li>query and insert in URLTable</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>review</p>
+<ul>
+<li>
+<p>scenario：function need here</p>
+</li>
+<li>
+<p>demand analysis：QPS and Storage</p>
+</li>
+<li>
+<p>service：UrlService</p>
+</li>
+<li>
+<p>data anylysis：SQL vs NoSQL</p>
+</li>
+<li>
+<p>data anylysis：schema design</p>
+</li>
+<li>
+<p>Work Solution</p>
+</li>
+<li>
+<p>Improve access efficiency between web server and data server</p>
+</li>
+</ul>
+<ul>
+<li>Using caching to improve the efficiency of read requests</li>
+</ul>
+<ul>
+<li>Improve access efficiency between users and servers</li>
+</ul>
+<ul>
+<li>Solved the problem of slow access for Chinese users to US servers</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/sde/">SDE</a><a class="tag" href="/tags/design_tinyurl/">Design_TinyURL</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

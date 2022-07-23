@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design_TinyURL on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/design_tinyurl/</link>
+    <description>Recent content in Design_TinyURL on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Mar 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/design_tinyurl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>learning System design as a landscape architect 4</title>
+      <link>https://rileyshen.github.io/post/sys4/</link>
+      <pubDate>Tue, 01 Mar 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/sys4/</guid>
+      
+        <description>&lt;p&gt;Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Design_TinyURL as example&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#prerequisite&#34; &gt;prerequisite&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#how-to-check-next-page-exist-or-not&#34; &gt;How to check next page exist or not&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#get-new-content-updates&#34; &gt;Get new content updates&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#design-tiny-url&#34; &gt;Design Tiny URL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#whats-is-the-scenario-planning-of-this-project&#34; &gt;what&amp;amp;rsquo;s is the &amp;lt;strong&amp;gt;scenario&amp;lt;/strong&amp;gt; planning of this project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#service&#34; &gt;Service&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#url-service&#34; &gt;URL Service&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#storage&#34; &gt;storage&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#select&#34; &gt;select&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#scale&#34; &gt;Scale&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#use-cache-aside-to-reduce-response-time&#34; &gt;use Cache Aside to reduce response time&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#use-geolocation-to-reduce-response-time&#34; &gt;use geolocation to reduce response time&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sharding-key&#34; &gt;Sharding Key&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#multi-region&#34; &gt;multi region&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;p&gt;Design_TinyURL&lt;/p&gt;
+&lt;h2 id=&#34;prerequisite&#34;&gt;prerequisite&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-prerequisite&#34; name=&#34;prerequisite&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Rest API : put the information into the paths, /api/submissions/  &amp;ndash;&amp;gt; you want to submit&lt;/p&gt;
+&lt;p&gt;wrong ones:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;err&#34;&gt;/api/accounts/create/&lt;/span&gt;
+&lt;span class=&#34;err&#34;&gt;/api/accounts/1/delete/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;nx&#34;&gt;POST&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;api&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;accounts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;DELETE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;api&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;accounts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;GET&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;api&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;accounts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;
+&lt;span class=&#34;nx&#34;&gt;PUT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;api&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;accounts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;Design News Feed API&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;design api get News Feeds list&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GET &lt;a href=&#34;https://www.facebook.com/api/newsfeed/&#34;&gt;https://www.facebook.com/api/newsfeed/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GET &lt;a href=&#34;https://api.facebook.com/newsfeed/&#34;&gt;https://api.facebook.com/newsfeed/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;return content format
+clearify JSON or XML&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;design Pagination&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;website&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/api/website/?page=1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;News Feed &amp;ndash;&amp;gt; Endless Pagination&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/api/newsfeed/?max_id=1000&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;how-to-check-next-page-exist-or-not&#34;&gt;How to check next page exist or not&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-how-to-check-next-page-exist-or-not&#34; name=&#34;how-to-check-next-page-exist-or-not&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Fetch next_max_id&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-BASH&#34; data-lang=&#34;BASH&#34;&gt;&lt;span class=&#34;nv&#34;&gt;PAGE_SIZE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;
+get max_id from request
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; no max_id
+    get the updated PAGE_SIZE + &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; 
+    get id &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; max_id updated PAGE_SIZE + &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; the data is &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; pages, sign the &lt;span class=&#34;m&#34;&gt;21&lt;/span&gt; id as next_max_id
+
+&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; data:
+&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;s1&#34;&gt;&amp;#39;next_max_id&amp;#39;&lt;/span&gt;:next_max_id,
+    &lt;span class=&#34;s1&#34;&gt;&amp;#39;items&amp;#39;&lt;/span&gt;:&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;...nomore than PAGE_SIZE data&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;get-new-content-updates&#34;&gt;Get new content updates&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-get-new-content-updates&#34; name=&#34;get-new-content-updates&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;GET /api/newsfeed/?min_id=&lt;id&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;design Mentions data format&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;customize a hyperlink&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;design-tiny-url&#34;&gt;Design Tiny URL&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-design-tiny-url&#34; name=&#34;design-tiny-url&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-whats-is-the-scenario-planning-of-this-project&#34;&gt;1. what&amp;rsquo;s is the &lt;strong&gt;scenario&lt;/strong&gt; planning of this project&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-what&#39;s-is-the-**scenario**-planning-of-this-project&#34; name=&#34;what&#39;s-is-the-**scenario**-planning-of-this-project&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;transfer Long URL into Short URL&lt;/p&gt;
+&lt;p&gt;click Short URL will redirect to the original one.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Q: shall we need a one to one mapping to get shorten URL&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Q: short URLs expire after a period&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;DAO (weibo as example) 100M&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;generate a post contains Tiny URL&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;assume 0.1 post contains Tiny URL per person per day&lt;/li&gt;
+&lt;li&gt;write QPS: 100 M * 0.1 / 86400 ~ 100&lt;/li&gt;
+&lt;li&gt;Peak write QPS = 100 * 2 = 200&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;click a post contains Tiny URL&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;assume 1 post contains Tiny URL per person per day&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;average Read QPS = 100 M * 1 / 86400 ~ 1 k&lt;/li&gt;
+&lt;li&gt;Peak Read QPS = 100 * 2 = 2 k&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;Storage estimates&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;100 M * 0.1 ~ 10 M&lt;/li&gt;
+&lt;li&gt;avergae per URL 100 ~ 1 G&lt;/li&gt;
+&lt;li&gt;1 T disk for 3 years&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2 k QPS: MySQL with SSD&lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MySQL / PosgreSQL :1k QPS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MongoDB / Cassandra NoSQL :10k QPS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Redis / Memcached : 100k ~ 1m QPS&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-service&#34;&gt;2 Service&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-service&#34; name=&#34;service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;21-url-service&#34;&gt;2.1 URL Service&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-url-service&#34; name=&#34;url-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;provide 2 methods&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UrlService.encode(long_ur)&lt;/li&gt;
+&lt;li&gt;UrlService.decode(short_ur)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;interface design&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;GET /&amp;lt;short_url&amp;gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;return a Http redirect response&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;POST /data/shorten&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data = {url:http://xx}&lt;/li&gt;
+&lt;li&gt;return a short ul&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;storage&#34;&gt;storage&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-storage&#34; name=&#34;storage&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;select&#34;&gt;select&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-select&#34; name=&#34;select&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;SQL VS NoSQL&lt;/p&gt;
+&lt;p&gt;need transcation? &amp;ndash;No, NoSQL + 1
+need complex SQL Query? &amp;ndash;No, NoSQL + 1
+code is not complex &amp;ndash; NoSQL + 1
+QPS, 2 K QPS &amp;ndash; SQL + 1
+Scalability, consider the storage and QPS &amp;ndash; SQL + 1
+&lt;strong&gt;need Sequential ID&lt;/strong&gt; ? &amp;ndash;depend the algorithm choose here&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SQL provide auto-increment Sequential ID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how to shorten that long URL into a tiny URL (6 characters)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;method 1:
+random generate shortUrl, put into database&lt;/p&gt;
+&lt;p&gt;simple, but would become very slow as data grows&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;shortKey&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a9exBl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;or NoSql&lt;/p&gt;
+&lt;p&gt;table 1 : query Short by Long&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;row_key=longURL, column_key=ShortURL, value=null or timestamp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;table 2 : query Long by  Short&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;row_key=shortURL, column_key=longURL, value=null or timestamp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;method 2: Base62&lt;/p&gt;
+&lt;p&gt;effient, but require Sequential ID&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;shortURLtoID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;62&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;toBase62&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;idToshortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;chars&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;012...Z&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 0-9, a-z, A-Z
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;chars&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;charAt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;62&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;62&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;0&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;short_url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;scale&#34;&gt;Scale&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-scale&#34; name=&#34;scale&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how to reduce response time&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;use-cache-aside-to-reduce-response-time&#34;&gt;use Cache Aside to reduce response time&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-use-cache-aside-to-reduce-response-time&#34; name=&#34;use-cache-aside-to-reduce-response-time&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;data in Cache&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;long to short (generate new short url)&lt;/li&gt;
+&lt;li&gt;short to long (query short url)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/system7.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Cache Aside&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;use-geolocation-to-reduce-response-time&#34;&gt;use geolocation to reduce response time&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-use-geolocation-to-reduce-response-time&#34; name=&#34;use-geolocation-to-reduce-response-time&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Optimize server access speed
+• Different regions, use different web servers
+• Resolve users in different regions to different servers through DNS&lt;/p&gt;
+&lt;p&gt;Optimize data access speed
+• Use Centralized MySQL+Distributed Memcached
+• One MySQL with multiple Memcached, Memcached distributed across regions&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/system8.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;dns&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;how about it is not weibo but twitter, DAO is ten times larger then weibo?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how to scale with high QPS problem&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Vertical Sharding vs Horizontal Sharding&lt;/p&gt;
+&lt;p&gt;Vertical sharding :Vertical partitioning involves creating tables with fewer columns and using additional tables to store the remaining columns&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tiny URL only has two column, it doesn&amp;rsquo;t need vertical Sharding here&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;sharding-key&#34;&gt;Sharding Key&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-sharding-key&#34; name=&#34;sharding-key&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;one Long url mappting to multiple short url&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;use Cache store all Lont to Short&lt;/li&gt;
+&lt;li&gt;create short url for one long url, if Cache Miss happens, just create new short url&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;one Long url mappting to one short url&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;use ramdon to generate Short Url
+&lt;ul&gt;
+&lt;li&gt;two table, one is Long to Short, one is Short to Long&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;base 62
+&lt;ul&gt;
+&lt;li&gt;Relational database only support auto increase id in one mathine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- Sequential ID in multiple machines? --&gt;
+&lt;!-- zookeeper, however, it is not recommend use Sequential ID in tiny url --&gt;
+&lt;ul&gt;
+&lt;li&gt;base62 sharding key
+&lt;ul&gt;
+&lt;li&gt;Hash(long_url) % 62 as Sharding key, put in short url column&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;old short key: AB1234&lt;/p&gt;
+&lt;p&gt;now short key: Hash(long_url) % 62 + AB1234&lt;/p&gt;
+&lt;p&gt;cons: the number of machine is not more than 62&lt;/p&gt;
+&lt;h3 id=&#34;multi-region&#34;&gt;multi region&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-multi-region&#34; name=&#34;multi-region&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;DB USE, UB CHINA&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To create a custom URL&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;random&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;shortKey&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a9exBl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;just put custom url into shortkey&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;custom_url&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aa&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;base62&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;shortKey&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a9exBl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;shortKey&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;customUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a9exBl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xxx&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;adding a new column is not recommended, it will waste space.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;create a table store custom_url&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CustomURLTable&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;custom_url&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aa&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;create custom url (query and insert in CustomURLTable)&lt;/li&gt;
+&lt;li&gt;create short url by long url
+&lt;ul&gt;
+&lt;li&gt;check whether CustomURLTable exist or not&lt;/li&gt;
+&lt;li&gt;query and insert in URLTable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;review&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;scenario：function need here&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;demand analysis：QPS and Storage&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;service：UrlService&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;data anylysis：SQL vs NoSQL&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;data anylysis：schema design&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Work Solution&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Improve access efficiency between web server and data server&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Using caching to improve the efficiency of read requests&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Improve access efficiency between users and servers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;Solved the problem of slow access for Chinese users to US servers&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

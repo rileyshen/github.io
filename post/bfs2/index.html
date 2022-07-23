@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about BFS 2 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/bfs2/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about BFS 2"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about BFS 2</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">11-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>master BFS in algo</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#jump-game-iii-1306" >Jump Game III 1306</a></li>
+<li><a href="#check-if-there-is-a-valid-path-in-a-grid-1391" >Check if There is a Valid Path in a Grid 1391</a></li>
+<li><a href="#reorder-routes-to-make-all-paths-lead-to-the-city-zero-1466" >Reorder Routes to Make All Paths Lead to the City Zero 1466</a></li>
+<li><a href="#map-of-highest-peak-1765" >Map of Highest Peak 1765</a></li>
+<li><a href="#path-with-minimum-effort-1631" >Path With Minimum Effort 1631</a></li>
+<li><a href="#count-subtrees-with-max-distance-between-cities-1617" >Count Subtrees With Max Distance Between Cities 1617</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="jump-game-iii-1306">Jump Game III 1306</h2>
+<p><a id="markdown-jump-game-iii-1306" name="jump-game-iii-1306"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of non-negative integers arr, you are initially positioned at start index of the array. When you are at index i, you can jump to i + arr<span class="o">[</span>i<span class="o">]</span> or i - arr<span class="o">[</span>i<span class="o">]</span>, check <span class="k">if</span> you can reach to any index with value 0.
+
+Notice that you can not jump outside of the array at any time.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">arr</span> <span class="o">=</span> <span class="o">[</span>4,2,3,0,3,1,2<span class="o">]</span>, <span class="nv">start</span> <span class="o">=</span> <span class="m">5</span>
+Output: <span class="nb">true</span>
+Explanation: 
+All possible ways to reach at index <span class="m">3</span> with value <span class="m">0</span> are: 
+index <span class="m">5</span> -&gt; index <span class="m">4</span> -&gt; index <span class="m">1</span> -&gt; index <span class="m">3</span> 
+index <span class="m">5</span> -&gt; index <span class="m">6</span> -&gt; index <span class="m">4</span> -&gt; index <span class="m">1</span> -&gt; index <span class="m">3</span> 
+</code></pre></div><p>用一个 bfs， 和 visited 记录，更快的方式用 dfs</p>
+<p>T.C : O(n)</p>
+<p>S.C : O(n) [memory used in recursion]</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">canReach</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">)</span> <span class="o">{</span>
+
+     <span class="k">if</span> <span class="o">(</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+     <span class="o">}</span>    <span class="c1">// terminating conditions
+</span><span class="c1"></span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">]</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">//reached the target
+</span><span class="c1"></span>         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+     <span class="o">}</span>  
+
+     <span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">]</span> <span class="o">=</span>  <span class="o">-</span><span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">];</span> <span class="c1">// flip the checked number to negative
+</span><span class="c1"></span>
+     <span class="k">return</span> <span class="n">canReach</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">])</span> <span class="o">||</span> <span class="n">canReach</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">start</span> <span class="o">-</span> <span class="n">arr</span><span class="o">[</span><span class="n">start</span><span class="o">]);</span> <span class="c1">//checking in both direction
+</span><span class="c1"></span>
+        
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">start</span><span class="o">);</span>
+        <span class="k">while</span><span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+            <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">tmp</span><span class="o">];</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">set</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">tmp</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">tmp</span><span class="o">);</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">+</span> <span class="n">arr</span><span class="o">[</span><span class="n">tmp</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">tmp</span> <span class="o">-</span> <span class="n">arr</span><span class="o">[</span><span class="n">tmp</span><span class="o">];</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+            <span class="o">}</span>
+              <span class="k">if</span> <span class="o">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">y</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="check-if-there-is-a-valid-path-in-a-grid-1391">Check if There is a Valid Path in a Grid 1391</h2>
+<p><a id="markdown-check-if-there-is-a-valid-path-in-a-grid-1391" name="check-if-there-is-a-valid-path-in-a-grid-1391"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an m x n grid. Each cell of grid represents a street. The street of grid<span class="o">[</span>i<span class="o">][</span>j<span class="o">]</span> can be:
+
+<span class="m">1</span> which means a street connecting the left cell and the right cell.
+<span class="m">2</span> which means a street connecting the upper cell and the lower cell.
+<span class="m">3</span> which means a street connecting the left cell and the lower cell.
+<span class="m">4</span> which means a street connecting the right cell and the lower cell.
+<span class="m">5</span> which means a street connecting the left cell and the upper cell.
+<span class="m">6</span> which means a street connecting the right cell and the upper cell.
+
+You will initially start at the street of the upper-left cell <span class="o">(</span>0, 0<span class="o">)</span>. A valid path in the grid is a path that starts from the upper left cell <span class="o">(</span>0, 0<span class="o">)</span> and ends at the bottom-right cell <span class="o">(</span>m - 1, n - 1<span class="o">)</span>. The path should only follow the streets.
+
+Notice that you are not allowed to change any street.
+
+Return <span class="nb">true</span> <span class="k">if</span> there is a valid path in the grid or <span class="nb">false</span> otherwise.
+
+ 
+
+Example 1:
+
+
+Input: <span class="nv">grid</span> <span class="o">=</span> <span class="o">[[</span>2,4,3<span class="o">]</span>,<span class="o">[</span>6,5,2<span class="o">]]</span>
+Output: <span class="nb">true</span>
+Explanation: As shown you can start at cell <span class="o">(</span>0, 0<span class="o">)</span> and visit all the cells of the grid to reach <span class="o">(</span>m - 1, n - 1<span class="o">)</span>.
+</code></pre></div><figure><img src="/images/bfs1.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/bfs2.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<p>BFS:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[][][]</span> <span class="n">dirs</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="c1">// 第一行是 x 坐标，左 -1， 右 1， 第二行是 Y 坐标， 上 -1， 下 1
+</span><span class="c1"></span>    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">}},</span>
+    <span class="o">{{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}}</span>
+<span class="o">};</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasValidPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+    
+    
+    <span class="n">Queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+     <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">m</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">});</span>
+   <span class="n">visited</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        <span class="c1">// 因为grid是从1 开始
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">grid</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">dir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">[</span><span class="n">tmp</span><span class="o">])</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">nr</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">nr</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">nr</span> <span class="o">&gt;=</span> <span class="n">m</span> <span class="o">||</span> <span class="n">nc</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">nc</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="o">||</span> <span class="n">visited</span><span class="o">[</span><span class="n">nr</span><span class="o">][</span><span class="n">nc</span><span class="o">])</span> <span class="o">{</span>
+            <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 这个点的四邻遍历
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">backDir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">[</span><span class="n">grid</span><span class="o">[</span><span class="n">nr</span><span class="o">][</span><span class="n">nc</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nr</span> <span class="o">+</span> <span class="n">backDir</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">r</span> <span class="o">&amp;&amp;</span> <span class="n">nc</span> <span class="o">+</span> <span class="n">backDir</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">visited</span><span class="o">[</span><span class="n">nr</span><span class="o">][</span><span class="n">nc</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">nr</span><span class="o">,</span> <span class="n">nc</span><span class="o">});</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>
+    <span class="k">return</span> <span class="n">visited</span><span class="o">[</span><span class="n">m</span> <span class="o">-</span> <span class="n">1</span><span class="o">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">];</span>
+<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[][][]</span> <span class="n">dirs</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="c1">// 第一行是 x 坐标，左 -1， 右 1， 第二行是 Y 坐标， 上 -1， 下 1
+</span><span class="c1"></span>    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">}},</span>
+    <span class="o">{{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}},</span>
+    <span class="o">{{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}}</span>
+<span class="o">};</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasValidPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">)</span> <span class="o">{</span>
+   
+    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+    
+
+    <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">m</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+
+    <span class="k">return</span> <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">m</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">visited</span><span class="o">);</span>
+<span class="o">}</span>
+
+
+<span class="kt">boolean</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">,</span> <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">m</span> <span class="o">-</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">){</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">visited</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nextDir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">[</span><span class="n">grid</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">nr</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">nextDir</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="n">nextDir</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">nr</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">nr</span> <span class="o">&gt;=</span> <span class="n">m</span> <span class="o">||</span> <span class="n">nc</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">nc</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="o">||</span> <span class="n">visited</span><span class="o">[</span><span class="n">nr</span><span class="o">][</span><span class="n">nc</span><span class="o">])</span> <span class="o">{</span>
+            <span class="k">continue</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">backDir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">[</span><span class="n">grid</span><span class="o">[</span><span class="n">nr</span><span class="o">][</span><span class="n">nc</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">])</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nr</span> <span class="o">+</span> <span class="n">backDir</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">r</span> <span class="o">&amp;&amp;</span> <span class="n">nc</span> <span class="o">+</span> <span class="n">backDir</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">m</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">nr</span><span class="o">,</span> <span class="n">nc</span><span class="o">,</span> <span class="n">visited</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+         
+              
+            
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+   
+</code></pre></div><h2 id="reorder-routes-to-make-all-paths-lead-to-the-city-zero-1466">Reorder Routes to Make All Paths Lead to the City Zero 1466</h2>
+<p><a id="markdown-reorder-routes-to-make-all-paths-lead-to-the-city-zero-1466" name="reorder-routes-to-make-all-paths-lead-to-the-city-zero-1466"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">There are n cities numbered from <span class="m">0</span> to n - <span class="m">1</span> and n - <span class="m">1</span> roads such that there is only one way to travel between two different cities <span class="o">(</span>this network form a tree<span class="o">)</span>. Last year, The ministry of transport decided to orient the roads in one direction because they are too narrow.
+
+Roads are represented by connections where connections<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>ai, bi<span class="o">]</span> represents a road from city ai to city bi.
+
+This year, there will be a big event in the capital <span class="o">(</span>city 0<span class="o">)</span>, and many people want to travel to this city.
+
+Your task consists of reorienting some roads such that each city can visit the city 0. Return the minimum number of edges changed.
+
+It<span class="err">&#39;</span>s guaranteed that each city can reach city <span class="m">0</span> after reorder.
+
+Input: <span class="nv">n</span> <span class="o">=</span> 6, <span class="nv">connections</span> <span class="o">=</span> <span class="o">[[</span>0,1<span class="o">]</span>,<span class="o">[</span>1,3<span class="o">]</span>,<span class="o">[</span>2,3<span class="o">]</span>,<span class="o">[</span>4,0<span class="o">]</span>,<span class="o">[</span>4,5<span class="o">]]</span>
+Output: <span class="m">3</span>
+Explanation: Change the direction of edges show in red such that each node can reach the node <span class="m">0</span> <span class="o">(</span>capital<span class="o">)</span>.
+</code></pre></div><p>以 0 为根， 往下走，
+0
+/<br>
+4    1</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minReorder</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">connections</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> 
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span> <span class="c1">// 每个城市的neibor有多少
+</span><span class="c1"></span>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">mapStar</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span> <span class="c1">// 每个城市去哪个城市
+</span><span class="c1"></span>        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">e</span><span class="o">:</span> <span class="n">connections</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 这里 put 比较块
+</span><span class="c1"></span>            <span class="n">map</span><span class="o">.</span><span class="na">putIfAbsent</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;());</span> 
+            <span class="c1">// map.computerIfAbsent(e[0], k -&gt; new HashSet&lt;&gt;());
+</span><span class="c1"></span>            <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">0</span><span class="o">]).</span><span class="na">add</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span> 
+            <span class="c1">// map(0, 1, 4), (1, 3, 0), (2, 3), (4, 0), (3, 1, 2)
+</span><span class="c1"></span>            <span class="n">map</span><span class="o">.</span><span class="na">putIfAbsent</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;());</span>
+            <span class="c1">// map.computerIfAbsent(e[1], k -&gt; new HashSet&lt;&gt;());
+</span><span class="c1"></span>            <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">1</span><span class="o">]).</span><span class="na">add</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+            <span class="c1">// [0,1],[1,3],[2,3],[4,0]
+</span><span class="c1"></span>
+            <span class="n">mapStar</span><span class="o">.</span><span class="na">putIfAbsent</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;());</span>
+            <span class="c1">// mapStar.computerIfAbsent(e[0], k -&gt; new HashSet&lt;&gt;());
+</span><span class="c1"></span>            <span class="n">mapStar</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">0</span><span class="o">]).</span><span class="na">add</span><span class="o">(</span><span class="n">e</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span> 
+        <span class="o">}</span>
+        
+        <span class="kt">boolean</span><span class="o">[]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+       
+       <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="n">visited</span><span class="o">[</span><span class="n">start</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">nei</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">start</span><span class="o">);</span>
+
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">:</span> <span class="n">nei</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">visited</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">continue</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">mapStar</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">mapStar</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">contains</span><span class="o">(</span><span class="n">start</span><span class="o">)){</span>
+                    <span class="k">continue</span><span class="o">;</span>
+                <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+                    <span class="n">count</span><span class="o">++;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+</code></pre></div><h2 id="map-of-highest-peak-1765">Map of Highest Peak 1765</h2>
+<p><a id="markdown-map-of-highest-peak-1765" name="map-of-highest-peak-1765"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an integer matrix isWater of size m x n that represents a map of land and water cells.
+
+If isWater<span class="o">[</span>i<span class="o">][</span>j<span class="o">]</span> <span class="o">==</span> 0, cell <span class="o">(</span>i, j<span class="o">)</span> is a land cell.
+If isWater<span class="o">[</span>i<span class="o">][</span>j<span class="o">]</span> <span class="o">==</span> 1, cell <span class="o">(</span>i, j<span class="o">)</span> is a water cell.
+You must assign each cell a height in a way that follows these rules:
+
+The height of each cell must be non-negative.
+If the cell is a water cell, its height must be 0.
+Any two adjacent cells must have an absolute height difference of at most 1. A cell is adjacent to another cell <span class="k">if</span> the former is directly north, east, south, or west of the latter <span class="o">(</span>i.e., their sides are touching<span class="o">)</span>.
+Find an assignment of heights such that the maximum height in the matrix is maximized.
+
+Return an integer matrix height of size m x n where height<span class="o">[</span>i<span class="o">][</span>j<span class="o">]</span> is cell <span class="o">(</span>i, j<span class="o">)</span><span class="err">&#39;</span>s height. If there are multiple solutions, <span class="k">return</span> any of them.
+
+Input: <span class="nv">isWater</span> <span class="o">=</span> <span class="o">[[</span>0,1<span class="o">]</span>,<span class="o">[</span>0,0<span class="o">]]</span>
+Output: <span class="o">[[</span>1,0<span class="o">]</span>,<span class="o">[</span>2,1<span class="o">]]</span>
+Explanation: The image shows the assigned heights of each cell.
+The blue cell is the water cell, and the green cells are the land cells.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">int</span><span class="o">[][]</span> <span class="n">dirs</span> <span class="o">=</span> <span class="o">{</span>
+        <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},</span>
+        <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},</span>
+        <span class="o">{</span> <span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},</span>
+         <span class="o">{</span> <span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">}</span>
+    <span class="o">};</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[][]</span> <span class="nf">highestPeak</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">isWater</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="kt">int</span><span class="o">[][]</span> <span class="n">ans</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">isWater</span><span class="o">.</span><span class="na">length</span><span class="o">][</span><span class="n">isWater</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">];</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">isWater</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">isWater</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">isWater</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">});</span>
+                <span class="o">}</span>
+                <span class="c1">// 没被访问过的陆地起始为-1，水域在答案里要求为0
+</span><span class="c1"></span>               <span class="n">ans</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">isWater</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="n">1</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">dir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+                <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">nx</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">nx</span> <span class="o">&gt;=</span> <span class="n">isWater</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">ny</span> <span class="o">&gt;=</span> <span class="n">isWater</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">||</span> <span class="n">ans</span><span class="o">[</span><span class="n">nx</span><span class="o">][</span><span class="n">ny</span><span class="o">]</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">ans</span><span class="o">[</span><span class="n">nx</span><span class="o">][</span><span class="n">ny</span><span class="o">]</span> <span class="o">=</span> <span class="n">ans</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+            <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]</span> <span class="o">{</span><span class="n">nx</span><span class="o">,</span> <span class="n">ny</span><span class="o">});</span>
+            <span class="o">}</span>
+           
+            
+            
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="path-with-minimum-effort-1631">Path With Minimum Effort 1631</h2>
+<p><a id="markdown-path-with-minimum-effort-1631" name="path-with-minimum-effort-1631"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are a hiker preparing <span class="k">for</span> an upcoming hike. You are given heights, a 2D array of size rows x columns, where heights<span class="o">[</span>row<span class="o">][</span>col<span class="o">]</span> represents the height of cell <span class="o">(</span>row, col<span class="o">)</span>. You are situated in the top-left cell, <span class="o">(</span>0, 0<span class="o">)</span>, and you hope to travel to the bottom-right cell, <span class="o">(</span>rows-1, columns-1<span class="o">)</span> <span class="o">(</span>i.e., 0-indexed<span class="o">)</span>. You can move up, down, left, or right, and you wish to find a route that requires the minimum effort.
+
+A route<span class="err">&#39;</span>s effort is the maximum absolute difference in heights between two consecutive cells of the route.
+
+Return the minimum effort required to travel from the top-left cell to the bottom-right cell.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">heights</span> <span class="o">=</span> <span class="o">[[</span>1,2,2<span class="o">]</span>,<span class="o">[</span>3,8,2<span class="o">]</span>,<span class="o">[</span>5,3,5<span class="o">]]</span>
+Output: <span class="m">2</span>
+Explanation: The route of <span class="o">[</span>1,3,5,3,5<span class="o">]</span> has a maximum absolute difference of <span class="m">2</span> in consecutive cells.
+This is better than the route of <span class="o">[</span>1,2,2,2,5<span class="o">]</span>, where the maximum absolute difference is 3.
+</code></pre></div><p>这个算法 Dijikstra， 类型和 BFS 没区别，但是， 它不用 visited 记录. 因为 BFS 每条边权重一样， 利用 for 循环一层一层向外扩散， visited 集合防止走回头路。 而 Dijikstra 是加权图，pq 可能会经过一个节点很多次，找到最少权重的，所以经常会加一个判断，提前 return 来提高效果， 所以创建一个和 input matrix 等长等宽的 matrix， 记录 traverse 到每个坐标花费是多少， 需要一个记录堆 [cost, row, col]， 当我们遍历到某个坐标的时候，如果已经记录到 effort 更小时候无需更新，如果重新计算的 newEffort 更小时则需要更新 effort 数组并用这个值带入下一个 BFS 计算</p>
+<p>使用优先队列优化的 Dijkstra 算法的时间复杂度为 O(m0log m0)， 由于图中的边数为 O(mn)，带入即可得到时间复杂度 
+O(mnlog(mn)。</p>
+<p>空间复杂度：O(mn)，即为 Dijkstra 算法需要使用的空间。</p>
+<p><a href="https://www.youtube.com/watch?v=FabSLaGu0NI&amp;ab_channel=AlgorithmsMadeEasy"  target="_blank" >推荐油管</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[][]</span> <span class="n">dirs</span> <span class="o">=</span> <span class="o">{{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},</span> <span class="o">{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">}};</span>
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">minimumEffortPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">heights</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">heights</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">heights</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+        <span class="kt">int</span><span class="o">[][]</span> <span class="n">effort</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">m</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+             <span class="n">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">effort</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
+        <span class="o">}</span>
+       
+        
+        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">pq</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;((</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">[</span><span class="n">0</span><span class="o">]-</span><span class="n">b</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="n">pq</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">});</span>
+        
+        
+      
+        
+        <span class="k">while</span> <span class="o">(!</span><span class="n">pq</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">min</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">min</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">min</span><span class="o">[</span><span class="n">2</span><span class="o">],</span> <span class="n">v</span> <span class="o">=</span> <span class="n">min</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">v</span> <span class="o">&gt;</span> <span class="n">effort</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]){</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">m</span> <span class="o">-</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">v</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">dir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">nx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+                <span class="kt">int</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">];</span> 
+                <span class="k">if</span> <span class="o">(</span><span class="n">nx</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nx</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">ny</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">ny</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">)</span> <span class="o">{</span>
+                    <span class="kt">int</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">heights</span><span class="o">[</span><span class="n">nx</span><span class="o">][</span><span class="n">ny</span><span class="o">]</span> <span class="o">-</span> <span class="n">heights</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]));</span>
+                 <span class="k">if</span> <span class="o">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="n">effort</span><span class="o">[</span><span class="n">nx</span><span class="o">][</span><span class="n">ny</span><span class="o">])</span> <span class="o">{</span>
+                     <span class="n">effort</span><span class="o">[</span><span class="n">nx</span><span class="o">][</span><span class="n">ny</span><span class="o">]</span> <span class="o">=</span> <span class="n">diff</span><span class="o">;</span>
+                     <span class="n">pq</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">diff</span><span class="o">,</span> <span class="n">nx</span><span class="o">,</span> <span class="n">ny</span><span class="o">});</span>
+                 <span class="o">}</span>   
+            <span class="o">}</span>
+            <span class="o">}</span>
+           
+            
+        
+            
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+</code></pre></div><figure><img src="/images/bfs3.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/bfs4.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<p>eff 0   &mdash;&gt;  1 2<br>
+row 0   &mdash;&gt;  0 1
+col 0   &mdash;&gt;  1 0
+pop
+<figure><img src="/images/bfs5.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+</p>
+<figure><img src="/images/bfs6.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<p>pop 2, 有 3 个方向， 左，下，右</p>
+<p>eff 1   &mdash;&gt;  1 6 1<br>
+row 0   &mdash;&gt;  0 1 0
+col 1   &mdash;&gt;  2 1 0
+<figure><img src="/images/bfs7.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+</p>
+<p>这里解决了这行代码，取最大值的原因</p>
+<blockquote>
+<p>if (nx &gt;= 0 &amp;&amp; nx &lt; m &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; n ) {
+int diff = Math.max(v, Math.abs(heights[nx][ny] - heights[x][y]));</p>
+</blockquote>
+<figure><img src="/images/bfs8.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<figure><img src="/images/bfs9.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<p>这时候 minheap 里面有 4 个，effort 表格也有 4 个</p>
+<p>pop 右三的 2</p>
+<figure><img src="/images/bfs10.png"
+         alt="image"/><figcaption>
+            <h4>BFS</h4>
+        </figcaption>
+</figure>
+
+<h2 id="count-subtrees-with-max-distance-between-cities-1617">Count Subtrees With Max Distance Between Cities 1617</h2>
+<p><a id="markdown-count-subtrees-with-max-distance-between-cities-1617" name="count-subtrees-with-max-distance-between-cities-1617"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">There are n cities numbered from <span class="m">1</span> to n. You are given an array edges of size n-1, where edges<span class="o">[</span>i<span class="o">]</span> <span class="o">=</span> <span class="o">[</span>ui, vi<span class="o">]</span> represents a bidirectional edge between cities ui and vi. There exists a unique path between each pair of cities. In other words, the cities form a tree.
+
+A subtree is a subset of cities where every city is reachable from every other city in the subset, where the path between each pair passes through only the cities from the subset. Two subtrees are different <span class="k">if</span> there is a city in one subtree that is not present in the other.
+
+For each d from <span class="m">1</span> to n-1, find the number of subtrees in which the maximum distance between any two cities in the subtree is equal to d.
+
+Return an array of size n-1 where the dth element <span class="o">(</span>1-indexed<span class="o">)</span> is the number of subtrees in which the maximum distance between any two cities is equal to d.
+
+Notice that the distance between the two cities is the number of edges in the path between them.
+
+
+Example 1:
+
+Input: <span class="nv">n</span> <span class="o">=</span> 4, <span class="nv">edges</span> <span class="o">=</span> <span class="o">[[</span>1,2<span class="o">]</span>,<span class="o">[</span>2,3<span class="o">]</span>,<span class="o">[</span>2,4<span class="o">]]</span>
+Output: <span class="o">[</span>3,4,0<span class="o">]</span>
+Explanation:
+The subtrees with subsets <span class="o">{</span>1,2<span class="o">}</span>, <span class="o">{</span>2,3<span class="o">}</span> and <span class="o">{</span>2,4<span class="o">}</span> have a max distance of 1.
+The subtrees with subsets <span class="o">{</span>1,2,3<span class="o">}</span>, <span class="o">{</span>1,2,4<span class="o">}</span>, <span class="o">{</span>2,3,4<span class="o">}</span> and <span class="o">{</span>1,2,3,4<span class="o">}</span> have a max distance of 2.
+No subtree has two nodes where the max distance between them is 3.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/bfs/">BFS</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

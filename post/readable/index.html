@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen | Java code readability </title>
+    <title> Riley Shen | Java code readability and elegant </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -47,7 +47,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content="Java code readability"/>
+<meta name="twitter:title" content="Java code readability and elegant"/>
 <meta name="twitter:description" content="if else in java readability"/>
 
 
@@ -131,7 +131,7 @@
     <div class="post-content">
         
         <div class="post-title">
-            <h2>Java code readability</h2>
+            <h2>Java code readability and elegant</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
@@ -144,9 +144,40 @@
             
         </div>
 
-        <ol>
-<li></li>
-</ol>
+        <p>let your code more elegant</p>
+<!-- more -->
+<h2 id="pass-by-value">pass by value</h2>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">search</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">TreeNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><p>java is passing by value, it won&rsquo;t change the root value outside, thus you don&rsquo;t need this code below</p>
+<blockquote>
+<p>TreeNode cur = root;</p>
+</blockquote>
+<p>jump out the while loop, root == null or root.key == target, just return root;</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">search</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+   
+    <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">!=</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="c1">// root == null || root.key == target
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="if-else">if else</h2>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">10</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">2</span><span class="o">;</span>
 <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
@@ -162,9 +193,7 @@
     <span class="n">set2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
 <span class="o">}</span> 
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">(</span><span class="n">flag</span><span class="o">?</span> <span class="n">set1</span><span class="o">:</span><span class="n">set2</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
-</code></pre></div><ol start="2">
-<li>filter</li>
-</ol>
+</code></pre></div><h2 id="filter">filter</h2>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">&lt;&gt;();</span>
 <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
     <span class="n">a</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
@@ -182,11 +211,17 @@
 <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">b</span><span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
     <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">c</span><span class="o">::</span><span class="n">contains</span><span class="o">)</span>
     <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
-</code></pre></div><p><strong>Stream优化if中判断条件过多情况</strong></p>
+</code></pre></div><h2 id="stream-优化-if-中判断条件过多情况">Stream 优化 if 中判断条件过多情况</h2>
 <ul>
-<li>anyMatch：判断条件里任意一个满足条件，则返回true；</li>
-<li>allMatch：判断条件里所有都满足条件，则返回true；</li>
-<li>noneMatch：判断条件里所有都不满足条件，则返回true;</li>
+<li>
+<p>anyMatch：判断条件里任意一个满足条件，则返回 true；</p>
+</li>
+<li>
+<p>allMatch：判断条件里所有都满足条件，则返回 true；</p>
+</li>
+<li>
+<p>noneMatch：判断条件里所有都不满足条件，则返回 true;</p>
+</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="s">&#34;c&#34;</span><span class="o">,</span><span class="s">&#34;d&#34;</span><span class="o">,</span> <span class="s">&#34;&#34;</span><span class="o">);</span>
 <span class="c1">//任意一个字符串判断不为空则为true
@@ -207,7 +242,7 @@
     <span class="o">....</span>
 <span class="o">}</span>
 
-</code></pre></div><p>3.Enum</p>
+</code></pre></div><h2 id="enum">Enum</h2>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">dayEnum</span> <span class="o">{</span>
     <span class="n">Monday</span><span class="o">(</span><span class="s">&#34;aaa&#34;</span><span class="o">),</span>
     <span class="n">Tuesday</span><span class="o">(</span><span class="s">&#34;bbb&#34;</span><span class="o">),</span>
@@ -226,9 +261,7 @@
     <span class="k">return</span> <span class="n">dayEnum</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">day</span><span class="o">).</span><span class="na">value</span><span class="o">;</span>
 <span class="o">}</span>
 
-</code></pre></div><ol start="4">
-<li>ImmutableMap</li>
-</ol>
+</code></pre></div><h2 id="immutablemap">ImmutableMap</h2>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getDay</span><span class="o">(</span><span class="n">String</span> <span class="n">day</span><span class="o">){</span>
     <span class="k">if</span><span class="o">(</span><span class="s">&#34;Monday&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">day</span><span class="o">)){</span>
        <span class="k">return</span> <span class="s">&#34;aaa&#34;</span><span class="o">;</span>
@@ -257,9 +290,7 @@
     <span class="k">return</span> <span class="n">dayMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">day</span><span class="o">);</span>
 <span class="o">}</span>
 
-</code></pre></div><ol start="5">
-<li>Optional</li>
-</ol>
+</code></pre></div><h2 id="optional">Optional</h2>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">person</span> <span class="o">=</span> <span class="n">family</span><span class="o">.</span><span class="na">getAge</span><span class="o">().</span><span class="na">getName</span><span class="o">().</span><span class="na">getSex</span><span class="o">();</span>
 </code></pre></div><blockquote>
 <p>NullPointerException</p>

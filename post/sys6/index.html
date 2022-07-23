@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | learning System design as a landscape architect 6 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/sys6/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="learning System design as a landscape architect 6"/>
+<meta name="twitter:description" content="Rethink system design in a much fun way, as a former urban planner/landscape planner."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>learning System design as a landscape architect 6</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Tue, Mar 1, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">7-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Scale and Distributed File System Desig as example</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#problem-based-learning-to-understand-scale" >Problem-based learning to understand SCALE</a>
+<ul>
+<li><a href="#mysql-replica" >MySQL Replica</a>
+<ul>
+<li><a href="#master-slave-replica" >Master Slave Replica</a>
+<ul>
+<li><a href="#write-ahead-log" >Write Ahead Log</a></li>
+<li><a href="#what-if-the-master-crash" >What if the Master crash</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#nosql-replica" >NoSQL Replica</a></li>
+<li><a href="#sql-vs-nosql" >SQL vs NoSQL</a></li>
+<li><a href="#user-table-sharding" >User Table Sharding</a></li>
+<li><a href="#friendship-table-sharding" >Friendship Table Sharding</a></li>
+<li><a href="#sessopm-table-sharding" >Sessopm Table Sharding</a></li>
+<li><a href="#news-feed--timeline-sharding" >News Feed / Timeline Sharding</a></li>
+<li><a href="#leetcode-submission-sharding" >leetcode Submission Sharding</a></li>
+</ul>
+</li>
+<li><a href="#problem-based-learning-to-understand-distributed-file-system" >Problem-based learning to understand Distributed File System</a>
+<ul>
+<li><a href="#scenario-analysis" >Scenario analysis</a>
+<ul>
+<li><a href="#basic-function" >basic function</a></li>
+</ul>
+</li>
+<li><a href="#service-analysis" >Service analysis</a></li>
+<li><a href="#stroage" >Stroage</a>
+<ul>
+<li><a href="#how-to-design-gfs-global-file-system" >How to design GFS Global File System</a></li>
+</ul>
+</li>
+<li><a href="#how-to-write-a-file" >how to write a file</a></li>
+<li><a href="#how-to-modify-the-written-file" >how to modify the written file</a></li>
+<li><a href="#how-to-read-a-file" >how to read a file</a></li>
+<li><a href="#master-task" >Master Task</a></li>
+<li><a href="#one-work-solution" >One Work Solution</a></li>
+<li><a href="#how-to-identify-whether-a-chunk-on-the-disk-is-broken" >How to identify whether a chunk on the disk is broken</a></li>
+<li><a href="#how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down" >How to avoid chunk data loss when a ChunkServer is down</a></li>
+</ul>
+</li>
+<li><a href="#design-a-lookup-service" >Design a lookup service</a>
+<ul>
+<li><a href="#senorio" >senorio</a></li>
+<li><a href="#service" >service</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<hr>
+<h2 id="problem-based-learning-to-understand-scale">Problem-based learning to understand SCALE</h2>
+<p><a id="markdown-problem-based-learning-to-understand-scale" name="problem-based-learning-to-understand-scale"></a></p>
+<blockquote>
+<p>1.How to scale system ≈ How to scale database</p>
+</blockquote>
+<blockquote>
+<p>2.single point failure</p>
+</blockquote>
+<blockquote>
+<p>3.Replica (3 times)</p>
+</blockquote>
+<blockquote>
+<p>4.Vertical Sharding (cons: massive data and QPS with few column)</p>
+</blockquote>
+<blockquote>
+<p>Consistent Hashing</p>
+</blockquote>
+<p>0 - 2^64 - 1 &ndash;&gt; large Ring</p>
+<p><strong>Virtual Node</strong></p>
+<h3 id="mysql-replica">MySQL Replica</h3>
+<p><a id="markdown-mysql-replica" name="mysql-replica"></a></p>
+<h4 id="master-slave-replica">Master Slave Replica</h4>
+<p><a id="markdown-master-slave-replica" name="master-slave-replica"></a></p>
+<h5 id="write-ahead-log">Write Ahead Log</h5>
+<p><a id="markdown-write-ahead-log" name="write-ahead-log"></a>
+• Any operation of the SQL database will be recorded in the form of <strong>Log</strong>
+• For example, data A is changed from C to D at time B
+• After the slave is activated, tell the master that I am there
+• <strong>The master notifies the slave to read the log every time there is any operation</strong>
+• So the data on the slave is &ldquo;delayed&rdquo;</p>
+<h5 id="what-if-the-master-crash">What if the Master crash</h5>
+<p><a id="markdown-what-if-the-master-crash" name="what-if-the-master-crash"></a>
+• Upgrade a Slave to Master, accept read+write
+• There may be some degree of data loss and inconsistency</p>
+<h3 id="nosql-replica">NoSQL Replica</h3>
+<p><a id="markdown-nosql-replica" name="nosql-replica"></a></p>
+<p>Cassandra : data is stored &ldquo;clockwise&rdquo; in three virtual groups on the Consistent hashing ring
+in nodes</p>
+<h3 id="sql-vs-nosql">SQL vs NoSQL</h3>
+<p><a id="markdown-sql-vs-nosql" name="sql-vs-nosql"></a>
+The &ldquo;auto&rdquo; Replica method is the Master Slave
+The &ldquo;manual&rdquo; Replica method can also deposit three copies clockwise on the Consistent Hashing ring</p>
+<p>The &ldquo;auto&rdquo; Replica way is to store three copies clockwise on the Consistent Hashing ring
+The &ldquo;manual&rdquo; Replica way: No need to do it manually</p>
+<h3 id="user-table-sharding">User Table Sharding</h3>
+<p><a id="markdown-user-table-sharding" name="user-table-sharding"></a></p>
+<p>SQL data &ndash; &gt; User Table</p>
+<p><strong>How to shard data based on how to query data</strong></p>
+<blockquote>
+<p>select * from user_table where user_id=xxx</p>
+</blockquote>
+<p>use user_id</p>
+<blockquote>
+<p>After User Table Sharding, what if multiple databases cannot maintain a global auto-increment ID?</p>
+</blockquote>
+<ul>
+<li>Manually create a UUID as the user&rsquo;s user_id</li>
+</ul>
+<blockquote>
+<p>When a user is created, there is no user_id of the user, which database to create this user?</p>
+</blockquote>
+<ul>
+<li>Web Server is responsible for creating the user&rsquo;s UUID as user_id</li>
+<li>After creation, obtain the entity database information based on the result of consistent_hash(user_id)</li>
+</ul>
+<blockquote>
+<p>what if the User Table has used auto-incrementing IDs before sharding?</p>
+</blockquote>
+<ul>
+<li>UUID is usually a string, and the auto-incrementing id is an integer, which is not compatible</li>
+<li>A separate global UserIdService is used to create a new user IDs, record the maximum value of the current UserId, increasing + 1 everytime. It would ensure the atomicity of data operations (Atomic).</li>
+</ul>
+<h3 id="friendship-table-sharding">Friendship Table Sharding</h3>
+<p><a id="markdown-friendship-table-sharding" name="friendship-table-sharding"></a></p>
+<p><strong>direacted: to_userid</strong></p>
+<p><strong>undirected friendship: need store 2 datas, use a as sharding key, and use b as sharding key</strong></p>
+<h3 id="sessopm-table-sharding">Sessopm Table Sharding</h3>
+<p><a id="markdown-sessopm-table-sharding" name="sessopm-table-sharding"></a></p>
+<p><strong>session_key</strong> as sharding key</p>
+<h3 id="news-feed--timeline-sharding">News Feed / Timeline Sharding</h3>
+<p><a id="markdown-news-feed-%2F-timeline-sharding" name="news-feed-%2F-timeline-sharding"></a></p>
+<p><strong>user_id</strong></p>
+<h3 id="leetcode-submission-sharding">leetcode Submission Sharding</h3>
+<p><a id="markdown-leetcode-submission-sharding" name="leetcode-submission-sharding"></a></p>
+<ul>
+<li>demand1： query certain question submit records</li>
+</ul>
+<blockquote>
+<p>select * from submission_table where problem_id=100;</p>
+</blockquote>
+<ul>
+<li>demand2: query certain user submit records</li>
+</ul>
+<blockquote>
+<p>select * from submission_table where user_id=101;</p>
+</blockquote>
+<blockquote>
+<p>how to meet two demands? since NoSQL is not support multi-index</p>
+</blockquote>
+<ul>
+<li>
+<p>use user_id as sharding key in the submission_table</p>
+</li>
+<li>
+<p>create the second table, store all the submission of certain question</p>
+<ul>
+<li>table contains &ldquo;problem_id, submission_id&hellip;&rdquo;</li>
+</ul>
+</li>
+<li>
+<p>use problem_id as sharding key</p>
+</li>
+</ul>
+<hr>
+<h2 id="problem-based-learning-to-understand-distributed-file-system">Problem-based learning to understand Distributed File System</h2>
+<p><a id="markdown-problem-based-learning-to-understand-distributed-file-system" name="problem-based-learning-to-understand-distributed-file-system"></a></p>
+<h3 id="scenario-analysis">Scenario analysis</h3>
+<p><a id="markdown-scenario-analysis" name="scenario-analysis"></a></p>
+<h4 id="basic-function">basic function</h4>
+<p><a id="markdown-basic-function" name="basic-function"></a></p>
+<ol>
+<li>function 1</li>
+</ol>
+<ul>
+<li>user read and write file</li>
+<li>the size of files</li>
+</ul>
+<ol start="2">
+<li>function 2</li>
+</ol>
+<ul>
+<li>how many machines needed to store those files</li>
+<li>the numbers of the mathines</li>
+</ul>
+<h3 id="service-analysis">Service analysis</h3>
+<p><a id="markdown-service-analysis" name="service-analysis"></a></p>
+<p><strong>Client</strong></p>
+<p><strong>Server</strong></p>
+<p>Server: Master-Slave</p>
+<h3 id="stroage">Stroage</h3>
+<p><a id="markdown-stroage" name="stroage"></a></p>
+<h4 id="how-to-design-gfs-global-file-system">How to design GFS (Global File System)</h4>
+<p><a id="markdown-how-to-design-gfs-global-file-system" name="how-to-design-gfs-global-file-system"></a></p>
+<blockquote>
+<p>How to save a file in one machine? (100 G)</p>
+</blockquote>
+<ul>
+<li><strong>Metadata</strong>
+<ul>
+<li><strong>File info</strong>
+<ul>
+<li>Name=xxx.mp4</li>
+<li>CreatedTime=xxxxx</li>
+<li>Size=aaaaa</li>
+<li>index</li>
+<li>Block 11 -&gt; diskOffset1</li>
+<li>Block 12 -&gt; diskOffset2</li>
+<li>Block 13 -&gt; diskOffset3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>1 block = 4096Byte</strong></p>
+<blockquote>
+<p>How to save a file in one machine? (100 T)</p>
+</blockquote>
+<p><strong>1 block = 64M = 64 * 1024k</strong></p>
+<p><strong>Advantage</strong>
+• Reduce size of metadata
+• Reduce traffic</p>
+<p><strong>Disadvantage</strong>
+• Waste space for small files</p>
+<ul>
+<li><strong>Metadata</strong>
+<ul>
+<li><strong>File info</strong>
+<ul>
+<li>Name=xxx.mp4</li>
+<li>CreatedTime=xxxxx</li>
+<li>Size=aaaaa</li>
+<li>index</li>
+<li>Chunk 11 -&gt; diskOffset1</li>
+<li>Chunk 12 -&gt; diskOffset2</li>
+<li>Chunk 13 -&gt; diskOffset3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>How to save extra-large file in several machine (10P)</p>
+</blockquote>
+<p><strong>One master + many ChunkSer</strong></p>
+<p>Slave Servers = Chunk Servers</p>
+<p><strong>Advantage</strong>
+• Reduce size of metadata
+• Reduce traffic</p>
+<p><strong>Disadvantage</strong>
+• Waste space for small files</p>
+<ul>
+<li><strong>Metadata</strong>
+<ul>
+<li><strong>File info</strong>
+<ul>
+<li>Name=xxx.mp4</li>
+<li>CreatedTime=xxxxx</li>
+<li>Size=aaaaa</li>
+<li>index</li>
+<li>Chunk 11 -&gt; diskOffset1</li>
+<li>Chunk 12 -&gt; diskOffset2</li>
+<li>Chunk 13 -&gt; diskOffset3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>improve the performance</p>
+</blockquote>
+<p><strong>The master don’t record the diskOffset of a chunk</strong>
+Advantage</p>
+<ul>
+<li>
+<p>Reduce the size of metadata in master</p>
+</li>
+<li>
+<p>Reduce the traffic between master and ChunkServer (chunk offset change won&rsquo;t notify the master)</p>
+</li>
+<li>
+<p><strong>Metadata</strong></p>
+<ul>
+<li><strong>File info</strong>
+<ul>
+<li>Name=xxx.mp4</li>
+<li>CreatedTime=xxxxx</li>
+<li>Size=aaaaa</li>
+<li>index</li>
+<li>Chunk 11 -&gt; cs3</li>
+<li>Chunk 12 -&gt; cs3</li>
+<li>Chunk 13 -&gt; cs4</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>How much space to store 10P big file in metadata</p>
+</blockquote>
+<p>1 chunk = 64MB needs 64B</p>
+<p>10P needs 10G</p>
+<h3 id="how-to-write-a-file">how to write a file</h3>
+<p><a id="markdown-how-to-write-a-file" name="how-to-write-a-file"></a></p>
+<p>client &ndash;&gt; write File_name=/xxxx.mp4, Chunk index=1 &ndash;&gt; master</p>
+<p>master &ndash;&gt; Assign Chunkserver_locations=US, CS1 &mdash;&gt; client</p>
+<p>client &ndash;&gt; transfer data=/xxxx.mp4, Chunk index=1 &ndash;&gt; chunkServer1</p>
+<p>chunkServer1 &ndash;&gt; write finish</p>
+<h3 id="how-to-modify-the-written-file">how to modify the written file</h3>
+<p><a id="markdown-how-to-modify-the-written-file" name="how-to-modify-the-written-file"></a></p>
+<p>delete the file, then rewrite the file</p>
+<h3 id="how-to-read-a-file">how to read a file</h3>
+<p><a id="markdown-how-to-read-a-file" name="how-to-read-a-file"></a>
+Split a file into multiple chunks to read</p>
+<p>client &ndash;&gt;  File_name=/xxxx.mp4 &ndash;&gt; master</p>
+<p>master &ndash;&gt; return a chunk list &mdash;&gt; client</p>
+<p>client &ndash;&gt; Read /xxxx.mp4 in chunkServer1 &ndash;&gt; chunkServer1</p>
+<p>chunkServer1 &ndash;&gt; Return data /xxxx.mp4-00-of-09</p>
+<h3 id="master-task">Master Task</h3>
+<p><a id="markdown-master-task" name="master-task"></a></p>
+<ul>
+<li>Store each file&rsquo;s metadata</li>
+<li>Store Map(file name + chunk index -&gt; chunk server)
+<ul>
+<li>Find the corresponding chunkserver when reading</li>
+<li>Allocate free chunkservers when writing</li>
+</ul>
+</li>
+</ul>
+<h3 id="one-work-solution">One Work Solution</h3>
+<p><a id="markdown-one-work-solution" name="one-work-solution"></a></p>
+<ul>
+<li>storage
+<ul>
+<li>Ordinary file system Meta Data, Block</li>
+<li>Large file storage: Block-&gt; Chunk</li>
+<li>Large files on multiple machines: Chunk Server + Master</li>
+</ul>
+</li>
+<li>write
+<ul>
+<li>Master + Client + ChunkServer communication process</li>
+<li>Master maintains metadata and chunkserver tables</li>
+</ul>
+</li>
+<li>read
+<ul>
+<li>Master + Client + ChunkServer communication process</li>
+</ul>
+</li>
+</ul>
+<h3 id="how-to-identify-whether-a-chunk-on-the-disk-is-broken">How to identify whether a chunk on the disk is broken</h3>
+<p><a id="markdown-how-to-identify-whether-a-chunk-on-the-disk-is-broken" name="how-to-identify-whether-a-chunk-on-the-disk-is-broken"></a></p>
+<p>use <strong>CheckSum</strong></p>
+<h3 id="how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down">How to avoid chunk data loss when a ChunkServer is down</h3>
+<p><a id="markdown-how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down" name="how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down"></a></p>
+<p><strong>Repica</strong></p>
+<hr>
+<p>Master-Slave</p>
+<ul>
+<li>Storage
+<ul>
+<li>Save a file in one machine -&gt; a big file in one machine -&gt; a extra big file in multi-machine</li>
+<li>Multi-machine
+<ul>
+<li>How to use the master</li>
+</ul>
+<ul>
+<li>How to traffic and storage of master?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Read
+<ul>
+<li>The process of reading a file</li>
+</ul>
+</li>
+<li>Write:
+<ul>
+<li>The process of writing a file</li>
+<li>How to reduce master traffic?
+<ul>
+<li>Client and Chunk Server coummunicate</li>
+</ul>
+</li>
+<li>How to reduce client traffic?
+<ul>
+<li>Leader Election</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Failure and Recover (key)
+<ul>
+<li>Discover the failure a chunk?
+<ul>
+<li>Check Sum</li>
+</ul>
+</li>
+<li>Avoid the failure a chunk?
+<ul>
+<li>Replica</li>
+</ul>
+</li>
+<li>Recover the failure?
+<ul>
+<li>Ask master</li>
+</ul>
+</li>
+<li>Discover the failure of the chunkserver?
+<ul>
+<li>Heart Beat (chunkservers-&gt;master)</li>
+</ul>
+</li>
+<li>Solve the failure of writing ChunkServer?
+<ul>
+<li>etry</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="design-a-lookup-service">Design a lookup service</h2>
+<p><a id="markdown-design-a-lookup-service" name="design-a-lookup-service"></a></p>
+<p>10 Billion key-value pair in this system, when the user enter the key, it return its value. Each key size is 0.1KB, each value is 1kb. Required QPS &gt;= 5000, latency &lt; 200ms</p>
+<p>Server Parameters need to know:</p>
+<ul>
+<li>commodity server</li>
+<li>8x cpu cores on each server</li>
+<li>32 G memory</li>
+<li>6T disk</li>
+</ul>
+<blockquote>
+<p>solution step1: calcution</p>
+</blockquote>
+<ul>
+<li>
+<p>total key size 1 TB</p>
+</li>
+<li>
+<p>total value size 10T</p>
+</li>
+<li>
+<p>with 6T disk, a server with two disks will be enough (12T)</p>
+</li>
+<li>
+<p>1TB = 1024 GB ~ 1000 GB, 40 servers can store the whole keys.</p>
+</li>
+</ul>
+<blockquote>
+<p>step2:  Find out the server location of the key</p>
+</blockquote>
+<ul>
+<li>
+<p>For every request, 1 value, which is 1KB needs to be returned</p>
+</li>
+<li>
+<p>total time for reading one value would be 10ms(disk seek) + 1KB/1MB * 30MS (reading 1kb sequentially form disk) ~ 10ms</p>
+</li>
+<li>
+<p>add a location mapping, one is 8 bite, so the size of key + location ~ 1KB</p>
+</li>
+<li>
+<p>40 servers can store &lt;key, disk-address&gt; pairs in its memory (1TB memory size as a whole)</p>
+</li>
+<li>
+<p>binary search 30 times on memory, which can be ignored</p>
+</li>
+<li>
+<p>total latency is 10 + 0.5 = 10.5 ms</p>
+</li>
+</ul>
+<blockquote>
+<p>step3: solve 5000 QPS demand</p>
+</blockquote>
+<ul>
+<li>40 servers, each machine has 2 disk, one disk support for 100 times search, each server can support 200 operation.</li>
+<li>total QPS = 200 * 40 = 8000 &gt; 5000</li>
+</ul>
+<h3 id="senorio">senorio</h3>
+<p><a id="markdown-senorio" name="senorio"></a></p>
+<p>function demand:
+search, read</p>
+<p>qps &gt;= 5000</p>
+<p>read:</p>
+<h3 id="service">service</h3>
+<p><a id="markdown-service" name="service"></a>
+QPS</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/sde/">SDE</a><a class="tag" href="/tags/scale/">scale</a><a class="tag" href="/tags/distributed-system-design/">Distributed System Design</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

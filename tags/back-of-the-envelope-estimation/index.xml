@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>back-of-the-envelope estimation on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/back-of-the-envelope-estimation/</link>
+    <description>Recent content in back-of-the-envelope estimation on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Feb 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/back-of-the-envelope-estimation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>how to understand back-of-the-envelope estimation</title>
+      <link>https://rileyshen.github.io/post/system2/</link>
+      <pubDate>Tue, 01 Feb 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/system2/</guid>
+      
+        <description>&lt;p&gt;how to calculate the storage and bandwidth? 一文搞懂系统面试中的性能估算&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;how much storage, machines, what scale is expected from the system?&lt;/p&gt;
+&lt;p&gt;1 B = 8 bits&lt;/p&gt;
+&lt;p&gt;1 KB = 1024 b&lt;/p&gt;
+&lt;p&gt;1 mB = 1024 KB&lt;/p&gt;
+&lt;p&gt;1 gB = 1024 mB&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;k * k = m&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;k * m = g&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1 million / day = 12 / sec&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1 million / day = 700 / min&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1 million / day = 4200 / hour&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-twitter&#34;&gt;1. twitter&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;3 billion monthly active users&lt;/li&gt;
+&lt;li&gt;50% of them would use twitter everyday&lt;/li&gt;
+&lt;li&gt;everyone post 2 times per day&lt;/li&gt;
+&lt;li&gt;10% of the posts contains images or videos&lt;/li&gt;
+&lt;li&gt;store data for five years&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;estimate&#34;&gt;estimate&lt;/h3&gt;
+&lt;h4 id=&#34;11-qpsquery-per-second&#34;&gt;1.1 QPS(Query per second)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;DAU (daily active user) 300 million * 50% = 150 million&lt;/li&gt;
+&lt;li&gt;Tweets QPS = 150 million * 2 tweets/ 24 hours/ 3600s = ~3500&lt;/li&gt;
+&lt;li&gt;max QPS = QPS * 2 = ~7000&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;12-media-starage-estimate&#34;&gt;1.2 media starage estimate&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;average post size: Id: 65 byte, post: 140 bytes, media: 1MB&lt;/li&gt;
+&lt;li&gt;media size: 150 million * 2 * 10% = 30 TB/day&lt;/li&gt;
+&lt;li&gt;5 years storage: 30TB * 356 * 5 = ~55 PB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-twitter&#34;&gt;2. twitter&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;600 million users&lt;/li&gt;
+&lt;li&gt;DAU: 200 million&lt;/li&gt;
+&lt;li&gt;25% post 2 times per day&lt;/li&gt;
+&lt;li&gt;200 * 25% * 2 = 100 million &lt;strong&gt;new tweets per day&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;views per day: one user views 100 posts per day: 200 million * 100 = 20 B &lt;strong&gt;views per day&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;1 / 20 will have an image associated with it: 200 KB&lt;/li&gt;
+&lt;li&gt;1 / 100 will have a video associated with it: 2 MB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;21-storage-estimate&#34;&gt;2.1 Storage Estimate&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;100 characters per tweet on the average&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2 bytes per characters&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;200 bytes + 50 bytes(userId or the other data) = 250 bytes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;tweet text data = 100 million * 250 = 25000 million = 25 GB / day&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Image + Video = 100 million * 200 KB / 20 + 100 million * 2 * 1000 / 100 = 3 TB / day&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;total final storage: 25 GB + 3 TB = ~ 3 TB&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;22-bandwidth-estimate&#34;&gt;2.2 Bandwidth Estimate&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Incoming to server = 3 TB ~= 23 MB / sec&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;outgoing text tweet data = 20 B * 250 bytess ~= 60 MB / sec&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;outgoing image data ~= 2.5 GB / sec&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-high-level-design&#34;&gt;2. high level design&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;draw
+&lt;ul&gt;
+&lt;li&gt;components and connection&lt;/li&gt;
+&lt;li&gt;jusity the idea&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;3-design-core-componets&#34;&gt;3. design core componets&lt;/h2&gt;
+&lt;h2 id=&#34;4-scale-the-designpotential-solutions-and-trade-offs&#34;&gt;4. scale the design，potential solutions and trade-offs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;identify and address bottlenecks
+&lt;ul&gt;
+&lt;li&gt;load balancer&lt;/li&gt;
+&lt;li&gt;horizontal scaling&lt;/li&gt;
+&lt;li&gt;caching&lt;/li&gt;
+&lt;li&gt;database sharding&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;5-scale&#34;&gt;5. scale&lt;/h2&gt;
+&lt;h2 id=&#34;basic-concept&#34;&gt;basic concept&lt;/h2&gt;
+&lt;p&gt;延迟(Latency) : 通过管道需要花费的时间&lt;/p&gt;
+&lt;p&gt;带宽(Bandwidth) : 管道的宽度&lt;/p&gt;
+&lt;p&gt;吞吐(Throughput) : 每秒钟流过的水的数量就是吞吐&lt;/p&gt;
+&lt;h3 id=&#34;scalability&#34;&gt;scalability&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Vertical scaling&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;MySQL&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Horizontal scaling
+Horizontal scaling (aka scaling out) refers to adding additional nodes or machines to your infrastructure to cope with new demands.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cassandra, MongoDB&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Load balancing&lt;/li&gt;
+&lt;li&gt;Database replication&lt;/li&gt;
+&lt;li&gt;Database partitioning&lt;/li&gt;
+&lt;li&gt;Clones&lt;/li&gt;
+&lt;li&gt;Databases&lt;/li&gt;
+&lt;li&gt;Caches&lt;/li&gt;
+&lt;li&gt;Asynchronism&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;performance-vs-scalability&#34;&gt;Performance vs scalability&lt;/h3&gt;
+&lt;h3 id=&#34;latency-vs-throughput&#34;&gt;Latency vs throughput&lt;/h3&gt;
+&lt;p&gt;maximal throughput with acceptable latency&lt;/p&gt;
+&lt;h3 id=&#34;availability-vs-consistency&#34;&gt;Availability vs consistency&lt;/h3&gt;
+&lt;h4 id=&#34;cp---consistencypartition-tolerance&#34;&gt;CP - Consistency/Partition Tolerance&lt;/h4&gt;
+&lt;p&gt;could result in a timeout error&lt;/p&gt;
+&lt;p&gt;等待分区节点的响应可能会导致延时错误。如果你的业务需求需要原子读写，CP 是一个不错的选择。&lt;/p&gt;
+&lt;p&gt;Choose Consistency over Availability when your business requirements dictate atomic reads and writes.&lt;/p&gt;
+&lt;h4 id=&#34;ap---availabilitypartition-tolerance&#34;&gt;AP - Availability/Partition Tolerance&lt;/h4&gt;
+&lt;p&gt;the system needs to continue to function in spite of external errors (shopping carts, etc.)&lt;/p&gt;
+&lt;p&gt;AP is a good choice if the business needs allow for eventual consistency or when the system needs to continue working despite external errors&lt;/p&gt;
+&lt;p&gt;如果业务需求允许最终一致性，或当有外部故障时要求系统继续运行，AP 是一个不错的选择&lt;/p&gt;
+&lt;h3 id=&#34;rpc-vs-rest&#34;&gt;RPC VS REST&lt;/h3&gt;
+&lt;p&gt;|  操作                     |  RPC                                  | REST              |
+|  ：&amp;mdash;-                   | ：&amp;mdash;-                                |：&amp;mdash;-             |
+| 注册                      | POST/signup                           |  POST/persons     |
+| 注销                      | POST/resign {&amp;ldquo;personid&amp;rdquo;: &amp;ldquo;1234&amp;rdquo;}      |DELETE/persons/1234 |
+| 读取用户信息               |  GET/readPerson?personid=1234        |GET/persons/1234    |
+| 读取用户物品列表          | GET/readUsersItemsList?personid=1234  |GET/persons/1234/items   |
+| 向用户物品列表添加一项     |Post/addItemToUserItemsList{&amp;ldquo;personid&amp;rdquo;: &amp;ldquo;1234&amp;rdquo;; &amp;ldquo;itemid&amp;rdquo;:&amp;ldquo;456&amp;rdquo;} |POST/persons/1234/items{&amp;ldquo;itemid&amp;rdquo;:&amp;ldquo;456&amp;rdquo;}   |
+| 更新一个物品              | Post/modifyItem{&amp;ldquo;itemid&amp;rdquo;:&amp;ldquo;456&amp;rdquo;;&amp;ldquo;key&amp;rdquo;: &amp;ldquo;value&amp;rdquo; } |PUT/items/456{&amp;ldquo;key&amp;rdquo;: &amp;ldquo;value&amp;rdquo;}   |
+|删除一个物品                | Post/removeItem{&amp;ldquo;itemid&amp;rdquo;:&amp;ldquo;456&amp;rdquo;}     |DELETE/items/456|&lt;/p&gt;
+&lt;h3 id=&#34;该知道的时间数据&#34;&gt;该知道的时间数据&lt;/h3&gt;
+&lt;p&gt;|  power            |  Exact Value            | Approx Value        |   Bytes
+|  ：&amp;mdash;-           | ：&amp;mdash;-                   |：&amp;mdash;-               |：&amp;mdash;- 
+|   7               | 128                     |                     |
+|   8               | 256                     |                     |
+|   10              | 1024                    | 1 thousand          | 1 kB
+|   16              | 65,536                  |                     | 64 kB
+|   20              | 1,048,576               | 1 million           | 1 MB
+|   30              |                         | 1 billion           | 1 GB
+|   32              |                         |   billion           | 4 GB
+|   40              |                         | 1 trillion          | 1 TB&lt;/p&gt;
+&lt;h4 id=&#34;延迟数字&#34;&gt;延迟数字&lt;/h4&gt;
+&lt;p&gt;2020 年数据&lt;/p&gt;
+&lt;h2 id=&#34;latency-comparison-numbers&#34;&gt;Latency Comparison Numbers&lt;/h2&gt;
+&lt;p&gt;L1 cache reference                           0.5 ns&lt;/p&gt;
+&lt;p&gt;Branch mispredict                            5   ns&lt;/p&gt;
+&lt;p&gt;L2 cache reference                           7   ns                      14x L1 cache&lt;/p&gt;
+&lt;p&gt;Mutex lock/unlock                           25   ns&lt;/p&gt;
+&lt;p&gt;Main memory reference                      100   ns                      20x L2 cache, 200x L1&lt;/p&gt;
+&lt;p&gt;cache&lt;/p&gt;
+&lt;p&gt;Compress 1K bytes with Zippy            10,000   ns       10 us&lt;/p&gt;
+&lt;p&gt;Send 1 KB bytes over 1 Gbps network     10,000   ns       10 us&lt;/p&gt;
+&lt;p&gt;Read 4 KB randomly from SSD*           150,000   ns      150 us          ~1GB/sec SSD&lt;/p&gt;
+&lt;p&gt;Read 1 MB sequentially from memory     250,000   ns      250 us&lt;/p&gt;
+&lt;p&gt;Round trip within same datacenter      500,000   ns      500 us&lt;/p&gt;
+&lt;p&gt;Read 1 MB sequentially from SSD*     1,000,000   ns    1,000 us    1 ms  ~1GB/sec SSD, 4X memory&lt;/p&gt;
+&lt;p&gt;HDD seek                            10,000,000   ns   10,000 us   10 ms  20x datacenter roundtrip&lt;/p&gt;
+&lt;p&gt;Read 1 MB sequentially from 1 Gbps  10,000,000   ns   10,000 us   10 ms  40x memory, 10X SSD&lt;/p&gt;
+&lt;p&gt;Read 1 MB sequentially from HDD     30,000,000   ns   30,000 us   30 ms 120x memory, 30X SSD&lt;/p&gt;
+&lt;p&gt;Send packet CA-&amp;gt;Netherlands-&amp;gt;CA    150,000,000   ns  150,000 us  150 ms&lt;/p&gt;
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+&lt;p&gt;1 ns = 10^-9 seconds
+1 us = 10^-6 seconds = 1,000 ns
+1 ms = 10^-3 seconds = 1,000 us = 1,000,000 ns&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Read sequentially from HDD at 30 MB/s&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Read sequentially from 1 Gbps Ethernet at 100 MB/s&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Read sequentially from SSD at 1 GB/s&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Read sequentially from main memory at 4 GB/s&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6-7 world-wide round trips per second&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2,000 round trips per second within a data center&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;以上是 2009 的数据，实际上内存、SSD 和机械硬盘顺序读取速度有了非常大的提升。&lt;/p&gt;
+&lt;p&gt;内存：100 秒&lt;/p&gt;
+&lt;p&gt;SSD：4.4 小时&lt;/p&gt;
+&lt;p&gt;同一数据中心往返：5.8 天&lt;/p&gt;
+&lt;p&gt;机械硬盘寻址：23.1 天&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;从远程服务器的内存中读数据要比直接从硬盘上读取要快的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;对于读取 1MB 数据，内存、SSD 和磁盘基本差了一个数量级：&lt;/p&gt;
+&lt;p&gt;内存： 50 分钟&lt;/p&gt;
+&lt;p&gt;SSD： 13.6 小时&lt;/p&gt;
+&lt;p&gt;磁盘： 9.5 天&lt;/p&gt;
+&lt;p&gt;尤其在设计存储引擎时，很多开源软件（Kafka、Leveldb、Rocksdb）都充分利用了存储介质顺序读、写速度远远快过随机读、写的特性，只做追加写操作来达到最佳性能。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

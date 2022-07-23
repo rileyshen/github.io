@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen | about Greedy </title>
+    <title> Riley Shen | algorithm final 1 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -47,7 +47,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content="about Greedy"/>
+<meta name="twitter:title" content="algorithm final 1"/>
 <meta name="twitter:description" content="java inteview algorithm"/>
 
 
@@ -131,7 +131,7 @@
     <div class="post-content">
         
         <div class="post-title">
-            <h2>about Greedy</h2>
+            <h2>algorithm final 1</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
@@ -139,16 +139,127 @@
                     Wed, Sep 1, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">One-minute read</span>
+                <span class="reading-time">3-minute read</span>
             </div>
             
         </div>
 
         <h2 id="binary-search">Binary Search</h2>
-<h3 id="left-right">[left, right]</h3>
-<h3 id="left-right-1">[left, right)</h3>
-<p><strong>left == right in [left, right) has no meaning</strong></p>
-<figure><img src="/images/jvm14.png"
+<h3 id="split-array-largest-sum-410">Split Array Largest Sum 410</h3>
+<p>二分求最大最小</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array nums which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays.
+
+Write an algorithm to minimize the largest sum among these m subarrays.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>7,2,5,10,8<span class="o">]</span>, <span class="nv">m</span> <span class="o">=</span> <span class="m">2</span>
+Output: <span class="m">18</span>
+Explanation:
+There are four ways to split nums into two subarrays.
+The best way is to split it into <span class="o">[</span>7,2,5<span class="o">]</span> and <span class="o">[</span>10,8<span class="o">]</span>,
+where the largest sum among the two subarrays is only 18.
+</code></pre></div><p><strong>暴力解法</strong></p>
+<p>[7, 12, 2, 5, 6, 8, 3] m = 3
+/   /   \  <br>
+7  7,12      7, 12, 2, 5, 6, 8, 3</p>
+<p><strong>2 分</strong>
+最大最小就会用到</p>
+<p>[7, 12, 2, 5, 6, 8, 3] m = 3</p>
+<p>lo = max(nums) 12, 当 m 很多很多的时候，达到了 n - 1 个</p>
+<p>hi = 43               当 m 就一个的时候数值</p>
+<p>2 分分的是 m 的值</p>
+<p><strong>DO binary search while lo &lt; hi</strong></p>
+<ul>
+<li>iteration</li>
+<li>mid</li>
+<li>is splittable into m subarrays at sum &lt;= mid</li>
+</ul>
+<hr>
+<p>lo = 12, hi = 43</p>
+<blockquote>
+<p>1st  &mdash;&gt; mid 27  &mdash;&gt; [7, 12, 2, 5,|| 6, 8, 3]</p>
+</blockquote>
+<p>iterate 的时候，在 sum &gt;= mid 值就停下，这样就有 小于等于 mid 的数值， 这里是 26 和 16，切了 2 刀 小于 3，所以取大了</p>
+<hr>
+<hr>
+<p>lo = 12, hi = 27</p>
+<blockquote>
+<p>2st  &mdash;&gt; mid 18  &mdash;&gt; [7, || 12, 2,|| 5, 6, ||8, 3]</p>
+</blockquote>
+<p>这里切了 4 刀， 大于 3， 取小了</p>
+<hr>
+<hr>
+<p>lo = 19, hi = 27</p>
+<blockquote>
+<p>3st  &mdash;&gt; mid 23  &mdash;&gt; [7, 12, 2,|| 5, 6, 8, 3]</p>
+</blockquote>
+<p>这里切了 2 刀， 小于 3，所以取大了</p>
+<hr>
+<hr>
+<p>lo = 19, hi = 23</p>
+<blockquote>
+<p>4st  &mdash;&gt; mid 21  &mdash;&gt; [7, 12, 2,|| 5, 6, 8, || 3]</p>
+</blockquote>
+<p>这里切了 3 刀， 等于 3， 可能取大了</p>
+<hr>
+<hr>
+<p>lo = 19, hi = 21</p>
+<blockquote>
+<p>5st  &mdash;&gt; mid 20  &mdash;&gt; [7, 12, || 2, 5, 6, || 8,  3]</p>
+</blockquote>
+<p>这里切了 3 刀， 等于 3， 可能取大了</p>
+<hr>
+<hr>
+<p>lo = 19, hi = 20</p>
+<blockquote>
+<p>6st  &mdash;&gt; mid 19  &mdash;&gt; [7, 12, || 2, 5, 6, || 8,  3]</p>
+</blockquote>
+<p>这里切了 3 刀， 等于 3， 可能取大了</p>
+<hr>
+<p>lo = hi = 19, return hi 19</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">splitArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+       <span class="c1">// 1 5 9
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">nums</span><span class="o">).</span><span class="na">sum</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">nums</span><span class="o">).</span><span class="na">max</span><span class="o">().</span><span class="na">getAsInt</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">binary</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">m</span><span class="o">,</span> <span class="n">sum</span><span class="o">,</span> <span class="n">max</span><span class="o">);</span>
+        
+    <span class="o">}</span>
+    <span class="c1">// 10, 24
+</span><span class="c1"></span>    <span class="c1">// 
+</span><span class="c1"></span>    
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">binary</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">high</span><span class="o">,</span> <span class="kt">int</span> <span class="n">low</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="n">low</span> <span class="o">+</span> <span class="o">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">valid</span><span class="o">(</span><span class="n">nums</span><span class="o">,</span> <span class="n">m</span><span class="o">,</span> <span class="n">mid</span><span class="o">))</span> <span class="o">{</span>
+               <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+           <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+               <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+           <span class="o">}</span>
+           
+        <span class="o">}</span>
+         <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">valid</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span> <span class="n">subArraySum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">curSum</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">count</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span> <span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">curSum</span> <span class="o">+=</span> <span class="n">num</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">curSum</span> <span class="o">&gt;</span> <span class="n">subArraySum</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">curSum</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+                <span class="n">count</span><span class="o">++;</span>
+               <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+               <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><figure><img src="/images/jvm14.png"
          alt="image"/><figcaption>
             <h4>intern()</h4>
         </figcaption>

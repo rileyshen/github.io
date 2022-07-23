@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bigtable on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/bigtable/</link>
+    <description>Recent content in Bigtable on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Mar 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/bigtable/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>learning System design as a landscape architect 8</title>
+      <link>https://rileyshen.github.io/post/sys8/</link>
+      <pubDate>Tue, 01 Mar 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/sys8/</guid>
+      
+        <description>&lt;p&gt;Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Bigtable as example&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#bigtable&#34; &gt;Bigtable&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#scenario-analysis&#34; &gt;Scenario analysis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#storage&#34; &gt;Storage&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;bigtable&#34;&gt;Bigtable&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-bigtable&#34; name=&#34;bigtable&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;NoSQL, how to scale&lt;/p&gt;
+&lt;p&gt;SQL and Complex Queries Are Needed for Real life, which is base on file system.&lt;/p&gt;
+&lt;p&gt;DB systems store data as files on the device&amp;rsquo;s local filesystem, provide interface to operate.&lt;/p&gt;
+&lt;p&gt;Better understand why we need DB system. You open a closet, find the drawer, get the socks you wanna wear today.&lt;/p&gt;
+&lt;p&gt;In this case, DB system is the drawer, the file is the sock.&lt;/p&gt;
+&lt;h3 id=&#34;scenario-analysis&#34;&gt;Scenario analysis&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-scenario-analysis&#34; name=&#34;scenario-analysis&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;search, return&lt;/p&gt;
+&lt;h3 id=&#34;storage&#34;&gt;Storage&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-storage&#34; name=&#34;storage&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;how about save all data in memory? Bad idea, in District File System File sizes are always measured in PB.&lt;/p&gt;
+&lt;p&gt;how about save in Disk (sorting and binary search).&lt;/p&gt;
+&lt;p&gt;But how to Edit the file which is saved in Disk?&lt;/p&gt;
+&lt;p&gt;method1 :Edit the file directly. (original is 4 bites, now edit to 8 bytes, then the following need move)&lt;/p&gt;
+&lt;p&gt;method2: read the file, edit, delete the original one, rewrite the file&lt;/p&gt;
+&lt;p&gt;method3: without edit, but append a record at the end of a file (fast)&lt;/p&gt;
+&lt;p&gt;BigTable is method 3, use APPEND to improve write performance.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;cons:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;when reading data, how to recognize the newest record
+&lt;ul&gt;
+&lt;li&gt;timestamp&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;how to Binary Search on unsorted data.
+&lt;ul&gt;
+&lt;li&gt;Block order&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;repeat blocks affect query performance
+&lt;ul&gt;
+&lt;li&gt;merge K sorted&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;write-process&#34;&gt;Write process&lt;/h3&gt;
+&lt;p&gt;Client 1 &amp;ndash; Write key: Aa + appearance value: 3 &amp;ndash;&amp;gt; Memory (file 0, file 1..) &amp;ndash;Append key: Aa + appearance value: 3 &amp;ndash;&amp;gt; file 1 (unordered)&lt;/p&gt;
+&lt;p&gt;when the file 1 reach to 256(or  512 bytes) &amp;ndash;merge/sort&amp;ndash;&amp;gt; Order Block &amp;ndash;&amp;gt; open a new unorder block&lt;/p&gt;
+&lt;h4 id=&#34;make-the-last-file-from-unordered-to-ordered&#34;&gt;make the last file from unOrdered to Ordered&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;method 1: sort in memory (Write once(disk), read once(disk), sorted in memory, Write once(disk))&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;method 2: saved in memory from beginning ( sorted in memory, Write once(disk))&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Client 1 &amp;ndash; Write key: Aa + appearance value: 3 &amp;ndash;&amp;gt; Memory (file 0, file 1..unOrdered block, when read to full size) &amp;ndash;Append key: Aa + appearance value: 3 &amp;ndash;&amp;gt;Sorted List &amp;ndash;Serialize to disk&amp;ndash;&amp;gt; file 1 (ordered)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;recover-data-of-different-file-formats-from-crashed-memory&#34;&gt;Recover data of different file formats from crashed memory&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;Write Ahead Log&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;read-process&#34;&gt;Read process&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Client 1 &amp;ndash; 1. Read key: Aa + appearance &amp;ndash;&amp;gt; Memory &amp;ndash;2. Read key: Aa + appearance &amp;ndash;&amp;gt;Sorted List(Aa + appearance value: 3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;no result &amp;ndash; Memory &amp;ndash;3. Read key: Aa + appearance &amp;ndash;&amp;gt; &lt;strong&gt;file 1 (ordered)&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;query-in-ordered-file&#34;&gt;query in ordered file&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Index&lt;/li&gt;
+&lt;li&gt;BloomFilter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;one-easy-way-to-build-index&#34;&gt;One easy way to build index&lt;/h4&gt;
+&lt;p&gt;Memory Index&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A: address&lt;/li&gt;
+&lt;li&gt;D:&lt;/li&gt;
+&lt;li&gt;S:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;GFS Sstable 0&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apple: 10&lt;/li&gt;
+&lt;li&gt;Cxxx: 3&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Daaaa:8&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Xuuu: 19&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sxxx: 9&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Look up key Xuuu, just need binary search from D to S&lt;/p&gt;
+&lt;p&gt;In real life, B tree index is good choice.&lt;/p&gt;
+&lt;h4 id=&#34;one-better-way-to-read-file&#34;&gt;One better way to read file&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;BloomFilter
+&lt;ul&gt;
+&lt;li&gt;use 2 hash keys&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;compelete-read-process-with-index-bf&#34;&gt;Compelete Read process with Index, BF&lt;/h3&gt;
+&lt;p&gt;Memory:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;file0, Address0&lt;/li&gt;
+&lt;li&gt;Index0, bloomfilter 0&lt;/li&gt;
+&lt;li&gt;file1, Address1&lt;/li&gt;
+&lt;li&gt;Index1, bloomfilter 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sorted List:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;xx + appearance: 9&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Disk:
+File 0 Ordered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;aa + appearance: 3&lt;/li&gt;
+&lt;li&gt;bb+ appearance: 8&lt;/li&gt;
+&lt;li&gt;Index 0&lt;/li&gt;
+&lt;li&gt;bloomfilter 0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Disk:
+File 1 Ordered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;cc + appearance: 3&lt;/li&gt;
+&lt;li&gt;dd+ appearance: 8&lt;/li&gt;
+&lt;li&gt;xx + appearance: 9&lt;/li&gt;
+&lt;li&gt;Index 1&lt;/li&gt;
+&lt;li&gt;bloomfilter 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First query in unOrdered file&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Client 1 &amp;ndash; 1. Read key: Aa + appearance &amp;ndash;&amp;gt; &lt;code&gt;Memory&lt;/code&gt; &amp;ndash;2. Read key: Aa + appearance &amp;ndash;&amp;gt;&lt;code&gt;Sorted List&lt;/code&gt;(Aa + appearance value: 3)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;return result if it exists&lt;/p&gt;
+&lt;p&gt;if not, query in Order File start from lastest.&lt;/p&gt;
+&lt;p&gt;use &lt;strong&gt;BloomFilter&lt;/strong&gt; to search the key, query the next file if not exists; otherwise use &lt;strong&gt;index&lt;/strong&gt; to find the value for the key.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;SSTable = Sorted String Table&lt;/p&gt;
+&lt;p&gt;Sorted List = Skip List&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;complete-write-process&#34;&gt;Complete Write process&lt;/h3&gt;
+&lt;p&gt;Client 1 &amp;ndash; Write key: Aa + appearance value: 3 &amp;ndash;&amp;gt; &lt;code&gt;Memory&lt;/code&gt; (file 0, file 1..) &amp;ndash;Append key: Aa + appearance value: 3 &amp;ndash;&amp;gt; &lt;code&gt;Skip List&lt;/code&gt; (unordered) &amp;ndash;&amp;gt; &lt;code&gt;SSTable 1 (Ordered in Disk)&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to read/write key: value from 1PB file&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;sharding&#34;&gt;Sharding&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Horizontal Sharding&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Consistent Hash(row key: name)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;multiple machine&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Master has HashMap(key, server address)&lt;/li&gt;
+&lt;li&gt;Slave&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to read in BigTable with multi-server&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;client &amp;ndash; 1. Read key &amp;ndash;&amp;gt; &lt;code&gt;BigTable Master&lt;/code&gt; &amp;ndash; 2. Get the row key form key, Use the row key to get server id = 1 &amp;ndash;&amp;gt; client&lt;/p&gt;
+&lt;p&gt;client &amp;ndash;3. read key &amp;ndash;&amp;gt; &lt;code&gt;Slave Server 1&lt;/code&gt; &amp;ndash;4. return value &amp;ndash;&amp;gt; client&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to write BigTable&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;write-a-key&#34;&gt;write a key&lt;/h3&gt;
+&lt;p&gt;client &amp;ndash; 1. Write key &amp;ndash;&amp;gt; &lt;code&gt;BigTable Master&lt;/code&gt; &amp;ndash; 2. Get the row key form key, Use the row key to get server id = 1 &amp;ndash;&amp;gt; client&lt;/p&gt;
+&lt;p&gt;client &amp;ndash;3. Write key, value &amp;ndash;&amp;gt; &lt;code&gt;Slave Server 1&lt;/code&gt; &amp;ndash;4. Done &amp;ndash;&amp;gt; client&lt;/p&gt;
+&lt;p&gt;Memory&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Write Ahead Log&lt;/li&gt;
+&lt;li&gt;save the data into memory&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Disk&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SkipList &amp;ndash;&amp;gt; full&lt;/li&gt;
+&lt;li&gt;write to SSTable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Too many data in Slave Server local disk&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;save-data-in-gfs&#34;&gt;save data in GFS&lt;/h3&gt;
+&lt;p&gt;Table Server = Store Tablet Slave Server&lt;/p&gt;
+&lt;p&gt;client &amp;ndash;&amp;gt; &lt;code&gt;Tablet Server 1&lt;/code&gt; in &lt;code&gt;BigTable&lt;/code&gt; &amp;ndash;&amp;gt; GFS&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Read and write the same key at the same time&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;distributed-lock&#34;&gt;distributed lock&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Zookeeper&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;write-a-key-with-distributed-lock&#34;&gt;write a key with distributed lock&lt;/h4&gt;
+&lt;p&gt;client 1 &amp;ndash; 1. Write key and lock the key&amp;ndash;&amp;gt; &lt;code&gt;Lock Server&lt;/code&gt; &amp;ndash; 2. Get the row key form key &amp;ndash;&amp;gt; client 1 &amp;ndash;3. key value &amp;ndash;&amp;gt;&lt;code&gt;Tablet Server 1&lt;/code&gt; &amp;ndash;4. Done&amp;ndash;&amp;gt; client 1&lt;/p&gt;
+&lt;p&gt;client 1 &amp;ndash; 5. unlock key&amp;ndash;&amp;gt; &lt;code&gt;Lock Server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;client 2 &amp;ndash; 1. Read key and lock the key&amp;ndash;&amp;gt; &lt;code&gt;Lock Server&lt;/code&gt; &amp;ndash; 2. key is locked &amp;ndash;&amp;gt; client 2&lt;/p&gt;
+&lt;h4 id=&#34;advantage-distribute-lock&#34;&gt;Advantage Distribute Lock&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;the metadata is store on the Lock&lt;/li&gt;
+&lt;li&gt;master don&amp;rsquo;t need store MetaData&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;write-with-lock&#34;&gt;Write with lock&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;client 1&lt;/strong&gt; &amp;ndash;&amp;gt; 1. Write key and lock the key &amp;ndash;&amp;gt;&lt;strong&gt;Lock Server&lt;/strong&gt;&amp;ndash; 2. return Server Id&amp;ndash;&amp;gt;&lt;strong&gt;client 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;client 1&lt;/strong&gt; &amp;ndash;&amp;gt; 3. key value &amp;ndash;&amp;gt;&lt;strong&gt;Tablet Server 1&lt;/strong&gt;&amp;ndash; 4. &lt;code&gt;write log&lt;/code&gt; &lt;key value&gt;&amp;ndash;&amp;gt;&lt;strong&gt;Lock Disk&lt;/strong&gt; &amp;ndash; 6. write to GFS&amp;ndash;&amp;gt; &lt;strong&gt;GFS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tablet Server 1&lt;/strong&gt;&amp;ndash; 5. &lt;code&gt;write key. value&lt;/code&gt;&amp;ndash;&amp;gt;&lt;strong&gt;Memory&lt;/strong&gt; &amp;ndash; 6. write to GFS&amp;ndash;&amp;gt; &lt;strong&gt;GFS&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;read-with-lock&#34;&gt;Read with lock&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;client 1&lt;/strong&gt; &amp;ndash;&amp;gt; 1. Read key and lock the key &amp;ndash;&amp;gt;&lt;strong&gt;Lock Server&lt;/strong&gt;&amp;ndash; 2. return Server Id&amp;ndash;&amp;gt;&lt;strong&gt;client 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;client 1&lt;/strong&gt; &amp;ndash;&amp;gt; 3. Read key &amp;ndash;&amp;gt;&lt;strong&gt;Tablet Server 1&lt;/strong&gt;&amp;ndash; 4. Check memory, Bloom Filter, index on each sstable,  &amp;ndash;&amp;gt;&lt;strong&gt;Memory&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tablet Server 1&lt;/strong&gt;&amp;ndash; 5. Binary search on sstable to find the value&amp;ndash;&amp;gt;&lt;strong&gt;GFS&lt;/strong&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/system9.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;send coupon&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

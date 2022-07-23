@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about BinarySearchTree 3 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/bst3/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about BinarySearchTree 3"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about BinarySearchTree 3</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Thu, Sep 9, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">8-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>master BST in algo</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#recover-binary-search-tree-99" >Recover Binary Search Tree 99</a></li>
+<li><a href="#construct-binary-search-tree-from-preorder-traversal-1008" >Construct Binary Search Tree from Preorder Traversal 1008</a></li>
+<li><a href="#reconstruct-binary-search-tree-with-postorder-traversal" >Reconstruct Binary Search Tree With Postorder Traversal</a></li>
+<li><a href="#reconstruct-binary-search-tree-with-level-order-traversal" >Reconstruct Binary Search Tree With Level Order Traversal</a></li>
+<li><a href="#valid-post-order-traversal-of-binary-search-tree" >Valid Post-order Traversal Of Binary Search Tree</a></li>
+<li><a href="#count-of-range-sum-372" >Count of Range Sum 372</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="recover-binary-search-tree-99">Recover Binary Search Tree 99</h2>
+<p><a id="markdown-recover-binary-search-tree-99" name="recover-binary-search-tree-99"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a Binary Search Tree with only two nodes swapped. Try to find them and recover the binary search tree.
+
+Input: 
+
+               <span class="m">4</span>
+
+              / <span class="se">\
+</span><span class="se"></span>
+             <span class="m">2</span>   <span class="m">6</span>  
+
+            / <span class="se">\ </span>  / <span class="se">\
+</span><span class="se"></span>
+           <span class="m">1</span>  <span class="m">5</span> <span class="m">3</span>  <span class="m">7</span>
+
+Output:       <span class="m">4</span>
+
+                  / <span class="se">\
+</span><span class="se"></span>
+                <span class="m">2</span>   <span class="m">6</span>
+
+               /  <span class="se">\ </span>  / <span class="se">\
+</span><span class="se"></span>
+            <span class="m">1</span>  <span class="m">3</span>   <span class="m">5</span>  <span class="m">7</span>
+
+ 
+</code></pre></div><figure><img src="/images/bfs12.png"
+         alt="image"/><figcaption>
+            <h4>BST</h4>
+        </figcaption>
+</figure>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">TreeNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="n">TreeNode</span> <span class="n">first</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="n">TreeNode</span> <span class="n">second</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">recover</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+
+    <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">first</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+    <span class="n">first</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">second</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+    <span class="n">second</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+    
+    <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">helper</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span> <span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="o">;</span>
+    <span class="o">}</span> 
+    <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">prev</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">prev</span><span class="o">.</span><span class="na">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">first</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">first</span> <span class="o">=</span> <span class="n">prev</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+     
+  
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+    <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+</code></pre></div><p>时间复杂度：最坏情况下（即待交换节点为二叉搜索树最右侧的叶子节点）我们需要遍历整棵树，时间复杂度为 O(N)O(N)，
+其中 NN 为二叉搜索树的节点个数。</p>
+<p>空间复杂度：O(H)O(H)，其中 HH 为二叉搜索树的高度。中序遍历的时候栈的深度取决于二叉搜索树的高度。</p>
+<p>中序遍历有一个特色，比如</p>
+<p>.        10
+.     /    <br>
+.    5      15
+.   / \    / <br>
+.  3  8   13   16</p>
+<p>inOrder: 3 &ndash;&gt; 5  -&gt; 8 -&gt; 10 &ndash;&gt; 13 &ndash;&gt; 15 &ndash;&gt; 16</p>
+<p>越来越大，这也是  if(prev.key &gt; root.key) 是错误的原因</p>
+<p>.        10
+.     /    <br>
+.    15      5
+.   / \    / <br>
+.  3  8   13   16</p>
+<p>inOrder: 3 &ndash;&gt; 15  -&gt; 8 -&gt; 10 &ndash;&gt; 13 &ndash;&gt; 5 &ndash;&gt; 16</p>
+<p>.        10
+.     /    <br>
+.    3      15
+.   / \    / <br>
+.  5  8   13   16</p>
+<p>inOrder: 5 &ndash;&gt; 3  -&gt; 8 -&gt; 10 &ndash;&gt; 13 &ndash;&gt; 5 &ndash;&gt; 16</p>
+<p><strong>前小后大，就是中序遍历</strong></p>
+<h2 id="construct-binary-search-tree-from-preorder-traversal-1008">Construct Binary Search Tree from Preorder Traversal 1008</h2>
+<p><a id="markdown-construct-binary-search-tree-from-preorder-traversal-1008" name="construct-binary-search-tree-from-preorder-traversal-1008"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array of integers preorder, which represents the preorder traversal of a BST <span class="o">(</span>i.e., binary search tree<span class="o">)</span>, construct the tree and <span class="k">return</span> its root.
+
+It is guaranteed that there is always possible to find a binary search tree with the given requirements <span class="k">for</span> the given <span class="nb">test</span> cases.
+
+A binary search tree is a binary tree where <span class="k">for</span> every node, any descendant of Node.left has a value strictly less than Node.val, and any descendant of Node.right has a value strictly greater than Node.val.
+
+A preorder traversal of a binary tree displays the value of the node first, <span class="k">then</span> traverses Node.left, <span class="k">then</span> traverses Node.right.
+
+ 
+
+Example 1:
+
+
+Input: <span class="nv">preorder</span> <span class="o">=</span> <span class="o">[</span>8,5,1,7,10,12<span class="o">]</span>
+Output: <span class="o">[</span>8,5,10,1,7,null,12<span class="o">]</span>
+Example 2:
+
+Input: <span class="nv">preorder</span> <span class="o">=</span> <span class="o">[</span>1,3<span class="o">]</span>
+Output: <span class="o">[</span>1,null,3<span class="o">]</span>
+</code></pre></div><p>二分法， 无语，二分又混乱了，需要的 return 左边的值，mid 如果压在左边， 用两个值 一大一小，就能发现容易错过，所以压在右边</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">bstFromPreorder</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">preorder</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">preorder</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+<span class="o">}</span>
+    
+    
+<span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">helper</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">pre</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">start</span> <span class="o">&gt;</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+   
+  <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">pre</span><span class="o">[</span><span class="n">start</span><span class="o">]);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+        
+  <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="o">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">pre</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">pre</span><span class="o">[</span><span class="n">start</span><span class="o">])</span> <span class="o">{</span>
+      <span class="n">i</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="n">j</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+   
+    
+    
+  <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">pre</span><span class="o">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+  <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">pre</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+
+  <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+<span class="o">}</span>
+    
+   
+    
+</code></pre></div><p>时间： O(N log N)， 寻找分界线复杂度是 O(log N)</p>
+<p>空间： O (n)</p>
+<p>用一个的方式，上标
+时间： O(N )</p>
+<p>空间： O (n)</p>
+<p>这里 i 是 index， 为了避免全局变量</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">bstFromPreorder</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span>  <span class="n">bstFromPreorder</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">0</span><span class="o">});</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">bstFromPreorder</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">pre</span><span class="o">,</span> <span class="kt">int</span> <span class="n">bound</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">i</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">pre</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">pre</span><span class="o">[</span><span class="n">i</span><span class="o">[</span><span class="n">0</span><span class="o">]]</span> <span class="o">&gt;</span> <span class="n">bound</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">pre</span><span class="o">[</span><span class="n">i</span><span class="o">[</span><span class="n">0</span><span class="o">]++]);</span>
+  <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">bstFromPreorder</span><span class="o">(</span><span class="n">pre</span><span class="o">,</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+  <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">bstFromPreorder</span><span class="o">(</span><span class="n">pre</span><span class="o">,</span> <span class="n">bound</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+  <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><h2 id="reconstruct-binary-search-tree-with-postorder-traversal">Reconstruct Binary Search Tree With Postorder Traversal</h2>
+<p><a id="markdown-reconstruct-binary-search-tree-with-postorder-traversal" name="reconstruct-binary-search-tree-with-postorder-traversal"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the postorder traversal sequence of a binary search tree, reconstruct the original tree.
+
+Assumptions
+
+The given sequence is not null
+There are no duplicate keys in the binary search tree
+Examples
+
+postorder <span class="nv">traversal</span> <span class="o">=</span> <span class="o">{</span>1, 4, 3, 11, 8, 5<span class="o">}</span>
+
+the corresponding binary search tree is
+
+        <span class="m">5</span>
+
+      /    <span class="se">\
+</span><span class="se"></span>
+    <span class="m">3</span>        <span class="m">8</span>
+
+  /   <span class="se">\ </span>       <span class="se">\
+</span><span class="se"></span>
+<span class="m">1</span>      <span class="m">4</span>        <span class="m">11</span>
+</code></pre></div><p>这两题对比看，上一题是 index 从 0 开始，然后往左边开始，左边需要一个 bound， 那就是 root 值，所以是最大值。</p>
+<p>这题是 index 从后面开始，然后右边开始赋值，右边需要一个 bound， 就是 root 值作为它的最小值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">reconstruct</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">post</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">len</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">,</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">len</span> <span class="o">-</span> <span class="n">1</span><span class="o">});</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">helper</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">post</span><span class="o">,</span> <span class="kt">int</span> <span class="n">min</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">index</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">post</span><span class="o">[</span><span class="n">index</span><span class="o">[</span><span class="n">0</span><span class="o">]]</span> <span class="o">&lt;=</span> <span class="n">min</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">post</span><span class="o">[</span><span class="n">index</span><span class="o">[</span><span class="n">0</span><span class="o">]--]);</span>
+ 
+
+    <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span>  <span class="n">helper</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span>
+       <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span>  <span class="n">helper</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">min</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span>
+
+  <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+  <span class="o">}</span>
+
+</code></pre></div><h2 id="reconstruct-binary-search-tree-with-level-order-traversal">Reconstruct Binary Search Tree With Level Order Traversal</h2>
+<p><a id="markdown-reconstruct-binary-search-tree-with-level-order-traversal" name="reconstruct-binary-search-tree-with-level-order-traversal"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the levelorder traversal sequence of a binary search tree, reconstruct the original tree.
+
+Assumptions
+
+The given sequence is not null
+There are no duplicate keys in the binary search tree
+Examples
+
+levelorder <span class="nv">traversal</span> <span class="o">=</span> <span class="o">{</span>5, 3, 8, 1, 4, 11<span class="o">}</span>
+
+the corresponding binary search tree is
+
+        <span class="m">5</span>
+
+      /    <span class="se">\
+</span><span class="se"></span>
+    <span class="m">3</span>        <span class="m">8</span>
+
+  /   <span class="se">\ </span>       <span class="se">\
+</span><span class="se"></span>
+<span class="m">1</span>      <span class="m">4</span>        <span class="m">11</span>
+</code></pre></div><p>public TreeNode reconstruct(int[] level) {
+  // Write your solution here
+  TreeNode root = null;
+  for (int i = 0; i &lt; level.length; i++) {
+  root = helper(root, level[i]);
+  }
+  return root;
+  }
+  private TreeNode helper(TreeNode root, int data) {
+  if (root == null) return new TreeNode(data);
+  if (data &lt;= root.key) root.left = helper(root.left, data);
+  if (data &gt; root.key) root.right = helper(root.right, data);
+  return root;
+  }</p>
+<p>其实就是forloop 里面嵌套bst的insert，insert in bst 有iteration 和 recursion 的解法。其中 recursion tree 画出来， 所有node的时间复杂度总和是 o n，n 是bst 的所有node 个数 空间是call stack 最深时所有node 空间复杂度总和，是o h。
+所以我写的recursion 和你的 iteration ，时间复杂度一样，空间不用recursion更省啊
+~ An instructor (Paul) endorsed this answer  ~</p>
+<p>想问一下老师这道题我做的时间复杂度分析，因为每次做一次循环都是从root节点出发去寻找能插进去的位置，是不是就是n*O(height), 然后worst case会不会就是一个糖葫芦串，然后就变成n^2了呢？</p>
+<h2 id="valid-post-order-traversal-of-binary-search-tree">Valid Post-order Traversal Of Binary Search Tree</h2>
+<p><a id="markdown-valid-post-order-traversal-of-binary-search-tree" name="valid-post-order-traversal-of-binary-search-tree"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an array with integers, determine whether the array contains a valid postorder traversal sequence a BST.
+
+Assumptions:
+
+The given postorder traversal array is not null.
+Examples:
+
+For example, <span class="nv">a1</span><span class="o">=[</span>1, 3, 4, 2, 7, 6, 5<span class="o">]</span> is a BST 
+
+<span class="nv">a2</span><span class="o">=[</span>1, 3, 4, 6, 7, 2, 5<span class="o">]</span> is not a BST.
+</code></pre></div><p>Each item in left subtree a[0..i-1] is less than a[n-1]</p>
+<p>Each item in right subtree a[i..n-2] is greater than a[n-1]</p>
+<p>Both left subtree a[0..i-1] and right subtree a[i..n-2] are BSTs</p>
+<p>So, for the given root a[n-1] we can find the start of a potential right subtree by scanning the array from left to right and check where the element is bigger than root. left side of this point is a left subtree. We also need to do sanity check whether the right subtree contains elements greater than root.</p>
+<p>{1, 3, 4, 2, 7, 6, 5}</p>
+<p>.           5
+/   <br>
+{1, 3, 4, 2}   {7, 6}  On
+/     \       <br>
+{1}  {3, 4}     {7}   On
+/ 
+{3}               On</p>
+<p>runs in O(ngln) time in average case where the tree is a balanced binary tree and O(n) space. The worst case complexity however is O(n^2) in case of a tall binary tree such as a=[1,2,3,4,5].</p>
+<p><strong>我自己是分析 balanced binary tree 空间复杂度是 Oh，但是存疑</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">validPostOrder</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">post</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">post</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">post</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">helper</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">post</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+   
+    <span class="kt">int</span> <span class="n">root</span> <span class="o">=</span> <span class="n">post</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+    <span class="c1">// find left subtree&#39;s root, traverse backwards
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">leftRoot</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">leftRoot</span> <span class="o">&gt;=</span> <span class="n">left</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">post</span><span class="o">[</span><span class="n">leftRoot</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">break</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="n">leftRoot</span><span class="o">--;</span>
+    <span class="o">}</span>
+    <span class="c1">//traver left subtree, if there is an element &gt; root, return false
+</span><span class="c1"></span>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">left</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">leftRoot</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">post</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span>  <span class="n">leftRoot</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">helper</span><span class="o">(</span><span class="n">post</span><span class="o">,</span> <span class="n">leftRoot</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">right</span> <span class="o">-</span><span class="n">1</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div><p>用一个 stack, O(n)</p>
+<p>其次， 如果是 pre-order of BST, 根据BST 左小右大，则pre order 一路向左下的过程是 decreasing ；那么 post -order ，反过来看则为一路右下为 increasing 。 </p>
+<p>用 stack 维护 对pre-order  linear scan 先 left subtree 的 降序性 ， 或者 post -order 反过来 先 right subtree 的 升序性， 从而实现对 given array 的一遍扫描， 时间是O(n) , 也可以处理为 online - algorithm 。 </p>
+<p>public class Solution {
+public boolean validPostOrder(int[] post) {
+if (post == null || post.length &lt;= 1) {
+return true;
+}
+return validPostOrder(post, post.length);
+// Write your solution here
+}
+private boolean validPostOrder(int[] post, int n) {
+// Creat a stack to maintain  increasing order
+Deque<Integer> stack = new ArrayDeque<Integer>();</p>
+<pre><code>// Initialize current root as maximum possible
+int root = Integer.MAX_VALUE;
+
+// Traverse post array
+for (int i = n - 1; i &gt;= 0; i--) {
+  // if we find a node who in left subtree and 
+  // larger than root, return false;
+  if (post[i] &gt; root) {
+    return false;
+  }
+
+  // If post[i] is in left subtree of stack top, 
+  // Keeping removing items larger than post[i] 
+  // and make the last removed item as the new 
+  // root.
+  while (!stack.isEmpty() &amp;&amp; stack.peek() &gt; post[i]) {
+    root = stack.peek();
+    stack.pop();
+  }
+
+  // At this pointer either stack is empty or 
+  // post[i] is larger than root, which is 
+  // increasing order in stack, push post[i]
+  stack.push(post[i]);
+}
+return true;
+</code></pre>
+<p>}
+}</p>
+<p>[1, 3, 4, 2, 7, 6, 5]</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="c1">// 7
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span><span class="o">--)</span>
+        <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> 
+            <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])</span>
+                <span class="n">max</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">++];</span>
+            <span class="n">nums</span><span class="o">[--</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</code></pre></div><p>LaiCode 461. Count of Range Sum
+<a href="https://app.laicode.io/app/problem/461">https://app.laicode.io/app/problem/461</a></p>
+<p>老师好，这道题我的第一想法是类似于max subarray equals to k 的解法，维持一个整体的sum然后把从0开始的partial sum存进map里。由于我们需要求一个范围，我打算用TreeMap，这样看下来TreeMap 的增查应该是O(lgn). 然后submap是O(1)，这样看来整体的时间复杂度应该是O(nlogn). 但是由于我们要遍历从upper 到lower的所所有value，这样如果upper 和 lower差的比较大的话 可能最差情况还是O(n), 所以分析下来时间复杂度是O(n^2)对吗</p>
+<p>public int countRangeSum(int[] nums, int lower, int upper) {
+if (nums == null || nums.length == 0) {
+return 0;
+}
+NavigableMap&lt;Long, Integer&gt; map = new TreeMap&lt;&gt;();
+map.put(0L, 1);
+int result = 0;
+long sum = 0L;
+for (int i = 0; i &lt; nums.length; i++) {
+sum += nums[i];
+NavigableMap&lt;Long, Integer&gt; subMap = map.subMap(sum - upper, true, sum - lower, true);
+for (int count : subMap.values()) {
+result += count;
+}
+map.put(sum, map.getOrDefault(sum, 0) + 1);
+}
+return result;
+}</p>
+<h2 id="count-of-range-sum-372">Count of Range Sum 372</h2>
+<p><a id="markdown-count-of-range-sum-372" name="count-of-range-sum-372"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">  Given an integer array nums, <span class="k">return</span> the number of range sums that lie in <span class="o">[</span>lower, upper<span class="o">]</span> inclusive.
+Range sum S<span class="o">(</span>i, j<span class="o">)</span> is defined as the sum of the elements in nums between indices i and j <span class="o">(</span>i ≤ j<span class="o">)</span>, inclusive.
+
+Note:
+A naive algorithm of O<span class="o">(</span>n2<span class="o">)</span> is trivial. You MUST <span class="k">do</span> better than that.
+
+Example:
+Given <span class="nv">nums</span> <span class="o">=</span> <span class="o">[</span>-2, 5, -1<span class="o">]</span>, <span class="nv">lower</span> <span class="o">=</span> -2, <span class="nv">upper</span> <span class="o">=</span> 2,
+Return 3.
+The three ranges are : <span class="o">[</span>0, 0<span class="o">]</span>, <span class="o">[</span>2, 2<span class="o">]</span>, <span class="o">[</span>0, 2<span class="o">]</span> and their respective sums are: -2, -1, 2.
+</code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/binarysearchtree/">BinarySearchTree</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis6 on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/redis6/</link>
+    <description>Recent content in Redis6 on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 16 Dec 2021 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/redis6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis6</title>
+      <link>https://rileyshen.github.io/post/redis/</link>
+      <pubDate>Thu, 16 Dec 2021 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/redis/</guid>
+      
+        <description>&lt;p&gt;quick way to know Redis6&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;原子化&#34;&gt;原子化&lt;/h2&gt;
+&lt;p&gt;redis 是 IO 多路复用模型，即一个线程来处理多个 TCP 连接，这样的好处就是，即使客户端并发请求，也得排队处理，一定程度上解决了多线程模型带的并发问题，所以 redis 是并发安全的？从 redis 本身的架构模式来说，并发是安全的，不存在同时执行两个客户端的命令&lt;/p&gt;
+&lt;p&gt;所谓原子操作是指不会被线程调度机制打断的操作.&lt;/p&gt;
+&lt;p&gt;这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程）。&lt;/p&gt;
+&lt;p&gt;（1）在单线程中， 能够在单条指令中完成的操作都可以认为是&amp;quot;原子操作&amp;quot;，因为中断只能发生于指令之间。&lt;/p&gt;
+&lt;p&gt;（2）在多线程中，不能被其它进程（线程）打断的操作就叫原子操作。&lt;/p&gt;
+&lt;p&gt;Redis 单命令的原子性主要得益于 Redis 的单线程。&lt;/p&gt;
+&lt;h2 id=&#34;多样的数据结构存储持久化数据&#34;&gt;多样的数据结构存储持久化数据&lt;/h2&gt;
+&lt;h3 id=&#34;list-实现按自然时间排序的数据最新n-个数据&#34;&gt;List 实现按自然时间排序的数据最新(N 个数据)&lt;/h3&gt;
+&lt;h3 id=&#34;zset-有序集合排行榜-top-n&#34;&gt;zset 有序集合(排行榜， Top N)&lt;/h3&gt;
+&lt;h3 id=&#34;expire-过期时效性的数据比如手机验证码&#34;&gt;Expire 过期(时效性的数据，比如手机验证码)&lt;/h3&gt;
+&lt;h3 id=&#34;原子性-自增方法-incr-decr-计数器秒杀&#34;&gt;原子性， 自增方法 INCR, DECR (计数器，秒杀)&lt;/h3&gt;
+&lt;h3 id=&#34;set-集合去除大量数据中的重复数据&#34;&gt;set 集合(去除大量数据中的重复数据)&lt;/h3&gt;
+&lt;p&gt;无序集合。它底层其实是一个 value 为 null 的 hash 表，所以添加，删除，查找的复杂度都是 O(1)&lt;/p&gt;
+&lt;p&gt;Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;key&lt;/strong&gt;                 &amp;ndash;         &lt;strong&gt;序列化的 value 对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用户 id                             姓名数据
+.                                   年龄数据
+.                                   生日数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;每次修改用户的某个属性需要，要先反序列化改好后再序列号回去，开销大&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;key&lt;/strong&gt;                &amp;ndash;           &lt;strong&gt;value 对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用户 id+ 姓名标签                       姓名数据&lt;/p&gt;
+&lt;p&gt;用户 id+ 年龄标签                       年龄数据&lt;/p&gt;
+&lt;p&gt;用户 id+ 生日标签                       生日数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用户 ID 数据冗余&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;用-hash-方法&#34;&gt;用 Hash 方法&lt;/h4&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;key&lt;/strong&gt;                &amp;ndash;           &lt;strong&gt;Hash&lt;/strong&gt;
+.                                  &lt;strong&gt;field&lt;/strong&gt;     &lt;strong&gt;value&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;.                                   姓名标签      姓名数据&lt;/p&gt;
+&lt;p&gt;用户 id                             年龄标签      年龄数据&lt;/p&gt;
+&lt;p&gt;.                                   生日标签      生日数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;通过 Key + field 就可以操作对应的属性数据，既不需要重复存储数据，也不会带来序列化和并发修改控制的问题&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;list-集合构建队列&#34;&gt;list 集合(构建队列)&lt;/h3&gt;
+&lt;p&gt;List 的数据结构为快速链表 quickList。&lt;/p&gt;
+&lt;p&gt;首先在列表元素较少的情况下会使用一块连续的内存存储，这个结构是 ziplist，也即是压缩列表。&lt;/p&gt;
+&lt;p&gt;它将所有的元素紧挨着一起存储，分配的是一块连续的内存。&lt;/p&gt;
+&lt;p&gt;当数据量比较多的时候才会改成 quicklist。&lt;/p&gt;
+&lt;p&gt;因为普通的链表需要的附加指针空间太大，会比较浪费空间。比如这个列表里存的只是 int 类型的数据，结构上还需要两个额外的指针 prev 和 next。&lt;/p&gt;
+&lt;p&gt;ziplist &amp;lt;&amp;ndash;&amp;gt;ziplist &amp;lt;&amp;ndash;&amp;gt;ziplist &amp;lt;&amp;ndash;&amp;gt;ziplist &amp;lt;&amp;ndash;&amp;gt;ziplist&lt;/p&gt;
+&lt;h3 id=&#34;pubsub-模式发布订阅消息&#34;&gt;pub/sub 模式(发布订阅消息)&lt;/h3&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

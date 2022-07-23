@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>putIfAbsent on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/putifabsent/</link>
+    <description>Recent content in putIfAbsent on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 04 Mar 2022 21:23:37 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/putifabsent/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>computeIfAbsent vs putIfAbsent</title>
+      <link>https://rileyshen.github.io/post/javanew/</link>
+      <pubDate>Fri, 04 Mar 2022 21:23:37 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/javanew/</guid>
+      
+        <description>&lt;p&gt;putIfAbsent vs computeIfAbsent&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h3 id=&#34;putifabsent&#34;&gt;putIfAbsent&lt;/h3&gt;
+&lt;p&gt;putIfAbsent() 方法会先判断指定的键（key）是否存在，不存在则将键/值对插入到 HashMap 中。&lt;/p&gt;
+&lt;p&gt;如果所指定的 key 已经在 HashMap 中存在，返回和这个 key 值对应的 value, 如果所指定的 key 不在 HashMap 中存在，则返回 null, putIfAbsent 的重点不在于返回值, 而在于如果 key 不为空, 就不插入新值了&lt;/p&gt;
+&lt;p&gt;如果 Map &lt;code&gt;&amp;lt;K, List&amp;lt;V&amp;gt;&amp;gt;&lt;/code&gt; 如果 key 已经存在了，用 putIfAbsent 会新创造一个新的 list 后再丢弃，产生不不要的垃圾。&lt;/p&gt;
+&lt;p&gt;如果 key 存在，他们返回是一样的，当时如果 key 不存在， 这个返回 null， computeIfAbsent 返回 输入的值；&lt;/p&gt;
+&lt;p&gt;另外 key 不存在， 这个会输入一个 null 的值，后面则不可以&lt;/p&gt;
+&lt;h3 id=&#34;computeifabsent&#34;&gt;computeIfAbsent&lt;/h3&gt;
+&lt;p&gt;有个 mapping 的功能&lt;/p&gt;
+&lt;p&gt;Map&amp;lt;String,ValueClass&amp;gt;,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;putIfAbsent(&amp;ldquo;key&amp;rdquo;, new ValueClass()) 马上创建一个 实例，哪怕 key 存在了&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;computerIfAbsent(&amp;ldquo;key&amp;rdquo;, k -&amp;gt; new ValueClass()) 只会在 key 不存在 或者 key 的值为 null 才会执行， 所以相对效率较高&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;效率点&#34;&gt;效率点&lt;/h2&gt;
+&lt;p&gt;如果已经有值，用 putIfAbsent； 如果这个值是非常贵的操作，比如要去 database 去找，用 computeIfAbsent&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

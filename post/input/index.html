@@ -139,12 +139,15 @@
                     Fri, Mar 12, 2021
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">One-minute read</span>
+                <span class="reading-time">2-minute read</span>
             </div>
             
         </div>
 
-        <p>1 秒中内 cup 可以做 <strong>10^6 ~ 10^7</strong> 的操作</p>
+        <p>Complexity Analysis</p>
+<!-- more -->
+<h3 id="input-size">input size</h3>
+<p>1 秒中内 cup 可以做 <strong>10^6 ~ 10^7</strong> 的操作</p>
 <p>如果数据库规模为 100， 那算法可以是 n^3,</p>
 <p>如果数据库规模为 1000， 那算法可以是 n^2</p>
 <p>input size :</p>
@@ -184,6 +187,88 @@
 <li>
 <p>10^6 ~10^9 算法：O(1) <strong>math</strong></p>
 </li>
+</ul>
+<h3 id="graph-traversal">Graph Traversal</h3>
+<p>Visited all nodes in List<GraphNode> graph</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">GraphVister</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">GraphNode</span><span class="o">&gt;</span> <span class="n">graph</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">GraphNode</span> <span class="n">n</span> <span class="o">:</span> <span class="n">graph</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">n</span><span class="o">.</span><span class="na">visted</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">dfs</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">GraphNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">visted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">GraphNode</span> <span class="n">n</span> <span class="o">:</span> <span class="n">node</span><span class="o">.</span><span class="na">nei</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">n</span><span class="o">.</span><span class="na">visted</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">dfs</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">GraphNode</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">GraphNode</span><span class="o">&gt;</span> <span class="n">nei</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">visited</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">GraphNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">v</span><span class="o">;</span>
+        <span class="n">nei</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>1       4 &ndash; 5
+/<br>
+2 3</p>
+<p><strong>二叉树和链表，V 和 E 是 1： 1，或者 1： 2， OV + OE = OV 的时间度</strong></p>
+<p><strong>图里面， V, E 关系不确定</strong></p>
+<p>Given V ：</p>
+<p>E min (0) spark graph</p>
+<p>E max (v^2) dense graph</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">GraphNode</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// O(v) 个node
+</span><span class="c1"></span>        <span class="n">node</span><span class="o">.</span><span class="na">visted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">GraphNode</span> <span class="n">n</span> <span class="o">:</span> <span class="n">node</span><span class="o">.</span><span class="na">nei</span><span class="o">)</span> <span class="o">{</span> <span class="n">O</span><span class="o">(</span><span class="n">E</span> <span class="o">/</span><span class="n">v</span><span class="o">)</span> <span class="n">平均一个</span> <span class="n">node</span> <span class="n">的边</span>
+            <span class="nf">if</span> <span class="o">(!</span><span class="n">n</span><span class="o">.</span><span class="na">visted</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">dfs</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><p>node.visted = true; dfs 会被执行 v 成不变，
+O(E + V)</p>
+<ul>
+<li>
+<p>each DFS call itself (not consider next level recursion) is O(E/V + 1)</p>
+</li>
+<li>
+<p>each DFS marks one visited</p>
+</li>
+<li>
+<p>each node is only marked once</p>
+</li>
+<li>
+<p>There are n nodes O(V*(E/V + 1)) = O(V + E) 这里 1 是  node.visted = true; 的复杂度</p>
+</li>
+</ul>
+<h3 id="swap-time-complexity">swap time complexity</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// O(n) 
+</span><span class="c1"></span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">array</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span> <span class="c1">// O(n / n) 平均下来是 O（1）
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span> <span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+</code></pre></div><p>each swap call puts one element into the right position, swap&rsquo;s complexity is O(1)</p>
+<h3 id="xor">XOR</h3>
+<ul>
+<li>x^x = 0</li>
+<li>x^0 = x</li>
 </ul>
 </div>
     <div class="post-footer">

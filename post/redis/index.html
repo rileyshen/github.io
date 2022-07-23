@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | Redis6 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="quick way to learn Redis6">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/redis/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Redis6"/>
+<meta name="twitter:description" content="quick way to learn Redis6"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>Redis6</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Thu, Dec 16, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">One-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>quick way to know Redis6</p>
+<!-- more -->
+<h2 id="原子化">原子化</h2>
+<p>redis 是 IO 多路复用模型，即一个线程来处理多个 TCP 连接，这样的好处就是，即使客户端并发请求，也得排队处理，一定程度上解决了多线程模型带的并发问题，所以 redis 是并发安全的？从 redis 本身的架构模式来说，并发是安全的，不存在同时执行两个客户端的命令</p>
+<p>所谓原子操作是指不会被线程调度机制打断的操作.</p>
+<p>这种操作一旦开始，就一直运行到结束，中间不会有任何 context switch （切换到另一个线程）。</p>
+<p>（1）在单线程中， 能够在单条指令中完成的操作都可以认为是&quot;原子操作&quot;，因为中断只能发生于指令之间。</p>
+<p>（2）在多线程中，不能被其它进程（线程）打断的操作就叫原子操作。</p>
+<p>Redis 单命令的原子性主要得益于 Redis 的单线程。</p>
+<h2 id="多样的数据结构存储持久化数据">多样的数据结构存储持久化数据</h2>
+<h3 id="list-实现按自然时间排序的数据最新n-个数据">List 实现按自然时间排序的数据最新(N 个数据)</h3>
+<h3 id="zset-有序集合排行榜-top-n">zset 有序集合(排行榜， Top N)</h3>
+<h3 id="expire-过期时效性的数据比如手机验证码">Expire 过期(时效性的数据，比如手机验证码)</h3>
+<h3 id="原子性-自增方法-incr-decr-计数器秒杀">原子性， 自增方法 INCR, DECR (计数器，秒杀)</h3>
+<h3 id="set-集合去除大量数据中的重复数据">set 集合(去除大量数据中的重复数据)</h3>
+<p>无序集合。它底层其实是一个 value 为 null 的 hash 表，所以添加，删除，查找的复杂度都是 O(1)</p>
+<p>Redis hash 是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象</p>
+<hr>
+<p><strong>key</strong>                 &ndash;         <strong>序列化的 value 对象</strong></p>
+<p>用户 id                             姓名数据
+.                                   年龄数据
+.                                   生日数据</p>
+<p><strong>每次修改用户的某个属性需要，要先反序列化改好后再序列号回去，开销大</strong></p>
+<hr>
+<hr>
+<p><strong>key</strong>                &ndash;           <strong>value 对象</strong></p>
+<p>用户 id+ 姓名标签                       姓名数据</p>
+<p>用户 id+ 年龄标签                       年龄数据</p>
+<p>用户 id+ 生日标签                       生日数据</p>
+<p><strong>用户 ID 数据冗余</strong></p>
+<hr>
+<h4 id="用-hash-方法">用 Hash 方法</h4>
+<hr>
+<p><strong>key</strong>                &ndash;           <strong>Hash</strong>
+.                                  <strong>field</strong>     <strong>value</strong></p>
+<p>.                                   姓名标签      姓名数据</p>
+<p>用户 id                             年龄标签      年龄数据</p>
+<p>.                                   生日标签      生日数据</p>
+<p><strong>通过 Key + field 就可以操作对应的属性数据，既不需要重复存储数据，也不会带来序列化和并发修改控制的问题</strong></p>
+<hr>
+<h3 id="list-集合构建队列">list 集合(构建队列)</h3>
+<p>List 的数据结构为快速链表 quickList。</p>
+<p>首先在列表元素较少的情况下会使用一块连续的内存存储，这个结构是 ziplist，也即是压缩列表。</p>
+<p>它将所有的元素紧挨着一起存储，分配的是一块连续的内存。</p>
+<p>当数据量比较多的时候才会改成 quicklist。</p>
+<p>因为普通的链表需要的附加指针空间太大，会比较浪费空间。比如这个列表里存的只是 int 类型的数据，结构上还需要两个额外的指针 prev 和 next。</p>
+<p>ziplist &lt;&ndash;&gt;ziplist &lt;&ndash;&gt;ziplist &lt;&ndash;&gt;ziplist &lt;&ndash;&gt;ziplist</p>
+<h3 id="pubsub-模式发布订阅消息">pub/sub 模式(发布订阅消息)</h3>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/redis6/">Redis6</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

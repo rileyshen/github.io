@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | learning System design as a landscape architect 5 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/sys5/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="learning System design as a landscape architect 5"/>
+<meta name="twitter:description" content="Rethink system design in a much fun way, as a former urban planner/landscape planner."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>learning System design as a landscape architect 5</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Tue, Mar 1, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">8-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Coupon System as example</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#coupon-system" >Coupon System</a></li>
+<li><a href="#whats-is-the-scenario-planning-of-this-project" >what&amp;rsquo;s is the &lt;strong&gt;scenario&lt;/strong&gt; planning of this project</a>
+<ul>
+<li><a href="#demand-analysis" >demand analysis</a></li>
+</ul>
+</li>
+<li><a href="#service" >Service</a></li>
+<li><a href="#storage" >storage</a>
+<ul>
+<li><a href="#create-schema" >create schema</a></li>
+<li><a href="#create-coupon" >create coupon</a>
+<ul>
+<li><a href="#create-coupon-rule" >create coupon rule</a></li>
+<li><a href="#create-coupon-batch" >create coupon-batch</a></li>
+</ul>
+</li>
+<li><a href="#send-coupon" >send coupon</a>
+<ul>
+<li><a href="#data-flow-when-users-are-no-more-than-10-k" >data flow when users are no more than 10 k</a>
+<ul>
+<li><a href="#touch-system" >touch system</a></li>
+</ul>
+</li>
+<li><a href="#data-flow-when-users-are-more-than-thousands" >data flow when users are more than thousands</a>
+<ul>
+<li><a href="#data-flow-in-asynchronous" >data flow in asynchronous</a></li>
+<li><a href="#touch-system" >touch system</a></li>
+</ul>
+</li>
+<li><a href="#touch-system-when-users-are-more-than-10-million" >touch system when users are more than 10 Million</a></li>
+<li><a href="#transaction" >transaction</a></li>
+</ul>
+</li>
+<li><a href="#receive-coupon" >receive coupon</a>
+<ul>
+<li><a href="#high-concurrency-cause-database-crash" >high concurrency cause database crash</a></li>
+<li><a href="#redis-data-verification" >Redis data verification</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#redeem-coupon" >redeem coupon</a>
+<ul>
+<li><a href="#confirm-the-order-page-and-verify-the-coupon" >Confirm the order page and verify the coupon</a></li>
+<li><a href="#stage-and-system" >stage and system</a></li>
+<li><a href="#try-confirm-cancel" >Try-Confirm-Cancel</a></li>
+</ul>
+</li>
+<li><a href="#scale" >Scale</a>
+<ul>
+<li><a href="#expiring-coupon-reminder" >Expiring coupon reminder</a></li>
+<li><a href="#database-level-optimization" >Database level optimization</a></li>
+<li><a href="#send-coupon-interface-current-limit-protection" >send coupon interface current limit protection</a></li>
+<li><a href="#use-cache-aside-to-reduce-response-time" >use Cache Aside to reduce response time</a></li>
+<li><a href="#use-geolocation-to-reduce-response-time" >use geolocation to reduce response time</a></li>
+<li><a href="#sharding-key" >Sharding Key</a></li>
+<li><a href="#multi-region" >multi region</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<hr>
+<p>Problem-based learning to understand Coupon System.</p>
+<blockquote>
+<p>1.How to send coupons in bulk (100, 100k, 1million clients)</p>
+</blockquote>
+<blockquote>
+<p>2.How to prevent coupon oversale</p>
+</blockquote>
+<blockquote>
+<p>3.How to set up a threshold discount</p>
+</blockquote>
+<blockquote>
+<p>4.How to prevent users from repeatedly claiming coupons</p>
+</blockquote>
+<h2 id="coupon-system">Coupon System</h2>
+<p><a id="markdown-coupon-system" name="coupon-system"></a></p>
+<h2 id="1-whats-is-the-scenario-planning-of-this-project">1. what&rsquo;s is the <strong>scenario</strong> planning of this project</h2>
+<p><a id="markdown-what's-is-the-**scenario**-planning-of-this-project" name="what's-is-the-**scenario**-planning-of-this-project"></a></p>
+<p><strong>1.1 Send Coupons</strong></p>
+<ul>
+<li>The operation of sending discount coupons is an asynchronous or synchronous operation?</li>
+</ul>
+<p><strong>1.2 Receive coupons</strong></p>
+<ul>
+<li>
+<p>specific groups of customers or every customers can get those coupons?</p>
+</li>
+<li>
+<p>How many identical coupons can a user get?</p>
+</li>
+<li>
+<p>Apply Coupons automatically or need customer&rsquo;s request for the coupon codes?</p>
+</li>
+</ul>
+<p><strong>1.3 redeeming coupons</strong></p>
+<ul>
+<li>requirements for redeeming a coupon code</li>
+</ul>
+<h3 id="demand-analysis">demand analysis</h3>
+<p><a id="markdown-demand-analysis" name="demand-analysis"></a></p>
+<p><strong>retailers ：</strong></p>
+<ul>
+<li>create coupon</li>
+<li>send coupon</li>
+</ul>
+<p><strong>customers :</strong></p>
+<ul>
+<li>receive coupon</li>
+<li>place order</li>
+<li>redeem coupon</li>
+<li>purchase</li>
+</ul>
+<h2 id="2-service">2 Service</h2>
+<p><a id="markdown-service" name="service"></a></p>
+<p><strong>Gateway</strong></p>
+<ul>
+<li>Payment Service
+<ul>
+<li>Payment DB</li>
+</ul>
+</li>
+<li>Order Service
+<ul>
+<li>Order DB</li>
+</ul>
+</li>
+<li>Coupon Service
+<ul>
+<li>Coupon DB</li>
+</ul>
+</li>
+<li>Touch Service</li>
+</ul>
+<h2 id="storage">storage</h2>
+<p><a id="markdown-storage" name="storage"></a></p>
+<p>assume:</p>
+<p>coupon_batch</p>
+<p>create a coupon_batch, send a conpon to a customer, serve to users are within a reasonable price range to help them meet the threshold for the discount.</p>
+<p>For example, if the in-cart value threshold to qualify for a discount is $100, can get a $10 off.</p>
+<h3 id="create-schema">create schema</h3>
+<p><a id="markdown-create-schema" name="create-schema"></a></p>
+<ul>
+<li><strong>coupon_batch Table</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">         </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">batch_id</span><span class="w">        </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">batch</span><span class="w"> </span><span class="n">ID</span><span class="w">         </span><span class="n">black</span><span class="w"> </span><span class="n">friday</span><span class="w">
+</span><span class="w"></span><span class="n">batch_name</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">batch</span><span class="w"> </span><span class="n">Name</span><span class="w">        </span><span class="s2">&#34;bb&#34;</span><span class="w">
+</span><span class="w"></span><span class="n">coupon_name</span><span class="w">     </span><span class="nb">VARCHAR</span><span class="w">     </span><span class="n">coupon</span><span class="w"> </span><span class="n">Name</span><span class="w">      </span><span class="s2">&#34;aa&#34;</span><span class="w">
+</span><span class="w"></span><span class="n">rule_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">     </span><span class="k">rule</span><span class="w"> </span><span class="n">Id</span><span class="w">          </span><span class="mi">1010</span><span class="w">
+</span><span class="w"></span><span class="n">total_count</span><span class="w">     </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">total</span><span class="w"> </span><span class="k">count</span><span class="w">      </span><span class="mi">10000</span><span class="w">
+</span><span class="w"></span><span class="n">assign_count</span><span class="w">    </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">assign</span><span class="w"> </span><span class="k">count</span><span class="w">     </span><span class="mi">5000</span><span class="w">
+</span><span class="w"></span><span class="n">used_count</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">used</span><span class="w"> </span><span class="k">count</span><span class="w">       </span><span class="mi">2500</span><span class="w">   
+</span><span class="w">
+</span></code></pre></div><ul>
+<li><strong>rule Table</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">         </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">rule_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w"> 
+</span><span class="w"></span><span class="n">name</span><span class="w">            </span><span class="nb">VARCHAR</span><span class="w"> 
+</span><span class="w"></span><span class="k">type</span><span class="w">            </span><span class="nb">INTEGER</span><span class="w"> 
+</span><span class="w"></span><span class="n">rule_content</span><span class="w">    </span><span class="nb">BLOB</span><span class="w">                         </span><span class="o">//</span><span class="w"> </span><span class="n">JSON</span><span class="w">
+</span></code></pre></div><ul>
+<li><strong>rule content</strong></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="s1">&#39;{
+</span><span class="s1">    threshold: 5
+</span><span class="s1">    amount: 5
+</span><span class="s1">    use_range: 3 
+</span><span class="s1">    commodity_id: 10 
+</span><span class="s1">    receive_count: 1 
+</span><span class="s1">    is_mutex: true 
+</span><span class="s1">    receive_started_at: 2020-11-1 00:08:00 
+</span><span class="s1">    receive_ended_at: 2020-11-6 00:08:00 
+</span><span class="s1">    use_started_at: 2020-11-1 00:00:00 
+</span><span class="s1">    use_ended_at: 2020-11-11 11:59:59
+</span><span class="s1">    }&#39;</span><span class="w">
+</span></code></pre></div><ul>
+<li><strong>coupon table</strong></li>
+</ul>
+<h3 id="create-coupon">create coupon</h3>
+<p><a id="markdown-create-coupon" name="create-coupon"></a></p>
+<h4 id="create-coupon-rule">create coupon rule</h4>
+<p><a id="markdown-create-coupon-rule" name="create-coupon-rule"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">rule</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">rule_content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s2">&#34;rule&#34;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10000</span><span class="p">);</span><span class="w">
+</span></code></pre></div><h4 id="create-coupon-batch">create coupon-batch</h4>
+<p><a id="markdown-create-coupon-batch" name="create-coupon-batch"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">coupon</span><span class="o">-</span><span class="n">batch</span><span class="p">(</span><span class="n">coupon_name</span><span class="p">,</span><span class="w"> </span><span class="n">rule_id</span><span class="p">,</span><span class="w"> </span><span class="n">total_count</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s2">&#34;aa&#34;</span><span class="p">,</span><span class="w"> </span><span class="mi">1125</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{
+</span><span class="s1">    threshold: 100 
+</span><span class="s1">    amount : 10
+</span><span class="s1">    ......
+</span><span class="s1">    }&#39;</span><span class="p">);</span><span class="w">
+</span></code></pre></div><h3 id="send-coupon">send coupon</h3>
+<p><a id="markdown-send-coupon" name="send-coupon"></a></p>
+<h4 id="data-flow-when-users-are-no-more-than-10-k">data flow when users are no more than 10 k</h4>
+<p><a id="markdown-data-flow-when-users-are-no-more-than-10-k" name="data-flow-when-users-are-no-more-than-10-k"></a></p>
+<figure><img src="/images/system9.png"
+         alt="image"/><figcaption>
+            <h4>send coupon</h4>
+        </figcaption>
+</figure>
+
+<h5 id="touch-system">touch system</h5>
+<p><a id="markdown-touch-system" name="touch-system"></a></p>
+<p>touch system</p>
+<ul>
+<li>text</li>
+<li>mail</li>
+<li>station letter</li>
+</ul>
+<p><strong>message table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">         </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w">              </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">send_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">rec_id</span><span class="w">          </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">content</span><span class="w">         </span><span class="nb">VARCHAR</span><span class="w">     
+</span><span class="w"></span><span class="n">is_read</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">send_time</span><span class="w">       </span><span class="n">DATETIME</span><span class="w">     
+</span></code></pre></div><p>assume stores want to send message to their clients,  traverse the user table first, then insert the station messages into the message table of each users.</p>
+<p>If there are 100 users, a group message will need 100 insert operations</p>
+<blockquote>
+<p>how about there more than thousands users in this user table, send station letter once would take up 10 MB space?</p>
+</blockquote>
+<h4 id="data-flow-when-users-are-more-than-thousands">data flow when users are more than thousands</h4>
+<p><a id="markdown-data-flow-when-users-are-more-than-thousands" name="data-flow-when-users-are-more-than-thousands"></a></p>
+<h5 id="data-flow-in-asynchronous">data flow in asynchronous</h5>
+<p><a id="markdown-data-flow-in-asynchronous" name="data-flow-in-asynchronous"></a></p>
+<figure><img src="/images/system10.png"
+         alt="image"/><figcaption>
+            <h4>give out coupon</h4>
+        </figcaption>
+</figure>
+
+<p><strong>message oriented middleware</strong>: when management server would sent request 100 k per second, and coupon server can only receive 10 k request, use message oriented middleware.</p>
+<h5 id="touch-system-1">touch system</h5>
+<p><a id="markdown-touch-system" name="touch-system"></a></p>
+<p>seperate one table into two tables, compared to insert 10 k operation, it only store once</p>
+<p><strong>message table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">         </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w">              </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">send_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">rec_id</span><span class="w">          </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">message_id</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">foreigner</span><span class="w"> </span><span class="n">id</span><span class="w">     
+</span><span class="w"></span><span class="n">is_read</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">      
+</span></code></pre></div><p><strong>message_content table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">         </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w">              </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">contend</span><span class="w">         </span><span class="nb">varchar</span><span class="w">     
+</span><span class="w"></span><span class="n">send_time</span><span class="w">       </span><span class="n">DATETIME</span><span class="w">     
+</span></code></pre></div><p><strong>station letter steps:</strong></p>
+<ul>
+<li>insert into message_content</li>
+<li>insert a record in every user&rsquo;s message table to show there is a sation letter</li>
+</ul>
+<blockquote>
+<p>how about there more than 10 Million users in this user table</p>
+</blockquote>
+<h4 id="touch-system-when-users-are-more-than-10-million">touch system when users are more than 10 Million</h4>
+<p><a id="markdown-touch-system-when-users-are-more-than-10-million" name="touch-system-when-users-are-more-than-10-million"></a></p>
+<p>there will be only 20% active users, so insert the data to those active users</p>
+<p><strong>message table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">         </span><span class="n">example</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w">              </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">formation</span><span class="w"> </span><span class="n">id</span><span class="w">    </span><span class="mi">11</span><span class="w">
+</span><span class="w"></span><span class="n">rec_id</span><span class="w">          </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">message_id</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">foreigner</span><span class="w"> </span><span class="n">id</span><span class="w">     
+</span><span class="w"></span><span class="n">is_read</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">      
+</span></code></pre></div><p><strong>message_content table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">                 </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w">              </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">message</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="n">id</span><span class="w">      </span><span class="mi">11</span><span class="w">
+</span><span class="w"></span><span class="n">send_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">     
+</span><span class="w"></span><span class="n">contend</span><span class="w">         </span><span class="nb">varchar</span><span class="w">     
+</span><span class="w"></span><span class="n">send_time</span><span class="w">       </span><span class="n">DATETIME</span><span class="w">     
+</span></code></pre></div><p><strong>station letter steps:</strong></p>
+<ul>
+<li>insert text into message_content, don&rsquo;t insert the record in every user&rsquo;s message table</li>
+<li>after users log in, first query those in message_content but no recorded data in the message, which indicating that it is an unread station letter. When checking the content of the letter, inserting the relevant records into the into message table (it requires users log in)</li>
+</ul>
+<blockquote>
+<p>how to solve coupon oversale leading to Excessive load problem</p>
+</blockquote>
+<h4 id="transaction">transaction</h4>
+<p><a id="markdown-transaction" name="transaction"></a></p>
+<ol>
+<li>
+<p>The operation provides user files that meet the conditions, upload them to the coupon issuance management background and select the ones to be sent.</p>
+</li>
+<li>
+<p>The management server generates a message according to the <strong>user ID</strong> and <strong>coupon batch ID</strong>, and sends it to the message middleware</p>
+</li>
+<li>
+<p>Coupon server receive message</p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">coupon</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">coupon_id</span><span class="p">,</span><span class="w"> </span><span class="n">batch_id</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">XX</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">);</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">UPDATE</span><span class="w"> </span><span class="n">coupon_batch</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">total_count</span><span class="o">=</span><span class="n">total_count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">assign_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assign_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">batch_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">total_count</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p><strong>Each transaction must succeed or fail as a complete unit</strong></p>
+<h3 id="receive-coupon">receive coupon</h3>
+<p><a id="markdown-receive-coupon" name="receive-coupon"></a></p>
+<figure><img src="/images/system11.png"
+         alt="image"/><figcaption>
+            <h4>receive coupon</h4>
+        </figcaption>
+</figure>
+
+<ol>
+<li>Check coupon balance</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">total_count</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">coupon_batch</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">batch_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span><span class="w">
+</span></code></pre></div><ol start="2">
+<li>Added coupon user table to deduct the balance</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">coupon</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span><span class="w"> </span><span class="n">coupon_id</span><span class="p">,</span><span class="w"> </span><span class="n">batch_id</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="n">XX</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">);</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">UPDATE</span><span class="w"> </span><span class="n">coupon_batch</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">total_count</span><span class="o">=</span><span class="n">total_count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">assign_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">assign_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">batch_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">total_count</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p><strong>Each transaction must succeed or fail as a complete unit</strong></p>
+<h4 id="high-concurrency-cause-database-crash">high concurrency cause database crash</h4>
+<p><a id="markdown-high-concurrency-cause-database-crash" name="high-concurrency-cause-database-crash"></a></p>
+<p>It would actually be situations similar to flash sale.</p>
+<p><strong>four step to slove those problem:</strong></p>
+<ul>
+<li>
+<ol>
+<li>high concurrency cause database crash</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>cache warm up</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>under high concurrency Large amount of cache release crash the database</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>message queue deal with it asynchronous</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>How to prevent users from repeatedly claiming more coupon?</p>
+</blockquote>
+<h4 id="redis-data-verification">Redis data verification</h4>
+<p><a id="markdown-redis-data-verification" name="redis-data-verification"></a></p>
+<ol>
+<li>check Cache before claim coupon
+<strong>SISMEMBER KEY VALUE</strong></li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">SISMEMBER</span><span class="w"> </span><span class="n">batch_id</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="n">user_id</span><span class="w"> </span><span class="n">aa</span><span class="w">
+</span></code></pre></div><ol start="2">
+<li>
+<p>claim coupon</p>
+</li>
+<li>
+<p>update Cache
+<strong>SADD KEY VALUE1&hellip;VALUEN</strong></p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">SADD</span><span class="w"> </span><span class="n">batch_id</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="n">user_id</span><span class="w"> </span><span class="n">aa</span><span class="w">
+</span></code></pre></div><h2 id="redeem-coupon">redeem coupon</h2>
+<p><a id="markdown-redeem-coupon" name="redeem-coupon"></a></p>
+<h3 id="confirm-the-order-page-and-verify-the-coupon">Confirm the order page and verify the coupon</h3>
+<p><a id="markdown-confirm-the-order-page-and-verify-the-coupon" name="confirm-the-order-page-and-verify-the-coupon"></a></p>
+<ol>
+<li>whether it has expired</li>
+<li>the scope of application</li>
+<li>whether the threshold is reached</li>
+<li>if mutually exclusive</li>
+</ol>
+<figure><img src="/images/system12.png"
+         alt="image"/><figcaption>
+            <h4>receive coupon</h4>
+        </figcaption>
+</figure>
+
+<p>return available coupon</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">batch_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">coupon</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">rule_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">coupon_batch</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">batch_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aa</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">type</span><span class="p">,</span><span class="w"> </span><span class="n">rule_content</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">rule</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">rule_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">xx</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>choose available coupon, return the result</p>
+<h3 id="stage-and-system">stage and system</h3>
+<p><a id="markdown-stage-and-system" name="stage-and-system"></a></p>
+<ul>
+<li>confirm order &ndash; coupon system</li>
+<li>submit &ndash; coupon system + order system</li>
+<li>pay &ndash; coupon system + order system + payment system</li>
+</ul>
+<p><strong>use Distributed Transaction Try-Confirm-Cancel</strong></p>
+<p>TCC is a compensating transaction pattern for business model that is two-phased. try phase puts a service in pending state. For example, a try request in our flight booking service will reserve a seat for the customer and insert a customer reservation record with reserved state into database.</p>
+<p><strong>Coupon_opt_record Table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">          </span><span class="k">type</span><span class="w">        </span><span class="k">explain</span><span class="w">                         </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">user_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w">     </span><span class="k">user</span><span class="w"> </span><span class="n">id</span><span class="w">                             </span><span class="mi">10</span><span class="w">
+</span><span class="w"></span><span class="n">coupon_id</span><span class="w">       </span><span class="nb">INTEGER</span><span class="w">     </span><span class="n">coupon</span><span class="w"> </span><span class="n">id</span><span class="w">                           </span><span class="mi">11</span><span class="w">
+</span><span class="w"></span><span class="n">operating</span><span class="w">       </span><span class="nb">INTEGER</span><span class="w">     </span><span class="mi">0</span><span class="c1">--lock, 1--cancel, 2--unlock       0
+</span><span class="c1"></span><span class="n">operated_at</span><span class="w">     </span><span class="n">DATETIME</span><span class="w">    </span><span class="n">operate</span><span class="w"> </span><span class="n">time</span><span class="w">                        </span><span class="mi">2022</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span><span class="w"> </span><span class="mi">00</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">20</span><span class="w">
+</span></code></pre></div><h3 id="try-confirm-cancel">Try-Confirm-Cancel</h3>
+<p><a id="markdown-try-confirm-cancel" name="try-confirm-cancel"></a></p>
+<ul>
+<li>
+<p>Try</p>
+<ul>
+<li>try phase puts a service in pending state. For example, a try request in our flight booking service will reserve a seat for the customer and insert a customer reservation record with reserved state into database. If any service fails to make a reservation or times out, the coordinator will send a cancel request in the next phase</li>
+</ul>
+</li>
+<li>
+<p>confirm</p>
+<ul>
+<li>moves the service to confirmed state. A confirm request will confirm that a seat is booked for the customer and he or she will be billed. The customer reservation record in database will be updated to confirmed state. If any service fails to confirm or times out, the coordinator will either retry confirmation until success or involve manual intervention after it retries a certain number of times.</li>
+</ul>
+</li>
+<li>
+<p>Cance</p>
+<ul>
+<li>In case of payment failure/, or in the case of payment failure, cancel the order to execute the business operation, cancel the business resource of executing the order, change the coupon status to &ldquo;unused&rdquo;</li>
+</ul>
+</li>
+</ul>
+<h2 id="scale">Scale</h2>
+<p><a id="markdown-scale" name="scale"></a></p>
+<h3 id="expiring-coupon-reminder">Expiring coupon reminder</h3>
+<p><a id="markdown-expiring-coupon-reminder" name="expiring-coupon-reminder"></a></p>
+<ul>
+<li>
+<ol>
+<li>Scan the coupon table regularly.</li>
+</ol>
+</li>
+</ul>
+<p>disadvantages: a Scan operation on large tableS takeS an excessive amount of time and cause performance problems.</p>
+<ul>
+<li>
+<ol start="2">
+<li>delayed messages</li>
+</ol>
+</li>
+</ul>
+<p>disadvantages: Some coupons are valid for too long (30 days) or more, cause a serious message backlog in the current queue</p>
+<ul>
+<li>
+<ol start="3">
+<li>Add a notification table</li>
+</ol>
+</li>
+</ul>
+<p>Advantages: small amount of scanned data and high efficiency, delete is_read records.</p>
+<p><strong>Notify_msg Tab</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column</span><span class="w">              </span><span class="k">type</span><span class="w">                </span><span class="k">explain</span><span class="w">                 </span><span class="n">example</span><span class="w">
+</span><span class="w"></span><span class="n">id</span><span class="w">                  </span><span class="nb">INTEGER</span><span class="w">             </span><span class="n">auto</span><span class="o">-</span><span class="n">increme</span><span class="w">            </span><span class="mi">1100</span><span class="w">
+</span><span class="w"></span><span class="n">coupon_id</span><span class="w">           </span><span class="nb">BIGINT</span><span class="w">              
+</span><span class="w"></span><span class="n">user_id</span><span class="w">             </span><span class="nb">BIGINT</span><span class="w"> 
+</span><span class="w"></span><span class="n">notify_day</span><span class="w">          </span><span class="nb">VARCHAR</span><span class="w"> 
+</span><span class="w"></span><span class="n">notify_type</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w"> 
+</span><span class="w"></span><span class="n">notify_time</span><span class="w">         </span><span class="k">TIMESTAMP</span><span class="w"> 
+</span><span class="w"></span><span class="n">status</span><span class="w">              </span><span class="nb">INTEGER</span><span class="w"> 
+</span></code></pre></div><p>steps:</p>
+<ol>
+<li>hen creating a coupon, insert the record into notify_msg</li>
+<li>Set user ID + batch ID + notification date as a unique index to prevent duplicates record notifications.</li>
+<li>Establish notify_time index, queried through this index column to improve query efficiency</li>
+<li>After the notification is completed, delete the data</li>
+</ol>
+<h3 id="database-level-optimization">Database level optimization</h3>
+<p><a id="markdown-database-level-optimization" name="database-level-optimization"></a></p>
+<p>batch_table index : batch_id</p>
+<p>coupon table index: coupon_id + user_id + batch_id + order_id</p>
+<h3 id="send-coupon-interface-current-limit-protection">send coupon interface current limit protection</h3>
+<p><a id="markdown-send-coupon-interface-current-limit-protection" name="send-coupon-interface-current-limit-protection"></a></p>
+<p>frontend current limiting</p>
+<ul>
+<li>after clicking, the buttom becomes gray</li>
+</ul>
+<p>backend current limiting</p>
+<ul>
+<li>some request would lead to busy page</li>
+</ul>
+<h3 id="use-cache-aside-to-reduce-response-time">use Cache Aside to reduce response time</h3>
+<p><a id="markdown-use-cache-aside-to-reduce-response-time" name="use-cache-aside-to-reduce-response-time"></a></p>
+<p>data in Cache</p>
+<ul>
+<li>long to short (generate new short url)</li>
+<li>short to long (query short url)</li>
+</ul>
+<figure><img src="/images/system7.png"
+         alt="image"/><figcaption>
+            <h4>Cache Aside</h4>
+        </figcaption>
+</figure>
+
+<h3 id="use-geolocation-to-reduce-response-time">use geolocation to reduce response time</h3>
+<p><a id="markdown-use-geolocation-to-reduce-response-time" name="use-geolocation-to-reduce-response-time"></a></p>
+<p>Optimize server access speed
+• Different regions, use different web servers
+• Resolve users in different regions to different servers through DNS</p>
+<p>Optimize data access speed
+• Use Centralized MySQL+Distributed Memcached
+• One MySQL with multiple Memcached, Memcached distributed across regions</p>
+<figure><img src="/images/system8.png"
+         alt="image"/><figcaption>
+            <h4>dns</h4>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>how about it is not weibo but twitter, DAO is ten times larger then weibo?</p>
+</blockquote>
+<blockquote>
+<p>how to scale with high QPS problem</p>
+</blockquote>
+<p>Vertical Sharding vs Horizontal Sharding</p>
+<p>Vertical sharding :Vertical partitioning involves creating tables with fewer columns and using additional tables to store the remaining columns</p>
+<p><strong>Tiny URL only has two column, it doesn&rsquo;t need vertical Sharding here</strong></p>
+<h3 id="sharding-key">Sharding Key</h3>
+<p><a id="markdown-sharding-key" name="sharding-key"></a></p>
+<ul>
+<li>
+<p>one Long url mappting to multiple short url</p>
+<ul>
+<li>use Cache store all Lont to Short</li>
+<li>create short url for one long url, if Cache Miss happens, just create new short url</li>
+</ul>
+</li>
+<li>
+<p>one Long url mappting to one short url</p>
+<ul>
+<li>use ramdon to generate Short Url
+<ul>
+<li>two table, one is Long to Short, one is Short to Long</li>
+</ul>
+</li>
+<li>base 62
+<ul>
+<li>Relational database only support auto increase id in one mathine</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- Sequential ID in multiple machines? -->
+<!-- zookeeper, however, it is not recommend use Sequential ID in tiny url -->
+<ul>
+<li>base62 sharding key
+<ul>
+<li>Hash(long_url) % 62 as Sharding key, put in short url column</li>
+</ul>
+</li>
+</ul>
+<p>old short key: AB1234</p>
+<p>now short key: Hash(long_url) % 62 + AB1234</p>
+<p>cons: the number of machine is not more than 62</p>
+<h3 id="multi-region">multi region</h3>
+<p><a id="markdown-multi-region" name="multi-region"></a></p>
+<p>DB USE, UB CHINA</p>
+<blockquote>
+<p>To create a custom URL</p>
+</blockquote>
+<p><strong>random</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><p>just put custom url into shortkey</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">custom_url</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">aa</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><p><strong>base62</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">                         </span><span class="n">customUrl</span><span class="w">
+</span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">         </span><span class="n">xxx</span><span class="w">
+</span></code></pre></div><p>adding a new column is not recommended, it will waste space.</p>
+<ul>
+<li>
+<p>create a table store custom_url</p>
+</li>
+<li>
+<p>CustomURLTable</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">custom_url</span><span class="w">                </span><span class="n">longUrl</span><span class="p">(</span><span class="k">index</span><span class="o">=</span><span class="k">true</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="n">aa</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
+</span></code></pre></div><ul>
+<li>create custom url (query and insert in CustomURLTable)</li>
+<li>create short url by long url
+<ul>
+<li>check whether CustomURLTable exist or not</li>
+<li>query and insert in URLTable</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>review</p>
+<blockquote>
+<p>1.How to send coupons in bulk (100, 100k, 1million clients)</p>
+</blockquote>
+<ul>
+<li>sending coupons</li>
+</ul>
+<p>100 &ndash; syn, touch system(1 table)
+100 k &ndash; asyn, Message Oriented Middleware, touch system(2 table)
+1 million&ndash; asyn, Message Oriented Middleware, touch system(active users, need log in, search in messate content table first, then insert the message into message table)</p>
+<blockquote>
+<p>2.How to prevent coupon oversale</p>
+</blockquote>
+<ul>
+<li>
+<p>scenario：function need here</p>
+</li>
+<li>
+<p>demand analysis：QPS and Storage</p>
+</li>
+<li>
+<p>service：UrlService</p>
+</li>
+<li>
+<p>data anylysis：SQL vs NoSQL</p>
+</li>
+<li>
+<p>data anylysis：schema design</p>
+</li>
+<li>
+<p>Work Solution</p>
+</li>
+<li>
+<p>Improve access efficiency between web server and data server</p>
+</li>
+</ul>
+<ul>
+<li>Using caching to improve the efficiency of read requests</li>
+</ul>
+<ul>
+<li>Improve access efficiency between users and servers</li>
+</ul>
+<ul>
+<li>Solved the problem of slow access for Chinese users to US servers</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/sde/">SDE</a><a class="tag" href="/tags/coupon-system/">Coupon System</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

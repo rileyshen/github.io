@@ -122,7 +122,7 @@ Client-Id: t5bc5a4tab71mqgs1f880ent6cx8j4&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/lombok/&#34; &gt;Lombok&lt;/a&gt;&lt;/p&gt;
 &lt;ol start=&#34;7&#34;&gt;
-&lt;li&gt;Jackson tutorial &lt;a href=&#34;https://rileyshen.github.io/post/lombok/&#34; &gt;Jackson&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Jackson tutorial &lt;a href=&#34;https://rileyshen.github.io/post/jackson2/&#34; &gt;Jackson&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;nd&#34;&gt;@JsonProperty&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;thumbnail_url&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
         &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;thumbnailUrl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
@@ -132,7 +132,22 @@ Client-Id: t5bc5a4tab71mqgs1f880ent6cx8j4&lt;/p&gt;
             &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;asList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Game&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[].&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
 
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;general-information&#34;&gt;General Information&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;@JsonIgnoreProperties(ignoreUnknown = true) indicates that other fields in the response can be safely ignored. Without this, you’ll get an exception at runtime.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;@JsonInclude(JsonInclude.Include.NON_NULL) indicates that null fields can be skipped and not included.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;@JsonDeserialize indicates that Jackson needs to use Game.Builder when constructing a Game object from JSON strings.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;Failed to connect to api.twitch.com port 443: Connection&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;中国特色错误，换 EXpressVPN&lt;/p&gt;
+&lt;h2 id=&#34;general-information&#34;&gt;General Information&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Provide general information about your project here.&lt;/li&gt;
 &lt;li&gt;What problem does it (intend to) solve?&lt;/li&gt;

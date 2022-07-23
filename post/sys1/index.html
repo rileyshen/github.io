@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | learning System design as a landscape architect 1 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/sys1/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="learning System design as a landscape architect 1"/>
+<meta name="twitter:description" content="Rethink system design in a much fun way, as a former urban planner/landscape planner."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>learning System design as a landscape architect 1</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Tue, Mar 1, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">6-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Rethink system design in a much fun way, as a former urban planner/landscape planner. Take design twitter as example</p>
+<!-- more -->
+<p>Design twitter &ndash; Present a Landscape Design</p>
+<h2 id="1-whats-is-the-scenario-planning-of-this-project">1. what&rsquo;s is the <strong>scenario</strong> planning of this project</h2>
+<p>Landscape Architects won&rsquo;t jump into drawing a good site planning immediately, nor the system design. The first step is always to clarify the project and know your client demands as much as possible.</p>
+<ul>
+<li>what problem you want to solve?</li>
+<li>what basic function need here?</li>
+<li>Features, QPS, DAU, Interface analysis (site condition like land, weather, population, culture analysis in a project)</li>
+</ul>
+<hr>
+<ol>
+<li>
+<p>need basic data about twitter: MAU 330M, DAO: 200m</p>
+</li>
+<li>
+<p>connunicate the basic function need here</p>
+<ul>
+<li>Register / Login</li>
+<li>User Profile Display /  Edit</li>
+<li>Upload Image / Video</li>
+<li>Search</li>
+<li>Post / Share a tweet</li>
+<li>Timeline/News Feed</li>
+<li>Follow / unFollow a user</li>
+</ul>
+</li>
+<li>
+<p>Pick the one your clients need (interviewee)</p>
+<ul>
+<li>Post</li>
+<li>Timeline</li>
+<li>News Feed</li>
+<li>Follow / Unfollow</li>
+<li>Register / Login</li>
+</ul>
+</li>
+<li>
+<p>Features (site condition)</p>
+<ul>
+<li>
+<p>Concurrent User :</p>
+</li>
+<li>
+<p>Read QPS: <strong>DAO * average number of queries by a user / seconds in a day</strong></p>
+</li>
+</ul>
+<p>150 M * 50 / 86400 ~ 100k</p>
+<ul>
+<li>Peak = 100k * 3 ~ 300k</li>
+<li>Fast Growing: Max peak users in 3 months = Peak users * 2 (not for twitter)</li>
+<li>Write QPS</li>
+</ul>
+</li>
+</ol>
+<p>QPS</p>
+<ul>
+<li>100: your laptop can the web server</li>
+<li>1 k : a web server, need consider single point failure, SQL database</li>
+<li>1 m : 100 web server cluster, need consider maintainance, NoSQL database(Memchched), Cassandra is 10 k QPS</li>
+</ul>
+<hr>
+<h2 id="2-master-plan-and-zoning-concept">2. master plan and zoning concept</h2>
+<p>After site analysis, It&rsquo;s time to give a draft drawing sketche, with enough imformation (which need communicate with your client/team members)</p>
+<p>In a draft drawing sketches, it would contains：</p>
+<ul>
+<li>traffic plan</li>
+<li>commerical plan</li>
+<li>green system</li>
+</ul>
+<hr>
+<p>System design:(zoning plan)</p>
+<h3 id="service"><strong>Service</strong></h3>
+<h3 id="router"><strong>Router</strong></h3>
+<h4 id="-user-service">+ <strong>User Service</strong></h4>
+<ul>
+<li>Register</li>
+<li>Login</li>
+</ul>
+<h4 id="-tweet-service">+ <strong>Tweet Service</strong></h4>
+<ul>
+<li>Post a tweet</li>
+<li>News Feed</li>
+<li>Timeline</li>
+</ul>
+<h4 id="-media-service">+ <strong>Media Service</strong></h4>
+<ul>
+<li>Upload Image</li>
+<li>Upload Video</li>
+</ul>
+<h4 id="-friendship-service">+ <strong>Friendship Service</strong></h4>
+<ul>
+<li>Follow</li>
+<li>Unfollow</li>
+</ul>
+<hr>
+<h2 id="3-core-area-plans1-500">3. core area plans(1: 500)</h2>
+<p>In a draft drawing sketches, it would contains：</p>
+<ul>
+<li>pavment plan</li>
+<li>rainstom plan</li>
+</ul>
+<hr>
+<h3 id="storage"><strong>Storage</strong></h3>
+<h4 id="-user-service-1">+ <strong>User Service</strong></h4>
+<ul>
+<li>Register</li>
+<li>Login</li>
+<li><strong>SQL</strong></li>
+</ul>
+<h4 id="-tweet-service-1">+ <strong>Tweet Service</strong></h4>
+<ul>
+<li>Post a tweet</li>
+<li>News Feed</li>
+<li>Timeline</li>
+<li><strong>NoSQL</strong></li>
+</ul>
+<h4 id="-media-service-1">+ <strong>Media Service</strong></h4>
+<ul>
+<li>Upload Image</li>
+<li>Upload Video</li>
+<li><strong>File System</strong></li>
+</ul>
+<h4 id="-friendship-service-1">+ <strong>Friendship Service</strong></h4>
+<ul>
+<li>Follow</li>
+<li>Unfollow</li>
+<li><strong>SQL/NoSQL</strong></li>
+</ul>
+<hr>
+<blockquote>
+<p>Please design schema
+<strong>User Service</strong></p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">User</span> <span class="nx">Table</span>
+<span class="nx">id</span>          <span class="nx">integer</span>
+<span class="nx">username</span>    <span class="nx">varchar</span>
+<span class="nx">email</span>       <span class="nx">varchar</span>
+<span class="nx">password</span>    <span class="nx">varchar</span>
+</code></pre></div><p><strong>Tweet Service</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Tweet</span> <span class="nx">Table</span>
+<span class="nx">id</span>              <span class="nx">integer</span>
+<span class="nx">user_id</span>         <span class="nx">Foreign</span> <span class="nx">Key</span>
+<span class="nx">content</span>         <span class="nx">text</span>
+<span class="nx">created_time</span>    <span class="nx">timestamp</span>
+</code></pre></div><p><strong>Media Service</strong></p>
+<p><strong>Friendship Service</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Friendship</span> <span class="nx">Table</span>
+<span class="nx">from_user_id</span>    <span class="nx">Foreign</span> <span class="nx">Key</span>     
+<span class="nx">to_user_id</span>      <span class="nx">Foreign</span> <span class="nx">Key</span>
+<span class="nx">created_time</span>    <span class="nx">timestamp</span>
+</code></pre></div><blockquote>
+<p>Interviewer: how to storage and get the News Feed</p>
+</blockquote>
+<h3 id="pull-vs-push">PULL vs PUSH</h3>
+<h4 id="pull">PULL</h4>
+<blockquote>
+<p>algorithm: when users check New Feed, get every friend&rsquo;s the first 100 tweets, merge them into the frist 100 News Feed</p>
+</blockquote>
+<blockquote>
+<p>Mergr K sorted Arrays</p>
+</blockquote>
+<blockquote>
+<p>time complexity: basically you can ignore the Mergr K sorted Arrays times, N times DB Reads is much more costly</p>
+</blockquote>
+<p><code>User</code> &ndash; fetch News Feed -&gt; <code>Web Server</code> &lt;-get followings-&gt;<code>Friendship Table</code></p>
+<p><code>Web Server</code> &lt;-get tweets from followings-&gt;<code>Tweet Table</code></p>
+<p><code>Web Server</code> -merge and return-&gt;<code>User</code></p>
+<p>cons:</p>
+<p>multiple DB Reads is very slow when users fetch News Feed</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">getNewsFeed</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+    <span class="err">•</span> <span class="n">followings</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="na">getFollowings</span><span class="o">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="na">user</span><span class="o">)</span>
+    <span class="err">•</span> <span class="n">news_feed</span> <span class="o">=</span> <span class="n">empty</span>
+    <span class="err">•</span> <span class="k">for</span> <span class="n">follow</span> <span class="n">in</span> <span class="n">followings</span><span class="o">:</span> <span class="err">•</span> <span class="n">tweets</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="na">getTweets</span><span class="o">(</span><span class="n">follow</span><span class="o">.</span><span class="na">to_user</span><span class="o">,</span> <span class="n">100</span><span class="o">)</span> <span class="err">•</span> <span class="n">news_feed</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">tweets</span><span class="o">)</span>
+    <span class="err">•</span> <span class="n">sort</span><span class="o">(</span><span class="n">news_feed</span><span class="o">)</span>
+    <span class="err">•</span> <span class="k">return</span> <span class="n">news_feed</span><span class="o">[:</span><span class="n">100</span><span class="o">]</span> <span class="err">#</span> <span class="k">return</span> <span class="n">the</span> <span class="n">first</span> <span class="n">100</span>
+
+
+<span class="err">•</span> <span class="n">postTweet</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">tweet</span><span class="o">)</span>
+    <span class="err">•</span> <span class="n">DB</span><span class="o">.</span><span class="na">insertTweet</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">user</span><span class="o">,</span> <span class="n">tweet</span><span class="o">)</span>
+    <span class="err">•</span> <span class="k">return</span> <span class="n">succes</span>
+</code></pre></div><h4 id="push">PUSH</h4>
+<blockquote>
+<p>algorithm: every user has a list store his News Feed information</p>
+</blockquote>
+<blockquote>
+<p>Fanout: User post a tweet, push the tweet into his followers&rsquo;s News Feed lists</p>
+</blockquote>
+<blockquote>
+<p>when a user check his News Feed, he just read from his News Feed list</p>
+</blockquote>
+<blockquote>
+<p>time complexity: 1 DB Read, N times Writes. (Async)</p>
+</blockquote>
+<p><code>User</code> &lt;&ndash; Post a new tweet -&gt; <code>Web Server</code> &lt;-Insert the tweet to DB-&gt;<code>tweet Table</code></p>
+<p><code>Web Server</code> -sent tweets to friends-&gt;<code>Async Tasks Server</code></p>
+<p><code>Async Tasks Server</code> &lt;-get followers-&gt;<code>friendship Table</code></p>
+<p><code>Async Tasks Server</code> &lt;-Fanout: insert new tweet to followers news feed-&gt;<code>New Feed Table</code></p>
+<p>cons:</p>
+<p>huge followers numbers</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">getNewsFeed</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+    <span class="err">•</span> <span class="k">return</span> <span class="n">DB</span><span class="o">.</span><span class="na">getNewsFeed</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">user</span><span class="o">)</span>
+
+<span class="err">•</span> <span class="n">postTweet</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">tweet_info</span><span class="o">)</span>
+
+    <span class="err">•</span> <span class="n">tweet</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="na">insertTweet</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">user</span><span class="o">,</span> <span class="n">tweet_info</span><span class="o">)</span>
+    <span class="err">•</span> <span class="n">AsyncService</span><span class="o">.</span><span class="na">fanoutTweet</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">user</span><span class="o">,</span> <span class="n">tweet</span><span class="o">)</span>
+    <span class="err">•</span> <span class="k">return</span> <span class="n">success</span>
+<span class="nl">
+</span><span class="nl">AsyncService:</span><span class="o">:</span><span class="n">fanoutTweet</span><span class="o">(</span><span class="n">user</span><span class="o">,</span> <span class="n">tweet</span><span class="o">)</span>
+    <span class="err">•</span> <span class="n">followers</span> <span class="o">=</span> <span class="n">DB</span><span class="o">.</span><span class="na">getFollowers</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+    <span class="err">•</span> <span class="k">for</span> <span class="n">follower</span> <span class="n">in</span> <span class="n">followers</span><span class="o">:</span>
+    <span class="err">•</span> <span class="n">DB</span><span class="o">.</span><span class="na">insertNewsFeed</span><span class="o">(</span><span class="n">tweet</span><span class="o">,</span> <span class="n">follower</span> <span class="o">)</span>   
+</code></pre></div><h4 id="pull-vs-push-1">PULL vs PUSH</h4>
+<p>tweet and facebook are using pull</p>
+<h2 id="4-details-design-show-how-to-solve-some-specific-problem-and-improve-the-plan-in-the-future">4. details design show how to solve some specific problem and improve the plan in the future</h2>
+<ul>
+<li>
+<h3 id="optimize">Optimize</h3>
+</li>
+<li>
+<h4 id="scalability-enhancement-of-pull-server-functions">Scalability Enhancement of Pull Server functions</h4>
+<ul>
+<li>the slowest part is happening when user request News Feed
+<ul>
+<li>add Cache before DB Read</li>
+<li>cache every user&rsquo;s Timeline
+<ul>
+<li>n times cache reqest</li>
+<li>trade off: all the cache, or the recent 1000 in cache</li>
+</ul>
+</li>
+<li>cache every user&rsquo;s News Feed
+<ul>
+<li>with Cache: merge users recent 100 tweets, then get the first 100</li>
+<li>without Cache: merger all the tweets after timestamp</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h4 id="scalability-enhancement-of-push-server-functions">Scalability Enhancement of Push Server functions</h4>
+<ul>
+<li>compare Pull model store News Feed in Memory, Push model stores in Disk, and Disk is cheap</li>
+<li>Inactive Users
+<ul>
+<li>Rank followers by weight(last login time)</li>
+</ul>
+</li>
+<li>followers &raquo; following: fanout would take hours
+<ul>
+<li>trade off: Pull + Push vs Pull</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<h4 id="right-optimize-thinking">right Optimize thinking</h4>
+</li>
+</ul>
+<p>Try to optimize with minimal changes to the existing model;</p>
+<p>Estimate long-term growth and assess whether it is worth switching the entire model</p>
+<ul>
+<li>
+<h4 id="push--pull">Push + Pull</h4>
+<ul>
+<li>ordinal user (Push)</li>
+<li>influencer (Pull), followers come to influencer&rsquo;s timeline fetch the News Feed, merge into their News Feed</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">User</span> <span class="nx">Table</span>
+<span class="nx">id</span>           <span class="nx">integer</span>
+<span class="nx">username</span>     <span class="nx">varchar</span>
+<span class="nx">email</span>        <span class="nx">varchar</span>
+<span class="nx">password</span>     <span class="nx">varchar</span>
+<span class="nx">is_influencer</span> <span class="kr">boolean</span>
+</code></pre></div><ul>
+<li>
+<h3 id="maintenance">Maintenance</h3>
+<ul>
+<li>Robust</li>
+<li>Scalability</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>unfollow problem(async)</p>
+</blockquote>
+<ul>
+<li>
+<p>follow: merge timeline into News Feed asynchronously</p>
+</li>
+<li>
+<p>unfollow: pick out tweets from News Feed asynchronously</p>
+</li>
+<li>
+<p>Async reduces the processing time</p>
+</li>
+<li>
+<p>async improve user experience</p>
+</li>
+<li>
+<p>however, after unfollowing, the user may still find his News Feed in timeline</p>
+</li>
+</ul>
+<blockquote>
+<p>store likes</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Tweet</span> <span class="nx">Table</span>
+<span class="nx">id</span>                  <span class="nx">integer</span>
+<span class="nx">user_id</span>             <span class="nx">Foreign</span> <span class="nx">Key</span>
+<span class="nx">content</span>             <span class="nx">text</span>
+<span class="nx">created_time</span>        <span class="nx">timestamp</span>
+<span class="nx">nums_of_like</span> <span class="o">*</span>      <span class="nx">integer</span>
+<span class="nx">nums_of_comments</span> <span class="o">*</span>  <span class="nx">integer</span>
+<span class="nx">nums_of_retweets</span> <span class="o">*</span>  <span class="nx">integer</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Like</span> <span class="nx">Table</span>
+<span class="nx">id</span>                  <span class="nx">integer</span>
+<span class="nx">user_id</span>             <span class="nx">Foreign</span> <span class="nx">Key</span>
+<span class="nx">tweet_id</span>            <span class="nx">Foreign</span> <span class="nx">Key</span>
+<span class="nx">created_time</span>        <span class="nx">timestamp</span>
+</code></pre></div><blockquote>
+<p>Normalize vs Denormalize</p>
+</blockquote>
+<h4 id="normalize-vs-denormalize-likes">Normalize vs Denormalize likes</h4>
+<h5 id="normalize-likes">Normalize likes</h5>
+<blockquote>
+<p>SELECT COUNT * FROM like_table where tweet_id=xxx;</p>
+</blockquote>
+<ul>
+<li>
+<p>Pros: Standardized, most accurate</p>
+</li>
+<li>
+<p>cons: slow, would cause O(n) SQL Queries</p>
+</li>
+</ul>
+<h5 id="denormalize-likes">Denormalize likes</h5>
+<blockquote>
+<p>UPDATE like_table SET num_of_likes = num_of_likes + 1 where tweet_id=xxx;</p>
+</blockquote>
+<blockquote>
+<p>UPDATE like_table SET num_of_likes = num_of_likes - 1 where tweet_id=xxx;</p>
+</blockquote>
+<ul>
+<li>no need SQL Queries, because num_of_likes stores in tweet</li>
+</ul>
+<blockquote>
+<p>Thundering Herd</p>
+</blockquote>
+<p>The “thundering herd” problem occurs in a highly concurrent environment (typically, many users). When many users make a request to the same piece of data at the same time, and there is a cache miss (the data for the cached element is not present in the cache, data is kicked out due to cache expiration or elimination by the elimination algorithm, etc) the thundering herd problem is triggered.</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/sde/">SDE</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

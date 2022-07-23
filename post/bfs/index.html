@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about BFS </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/bfs/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about BFS"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about BFS</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">17-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>master BFS in algo</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#binary-tree-zigzag-level-order-traversal-103" >Binary Tree ZigZag Level Order Traversal 103</a></li>
+<li><a href="#populating-next-right-pointers-in-each-node-116" >Populating Next Right Pointers in Each Node 116</a></li>
+<li><a href="#populating-next-right-pointers-in-each-node-ii-117" >Populating Next Right Pointers in Each Node II 117</a></li>
+<li><a href="#binary-tree-right-side-view-199" >Binary Tree Right Side View 199</a></li>
+<li><a href="#number-of-islands-200" >Number of Islands 200</a></li>
+<li><a href="#minesweeper-529" >Minesweeper 529</a></li>
+<li><a href="#all-nodes-distance-k-in-binary-tree-863" >All Nodes Distance K in Binary Tree 863</a></li>
+<li><a href="#shortest-path-in-a-grid-with-obstacles-eliminat" >Shortest Path in a Grid with Obstacles Eliminat</a></li>
+<li><a href="#maximum-candies-you-can-get-from-boxes-1298" >Maximum Candies You Can Get from Boxes 1298</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="binary-tree-zigzag-level-order-traversal-103">Binary Tree ZigZag Level Order Traversal 103</h2>
+<p><a id="markdown-binary-tree-zigzag-level-order-traversal-103" name="binary-tree-zigzag-level-order-traversal-103"></a></p>
+<p>这道题我经常脑子犯糊涂，第一个解法是完全按 BFS 套路来，然后偶数层 list 反转 Collections.reverse</p>
+<p>BFS 经典，从 q 后面进</p>
+<ul>
+<li>1         1</li>
+<li>2 3       2</li>
+<li>345       3</li>
+<li>4567</li>
+</ul>
+<p>第二个是反转加入到 list 头上, 跟上面的用自带的 reverse 是一个思路，这里是手动加到头上，用 Linked list 更好</p>
+<ul>
+<li>1         1       sub: 1</li>
+<li>2 3       2       sub       3 2</li>
+<li>345       3</li>
+<li>4567</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">zigzagLevelOrder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="kt">boolean</span> <span class="n">zigzag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+             <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+            
+                <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+               
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">TreeNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">zigzag</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">0</span> <span class="o">,</span> <span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                         <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+                    <span class="o">}</span>
+                    
+                    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                    <span class="o">}</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+            <span class="n">zigzag</span> <span class="o">=</span> <span class="o">!</span><span class="n">zigzag</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>On
+Runtime: 1 ms, faster than 86.05% of Java online submissions for Binary Tree Zigzag Level Order Traversal.
+Memory Usage: 40.8 MB, less than 91.73% of Java online submissions for Binary Tree Zigzag Level Order Traversal.</p>
+<p>第三个是 deque</p>
+<ul>
+<li>1                 1   从头 poll</li>
+<li>2 3   从背后塞     从背后 poll 3</li>
+<li>542   从背后塞     从背后 poll 2</li>
+<li>7654  从头 poll</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">zigzagLevelOrder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">==</span><span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+        <span class="kt">boolean</span> <span class="n">level</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+        <span class="n">Deque</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">deque</span><span class="o">=</span><span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="n">deque</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">deque</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span>
+        <span class="o">{</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">sublist</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">level</span><span class="o">)</span>
+            <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">count</span><span class="o">=</span><span class="n">deque</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                <span class="o">{</span>
+                    <span class="n">TreeNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">deque</span><span class="o">.</span><span class="na">pollFirst</span><span class="o">();</span>
+                    <span class="n">sublist</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                        <span class="n">deque</span><span class="o">.</span><span class="na">offerLast</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                        <span class="n">deque</span><span class="o">.</span><span class="na">offerLast</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">else</span>
+            <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">count</span><span class="o">=</span><span class="n">deque</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">count</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                <span class="o">{</span>
+                    <span class="n">TreeNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">deque</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+                    <span class="n">sublist</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                        <span class="n">deque</span><span class="o">.</span><span class="na">offerFirst</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                        <span class="n">deque</span><span class="o">.</span><span class="na">offerFirst</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">level</span><span class="o">=!</span><span class="n">level</span><span class="o">;</span>
+            <span class="n">result</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">sublist</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</code></pre></div><p>从前面的大部分对树的操作来看，都需要从根节点到下一层一层的查找。</p>
+<p>　　一颗满树，每层节点数大概为 2n-1，那么最底层的节点个数比树的其它节点数多 1，因此，查找、插入或删除节点的操作大约有一半都需要找到底层的节点，另外四分之一的节点在倒数第二层，依次类推。</p>
+<p>　　总共 N 层共有 2n-1 个节点，那么时间复杂度为 O(logn),底数为 2。</p>
+<p>　　在有 1000000 个数据项的无序数组和链表中，查找数据项平均会比较 500000 次，但是在有 1000000 个节点的二叉树中，只需要 20 次或更少的比较即可。</p>
+<p>　　有序数组可以很快的找到数据项，但是插入数据项的平均需要移动 500000 次数据项，在 1000000 个节点的二叉树中插入数据项需要 20 次或更少比较，在加上很短的时间来连接数据项。</p>
+<p>　　同样，从 1000000 个数据项的数组中删除一个数据项平均需要移动 500000 个数据项，而在 1000000 个节点的二叉树中删除节点只需要 20 次或更少的次数来找到他，然后在花一点时间来找到它的后继节点，一点时间来断开节点以及连接后继节点。</p>
+<p>　　所以，树对所有常用数据结构的操作都有很高的效率。</p>
+<p>　　遍历可能不如其他操作快，但是在大型数据库中，遍历是很少使用的操作，它更常用于程序中的辅助算法来解析算术或其它表达式。</p>
+<h2 id="populating-next-right-pointers-in-each-node-116">Populating Next Right Pointers in Each Node 116</h2>
+<p><a id="markdown-populating-next-right-pointers-in-each-node-116" name="populating-next-right-pointers-in-each-node-116"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+
+struct Node <span class="o">{</span>
+  int val<span class="p">;</span>
+  Node *left<span class="p">;</span>
+  Node *right<span class="p">;</span>
+  Node *next<span class="p">;</span>
+<span class="o">}</span>
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be <span class="nb">set</span> to NULL.
+
+Initially, all next pointers are <span class="nb">set</span> to NULL.
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4,5,6,7<span class="o">]</span>
+Output: <span class="o">[</span>1,#,2,3,#,4,5,6,7,#<span class="o">]</span>
+Explanation: Given the above perfect binary tree <span class="o">(</span>Figure A<span class="o">)</span>, your <span class="k">function</span> should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with <span class="s1">&#39;#&#39;</span> signifying the end of each level.
+</code></pre></div><p>层序遍历，因为需要用 root 来定 next 所以用 preorder</p>
+<p>由于是完全二叉树，所以若节点的左子结点存在的话，其右子节点必定存在</p>
+<p>Time Complexity : O(n), where n is the number of elements in root</p>
+<p>Space Complexity : O(log n), for recursion stack of a perfect BST</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Node</span> <span class="nf">connect</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+       <span class="o">}</span>
+       
+         <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="c1">// 2.next 有 3，
+</span><span class="c1"></span>         <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="o">}</span> 
+      <span class="n">connect</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+     <span class="n">connect</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        
+       <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Node</span> <span class="nf">connect1</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="n">conn</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">conn</span><span class="o">(</span><span class="n">Node</span> <span class="n">left</span><span class="o">,</span> <span class="n">Node</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span><span class="o">;</span>
+        
+        <span class="n">left</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span>
+        <span class="n">conn</span><span class="o">(</span><span class="n">left</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">left</span><span class="o">.</span> <span class="n">right</span><span class="o">);</span>
+        <span class="n">conn</span><span class="o">(</span><span class="n">left</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">right</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="n">conn</span><span class="o">(</span><span class="n">right</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">right</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>using a queue</p>
+<p>On, time and space</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Node</span> <span class="nf">connect</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+       <span class="o">}</span>
+       <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+    
+    <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+        <span class="n">Node</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">prev</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+       <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>Time Complexity : O(n), where n is the number of elements in root</p>
+<p>Space Complexity : O(1)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Node</span> <span class="nf">connect2</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        
+        <span class="n">Node</span> <span class="n">level</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        <span class="k">while</span><span class="o">(</span><span class="n">level</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">level</span><span class="o">;</span>
+            <span class="k">while</span><span class="o">(</span><span class="n">curr</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">curr</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">curr</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                    <span class="n">curr</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+                <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="populating-next-right-pointers-in-each-node-ii-117">Populating Next Right Pointers in Each Node II 117</h2>
+<p><a id="markdown-populating-next-right-pointers-in-each-node-ii-117" name="populating-next-right-pointers-in-each-node-ii-117"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a binary tree
+
+struct Node <span class="o">{</span>
+  int val<span class="p">;</span>
+  Node *left<span class="p">;</span>
+  Node *right<span class="p">;</span>
+  Node *next<span class="p">;</span>
+<span class="o">}</span>
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be <span class="nb">set</span> to NULL.
+
+Initially, all next pointers are <span class="nb">set</span> to NULL.
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>1,2,3,4,5,null,7<span class="o">]</span>
+Output: <span class="o">[</span>1,#,2,3,#,4,5,7,#<span class="o">]</span>
+Explanation: Given the above binary tree <span class="o">(</span>Figure A<span class="o">)</span>, your <span class="k">function</span> should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with <span class="s1">&#39;#&#39;</span> signifying the end of each level.
+
+</code></pre></div><p>非完全二叉树， 题目要求 constant space</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Node</span> <span class="nf">connect</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+       <span class="o">}</span>
+       <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+    
+    <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+        <span class="n">Node</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="c1">// prev == null , cur is the first node
+</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">prev</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+       <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>不需要用 queue， 把每一行都看作一个链表</p>
+<p>.       6
+/      <br>
+2        8       <br>
+/        /<br>
+0       7 9</p>
+<p>cur 2</p>
+<p>pre = dummy(-1)</p>
+<p>step 1:</p>
+<p>prev.next = cur.left;</p>
+<p>prev = prev.next;</p>
+<blockquote>
+<p>dummy(-1) -&gt; prev(0)</p>
+</blockquote>
+<p>step2:</p>
+<p>cur = 8;</p>
+<p>prev.next = cur.left;</p>
+<p>prev = prev.next;</p>
+<blockquote>
+<p>dummy(-1) -&gt; 0 -&gt; prev(7)</p>
+</blockquote>
+<p>step3:</p>
+<p>cur = 8;</p>
+<p>prev.next = cur.right;</p>
+<p>prev = prev.next;</p>
+<blockquote>
+<p>dummy(-1) -&gt; 0 -&gt; 7 -&gt; prev(9)</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Node</span> <span class="nf">connect</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">if</span><span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+         <span class="o">}</span>
+         <span class="c1">// cur 每一层链表的父层
+</span><span class="c1"></span>        <span class="n">Node</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        
+        
+        <span class="k">while</span><span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 每一层都设一个 dummy 头    
+</span><span class="c1"></span>            <span class="n">Node</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">(-</span><span class="n">1</span><span class="o">);</span>
+            <span class="n">Node</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">;</span>
+        <span class="c1">// prev 是这层的访问节点    
+</span><span class="c1"></span>            <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+                    <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="o">}</span>
+                 <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="n">prev</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+                    <span class="n">prev</span> <span class="o">=</span> <span class="n">prev</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="c1">// 父层的下一个节点
+</span><span class="c1"></span>                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 当前层遍历好后，赋值给 cur， 等于cur 下降到了这一层，开始新得遍历
+</span><span class="c1"></span>        <span class="n">cur</span> <span class="o">=</span> <span class="n">dummy</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        
+    <span class="o">}</span> 
+    <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="binary-tree-right-side-view-199">Binary Tree Right Side View 199</h2>
+<p><a id="markdown-binary-tree-right-side-view-199" name="binary-tree-right-side-view-199"></a></p>
+<p>这题 recursion 我有个误区，就是我第一反应就是只往右边就可以了，但实际上这只是最右边，也包括 root.right.right == null, root.right.left != null, 然后 再往下的右孩子是有值的这种情况</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary tree, imagine yourself standing on the right side of it, <span class="k">return</span> the values of the nodes you can see ordered from top to bottom.
+
+ 
+
+Example 1:
+
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>1,2,3,null,5,null,4<span class="o">]</span>
+Output: <span class="o">[</span>1,3,4<span class="o">]</span>
+</code></pre></div><p>用 queue 入队出队，空间复杂度 O(n), 额外的队列空间</p>
+<p>打印时候： if (i == size - 1) res.add(node.val); 将当前层的最后一个节点放入结果</p>
+<p>DFS</p>
+<p>根节点 -》 右子树 -》 左子树， 保证每层最先访问的是最右边的节点</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">rightSideView</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">list</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+     <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">helper</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">,</span> <span class="kt">int</span> <span class="n">level</span><span class="o">)</span> <span class="o">{</span>
+         <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+             <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+         <span class="o">}</span>
+         <span class="c1">// 0 1, 1
+</span><span class="c1"></span>         <span class="k">if</span> <span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">level</span><span class="o">)</span> <span class="o">{</span>
+             <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        
+         <span class="o">}</span>
+            
+         
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">list</span><span class="o">,</span> <span class="n">level</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">list</span><span class="o">,</span> <span class="n">level</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><p>if (list.size() == level)  list.add(root.val); 当前节点所在的层还没有出现在 res 里， 说明这是第一个被访问的节点</p>
+<h2 id="number-of-islands-200">Number of Islands 200</h2>
+<p><a id="markdown-number-of-islands-200" name="number-of-islands-200"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an m x n 2D binary grid grid which represents a map of <span class="s1">&#39;1&#39;</span>s <span class="o">(</span>land<span class="o">)</span> and <span class="s1">&#39;0&#39;</span>s <span class="o">(</span>water<span class="o">)</span>, <span class="k">return</span> the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">grid</span> <span class="o">=</span> <span class="o">[</span>
+  <span class="o">[</span><span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;0&#34;</span><span class="o">]</span>,
+  <span class="o">[</span><span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;0&#34;</span><span class="o">]</span>,
+  <span class="o">[</span><span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;0&#34;</span><span class="o">]</span>,
+  <span class="o">[</span><span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;0&#34;</span>,<span class="s2">&#34;0&#34;</span><span class="o">]</span>
+<span class="o">]</span>
+Output: <span class="m">1</span>
+</code></pre></div><p>BFS: 用 queue， 判断队列首部节点是否未越界且为 1 ， 1 的话置零，然后把节点的上下左右都加入队列</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">numIslands</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">][</span><span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(!</span><span class="n">visited</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">bfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">visited</span><span class="o">);</span>
+                    <span class="n">count</span><span class="o">++;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bfs</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">,</span> <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="n">q</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]</span> <span class="o">{</span><span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">});</span>
+         <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+             <span class="n">i</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">];</span> <span class="n">j</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+             <span class="k">if</span> <span class="o">(</span><span class="n">0</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">j</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span><span class="o">)</span> <span class="o">{</span>
+                 <span class="n">visited</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                 <span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="o">;</span>
+                 <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">});</span>
+                 <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">});</span>
+                 <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">i</span> <span class="o">,</span> <span class="n">j</span> <span class="o">+</span> <span class="n">1</span><span class="o">});</span>
+                 <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">i</span> <span class="o">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">1</span><span class="o">});</span>
+            <span class="o">}</span>
+                
+        <span class="o">}</span>
+    <span class="o">}</span>
+        
+</code></pre></div><p>如何是 dfs 也是类似的，</p>
+<p>二叉树</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>图的套路</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">inArea</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+
+    <span class="c1">// 判断坐标 r ，c 是否在网格里
+</span><span class="c1"></span>    <span class="kt">boolean</span> <span class="nf">inArea</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>避免重复遍历</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">traverse</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">inArea</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// 不是岛屿
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">grid</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">!=</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">grid</span><span class="o">[</span><span class="n">r</span><span class="o">][</span><span class="n">c</span><span class="o">]</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="c1">// 已遍历过
+</span><span class="c1"></span>    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">c</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">traverse</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">r</span><span class="o">,</span> <span class="n">c</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+
+    <span class="c1">// 判断坐标 r ，c 是否在网格里
+</span><span class="c1"></span>    <span class="kt">boolean</span> <span class="nf">inArea</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">r</span><span class="o">,</span> <span class="kt">int</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">0</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">numIslands</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+                    <span class="n">count</span><span class="o">++;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+        
+    <span class="k">if</span> <span class="o">(</span><span class="n">0</span> <span class="o">&gt;</span> <span class="n">i</span> <span class="o">||</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">0</span> <span class="o">&gt;</span> <span class="n">j</span> <span class="o">||</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">||</span> <span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+               
+    <span class="n">grid</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="o">;</span>
+    <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+    <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+    <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span> <span class="o">,</span> <span class="n">j</span><span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+    <span class="n">dfs</span><span class="o">(</span><span class="n">grid</span><span class="o">,</span> <span class="n">i</span> <span class="o">,</span> <span class="n">j</span><span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+             
+                
+            
+    <span class="o">}</span>
+</code></pre></div><h2 id="minesweeper-529">Minesweeper 529</h2>
+<p><a id="markdown-minesweeper-529" name="minesweeper-529"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Let<span class="s1">&#39;s play the minesweeper game (Wikipedia, online game)!
+</span><span class="s1">
+</span><span class="s1">You are given an m x n char matrix board representing the game board where:
+</span><span class="s1">
+</span><span class="s1">&#39;</span>M<span class="s1">&#39; represents an unrevealed mine,
+</span><span class="s1">&#39;</span>E<span class="s1">&#39; represents an unrevealed empty square,
+</span><span class="s1">&#39;</span>B<span class="s1">&#39; represents a revealed blank square that has no adjacent mines (i.e., above, below, left, right, and all 4 diagonals),
+</span><span class="s1">digit (&#39;</span>1<span class="s1">&#39; to &#39;</span>8<span class="s1">&#39;) represents how many mines are adjacent to this revealed square, and
+</span><span class="s1">&#39;</span>X<span class="s1">&#39; represents a revealed mine.
+</span><span class="s1">You are also given an integer array click where click = [clickr, clickc] represents the next click position among all the unrevealed squares (&#39;</span>M<span class="s1">&#39; or &#39;</span>E<span class="s1">&#39;).
+</span><span class="s1">
+</span><span class="s1">Return the board after revealing this position according to the following rules:
+</span><span class="s1">
+</span><span class="s1">If a mine &#39;</span>M<span class="s1">&#39; is revealed, then the game is over. You should change it to &#39;</span>X<span class="s1">&#39;.
+</span><span class="s1">If an empty square &#39;</span>E<span class="s1">&#39; with no adjacent mines is revealed, then change it to a revealed blank &#39;</span>B<span class="s1">&#39; and all of its adjacent unrevealed squares should be revealed recursively.
+</span><span class="s1">If an empty square &#39;</span>E<span class="s1">&#39; with at least one adjacent mine is revealed, then change it to a digit (&#39;</span>1<span class="s1">&#39; to &#39;</span>8<span class="err">&#39;</span><span class="o">)</span> representing the number of adjacent mines.
+Return the board when no more squares will be revealed.
+ 
+
+Example 1:
+
+
+Input: <span class="nv">board</span> <span class="o">=</span> <span class="o">[[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;M&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]]</span>, <span class="nv">click</span> <span class="o">=</span> <span class="o">[</span>3,0<span class="o">]</span>
+Output: <span class="o">[[</span><span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;B&#34;</span><span class="o">]</span>,<span class="o">[</span><span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;M&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;B&#34;</span><span class="o">]</span>,<span class="o">[</span><span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;B&#34;</span><span class="o">]</span>,<span class="o">[</span><span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;B&#34;</span>,<span class="s2">&#34;B&#34;</span><span class="o">]]</span>
+</code></pre></div><p>这里是 8 个方向</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[]</span> <span class="n">dx</span> <span class="o">=</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">};</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">dy</span> <span class="o">=</span> <span class="o">{</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span>  <span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">};</span>
+
+<span class="kd">public</span> <span class="kt">char</span><span class="o">[][]</span> <span class="nf">updateBoard</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">board</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">click</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// if the first step is the M 
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">click</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">click</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">board</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;M&#39;</span><span class="o">){</span>
+        <span class="n">board</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;X&#39;</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">board</span><span class="o">;</span>
+    <span class="o">}</span>
+
+     <span class="c1">// if the first step is E, bfs to the 8 dir 
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">board</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">board</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+    <span class="kt">boolean</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">m</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+    <span class="n">visited</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="n">Queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">});</span>
+    <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">j</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        <span class="c1">// 判断周围是否有雷
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">8</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">newX</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">dx</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">newX</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">dx</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">newX</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">newX</span> <span class="o">&lt;</span> <span class="n">board</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">newY</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">newY</span> <span class="o">&lt;</span> <span class="n">board</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">board</span><span class="o">[</span><span class="n">newX</span><span class="o">][</span><span class="n">newY</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;M&#39;</span> <span class="o">)</span> <span class="o">{</span>
+                    <span class="n">count</span><span class="o">++;</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="c1">// if (i, j) 有雷，该位置为 x， 否则就是 B, 没点到所以这里的 M 不用变成 X
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">board</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)(</span><span class="n">count</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">board</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;B&#39;</span><span class="o">;</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">8</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">newX</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">dx</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+                <span class="kt">int</span> <span class="n">newY</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">dy</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">newX</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span>  <span class="n">newX</span> <span class="o">&gt;=</span> <span class="n">board</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span>  <span class="n">newY</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span>  <span class="n">newY</span> <span class="o">&gt;=</span> <span class="n">board</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">||</span>  <span class="n">board</span><span class="o">[</span><span class="n">newX</span><span class="o">][</span><span class="n">newY</span><span class="o">]</span> <span class="o">!=</span> <span class="sc">&#39;E&#39;</span> <span class="o">||</span> <span class="n">visited</span><span class="o">[</span><span class="n">newX</span><span class="o">][</span><span class="n">newY</span><span class="o">])</span> <span class="o">{</span>
+                    <span class="k">continue</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="n">visited</span><span class="o">[</span><span class="n">newX</span><span class="o">][</span><span class="n">newY</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">newX</span><span class="o">,</span> <span class="n">newY</span><span class="o">});</span>
+            <span class="o">}</span>
+                
+            <span class="o">}</span>
+        <span class="o">}</span>
+             <span class="k">return</span> <span class="n">board</span><span class="o">;</span>       
+        
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+<span class="o">}</span>    
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;M&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;M&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;M&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span>,
+<span class="o">[</span><span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;M&#34;</span>,<span class="s2">&#34;M&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span>,<span class="s2">&#34;E&#34;</span><span class="o">]</span> <span class="o">]</span>
+<span class="o">[</span>0,0<span class="o">]</span>
+</code></pre></div><p>dfs</p>
+<ul>
+<li>起点是 M， 修改好，游戏结束</li>
+<li>空，E， 向 8 方向搜索，直到遇到雷区域停止</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span><span class="o">[]</span> <span class="n">dx</span> <span class="o">=</span> <span class="o">{-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">};</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">dy</span> <span class="o">=</span> <span class="o">{</span> <span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,-</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span>  <span class="n">1</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">};</span>
+
+<span class="kd">public</span> <span class="kt">char</span><span class="o">[][]</span> <span class="nf">updateBoard</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">board</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">click</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">click</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">click</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">board</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;M&#39;</span><span class="o">){</span>
+        <span class="n">board</span><span class="o">[</span><span class="n">x</span><span class="o">][</span><span class="n">y</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;X&#39;</span><span class="o">;</span>
+    <span class="o">}</span><span class="k">else</span> <span class="o">{</span> <span class="c1">// 向周围开始 8 领域进行搜索
+</span><span class="c1"></span>        <span class="n">dfs</span><span class="o">(</span><span class="n">board</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">);</span>
+    <span class="o">}</span>
+       <span class="k">return</span> <span class="n">board</span><span class="o">;</span> 
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="kt">char</span><span class="o">[][]</span> <span class="n">board</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">j</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="c1">// 判断周围是否有雷
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">8</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">newX</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">dx</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">newY</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">dy</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">newX</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">newX</span> <span class="o">&lt;</span> <span class="n">board</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">newY</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">newY</span> <span class="o">&lt;</span> <span class="n">board</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">board</span><span class="o">[</span><span class="n">newX</span><span class="o">][</span><span class="n">newY</span><span class="o">]</span> <span class="o">==</span> <span class="sc">&#39;M&#39;</span> <span class="o">)</span> <span class="o">{</span>
+                <span class="n">count</span><span class="o">++;</span>
+            <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="c1">// if (i, j) 有雷，该位置为 x， 否则就是 B, 没点到所以这里的 M 不用变成 X
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">board</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)(</span><span class="n">count</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span> 
+<span class="c1">// 如果没有雷，该位置改为 B， 向 8 领域的空地继续搜索
+</span><span class="c1"></span>    <span class="n">board</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;B&#39;</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">8</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">newX</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">dx</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+    <span class="kt">int</span> <span class="n">newY</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">dy</span><span class="o">[</span><span class="n">k</span><span class="o">];</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">newX</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">newX</span> <span class="o">&gt;=</span> <span class="n">board</span><span class="o">.</span><span class="na">length</span> <span class="o">||</span> <span class="n">newY</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">newY</span> <span class="o">&gt;=</span> <span class="n">board</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span> <span class="o">||</span> <span class="n">board</span><span class="o">[</span><span class="n">newX</span><span class="o">][</span><span class="n">newY</span><span class="o">]</span> <span class="o">!=</span> <span class="sc">&#39;E&#39;</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">dfs</span><span class="o">(</span><span class="n">board</span><span class="o">,</span> <span class="n">newX</span><span class="o">,</span> <span class="n">newY</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h2 id="all-nodes-distance-k-in-binary-tree-863">All Nodes Distance K in Binary Tree 863</h2>
+<p><a id="markdown-all-nodes-distance-k-in-binary-tree-863" name="all-nodes-distance-k-in-binary-tree-863"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary tree, the value of a target node target, and an integer k, <span class="k">return</span> an array of the values of all nodes that have a distance k from the target node.
+
+You can <span class="k">return</span> the answer in any order.
+
+ 
+
+Example 1:
+
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>3,5,1,6,2,0,8,null,null,7,4<span class="o">]</span>, <span class="nv">target</span> <span class="o">=</span> 5, <span class="nv">k</span> <span class="o">=</span> <span class="m">2</span>
+Output: <span class="o">[</span>7,4,1<span class="o">]</span>
+Explanation: The nodes that are a distance <span class="m">2</span> from the target node <span class="o">(</span>with value 5<span class="o">)</span> have values 7, 4, and 1.
+</code></pre></div><p>hashmap, find the target, dfs</p>
+<p>我的思路是 bfs 找到 target， 然后 dfs 距离</p>
+<p>但是没想到的思路是直接 dfs，储存 distance, 返回 distance， 然后 dfs 更快</p>
+<p>time On</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="n">Map</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">distanceK</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+         <span class="c1">// find the target,
+</span><span class="c1"></span>        <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+       
+        <span class="c1">// bfs 
+</span><span class="c1"></span>        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">root</span><span class="o">),</span> <span class="n">res</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">find</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">target</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">right</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        
+    <span class="o">}</span>
+    
+    <span class="c1">// dfs
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+            <span class="k">return</span> <span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">root</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">==</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">length</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">length</span><span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>    
+    <span class="o">}</span> 
+</code></pre></div><p>空间复杂度：O(n)</p>
+<p>由于输入的二叉树没有记录父结点，为此，我们从根结点 \textit{root}root 出发，使用深度优先搜索遍历整棵树，同时用一个哈希表记录每个结点的父结点。</p>
+<p>然后从 \textit{target}target 出发，使用深度优先搜索遍历整棵树，除了搜索左右儿子外，还可以顺着父结点向上搜索。</p>
+<p>代码实现时，由于每个结点值都是唯一的，哈希表的键可以用结点值代替。此外，为避免在深度优先搜索时重复访问结点，递归时额外传入来源结点 \textit{from}from，在递归前比较目标结点是否与来源结点相同，不同的情况下才进行递归。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">Map</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">distanceK</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+      
+         <span class="c1">// record the parent ,map,
+</span><span class="c1"></span>        <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+       
+        <span class="c1">// start from target, dfs
+</span><span class="c1"></span>        <span class="n">dfs</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">find</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">val</span><span class="o">,</span> <span class="n">root</span><span class="o">);</span>
+            <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="o">}</span>
+         <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">val</span><span class="o">,</span> <span class="n">root</span><span class="o">);</span>
+            <span class="n">find</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+    <span class="o">}</span>
+    
+    <span class="c1">// dfs
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">node</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">from</span><span class="o">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">,</span>  <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+            <span class="k">return</span> <span class="o">;</span>
+        <span class="o">}</span>
+       
+        <span class="k">if</span> <span class="o">(</span><span class="n">depth</span> <span class="o">==</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="n">from</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">dfs</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">node</span><span class="o">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="n">from</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">dfs</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">node</span><span class="o">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">!=</span> <span class="n">from</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">dfs</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">),</span> <span class="n">node</span><span class="o">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span> 
+</code></pre></div><h2 id="shortest-path-in-a-grid-with-obstacles-elimina">Shortest Path in a Grid with Obstacles Elimina</h2>
+<p><a id="markdown-shortest-path-in-a-grid-with-obstacles-eliminat" name="shortest-path-in-a-grid-with-obstacles-eliminat"></a>t</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an m x n integer matrix grid where each cell is either <span class="m">0</span> <span class="o">(</span>empty<span class="o">)</span> or <span class="m">1</span> <span class="o">(</span>obstacle<span class="o">)</span>. You can move up, down, left, or right from and to an empty cell in one step.
+
+Return the minimum number of steps to walk from the upper left corner <span class="o">(</span>0, 0<span class="o">)</span> to the lower right corner <span class="o">(</span>m - 1, n - 1<span class="o">)</span> given that you can eliminate at most k obstacles. If it is not possible to find such walk <span class="k">return</span> -1.
+Input: <span class="nv">grid</span> <span class="o">=</span> <span class="o">[[</span>0,0,0<span class="o">]</span>,<span class="o">[</span>1,1,0<span class="o">]</span>,<span class="o">[</span>0,0,0<span class="o">]</span>,<span class="o">[</span>0,1,1<span class="o">]</span>,<span class="o">[</span>0,0,0<span class="o">]]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">1</span>
+Output: <span class="m">6</span>
+Explanation: 
+The shortest path without eliminating any obstacle is 10.
+The shortest path with one obstacle elimination at position <span class="o">(</span>3,2<span class="o">)</span> is 6. Such path is <span class="o">(</span>0,0<span class="o">)</span> -&gt; <span class="o">(</span>0,1<span class="o">)</span> -&gt; <span class="o">(</span>0,2<span class="o">)</span> -&gt; <span class="o">(</span>1,2<span class="o">)</span> -&gt; <span class="o">(</span>2,2<span class="o">)</span> -&gt; <span class="o">(</span>3,2<span class="o">)</span> -&gt; <span class="o">(</span>4,2<span class="o">)</span>.
+ 
+</code></pre></div><p>PriorityQueue</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kt">int</span><span class="o">[][]</span> <span class="n">dirs</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[][]{{</span><span class="n">0</span><span class="o">,</span> <span class="n">1</span><span class="o">},{</span><span class="n">0</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">},{</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">},{-</span><span class="n">1</span><span class="o">,</span> <span class="n">0</span><span class="o">}</span> <span class="o">};</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">shortestPath</span><span class="o">(</span><span class="kt">int</span><span class="o">[][]</span> <span class="n">grid</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+       
+        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">].</span><span class="na">length</span><span class="o">;</span>
+        <span class="c1">// 
+</span><span class="c1"></span>       
+        <span class="kt">int</span><span class="o">[][]</span> <span class="n">visited</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">m</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">visited</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;&gt;((</span><span class="n">a</span><span class="o">,</span> <span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">[</span><span class="n">3</span><span class="o">]</span> <span class="o">-</span> <span class="n">b</span><span class="o">[</span><span class="n">3</span><span class="o">]);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">grid</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">k</span><span class="o">--;</span>
+        <span class="o">}</span>
+       
+        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">k</span><span class="o">,</span> <span class="n">0</span><span class="o">});</span>
+        <span class="n">visited</span><span class="o">[</span><span class="n">0</span><span class="o">][</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">k</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">1</span><span class="o">],</span> <span class="n">ob</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">2</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="n">cur</span><span class="o">[</span><span class="n">3</span><span class="o">];</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">r</span> <span class="o">==</span> <span class="n">m</span> <span class="o">-</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">step</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">dir</span> <span class="o">:</span> <span class="n">dirs</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">nR</span> <span class="o">=</span> <span class="n">dir</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">r</span><span class="o">;</span>
+                <span class="kt">int</span> <span class="n">nC</span> <span class="o">=</span> <span class="n">dir</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">c</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">nR</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nR</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">nC</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nC</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="kt">int</span> <span class="n">nob</span> <span class="o">=</span> <span class="n">ob</span> <span class="o">-</span> <span class="n">grid</span><span class="o">[</span><span class="n">nR</span><span class="o">][</span><span class="n">nC</span><span class="o">];</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">nob</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">nob</span> <span class="o">&gt;</span> <span class="n">visited</span><span class="o">[</span><span class="n">nR</span><span class="o">][</span><span class="n">nC</span><span class="o">])</span> <span class="o">{</span>
+                        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">nR</span><span class="o">,</span> <span class="n">nC</span><span class="o">,</span> <span class="n">nob</span><span class="o">,</span> <span class="n">step</span> <span class="o">+</span> <span class="n">1</span><span class="o">});</span>
+                        <span class="n">visited</span><span class="o">[</span><span class="n">nR</span><span class="o">][</span><span class="n">nC</span><span class="o">]</span> <span class="o">=</span> <span class="n">nob</span><span class="o">;</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+</code></pre></div><h2 id="maximum-candies-you-can-get-from-boxes-1298">Maximum Candies You Can Get from Boxes 1298</h2>
+<p><a id="markdown-maximum-candies-you-can-get-from-boxes-1298" name="maximum-candies-you-can-get-from-boxes-1298"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You have n boxes labeled from <span class="m">0</span> to n - 1. You are given four arrays: status, candies, keys, and containedBoxes where:
+
+status<span class="o">[</span>i<span class="o">]</span> is <span class="m">1</span> <span class="k">if</span> the ith box is open and <span class="m">0</span> <span class="k">if</span> the ith box is closed,
+candies<span class="o">[</span>i<span class="o">]</span> is the number of candies in the ith box,
+keys<span class="o">[</span>i<span class="o">]</span> is a list of the labels of the boxes you can open after opening the ith box.
+containedBoxes<span class="o">[</span>i<span class="o">]</span> is a list of the boxes you found inside the ith box.
+You are given an integer array initialBoxes that contains the labels of the boxes you initially have. You can take all the candies in any open box and you can use the keys in it to open new boxes and you also can use the boxes you find in it.
+
+Return the maximum number of candies you can get following the rules above.
+
+ 
+
+Example 1:
+
+Input: <span class="nv">status</span> <span class="o">=</span> <span class="o">[</span>1,0,1,0<span class="o">]</span>, <span class="nv">candies</span> <span class="o">=</span> <span class="o">[</span>7,5,4,100<span class="o">]</span>, <span class="nv">keys</span> <span class="o">=</span> <span class="o">[[]</span>,<span class="o">[]</span>,<span class="o">[</span>1<span class="o">]</span>,<span class="o">[]]</span>, <span class="nv">containedBoxes</span> <span class="o">=</span> <span class="o">[[</span>1,2<span class="o">]</span>,<span class="o">[</span>3<span class="o">]</span>,<span class="o">[]</span>,<span class="o">[]]</span>, <span class="nv">initialBoxes</span> <span class="o">=</span> <span class="o">[</span>0<span class="o">]</span>
+Output: <span class="m">16</span>
+Explanation: You will be initially given box 0. You will find <span class="m">7</span> candies in it and boxes <span class="m">1</span> and 2.
+Box <span class="m">1</span> is closed and you <span class="k">do</span> not have a key <span class="k">for</span> it so you will open box 2. You will find <span class="m">4</span> candies and a key to box <span class="m">1</span> in box 2.
+In box 1, you will find <span class="m">5</span> candies and box <span class="m">3</span> but you will not find a key to box <span class="m">3</span> so box <span class="m">3</span> will remain closed.
+Total number of candies <span class="nv">collected</span> <span class="o">=</span> <span class="m">7</span> + <span class="m">4</span> + <span class="nv">5</span> <span class="o">=</span> <span class="m">16</span> candy.
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxCandies</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">status</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">candies</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">keys</span><span class="o">,</span> <span class="kt">int</span><span class="o">[][]</span> <span class="n">containedBoxes</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">initialBoxes</span><span class="o">)</span> <span class="o">{</span>
+     <span class="c1">//  status = [1,0,0,0,0,0]
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="c1">// count of boxes
+</span><span class="c1"></span>        <span class="kt">boolean</span><span class="o">[]</span> <span class="n">opened</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        <span class="kt">boolean</span><span class="o">[]</span> <span class="n">toBeOpened</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">boolean</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="c1">// initialBoxes = [0]
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">:</span> <span class="n">initialBoxes</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
+            <span class="n">toBeOpened</span><span class="o">[</span><span class="n">v</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// toBeOpened[0] = true;
+</span><span class="c1"></span>        <span class="o">}</span>
+        
+        <span class="kt">int</span> <span class="n">candy</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">status</span><span class="o">[</span><span class="n">cur</span><span class="o">]</span> <span class="o">==</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">opened</span><span class="o">[</span><span class="n">cur</span><span class="o">])</span> <span class="o">{</span> <span class="c1">// 1伦 true
+</span><span class="c1"></span>                <span class="n">candy</span> <span class="o">+=</span> <span class="n">candies</span><span class="o">[</span><span class="n">cur</span><span class="o">];</span> <span class="c1">// 
+</span><span class="c1"></span>                <span class="n">opened</span><span class="o">[</span><span class="n">cur</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>     <span class="c1">//opened[0] = true
+</span><span class="c1"></span>                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">:</span> <span class="n">keys</span><span class="o">[</span><span class="n">cur</span><span class="o">])</span> <span class="o">{</span> <span class="c1">// 1
+</span><span class="c1"></span>                    <span class="n">status</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">toBeOpened</span><span class="o">[</span><span class="n">k</span><span class="o">])</span> <span class="o">{</span>
+                        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">:</span> <span class="n">containedBoxes</span><span class="o">[</span><span class="n">cur</span><span class="o">])</span> <span class="o">{</span>
+                    <span class="n">toBeOpened</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+                    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">candy</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><hr>
+<ul>
+<li>
+<p><a href="https://rileyshen.github.io/post/bfs2/" >BFS2</a></p>
+</li>
+<li>
+<p><a href="https://rileyshen.github.io/post/2pointers2/" >2pointers2</a></p>
+</li>
+<li>
+<p><a href="https://rileyshen.github.io/post/slidewindow1/" >slidewindow1</a></p>
+</li>
+<li>
+<p><a href="https://rileyshen.github.io/post/fastslow1/" >fastslowpoint</a></p>
+</li>
+<li>
+<p><a href="https://rileyshen.github.io/post/reverse/" >LinkedList</a></p>
+</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/bfs/">BFS</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

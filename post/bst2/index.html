@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about BinarySearchTree 2 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/bst2/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about BinarySearchTree 2"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about BinarySearchTree 2</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Sat, Sep 4, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">10-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>master BST in algo</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#maximum-binary-tree-654" >Maximum Binary Tree 654</a></li>
+<li><a href="#minimum-absolute-difference-in-bst-530" >Minimum Absolute Difference in BST 530</a></li>
+<li><a href="#closest-binary-search-tree-value-270" >Closest Binary Search Tree Value 270</a></li>
+<li><a href="#find-mode-in-binary-search-tree-501" >Find Mode in Binary Search Tree 501</a></li>
+<li><a href="#lowest-common-ancestor-of-a-binary-tree-236" >Lowest Common Ancestor of a Binary Tree 236</a></li>
+<li><a href="#lowest-common-ancestor-of-a-binary-search-tree" >Lowest Common Ancestor of a Binary Search Tree</a></li>
+<li><a href="#delete-node-in-bst" >delete node in BST</a></li>
+<li><a href="#trim-a-binary-search-tree" >Trim a Binary Search Tree</a></li>
+<li><a href="#largest-number-smaller-in-binary-searc" >Largest Number Smaller In Binary Searc</a></li>
+<li><a href="#second-largest-in-binary-search-tree" >Second Largest In Binary Search Tree</a></li>
+<li><a href="#kth-smallest-element-in-a-b" >Kth Smallest Element in a B</a></li>
+<li><a href="#closest-number-in-binary-search-tree-ii" >Closest Number In Binary Search Tree II</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="maximum-binary-tree-654">Maximum Binary Tree 654</h2>
+<p><a id="markdown-maximum-binary-tree-654" name="maximum-binary-tree-654"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">You are given an integer array nums with no duplicates. A maximum binary tree can be built recursively from nums using the following algorithm:
+
+Create a root node whose value is the maximum value in nums.
+Recursively build the left subtree on the subarray prefix to the left of the maximum value.
+Recursively build the right subtree on the subarray suffix to the right of the maximum value.
+Return the maximum binary tree built from nums.
+</code></pre></div><p>这题非常简单，就是找最大值，但是呢，思路都好了后，递归完结条件忘了。。</p>
+<p>如果为空，返 null； 如果只有一个元素，返回这个元素</p>
+<h2 id="minimum-absolute-difference-in-bst-530">Minimum Absolute Difference in BST 530</h2>
+<p><a id="markdown-minimum-absolute-difference-in-bst-530" name="minimum-absolute-difference-in-bst-530"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a Binary Search Tree <span class="o">(</span>BST<span class="o">)</span>, <span class="k">return</span> the minimum absolute difference between the values of any two different nodes in the tree.
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>4,2,6,1,3<span class="o">]</span>
+Output: <span class="m">1</span>
+</code></pre></div><p>这题我写的非常差，还是不熟悉中序遍历的 BST， 其实就是一个数值增大的数组。</p>
+<p>其实就是从最左边开始处理，一个个往上往右边， 那么最小绝对差肯定在相邻的两个节点值之间产生。所以我们的做法就是对 BST 进行中序遍历，然后当前节点值和之前节点值求绝对差并更新结果 res</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">TreeNode</span> <span class="n">prev</span><span class="o">;</span>
+    
+   <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span> 
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getMinimumDifference</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">helper</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">prev</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">result</span><span class="o">,</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">-</span> <span class="n">prev</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span>
+
+</code></pre></div><p><strong>global variables are generally discouraged. It&rsquo;s probably worth passing mutable values</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">getMinimumDifference</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">prev</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span> <span class="c1">// contains at most 1 value
+</span><span class="c1"></span>    	<span class="kt">int</span><span class="o">[]</span> <span class="n">min</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">};</span>
+    	<span class="n">inorder</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">prev</span><span class="o">,</span> <span class="n">min</span><span class="o">);</span>
+    	<span class="k">return</span> <span class="n">min</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">inorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">prev</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">min</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+    	
+    	<span class="n">inorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">prev</span><span class="o">,</span> <span class="n">min</span><span class="o">);</span>
+    	<span class="k">if</span> <span class="o">(</span><span class="n">prev</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+    		<span class="n">prev</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+    	<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    		<span class="n">min</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">min</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">-</span> <span class="n">prev</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">0</span><span class="o">)));</span>
+    		<span class="n">prev</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+    	<span class="o">}</span>
+    	<span class="n">inorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">prev</span><span class="o">,</span> <span class="n">min</span><span class="o">);</span>    	
+    <span class="o">}</span>
+</code></pre></div><h2 id="closest-binary-search-tree-value-270">Closest Binary Search Tree Value 270</h2>
+<p><a id="markdown-closest-binary-search-tree-value-270" name="closest-binary-search-tree-value-270"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a non-empty binary search tree and a target value, find the value in the BST that is closest to the target.
+
+Note:
+
+Given target value is a floating point.
+You are guaranteed to have only one unique value in the BST that is closest to the target.
+Example:
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>4,2,5,1,3<span class="o">]</span>, <span class="nv">target</span> <span class="o">=</span> 3.714286
+
+    <span class="m">4</span>
+   / <span class="se">\
+</span><span class="se"></span>  <span class="m">2</span>   <span class="m">5</span>
+ / <span class="se">\
+</span><span class="se"></span><span class="m">1</span>   <span class="m">3</span>
+
+Output: <span class="m">4</span>
+</code></pre></div><p><strong>中序遍历来做，一个一个的比较，维护一个最小值，不停的更新，实际上这种方法并没有提高效率，用其他的遍历方法也可以</strong></p>
+<p><strong>二分搜索树的特点 (左&lt;根&lt;右) 来快速定位，由于根节点是中间值，在往下遍历时，根据目标值和根节点的值大小关系来比较，如果目标值小于节点值，则应该找更小的值，于是到左子树去找</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">closest</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">res</span> <span class="o">-</span> <span class="n">target</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">-</span> <span class="n">target</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="n">root</span> <span class="o">=</span> <span class="n">target</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">?</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">:</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><h2 id="find-mode-in-binary-search-tree-501">Find Mode in Binary Search Tree 501</h2>
+<p><a id="markdown-find-mode-in-binary-search-tree-501" name="find-mode-in-binary-search-tree-501"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary search tree <span class="o">(</span>BST<span class="o">)</span> with duplicates, <span class="k">return</span> all the mode<span class="o">(</span>s<span class="o">)</span> <span class="o">(</span>i.e., the most frequently occurred element<span class="o">)</span> in it.
+
+If the tree has more than one mode, <span class="k">return</span> them in any order.
+
+Assume a BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than or equal to the node<span class="s1">&#39;s key.
+</span><span class="s1">The right subtree of a node contains only nodes with keys greater than or equal to the node&#39;</span>s key.
+Both the left and right subtrees must also be binary search trees.
+ 
+
+Example 1:
+
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>1,null,2,2<span class="o">]</span>
+Output: <span class="o">[</span>2<span class="o">]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">TreeNode</span> <span class="n">prev</span><span class="o">;</span>
+    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">count</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">maxCount</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">findMode</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">maxCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">ans</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">()];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">ans</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">helper</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+       
+        
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        
+         <span class="n">count</span> <span class="o">=</span> <span class="n">prev</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">prev</span><span class="o">.</span><span class="na">val</span> <span class="o">==</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">?</span> <span class="n">count</span> <span class="o">+</span> <span class="n">1</span> <span class="o">:</span> <span class="n">1</span><span class="o">;</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">maxCount</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">maxCount</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+            <span class="n">maxCount</span> <span class="o">=</span> <span class="n">count</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        
+        
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="lowest-common-ancestor-of-a-binary-tree-236">Lowest Common Ancestor of a Binary Tree 236</h2>
+<p><a id="markdown-lowest-common-ancestor-of-a-binary-tree-236" name="lowest-common-ancestor-of-a-binary-tree-236"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a binary tree, find the lowest common ancestor <span class="o">(</span>LCA<span class="o">)</span> of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants <span class="o">(</span>where we allow a node to be a descendant of itself<span class="o">)</span>.”
+
+ 
+
+Example 1:
+
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>3,5,1,6,2,0,8,null,null,7,4<span class="o">]</span>, <span class="nv">p</span> <span class="o">=</span> 5, <span class="nv">q</span> <span class="o">=</span> <span class="m">1</span>
+Output: <span class="m">3</span>
+Explanation: The LCA of nodes <span class="m">5</span> and <span class="m">1</span> is 3.
+</code></pre></div><p>在二叉树中来搜索 p 和 q，然后从路径中找到最后一个相同的节点即为父节点，可以用递归来实现，在递归函数中，首先看当前结点是否为空，若为空则直接返回空，若为 p 或 q 中的任意一个，也直接返回当前结点。否则的话就对其左右子结点分别调用递归函数，由于这道题限制了 p 和 q 一定都在二叉树中存在，那么如果当前结点不等于 p 或 q，p 和 q 要么分别位于左右子树中，要么同时位于左子树，或者同时位于右子树，那么我们分别来讨论：</p>
+<ul>
+<li>
+<p>若 p 和 q 分别位于左右子树中，那么对左右子结点调用递归函数，会分别返回 p 和 q 结点的位置，而当前结点正好就是 p 和 q 的最小共同父结点，直接返回当前结点即可，这就是题目中的例子 1 的情况。</p>
+</li>
+<li>
+<p>若 p 和 q 同时位于左子树，这里有两种情况，一种情况是 left 会返回 p 和 q 中较高的那个位置，而 right 会返回空，所以最终返回非空的 left 即可，这就是题目中的例子 2 的情况。还有一种情况是会返回 p 和 q 的最小父结点，就是说当前结点的左子树中的某个结点才是 p 和 q 的最小父结点，会被返回。</p>
+</li>
+<li>
+<p>若 p 和 q 同时位于右子树，同样这里有两种情况，一种情况是 right 会返回 p 和 q 中较高的那个位置，而 left 会返回空，所以最终返回非空的 right 即可，还有一种情况是会返回 p 和 q 的最小父结点，就是说当前结点的右子树中的某个结点才是 p 和 q 的最小父结点，会被返回</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">lowestCommonAncestor</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">p</span><span class="o">,</span> <span class="n">TreeNode</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">p</span> <span class="o">||</span> <span class="n">root</span> <span class="o">==</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">TreeNode</span> <span class="n">left</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+         <span class="n">TreeNode</span> <span class="n">right</span> <span class="o">=</span> <span class="n">lowestCommonAncestor</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+       
+        <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">right</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">left</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        
+    <span class="o">}</span>
+</code></pre></div><h2 id="235-lowest-common-ancestor-of-a-binary-search-tree">235 Lowest Common Ancestor of a Binary Search Tree</h2>
+<p><a id="markdown-lowest-common-ancestor-of-a-binary-search-tree" name="lowest-common-ancestor-of-a-binary-search-tree"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given a binary search tree <span class="o">(</span>BST<span class="o">)</span>, find the lowest common ancestor <span class="o">(</span>LCA<span class="o">)</span> of two given nodes in the BST.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants <span class="o">(</span>where we allow a node to be a descendant of itself<span class="o">)</span>.”
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>6,2,8,0,4,7,9,null,null,3,5<span class="o">]</span>, <span class="nv">p</span> <span class="o">=</span> 2, <span class="nv">q</span> <span class="o">=</span> <span class="m">8</span>
+Output: <span class="m">6</span>
+Explanation: The LCA of nodes <span class="m">2</span> and <span class="m">8</span> is 6. 
+</code></pre></div><p>这题跟上题唯一区别就是自上到下， 一个点如果夹在 pq 之间，那就是</p>
+<p>这题跟上题唯一区别就是自上到下， 一个点如果夹在 pq 之间，那就是</p>
+<p>所以根节点的值一直都是中间值，大于左子树的所有节点值，小于右子树的所有节点值，那么我们可以做如下的判断，如果根节点的值大于 p 和 q 之间的较大值，说明 p 和 q 都在左子树中，那么此时我们就进入根节点的左子节点继续递归，如果根节点小于 p 和 q 之间的较小值，说明 p 和 q 都在右子树中，那么此时我们就进入根节点的右子节点继续递归，如果都不是，则说明当前根节点就是最小共同父节点</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+<span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">lca</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">p</span><span class="o">,</span> <span class="kt">int</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+    
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">lca</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">min</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">return</span> <span class="n">lca</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+<span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">lca</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">p</span><span class="o">,</span> <span class="kt">int</span> <span class="n">q</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">small</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">large</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">p</span><span class="o">,</span> <span class="n">q</span><span class="o">);</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">small</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&gt;</span> <span class="n">large</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+
+</code></pre></div><h2 id="450-delete-node-in-bst">450 delete node in BST</h2>
+<p><a id="markdown-delete-node-in-bst" name="delete-node-in-bst"></a></p>
+<h2 id="669-trim-a-binary-search-tree">669 Trim a Binary Search Tree</h2>
+<p><a id="markdown-trim-a-binary-search-tree" name="trim-a-binary-search-tree"></a></p>
+<p><strong>如果要遍历全局，不用 return helper()之类的，那个是早点返回用的</strong></p>
+<h2 id="largest-number-smaller-in-binary-sear">Largest Number Smaller In Binary Sear</h2>
+<p><a id="markdown-largest-number-smaller-in-binary-searc" name="largest-number-smaller-in-binary-searc"></a>c</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">In a binary search tree, find the node containing the largest number smaller than the given target number.
+
+If there is no such number, <span class="k">return</span> -2^31.
+
+Assumptions:
+
+The given root is not null.
+There are no duplicate keys in the binary search tree.
+Examples
+
+    <span class="m">5</span>
+
+  /    <span class="se">\
+</span><span class="se"></span>
+<span class="m">2</span>      <span class="m">11</span>
+
+     /    <span class="se">\
+</span><span class="se"></span>
+    <span class="m">6</span>     <span class="m">14</span>
+
+largest number smaller than <span class="m">1</span> is Integer.MIN_VALUE<span class="o">(</span>Java<span class="o">)</span> or INT_MIN<span class="o">(</span>c++<span class="o">)</span>
+
+largest number smaller than <span class="m">10</span> is <span class="m">6</span>
+
+largest number smaller than <span class="m">6</span> is <span class="m">5</span>
+</code></pre></div><p><strong>返回上一个节点，所以要有个指针勾着</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">largestSmaller</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><h2 id="second-largest-in-binary-search-tree">Second Largest In Binary Search Tree</h2>
+<p><a id="markdown-second-largest-in-binary-search-tree" name="second-largest-in-binary-search-tree"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Find the second largest key in the given binary search tree.
+
+If there does not exist the second largest key, <span class="k">return</span> Integer.MIN_VALUE.
+
+Assumptions:
+
+The given binary search tree is not null.
+Examples:
+
+    <span class="m">2</span>
+
+  /   <span class="se">\
+</span><span class="se"></span>
+ <span class="m">1</span>     <span class="m">4</span>
+
+      /
+
+    <span class="m">3</span>
+
+the second largest key is 3.
+</code></pre></div><p>分了三种情况，第一个是没有左子树，这时候 root 到了右节点这里，它的上一个 prev 节点就是答案；</p>
+<p>有左子树，左子树没有右孩子了，我们为了答案统一，让 root 到了 左子树，prev 也到了这边， 也 return prev</p>
+<p>左子树还有右孩子，那 root 就是一路往右边，直到尽头，prev 也是尽头，到了 root 这边， 然后返回 prev</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">TreeNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">TreeNode</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">))</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="k">while</span><span class="o">(</span><span class="n">curr</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+      <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//      2
+</span><span class="c1"></span>    <span class="c1">//   /     \
+</span><span class="c1"></span>    <span class="c1">// 1         4
+</span><span class="c1"></span>
+
+
+    <span class="k">if</span><span class="o">(</span><span class="n">curr</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+    <span class="c1">//      2
+</span><span class="c1"></span>    <span class="c1">//   /     \
+</span><span class="c1"></span>    <span class="c1">//  1        4
+</span><span class="c1"></span>    <span class="c1">//          /
+</span><span class="c1"></span>    <span class="c1">//          3
+</span><span class="c1"></span>
+
+      <span class="k">while</span><span class="o">(</span><span class="n">curr</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+      <span class="o">}</span>
+
+    <span class="c1">//      2
+</span><span class="c1"></span>    <span class="c1">//   /     \
+</span><span class="c1"></span>    <span class="c1">//  1        4
+</span><span class="c1"></span>    <span class="c1">//          /
+</span><span class="c1"></span>    <span class="c1">//          0
+</span><span class="c1"></span>    <span class="c1">//           \
+</span><span class="c1"></span>    <span class="c1">//            3
+</span><span class="c1"></span>
+
+      <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">prev</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div><h2 id="kth-smallest-element-in-a">Kth Smallest Element in a</h2>
+<p><a id="markdown-kth-smallest-element-in-a-b" name="kth-smallest-element-in-a-b"></a>B</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary search tree, and an integer k, <span class="k">return</span> the kth smallest value <span class="o">(</span>1-indexed<span class="o">)</span> of all the values of the nodes in the tree.
+
+ 
+
+Example 1:
+
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>3,1,4,null,2<span class="o">]</span>, <span class="nv">k</span> <span class="o">=</span> <span class="m">1</span>
+Output: <span class="m">1</span>
+</code></pre></div><p>暴力解法，就是把所有的值都放进 list， 里面用 list.get(k - 1) 就是了， 中序遍历</p>
+<p>但是还有个方法就是直接返回 k 个</p>
+<p>时间复杂度是 O h + O k,</p>
+<p>空间复杂度是 OH</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">k</span><span class="o">,</span> <span class="n">ans</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">kthSmallest</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">_k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">_k</span><span class="o">;</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="o">;</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(--</span><span class="n">k</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">;</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div><h2 id="closest-number-in-binary-search-tree-ii">Closest Number In Binary Search Tree II</h2>
+<p><a id="markdown-closest-number-in-binary-search-tree-ii" name="closest-number-in-binary-search-tree-ii"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">In a binary search tree, find k nodes containing the closest numbers to the given target number. <span class="k">return</span> them in sorted array
+
+Assumptions:
+
+The given root is not null.
+There are no duplicate keys in the binary search tree.
+Examples:
+
+    <span class="m">5</span>
+
+  /    <span class="se">\
+</span><span class="se"></span>
+<span class="m">2</span>      <span class="m">11</span>
+
+     /    <span class="se">\
+</span><span class="se"></span>
+    <span class="m">6</span>     <span class="m">14</span>
+
+closest number to <span class="m">4</span> is <span class="m">5</span>
+
+closest number to <span class="m">10</span> is <span class="m">11</span>
+
+closest number to <span class="m">6</span> is <span class="m">6</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">kthSmallest</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Deque</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">d</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">d</span><span class="o">.</span><span class="na">addLast</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+                <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="na">pollLast</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(--</span><span class="n">k</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">;</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="c1">// never
+</span><span class="c1"></span>    <span class="o">}</span>
+</code></pre></div><p>O(log(n)+k)， 空间 O K</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">closestKValues</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">double</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+    <span class="o">}</span>
+    <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;(</span><span class="n">k</span><span class="o">);</span>
+    <span class="n">inOrder</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">q</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">q</span><span class="o">.</span><span class="na">size</span><span class="o">()];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">res</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">res</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">inOrder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q</span><span class="o">,</span> <span class="kt">double</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">inOrder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">q</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">q</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 无语啊，q.size = 0,的时候塞进去，用了等于就会多出来
+</span><span class="c1"></span>      <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">-</span> <span class="n">target</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">-</span> <span class="n">target</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+      <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">inOrder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">queue</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div><p>另一个解法是用两个大小 stack， 遇到比 target 小的塞一边，大的塞一边，然后一个个对比 pop</p>
+<p>最差 time O(N + K), 如果是 balance 的，那就是 O(K + lg N)</p>
+<p>space On， 如果是 balance 的，那就是 O(n / 2), still On</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">closestKValues</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">double</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">pre</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">suc</span><span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">traverseTreeInorder</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">pre</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">traverseTreeReverseInorder</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">suc</span><span class="o">);</span>
+
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">k</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">suc</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">suc</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">-</span> <span class="n">target</span><span class="o">)</span> <span class="o">&lt;</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">suc</span><span class="o">.</span><span class="na">peek</span><span class="o">()</span> <span class="o">-</span> <span class="n">target</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">suc</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="n">k</span><span class="o">--;</span>
+    <span class="o">}</span>
+   
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">traverseTreeInorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">s</span><span class="o">,</span> <span class="kt">double</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">traverseTreeInorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">s</span><span class="o">);</span>
+    <span class="c1">// 提前return， 排斥比它大的， 剪枝
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">&gt;=</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">pre</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">traverseTreeInorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">s</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">traverseTreeReverseInorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">Deque</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">l</span><span class="o">,</span> <span class="kt">double</span> <span class="n">target</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">traverseTreeReverseInorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">l</span><span class="o">);</span>
+    <span class="c1">// 提前return， 排斥比它小的， 剪枝
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">&lt;</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="n">pre</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">traverseTreeReverseInorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">target</span><span class="o">,</span> <span class="n">l</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/binarysearchtree/">BinarySearchTree</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

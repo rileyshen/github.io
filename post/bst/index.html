@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about BinarySearchTree </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="java inteview algorithm">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/bst/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about BinarySearchTree"/>
+<meta name="twitter:description" content="java inteview algorithm"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about BinarySearchTree</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Sep 1, 2021
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">11-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>master BST in algo</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E5%90%8E%E5%BA%8F" >前序中序后序</a></li>
+<li><a href="#n-ary-tree-level-order-traversal-429" >N-ary Tree Level Order Traversal 429</a></li>
+<li><a href="#maximum-depth-of-binary-tree-104" >Maximum Depth of Binary Tree 104</a></li>
+<li><a href="#%E6%9C%80%E6%B5%85%E8%B7%9D%E7%A6%BB%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91" >&lt;strong&gt;最浅距离的二叉树&lt;/strong&gt;</a></li>
+<li><a href="#count-complete-tree-nodes-222" >Count Complete Tree Nodes 222</a></li>
+<li><a href="#binary-tree-paths-257" >Binary Tree Paths 257</a></li>
+<li><a href="#find-bottom-left-tree-value-513" >Find Bottom Left Tree Value 513</a></li>
+<li><a href="#path-sum-112" >Path Sum 112</a></li>
+<li><a href="#path-sum-113" >Path Sum 113</a></li>
+<li><a href="#construct-binary-tree-from-preorder-and-inorder-traversal-105" >Construct Binary Tree from Preorder and Inorder Traversal 105</a></li>
+<li><a href="#construct-binary-tree-from-inorder-and-postorder-traversal-106" >Construct Binary Tree from Inorder and Postorder Traversal 106</a></li>
+<li><a href="#insert" >insert</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="前序中序后序">前序中序后序</h2>
+<p><a id="markdown-%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E5%90%8E%E5%BA%8F" name="%E5%89%8D%E5%BA%8F%E4%B8%AD%E5%BA%8F%E5%90%8E%E5%BA%8F"></a></p>
+<p>用层序遍历习惯了，今天傻乎乎的不用脑直接用了 Queue， 现在整理下，免得发昏。</p>
+<p>首先层序一层层就是先进先出。中序开始是左中右， 夹住了 中间的，所以要用 stack。</p>
+<ul>
+<li>
+<p><strong>前序遍历</strong>： root，加入右孩子，加入左孩子，这样才能出 root， 左孩子，右孩子， 这里非常重要的是<strong>要访问的节点和要加入 list 的节点元素顺序是一致的</strong></p>
+</li>
+<li>
+<p><strong>中序遍历</strong>： 左孩子，root， 右孩子。root 先行，不撞左墙不回头，撞了后扔节点，回到它父节点扔了，看看右边有没有小路，有小路不浪费，去右边小路吃了再扔，回到上一个父节点，看看右边还有没有小路吃了扔。</p>
+</li>
+</ul>
+<p>所以这时候会有空栈的问题，到了根部，右边还没开始，需要一个指针来挂住 root，可以往右边走。</p>
+<p>这里记得一开始不能做 stack.push(root)。而是进入 while 后 stack.push(cur), 不然是重复计算的。</p>
+<figure><img src="/images/BT1.png"
+         alt="image"/><figcaption>
+            <h4>后序遍历</h4>
+        </figcaption>
+</figure>
+
+<ul>
+<li><strong>后序遍历</strong>： 左孩子， 右孩子， root。前序是中左右，所以变成中右左，然后翻转结果，就可以</li>
+</ul>
+<p>重点第二个： 到了左墙，扔掉左墙后记录，到了父节点记录，扔出父节点（或者直接用 peek（））， 如果发现右边还有吃，重新塞回父节点，后序遍历中没有父亲吃不了右孩子。右边吃完后弹自己，prev = cur， cur = null，这样一步一步往上爬，
+.        1
+.      / <br>
+.    2      3
+.   /  \    / <br>
+.  4    5  6    7
+. /<br>
+. 8  9</p>
+<blockquote>
+<p>stack: 1 2 4 8</p>
+</blockquote>
+<p>.        1
+.      / <br>
+.    2      3
+.   /  \    / <br>
+.  4    5  6    7
+. /<br>
+pr 8  9</p>
+<blockquote>
+<p>stack: 1 2 4   <br>
+list: 8</p>
+</blockquote>
+<p>.          1
+.        / <br>
+.       2      3
+.     /  \    / <br>
+.cur  4    5  6    7
+.    /<br>
+pr   8  9</p>
+<blockquote>
+<p>stack: 1 2    <br>
+list: 8</p>
+</blockquote>
+<p>cur.right != null, 所以 cur 重新入栈， 然后 cur = cur.right</p>
+<blockquote>
+<p>stack: 1 2 4 9</p>
+</blockquote>
+<p>继续执行：pop，9</p>
+<blockquote>
+<p>stack: 1 2 4 
+list: 8， 9</p>
+</blockquote>
+<blockquote>
+<p>stack: 1<br>
+list: 8， 9 4</p>
+</blockquote>
+<p>cur.right != null, 所以 cur 重新入栈， 然后 cur = cur.right</p>
+<blockquote>
+<p>stack: 1 2<br>
+list: 8， 9 4</p>
+</blockquote>
+<p>加入右边：</p>
+<blockquote>
+<p>stack: 1 2 5<br>
+list: 8， 9 4</p>
+</blockquote>
+<p>pop</p>
+<blockquote>
+<p>stack: 1 <br>
+list: 8， 9 4 5 2</p>
+</blockquote>
+<p>继续 cur。right</p>
+<blockquote>
+<p>stack: 1  3<br>
+list: 8， 9 4 5 2</p>
+</blockquote>
+<p>另一个方法是加入两个指针，prev 是遍历的上一个指针</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Deque</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+<span class="n">TreeNode</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+<span class="n">TreeNode</span> <span class="n">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// 前一个访问的节点
+</span><span class="c1"></span><span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur</span><span class="o">);</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">left</span><span class="o">;</span> <span class="c1">// 中序也是如此
+</span><span class="c1"></span>    <span class="o">}</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(),</span> <span class="c1">// 出栈
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">cur</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="n">prev</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 从右边返回来，往上的趋势
+</span><span class="c1"></span>        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cur</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">;</span> <span class="c1">// 弹自己
+</span><span class="c1"></span>        <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">cur</span><span class="o">);</span> <span class="c1">//再次压栈
+</span><span class="c1"></span>        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="na">right</span><span class="o">;</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">return</span> <span class="n">list</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="c1">// 中序
+</span><span class="c1"></span>
+<span class="c1">// Deque&lt;TreeNode&gt; stack = new ArrayDeque&lt;&gt;();
+</span><span class="c1">// TreeNode cur = root;
+</span><span class="c1">// TreeNode prev = null; // 前一个访问的节点
+</span><span class="c1">// while (cur != null || !stack.isEmpty()) {
+</span><span class="c1">//     while (cur != null) {
+</span><span class="c1">//         stack.push(cur);
+</span><span class="c1">//         cur = cur.left;
+</span><span class="c1">//     }
+</span><span class="c1">//     cur = stack.pop();
+</span><span class="c1">//         list.add(cur.val);
+</span><span class="c1">//         cur = cur.right;         
+</span><span class="c1">//     }
+</span><span class="c1">//     return list;
+</span><span class="c1">// }
+</span></code></pre></div><h2 id="n-ary-tree-level-order-traversal-429">N-ary Tree Level Order Traversal 429</h2>
+<p><a id="markdown-n-ary-tree-level-order-traversal-429" name="n-ary-tree-level-order-traversal-429"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given an n-ary tree, <span class="k">return</span> the level order traversal of its nodes<span class="err">&#39;</span> values.
+
+Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value <span class="o">(</span>See examples<span class="o">)</span>.
+
+Example 1:
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>1,null,3,2,4,null,5,6<span class="o">]</span>
+Output: <span class="o">[[</span>1<span class="o">]</span>,<span class="o">[</span>3,2,4<span class="o">]</span>,<span class="o">[</span>5,6<span class="o">]]</span>
+</code></pre></div><p>我的代码，但是实际上有个小地方要注意</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">levelOrder</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+        <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">q</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">Node</span> <span class="n">num</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">num</span><span class="o">.</span><span class="na">children</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">List</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">&gt;</span> <span class="n">children</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">children</span><span class="o">;</span>
+                    <span class="k">for</span> <span class="o">(</span><span class="n">Node</span> <span class="n">n</span> <span class="o">:</span> <span class="n">children</span><span class="o">)</span> <span class="o">{</span>
+                       <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">n</span><span class="o">);</span> 
+                    <span class="o">}</span>
+                    
+                <span class="o">}</span>
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">num</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// if (num.children != null) {
+</span><span class="c1">//     List&lt;Node&gt; children = num.children;
+</span><span class="c1"></span> <span class="k">for</span> <span class="o">(</span><span class="n">Node</span> <span class="n">n</span> <span class="o">:</span> <span class="n">num</span><span class="o">.</span><span class="na">children</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">q</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">n</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div><p>这里不需要 check 子类是否为 null， if you see it is 0 at the leaf node, then you can assume that the constructor has initialized it with a empty list instead of null。you don&rsquo;t normally add a null into a List.</p>
+<p>如果是 2 叉树，左右子树，的确需要检查是否为 null</p>
+<p><strong>这里比较快的方式是 dfs， 再次了解 input</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">The height of the n-ary tree is less than or equal to <span class="m">1000</span>
+The total number of nodes is between <span class="o">[</span>0, 104<span class="o">]</span>
+</code></pre></div><p><strong>In DFS max stack size will be in worst case 1000; in average (well balanced tree) it will be log (height).</strong></p>
+<p><strong>in BFS say we have 1 level and all nodes are in that same level i.e. worst case 10 ^ 4 queuing operation (adding 10 ^ 4 elements in dynamic array/queue will have many re-allocate operation</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">levelOrder</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">levelOrder</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;());</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">levelOrder</span><span class="o">(</span><span class="n">Node</span> <span class="n">node</span><span class="o">,</span> <span class="kt">int</span> <span class="n">level</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">order</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">order</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">level</span> <span class="o">?</span> <span class="n">order</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">level</span><span class="o">)</span> <span class="o">:</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&lt;=</span> <span class="n">level</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">order</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Node</span> <span class="n">n</span> <span class="o">:</span> <span class="n">node</span><span class="o">.</span><span class="na">children</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">levelOrder</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">level</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">order</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">order</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="maximum-depth-of-binary-tree-104">Maximum Depth of Binary Tree 104</h2>
+<p><a id="markdown-maximum-depth-of-binary-tree-104" name="maximum-depth-of-binary-tree-104"></a></p>
+<p>二叉树的最深距离</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxDepth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+       <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">maxDepth</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">maxDepth</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="n">right</span> <span class="o">?</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span> <span class="o">:</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="最浅距离的二叉树"><strong>最浅距离的二叉树</strong></h2>
+<p><a id="markdown-**%E6%9C%80%E6%B5%85%E8%B7%9D%E7%A6%BB%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91**" name="**%E6%9C%80%E6%B5%85%E8%B7%9D%E7%A6%BB%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91**"></a></p>
+<p>首先距离为根到叶子节点</p>
+<blockquote>
+<p>如果沿用上面的最深的解法，很容易造成结果是 1， 因为左子树是 0， 就变成结果为 0； 但这不符合根到节点的意思</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxDepth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+       <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+       <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+       <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">minDepth</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">minDepth</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="c1">// 当左子树为空，右不为空， 这时候不是叶子节点
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">right</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 当右子树为空，左不为空， 这时候不是叶子节点
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 都不为空才是最小值的深度 + 1
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="nf">minDepth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">Deque</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">deque</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">deque</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">deque</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">deque</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+            <span class="n">depth</span><span class="o">++;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">TreeNode</span> <span class="n">poll</span> <span class="o">=</span> <span class="n">deque</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">poll</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">poll</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="c1">// 是叶子结点，直接返回depth，因为从上往下遍历，所以该值就是最小值
+</span><span class="c1"></span>                    <span class="k">return</span> <span class="n">depth</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">poll</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">deque</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">poll</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">poll</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">deque</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">poll</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">depth</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="count-complete-tree-nodes-222">Count Complete Tree Nodes 222</h2>
+<p><a id="markdown-count-complete-tree-nodes-222" name="count-complete-tree-nodes-222"></a></p>
+<h2 id="binary-tree-paths-257">Binary Tree Paths 257</h2>
+<p><a id="markdown-binary-tree-paths-257" name="binary-tree-paths-257"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary tree, <span class="k">return</span> all root-to-leaf paths in any order.
+
+A leaf is a node with no children.
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>1,2,3,null,5<span class="o">]</span>
+Output: <span class="o">[</span><span class="s2">&#34;1-&gt;2-&gt;5&#34;</span>,<span class="s2">&#34;1-&gt;3&#34;</span><span class="o">]</span>
+</code></pre></div><p>现在回想 DFS, 吃进去吐出来，我发现一次递归就会有一次回溯。可以看到 dfs 经典题目对应。</p>
+<p>这个题目有个 &ldquo;-&gt;&rdquo; 算两个符号，第一个解法是用 List<Integer> 做每条边的递归和回溯，时间复杂度和 用 sb 差不多， 哪怕多了一个 List<Integer></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">binaryTreePaths</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">paths</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">traversal</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">paths</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">traversal</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">paths</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">res</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">paths</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="c1">// 叶子结点， 就马上打印，不去 root == null 了
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 输出
+</span><span class="c1"></span>            <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">paths</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)).</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;-&gt;&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">paths</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">));</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="c1">// 所以这里就避免 root == null 的情况也属于减枝了， 
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">traversal</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">paths</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+            <span class="n">paths</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">paths</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span><span class="c1">// 回溯
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">traversal</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">paths</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+            <span class="n">paths</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">paths</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span><span class="c1">// 回溯
+</span><span class="c1"></span>        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><p>用 dfs 来的话，经典 dfs 是到了节点的下面， root == null， 一个返回到节点的 dfs root.right, 所以有个反弹力到它的右边，回溯就只有一个。</p>
+<p>写了 root == null 这种情况，回溯只需要写一行， 不像上面，因为到叶子节点就 return 了， 所以需要吃了吐，到了右边吃了吐，写两个回溯。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">binaryTreePaths</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">){</span>
+        <span class="c1">// root 为空
+</span><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">==</span><span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">==</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+            <span class="n">StringBuilder</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">path</span><span class="o">.</span><span class="na">size</span><span class="o">()-</span><span class="n">1</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+                <span class="n">temp</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;-&gt;&#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">temp</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">size</span><span class="o">()-</span><span class="n">1</span><span class="o">));</span>
+            <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">temp</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="n">dfs</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="c1">// 回溯， remove下行来反弹
+</span><span class="c1"></span>        <span class="n">path</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">size</span><span class="o">()-</span><span class="n">1</span><span class="o">);</span> 
+        <span class="o">}</span>
+</code></pre></div><h2 id="find-bottom-left-tree-value-513">Find Bottom Left Tree Value 513</h2>
+<p><a id="markdown-find-bottom-left-tree-value-513" name="find-bottom-left-tree-value-513"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary tree, <span class="k">return</span> the leftmost value in the last row of the tree. Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>2,1,3<span class="o">]</span>
+Output: <span class="m">1</span>
+</code></pre></div><p>这题没什么好说的，一个 层序遍历到最后，左叶子就是会出现在每层第一个，然后用一个 res 代替， 代替到最后一层。</p>
+<p>这题如果是 dfs 做，一开始想到就是把 high 数值一起递归， 我基础较弱会出现想不到全局变量可以直接修改值的情况。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 两个全局变量
+</span><span class="c1"></span><span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">Hight</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">findBottomLeftValue</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 一开始递归起始数值
+</span><span class="c1"></span>    <span class="n">value</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">;</span>
+    <span class="c1">// 传入 hight来进行对比
+</span><span class="c1"></span>    <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+    <span class="c1">// 直接改参数
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">helper</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">hight</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">hight</span> <span class="o">&gt;</span> <span class="n">Hight</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Hight</span> <span class="o">=</span> <span class="n">hight</span><span class="o">;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">hight</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">hight</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="path-sum-112">Path Sum 112</h2>
+<p><a id="markdown-path-sum-112" name="path-sum-112"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary tree and an integer targetSum, <span class="k">return</span> <span class="nb">true</span> <span class="k">if</span> the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
+
+A leaf is a node with no children.
+
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>5,4,8,11,null,13,4,7,2,null,null,null,1<span class="o">]</span>, <span class="nv">targetSum</span> <span class="o">=</span> <span class="m">22</span>
+Output: <span class="nb">true</span>
+Explanation: The root-to-leaf path with the target sum is shown.
+</code></pre></div><p>dfs 左边右边到叶子节点，其中一个满足了就返回。这里又暴露了我的基础知识薄弱. 下面代码中注释的代码是最原始代码，直接两个 dfs， 最后 return false， 因为想着如果进入 dfs 找到了就直接 return true 了， 到弄完了到最后了不就是没找到嘛。</p>
+<p>可是直接比如 2 分查找，其实是有循环条件，while，跳出了来个 return false 表示没找到。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasPathSum</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+       
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">==</span> <span class="n">targetSum</span><span class="o">)</span> <span class="o">{</span>
+               <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+           <span class="o">}</span> 
+           <span class="c1">// 更优雅的写法
+</span><span class="c1"></span>           <span class="c1">// return root.val == targetSum
+</span><span class="c1"></span>        <span class="o">}</span>
+        
+        <span class="c1">// hasPathSum(root.left, targetSum - root.val);
+</span><span class="c1"></span>        <span class="c1">// hasPathSum(root.right, targetSum - root.val);
+</span><span class="c1"></span>   
+        <span class="k">if</span> <span class="o">(</span><span class="n">hasPathSum</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">targetSum</span> <span class="o">-</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">)</span> <span class="o">){</span>
+             <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+         <span class="o">};</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">hasPathSum</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">targetSum</span> <span class="o">-</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">};</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+        <span class="c1">// 更优雅的写法
+</span><span class="c1"></span>        <span class="c1">// return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum - root.val);
+</span><span class="c1"></span>    <span class="o">}</span>
+</code></pre></div><h2 id="path-sum-113">Path Sum 113</h2>
+<p><a id="markdown-path-sum-113" name="path-sum-113"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given the root of a binary tree and an integer targetSum, <span class="k">return</span> all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.
+
+A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
+Input: <span class="nv">root</span> <span class="o">=</span> <span class="o">[</span>5,4,8,11,null,13,4,7,2,null,null,5,1<span class="o">]</span>, <span class="nv">targetSum</span> <span class="o">=</span> <span class="m">22</span>
+Output: <span class="o">[[</span>5,4,11,2<span class="o">]</span>,<span class="o">[</span>5,8,4,5<span class="o">]]</span>
+Explanation: There are two paths whose sum equals targetSum:
+<span class="m">5</span> + <span class="m">4</span> + <span class="m">11</span> + <span class="nv">2</span> <span class="o">=</span> <span class="m">22</span>
+<span class="m">5</span> + <span class="m">8</span> + <span class="m">4</span> + <span class="nv">5</span> <span class="o">=</span> <span class="m">22</span>
+</code></pre></div><p>我显然忘了回溯， 回溯是为了 减少开销，path 上面不需要开辟一个完整的 list， 另外 res.add(new ArrayList&lt;&gt;(path))
+直接用 path 的话，这里是拷贝地址，path数值改变结果会改变</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">pathSum</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">targetSum</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">helper</span> <span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">path</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="n">path</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">==</span> <span class="n">targetSum</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">path</span><span class="o">));</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span><span class="n">targetSum</span> <span class="o">-</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">,</span>  <span class="n">path</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">targetSum</span> <span class="o">-</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>但是用更直白的方式，</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="nf">pathSum</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="c1">// 去掉一个非空
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">targetSum</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">helper</span> <span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">targetSum</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">path</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">res</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="n">path</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span> <span class="o">==</span> <span class="n">targetSum</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">path</span><span class="o">));</span>
+            <span class="o">}</span>
+            <span class="k">return</span><span class="o">;</span> <span class="c1">// 到叶子了离开吧，不要往下了
+</span><span class="c1"></span>        <span class="o">}</span>
+        
+        <span class="c1">// 左边一个递归一个回溯
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span><span class="n">targetSum</span> <span class="o">-</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">,</span>  <span class="n">path</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+            <span class="n">path</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">helper</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">targetSum</span> <span class="o">-</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+        <span class="n">path</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="construct-binary-tree-from-preorder-and-inorder-traversal-105">Construct Binary Tree from Preorder and Inorder Traversal 105</h2>
+<p><a id="markdown-construct-binary-tree-from-preorder-and-inorder-traversal-105" name="construct-binary-tree-from-preorder-and-inorder-traversal-105"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and <span class="k">return</span> the binary tree.
+
+Input: <span class="nv">preorder</span> <span class="o">=</span> <span class="o">[</span>3,9,20,15,7<span class="o">]</span>, <span class="nv">inorder</span> <span class="o">=</span> <span class="o">[</span>9,3,15,20,7<span class="o">]</span>
+Output: <span class="o">[</span>3,9,20,null,null,15,7<span class="o">]</span>
+
+Input: <span class="nv">preorder</span> <span class="o">=</span> <span class="o">[</span>-1<span class="o">]</span>, <span class="nv">inorder</span> <span class="o">=</span> <span class="o">[</span>-1<span class="o">]</span>
+Output: <span class="o">[</span>-1<span class="o">]</span>
+</code></pre></div><p>这题我只切分出了祖先 3 节点， 我也知道 inorder 的 3 的左边是根的左子树，右边是右子树，然后后面就卡了。</p>
+<p>但实际上是 inorder 分左右后， preorder 可以继续在这些片区里面的第一个就是根</p>
+<figure><img src="/images/bfs11.png"
+         alt="image"/><figcaption>
+            <h4>BST</h4>
+        </figcaption>
+</figure>
+
+<p>递归三部曲：</p>
+<ol>
+<li>终止： 当然两个数组为空</li>
+<li><strong>前序拼出根节点， 两个数组根据这个分成两半</strong>； 递归处理这分出来的左边部分， <strong>前序拼出根节点， 两个数组根据这个分成两半</strong>， 空了， 递归处理这分出来的右边部分， <strong>前序拼出根节点， 两个数组根据这个分成两半</strong></li>
+</ol>
+<p>On 的时间空间复杂度</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">indexMap</span><span class="o">;</span>
+<span class="kd">public</span> <span class="n">TreeNode</span> <span class="nf">buildTree</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">)</span> <span class="o">{</span>
+        
+    <span class="c1">// 快速定位 inorder的 相对应的 root元素用      
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">preorder</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="n">indexMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">indexMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">inorder</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">i</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">helper</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">inorder</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">n</span> <span class="o">-</span><span class="n">1</span><span class="o">);</span>
+        
+    <span class="o">}</span>
+    
+    
+    <span class="kd">private</span> <span class="n">TreeNode</span> <span class="nf">helper</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">preorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">preStart</span><span class="o">,</span> <span class="kt">int</span> <span class="n">preEnd</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">inorder</span><span class="o">,</span> <span class="kt">int</span> <span class="n">inStar</span><span class="o">,</span> <span class="kt">int</span> <span class="n">inEnd</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">preStart</span> <span class="o">&gt;</span> <span class="n">preEnd</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// preStart找根
+</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">preorder</span><span class="o">[</span><span class="n">preStart</span><span class="o">];</span>
+       <span class="n">TreeNode</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">val</span><span class="o">);</span>
+        <span class="c1">// 两边的索引要求出来，
+</span><span class="c1"></span>        <span class="c1">// root.left = helper(preorder, ？, ？, inorder, ?, ?);
+</span><span class="c1"></span>        <span class="c1">// root.left = helper(preorder, ？, ？, inorder, ?, ?);
+</span><span class="c1"></span>
+
+
+
+        <span class="c1">// inorder切两边。所以切点索引要出来
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">indexMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">val</span><span class="o">);</span> <span class="c1">// 3
+</span><span class="c1"></span>        <span class="c1">// 看看左段数量
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="n">inStart</span><span class="o">;</span> <span class="c1">// 1
+</span><span class="c1"></span>
+        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="n">preStart</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">preStart</span> <span class="o">+</span> <span class="n">size</span><span class="o">,</span> <span class="n">inorder</span><span class="o">,</span> <span class="n">inStart</span><span class="o">,</span> <span class="n">idx</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">helper</span><span class="o">(</span><span class="n">preorder</span><span class="o">,</span> <span class="n">preStart</span> <span class="o">+</span> <span class="n">size</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">preEnd</span><span class="o">,</span> <span class="n">inorder</span><span class="o">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">inEnd</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div><h2 id="construct-binary-tree-from-inorder-and-postorder-traversal-106">Construct Binary Tree from Inorder and Postorder Traversal 106</h2>
+<p><a id="markdown-construct-binary-tree-from-inorder-and-postorder-traversal-106" name="construct-binary-tree-from-inorder-and-postorder-traversal-106"></a></p>
+<p>这个几乎是一样的思路，再来一次图解找到定位</p>
+<p>.
+Postorder:  4   8   9   5   2   10   6   7  3   1
+.           ps                                   pe</p>
+<ol>
+<li>
+<p>找到 root：idx
+.                              root
+Inorder:    4   2   8   5   9   1   6   10  3   7
+.           is                                  ie</p>
+</li>
+<li>
+<p>root.left 定位</p>
+</li>
+</ol>
+<p>Inorder:    4   2   8   5   9       1       6   10  3   7
+.           is            idx-1     idx                ie</p>
+<ol start="3">
+<li>
+<p>左子树距离 ： idx - 1 -is</p>
+</li>
+<li>
+<p>postorder 的左子树距离：ps, ps + idx - 1 -is</p>
+</li>
+<li>
+<p>root.right 定位</p>
+</li>
+</ol>
+<p>Inorder:    4   2   8   5   9       1       6          10  3   7
+.           is            idx-1     idx     idx + 1           ie</p>
+<ol start="6">
+<li>右子树距离 ： idx + 1， ie</li>
+</ol>
+<p><strong>注意这时候 post 最右是 root， 所以递归时候 -1</strong></p>
+<ol start="7">
+<li>postorder 的右子树距离：ps + idx -is， pe -1</li>
+</ol>
+<h2 id="insert">insert</h2>
+<p><a id="markdown-insert" name="insert"></a></p>
+<p>iterater</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">TreeNode</span> <span class="nf">insert</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">TreeNode</span> <span class="n">res</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">!=</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">TreeNode</span> <span class="nf">insert</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">TreeNode</span> <span class="n">res</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+    <span class="n">TreeNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">root</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">key</span> <span class="o">&gt;</span> <span class="n">key</span><span class="o">){</span>
+          
+            <span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="c1">// root == null, 直接挂到 pre上
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">key</span> <span class="o">&lt;</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">pre</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">pre</span><span class="o">.</span><span class="na">key</span> <span class="o">&gt;</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">pre</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/algorithm/">algorithm</a><a class="tag" href="/tags/binarysearchtree/">BinarySearchTree</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>
