@@ -158,6 +158,32 @@ it means you didn&#39;t understand it well enough&#34;.
 <ul>
 <li><a href="#scenario-analysis" >Scenario analysis</a></li>
 <li><a href="#storage" >Storage</a></li>
+<li><a href="#write-process" >Write process</a>
+<ul>
+<li><a href="#make-the-last-file-from-unordered-to-ordered" >make the last file from unOrdered to Ordered</a></li>
+<li><a href="#recover-data-of-different-file-formats-from-crashed-memory" >Recover data of different file formats from crashed memory</a></li>
+</ul>
+</li>
+<li><a href="#read-process" >Read process</a></li>
+<li><a href="#query-in-ordered-file" >query in ordered file</a>
+<ul>
+<li><a href="#one-easy-way-to-build-index" >One easy way to build index</a></li>
+<li><a href="#one-better-way-to-read-file" >One better way to read file</a></li>
+</ul>
+</li>
+<li><a href="#compelete-read-process-with-index-bf" >Compelete Read process with Index, BF</a></li>
+<li><a href="#complete-write-process" >Complete Write process</a></li>
+<li><a href="#sharding" >Sharding</a></li>
+<li><a href="#write-a-key" >write a key</a></li>
+<li><a href="#save-data-in-gfs" >save data in GFS</a></li>
+<li><a href="#distributed-lock" >distributed lock</a>
+<ul>
+<li><a href="#write-a-key-with-distributed-lock" >write a key with distributed lock</a></li>
+<li><a href="#advantage-distribute-lock" >Advantage Distribute Lock</a></li>
+</ul>
+</li>
+<li><a href="#write-with-lock" >Write with lock</a></li>
+<li><a href="#read-with-lock" >Read with lock</a></li>
 </ul>
 </li>
 </ul>
@@ -201,9 +227,11 @@ it means you didn&#39;t understand it well enough&#34;.
 </li>
 </ul>
 <h3 id="write-process">Write process</h3>
+<p><a id="markdown-write-process" name="write-process"></a></p>
 <p>Client 1 &ndash; Write key: Aa + appearance value: 3 &ndash;&gt; Memory (file 0, file 1..) &ndash;Append key: Aa + appearance value: 3 &ndash;&gt; file 1 (unordered)</p>
 <p>when the file 1 reach to 256(or  512 bytes) &ndash;merge/sort&ndash;&gt; Order Block &ndash;&gt; open a new unorder block</p>
 <h4 id="make-the-last-file-from-unordered-to-ordered">make the last file from unOrdered to Ordered</h4>
+<p><a id="markdown-make-the-last-file-from-unordered-to-ordered" name="make-the-last-file-from-unordered-to-ordered"></a></p>
 <ul>
 <li>
 <p>method 1: sort in memory (Write once(disk), read once(disk), sorted in memory, Write once(disk))</p>
@@ -216,18 +244,22 @@ it means you didn&#39;t understand it well enough&#34;.
 <p>Client 1 &ndash; Write key: Aa + appearance value: 3 &ndash;&gt; Memory (file 0, file 1..unOrdered block, when read to full size) &ndash;Append key: Aa + appearance value: 3 &ndash;&gt;Sorted List &ndash;Serialize to disk&ndash;&gt; file 1 (ordered)</p>
 </blockquote>
 <h4 id="recover-data-of-different-file-formats-from-crashed-memory">Recover data of different file formats from crashed memory</h4>
+<p><a id="markdown-recover-data-of-different-file-formats-from-crashed-memory" name="recover-data-of-different-file-formats-from-crashed-memory"></a></p>
 <p><strong>Write Ahead Log</strong></p>
 <h3 id="read-process">Read process</h3>
+<p><a id="markdown-read-process" name="read-process"></a></p>
 <blockquote>
 <p>Client 1 &ndash; 1. Read key: Aa + appearance &ndash;&gt; Memory &ndash;2. Read key: Aa + appearance &ndash;&gt;Sorted List(Aa + appearance value: 3)</p>
 </blockquote>
 <p>no result &ndash; Memory &ndash;3. Read key: Aa + appearance &ndash;&gt; <strong>file 1 (ordered)</strong></p>
 <h3 id="query-in-ordered-file">query in ordered file</h3>
+<p><a id="markdown-query-in-ordered-file" name="query-in-ordered-file"></a></p>
 <ul>
 <li>Index</li>
 <li>BloomFilter</li>
 </ul>
 <h4 id="one-easy-way-to-build-index">One easy way to build index</h4>
+<p><a id="markdown-one-easy-way-to-build-index" name="one-easy-way-to-build-index"></a></p>
 <p>Memory Index</p>
 <ul>
 <li>A: address</li>
@@ -245,6 +277,7 @@ it means you didn&#39;t understand it well enough&#34;.
 <p>Look up key Xuuu, just need binary search from D to S</p>
 <p>In real life, B tree index is good choice.</p>
 <h4 id="one-better-way-to-read-file">One better way to read file</h4>
+<p><a id="markdown-one-better-way-to-read-file" name="one-better-way-to-read-file"></a></p>
 <ul>
 <li>BloomFilter
 <ul>
@@ -253,6 +286,7 @@ it means you didn&#39;t understand it well enough&#34;.
 </li>
 </ul>
 <h3 id="compelete-read-process-with-index-bf">Compelete Read process with Index, BF</h3>
+<p><a id="markdown-compelete-read-process-with-index%2C-bf" name="compelete-read-process-with-index%2C-bf"></a></p>
 <p>Memory:</p>
 <ul>
 <li>file0, Address0</li>
@@ -293,11 +327,13 @@ File 1 Ordered:</p>
 <p>Sorted List = Skip List</p>
 <hr>
 <h3 id="complete-write-process">Complete Write process</h3>
+<p><a id="markdown-complete-write-process" name="complete-write-process"></a></p>
 <p>Client 1 &ndash; Write key: Aa + appearance value: 3 &ndash;&gt; <code>Memory</code> (file 0, file 1..) &ndash;Append key: Aa + appearance value: 3 &ndash;&gt; <code>Skip List</code> (unordered) &ndash;&gt; <code>SSTable 1 (Ordered in Disk)</code></p>
 <blockquote>
 <p>How to read/write key: value from 1PB file</p>
 </blockquote>
 <h3 id="sharding">Sharding</h3>
+<p><a id="markdown-sharding" name="sharding"></a></p>
 <ul>
 <li>
 <p>Horizontal Sharding</p>
@@ -322,6 +358,7 @@ File 1 Ordered:</p>
 <p>How to write BigTable</p>
 </blockquote>
 <h3 id="write-a-key">write a key</h3>
+<p><a id="markdown-write-a-key" name="write-a-key"></a></p>
 <p>client &ndash; 1. Write key &ndash;&gt; <code>BigTable Master</code> &ndash; 2. Get the row key form key, Use the row key to get server id = 1 &ndash;&gt; client</p>
 <p>client &ndash;3. Write key, value &ndash;&gt; <code>Slave Server 1</code> &ndash;4. Done &ndash;&gt; client</p>
 <p>Memory</p>
@@ -338,29 +375,35 @@ File 1 Ordered:</p>
 <p>Too many data in Slave Server local disk</p>
 </blockquote>
 <h3 id="save-data-in-gfs">save data in GFS</h3>
+<p><a id="markdown-save-data-in-gfs" name="save-data-in-gfs"></a></p>
 <p>Table Server = Store Tablet Slave Server</p>
 <p>client &ndash;&gt; <code>Tablet Server 1</code> in <code>BigTable</code> &ndash;&gt; GFS</p>
 <blockquote>
 <p>Read and write the same key at the same time</p>
 </blockquote>
 <h3 id="distributed-lock">distributed lock</h3>
+<p><a id="markdown-distributed-lock" name="distributed-lock"></a></p>
 <ul>
 <li>Zookeeper</li>
 </ul>
 <h4 id="write-a-key-with-distributed-lock">write a key with distributed lock</h4>
+<p><a id="markdown-write-a-key-with-distributed-lock" name="write-a-key-with-distributed-lock"></a></p>
 <p>client 1 &ndash; 1. Write key and lock the key&ndash;&gt; <code>Lock Server</code> &ndash; 2. Get the row key form key &ndash;&gt; client 1 &ndash;3. key value &ndash;&gt;<code>Tablet Server 1</code> &ndash;4. Done&ndash;&gt; client 1</p>
 <p>client 1 &ndash; 5. unlock key&ndash;&gt; <code>Lock Server</code></p>
 <p>client 2 &ndash; 1. Read key and lock the key&ndash;&gt; <code>Lock Server</code> &ndash; 2. key is locked &ndash;&gt; client 2</p>
 <h4 id="advantage-distribute-lock">Advantage Distribute Lock</h4>
+<p><a id="markdown-advantage-distribute-lock" name="advantage-distribute-lock"></a></p>
 <ul>
 <li>the metadata is store on the Lock</li>
 <li>master don&rsquo;t need store MetaData</li>
 </ul>
 <h3 id="write-with-lock">Write with lock</h3>
+<p><a id="markdown-write-with-lock" name="write-with-lock"></a></p>
 <p><strong>client 1</strong> &ndash;&gt; 1. Write key and lock the key &ndash;&gt;<strong>Lock Server</strong>&ndash; 2. return Server Id&ndash;&gt;<strong>client 1</strong></p>
 <p><strong>client 1</strong> &ndash;&gt; 3. key value &ndash;&gt;<strong>Tablet Server 1</strong>&ndash; 4. <code>write log</code> <key value>&ndash;&gt;<strong>Lock Disk</strong> &ndash; 6. write to GFS&ndash;&gt; <strong>GFS</strong></p>
 <p><strong>Tablet Server 1</strong>&ndash; 5. <code>write key. value</code>&ndash;&gt;<strong>Memory</strong> &ndash; 6. write to GFS&ndash;&gt; <strong>GFS</strong></p>
 <h3 id="read-with-lock">Read with lock</h3>
+<p><a id="markdown-read-with-lock" name="read-with-lock"></a></p>
 <p><strong>client 1</strong> &ndash;&gt; 1. Read key and lock the key &ndash;&gt;<strong>Lock Server</strong>&ndash; 2. return Server Id&ndash;&gt;<strong>client 1</strong></p>
 <p><strong>client 1</strong> &ndash;&gt; 3. Read key &ndash;&gt;<strong>Tablet Server 1</strong>&ndash; 4. Check memory, Bloom Filter, index on each sstable,  &ndash;&gt;<strong>Memory</strong></p>
 <p><strong>Tablet Server 1</strong>&ndash; 5. Binary search on sstable to find the value&ndash;&gt;<strong>GFS</strong></p>

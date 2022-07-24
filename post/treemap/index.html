@@ -216,7 +216,7 @@
 <p>同时遍历 key 和 value 时，keySet 与 entrySet 方法的性能差异取决于 key 的具体情况，</p>
 <p>如复杂度（复杂对象）、离散度、冲突率等。换言之，取决于 HashMap 查找 value 的开销。</p>
 <p>entrySet 一次性取出所有 key 和 value 的操作是有性能开销的，当这个损失小于 HashMap 查找 value 的开销时，entrySet 的性能优势就会体现出来。</p>
-<p>当 key 是最简单的数值字符串时，keySet 可能反而会更高效，耗时比 entrySet 少10%。</p>
+<p>当 key 是最简单的数值字符串时，keySet 可能反而会更高效，耗时比 entrySet 少 10%。</p>
 <p>总体来说还是推荐使用 entrySet。因为当 key 很简单时，其性能或许会略低于 keySet，但却是可控的；而随着 key 的复杂化，entrySet 的优势将会明显体现出来。当然，我们可以根据实际情况进行选择</p>
 <p>只遍历 key 时，keySet 方法更为合适，因为 entrySet 将无用的 value 也给取出来了，浪费了性能和空间。在上述测试结果中，keySet 比 entrySet 方法耗时少 23%。</p>
 <p>只遍历 value 时，使用 vlaues 方法是最佳选择，entrySet 会略好于 keySet 方法。</p>
