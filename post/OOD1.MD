@@ -1,7 +1,7 @@
 ---
 title: "ood__PARKING LOT"
 date: 2020-03-01T15:56:39+08:00
-Description: 
+Description: "java inteview OOD"
 Tags: [
     "ood","java","interview"
 ]
@@ -10,6 +10,7 @@ DisableComments: false
 ---
 design a parking lot
 <!-- more -->
+
 
 ## what is the model used for? use case: testing or research 
 

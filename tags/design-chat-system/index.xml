@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design chat system on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/design-chat-system/</link>
+    <description>Recent content in Design chat system on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Apr 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/design-chat-system/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>learning System design as a landscape architect 9</title>
+      <link>https://rileyshen.github.io/post/sys9/</link>
+      <pubDate>Fri, 01 Apr 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/sys9/</guid>
+      
+        <description>&lt;p&gt;Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Bigtable as example&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#design-wechat&#34; &gt;Design WeChat&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#scenario-analysis&#34; &gt;Scenario analysis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#service&#34; &gt;Service&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#storage&#34; &gt;Storage&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#message-table-nosql&#34; &gt;Message Table NoSQL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#thread-id&#34; &gt;Thread id&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#nosql-store-thread-table&#34; &gt;NoSQL store Thread Table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#nosql-store-userthread-table&#34; &gt;NoSQL store UserThread Table&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#dataflow&#34; &gt;dataflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#scale&#34; &gt;Scale&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#push-notification&#34; &gt;Push Notification&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#socket-flow&#34; &gt;Socket Flow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#push-service&#34; &gt;Push Service&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#group-chat&#34; &gt;group chat&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#channel-service&#34; &gt;Channel Service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;design-wechat&#34;&gt;Design WeChat&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-design-wechat&#34; name=&#34;design-wechat&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;scenario-analysis&#34;&gt;Scenario analysis&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-scenario-analysis&#34; name=&#34;scenario-analysis&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;basic function:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;login&lt;/li&gt;
+&lt;li&gt;concact list&lt;/li&gt;
+&lt;li&gt;send message to friend&lt;/li&gt;
+&lt;li&gt;group chat&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;other function:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;multiple device login&lt;/li&gt;
+&lt;li&gt;online status&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;wechat:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;10B Month active user&lt;/li&gt;
+&lt;li&gt;450 B daily message&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;QPS:&lt;/strong&gt;
+Average QPS = 450B / 86400 ~ 500K
+Peak QPS = 500K * 3 ~ 1.5 m&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Storage calculation&lt;/strong&gt;
+every message: 30bytes&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.3T&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;service&#34;&gt;Service&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-service&#34; name=&#34;service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Message Service&lt;/li&gt;
+&lt;li&gt;Realtime Service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;storage&#34;&gt;Storage&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-storage&#34; name=&#34;storage&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Before designing the message table, we need clarify the basic concept,&lt;/p&gt;
+&lt;p&gt;wechat Inbox has a list a Treads, Thread has a list of Message&lt;/p&gt;
+&lt;h4 id=&#34;message-table-nosql&#34;&gt;Message Table (NoSQL)&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-message-table-nosql&#34; name=&#34;message-table-nosql&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Complxt SQL would slow down your query.&lt;/p&gt;
+&lt;p&gt;use Tread Table and Message Table can improve the Performance.&lt;/p&gt;
+&lt;p&gt;However, some message is un_read to user A, but readed to user B.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;method 1 : separate into multiple tables&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Thread - store basic information&lt;/p&gt;
+&lt;p&gt;UserThread - store User&amp;rsquo;s private message in Thread
+&lt;strong&gt;Thread Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;bigint&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;last_message&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;avatar&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;varchar&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;created_at&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;timestamp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;User Thread Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;bigint&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Or&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;thread_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;as&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;thread_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unread_count&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_muted&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;boolean&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;updated_at&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;timestamp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;the&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;acording&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;to&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;updated_at&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;row&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;joined_at&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;       &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;timestamp&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Thread Table store shared Thread information&lt;/li&gt;
+&lt;li&gt;index by thread_id to query certain message&lt;/li&gt;
+&lt;li&gt;participant_hash_code to search thread between some users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;But you need use thread_id in User Thread Table to get information in Thread Table.&lt;/p&gt;
+&lt;p&gt;And Join SQL would slow down your query.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;method 2 : user UserThread, copy the shared information into User&amp;rsquo;s UserThread&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;But everytime updated operation happens, would cause repeat saving and nonconstant problem.&lt;/p&gt;
+&lt;p&gt;Method 1 still a better choice.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;when user A sent message to User B, how to get thread_id in server?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;thread-id&#34;&gt;Thread id&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-thread-id&#34; name=&#34;thread-id&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;add a new row &lt;code&gt;participants_hash_code&lt;/code&gt; in Thread Table.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;group chat:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;hash sorted user_id, 
+&lt;code&gt;partcipants_hash_code = any_hashfunc(sorted(participants_user_ids))&lt;/code&gt;, use &lt;code&gt;uuid&lt;/code&gt; then no need to think about hash collision.&lt;/p&gt;
+&lt;p&gt;this row key wouldnot use sorted &lt;code&gt;user_ids&lt;/code&gt;, cause in group chat, the user_id would a too long.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;private conversation between two users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Create a custom format &lt;code&gt;private::user1::user2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;NoSQL would be a better choice.&lt;/p&gt;
+&lt;h4 id=&#34;nosql-store-thread-table&#34;&gt;NoSQL store Thread Table&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-nosql-store-thread-table&#34; name=&#34;nosql-store-thread-table&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;NoSQL store Thread Table and support query by thread_id  and participant_hash_code&lt;/p&gt;
+&lt;p&gt;2 tables need here:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Thread Table&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;row_key = thread_id&lt;/li&gt;
+&lt;li&gt;column_key = created_at&lt;/li&gt;
+&lt;li&gt;value = other info&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;ParticipantHashCode Table&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;row_key = partcipants_hash_code&lt;/li&gt;
+&lt;li&gt;column_key = null&lt;/li&gt;
+&lt;li&gt;value = thread_id&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;since column_key is not needed here, we can use key_value NoSQL, like RocksDB&lt;/p&gt;
+&lt;h4 id=&#34;nosql-store-userthread-table&#34;&gt;NoSQL store UserThread Table&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-nosql-store-userthread-table&#34; name=&#34;nosql-store-userthread-table&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;UserThread Table store private Thread information&lt;/p&gt;
+&lt;p&gt;sharding key&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;UserThread Table&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;row_key = user_id&lt;/li&gt;
+&lt;li&gt;column_key = updated_at&lt;/li&gt;
+&lt;li&gt;value = other info&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Sharding by Querying&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;dataflow&#34;&gt;dataflow&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-dataflow&#34; name=&#34;dataflow&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A send message to B&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;server get request to check if a &amp;ldquo;Thread&amp;rdquo; is already exists between A and B, create one if not exists.&lt;/li&gt;
+&lt;li&gt;create Message by Thread id&lt;/li&gt;
+&lt;li&gt;B visites server to get latest message every 10s (Poll)&lt;/li&gt;
+&lt;li&gt;B receive message&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A &amp;ndash; return those message (receive from and sent message to B ) &amp;ndash;&amp;gt; &lt;code&gt;Web server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Web serve &amp;ndash; query Thread + create Message &amp;ndash;&amp;gt; &lt;code&gt;DB&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;B &amp;lt;&amp;ndash;visit every 10s and receive message &amp;ndash;&amp;gt;&lt;code&gt;Web server&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;scale&#34;&gt;Scale&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-scale&#34; name=&#34;scale&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update message every 10s, can user get message in real time? How to speed up?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Android GCM (Google Cloud Messaging)&lt;/p&gt;
+&lt;p&gt;iOS APNS (Apple Push Notification Service)&lt;/p&gt;
+&lt;h3 id=&#34;push-notification&#34;&gt;Push Notification&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-push-notification&#34; name=&#34;push-notification&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A send message to Web Server&lt;/li&gt;
+&lt;li&gt;server query Thread + create Message, notify the APNS&lt;/li&gt;
+&lt;li&gt;APNS notify users of updates&lt;/li&gt;
+&lt;li&gt;B get new message from Web Server
+&lt;ul&gt;
+&lt;li&gt;and APNS can sent short message directly to B&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A &amp;ndash; return those message (receive from and sent message to B ) &amp;ndash;&amp;gt; &lt;code&gt;Web server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Web serve &amp;ndash; query Thread create Message &amp;ndash;&amp;gt; &lt;code&gt;DB&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Web serve &amp;ndash; &amp;ndash;&amp;gt; &lt;code&gt;APNS&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;B &amp;lt;&amp;ndash;receive message &amp;ndash;&amp;gt;&lt;code&gt;Web server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;But APNS cannot support web (windows wechat)&lt;/p&gt;
+&lt;h3 id=&#34;socket-flow&#34;&gt;Socket Flow&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-socket-flow&#34; name=&#34;socket-flow&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Wechat , facebook message has lots push notification,  Socket would be a good choice.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A open APP &amp;ndash;get Pish Service ip from &amp;ndash;&amp;gt; &lt;code&gt;Web Server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A &amp;ndash;connected(Socket)&amp;ndash;&amp;gt;&lt;code&gt;Push Server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;B &amp;ndash;send message to A&amp;ndash;&amp;gt; &lt;code&gt;Web Server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Web Server &amp;ndash;send message to A&amp;ndash;&amp;gt; &lt;code&gt;Push Server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A get message notification.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;push-service&#34;&gt;Push Service&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-push-service&#34; name=&#34;push-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Message Service (get message from wechat users)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;sharding by user_id&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Push Server 1
+&lt;ul&gt;
+&lt;li&gt;Socker &amp;lt;&amp;mdash;&amp;gt; wechat user 1&lt;/li&gt;
+&lt;li&gt;Socker &amp;lt;&amp;mdash;&amp;gt; wechat user 2&lt;/li&gt;
+&lt;li&gt;Socker &amp;lt;&amp;mdash;&amp;gt; wechat user 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Push Server 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;group-chat&#34;&gt;group chat&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-group-chat&#34; name=&#34;group-chat&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;one wechat group is 500 people, A sent message to this group, (A &amp;ndash;&amp;gt; Web Server&amp;ndash;send 500 times Push Request to Push Server), but only a few people is active in this group.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;use channel service to solve this problem&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;channel-service&#34;&gt;Channel Service&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-channel-service&#34; name=&#34;channel-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add a Channel Service&lt;/li&gt;
+&lt;li&gt;Add a Channel message for each chat thread&lt;/li&gt;
+&lt;li&gt;For larger groups, online users first need to subscribe to the corresponding Channel
+&lt;ul&gt;
+&lt;li&gt;When the user goes online, the Web Server (message service) finds the channel (group) to which the user belongs, and notifies the Channel Service to complete the subscription&lt;/li&gt;
+&lt;li&gt;Channel knows which users are still active on that channels&lt;/li&gt;
+&lt;li&gt;If the user is disconnected, the Push Service will know that the user is disconnected and notify the Channel Service to remove it from the channel to which it belongs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;After the Message Service receives the message from the user
+&lt;ul&gt;
+&lt;li&gt;Find the corresponding channel&lt;/li&gt;
+&lt;li&gt;Send a message request to the Channel Service&lt;/li&gt;
+&lt;li&gt;Sending 1 message instead of sending 500 messages&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Channel Service finds currently online users
+&lt;ul&gt;
+&lt;li&gt;Then send it to Push Service to push the message out&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Message Service (get message from wechat users)&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Subscribe channel and Dispatch message to Channel Service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;realize Real-time Service&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Chaneel Service&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Channel service has many channel 
+servers and sharding by channel id&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;sharding by user_id&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Push Server 1
+&lt;ul&gt;
+&lt;li&gt;Socker &amp;lt;&amp;mdash;&amp;gt; wechat user 1&lt;/li&gt;
+&lt;li&gt;Socker &amp;lt;&amp;mdash;&amp;gt; wechat user 2&lt;/li&gt;
+&lt;li&gt;Socker &amp;lt;&amp;mdash;&amp;gt; wechat user 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Push Server 2&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;Channel Service is a key-value structure. The key is the channel name, which can be a string such as &amp;ldquo;#personal::user_1&amp;rdquo;. value is a set represents who subscribed to this channel.&lt;/p&gt;
+&lt;p&gt;Redis is a good choice.&lt;/p&gt;
+&lt;p&gt;? How to know which Channels a user should subscribe to?&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;users need to subscribe to their own personal channel, such as #personal::user_1, receive those private chat information in this channel.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Group chats with less than a certain number of people can still be pushed through personal channel&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Group with large numbers can use lazy subscribe method. User opens the APP only subscribe those  group is close to recent.
+Actively subscribed group chats rely on the poll mode to get the latest news.
+Q: Can users still receive reminders after closing the app?
+A: If you really close the APP, it will not work. Therefore, many APPs will stay in the background to ensure that at least the Poll mode can still work.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/system9.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;send coupon&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

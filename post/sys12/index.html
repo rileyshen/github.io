@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | learning System design as a landscape architect 12 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/sys12/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="learning System design as a landscape architect 12"/>
+<meta name="twitter:description" content="Rethink Location Based Service system design in a much fun way, as a former urban planner/landscape planner."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>learning System design as a landscape architect 12</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Apr 1, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">4-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Rethink Location Based Service system design in a much fun way, as a former urban planner/landscape planner. Take Search System as example</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#design-search-system" >Design Search System</a></li>
+<li><a href="#scenario-analysis" >Scenario analysis</a>
+<ul>
+<li><a href="#functional-requirement" >Functional Requirement</a></li>
+</ul>
+</li>
+<li><a href="#service" >Service</a></li>
+<li><a href="#storage-system-in-twitter" >Storage system in Twitter</a>
+<ul>
+<li><a href="#database-system" >database system</a></li>
+</ul>
+</li>
+<li><a href="#searching-database-involvement" >searching database involvement</a>
+<ul>
+<li><a href="#index-file-storage" >Index file storage</a>
+<ul>
+<li><a href="#search-engine" >search engine</a></li>
+<li><a href="#inverted-index" >Inverted Index</a></li>
+</ul>
+</li>
+<li><a href="#ranking-search-result" >Ranking search result</a></li>
+</ul>
+</li>
+<li><a href="#schema-design" >Schema design</a>
+<ul>
+<li><a href="#create-real_time-index" >create real_time index</a>
+<ul>
+<li><a href="#query-process" >query process</a></li>
+</ul>
+</li>
+<li><a href="#batch-index-creation-process" >Batch index creation process</a></li>
+</ul>
+</li>
+<li><a href="#tweet-search-vs-e-commerce-search" >tweet search vs e-commerce search</a></li>
+<li><a href="#scale" >Scale</a>
+<ul>
+<li><a href="#fault-tolerance---replication-mechanism" >Fault Tolerance - Replication Mechanism</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<hr>
+<p>System Design = Logic Design(why) + Infrastructure Design(how)</p>
+<h2 id="design-search-system">Design Search System</h2>
+<p><a id="markdown-design-search-system" name="design-search-system"></a></p>
+<h2 id="scenario-analysis">Scenario analysis</h2>
+<p><a id="markdown-scenario-analysis" name="scenario-analysis"></a></p>
+<p>Take twitter Search System as example.</p>
+<h3 id="functional-requirement">Functional Requirement</h3>
+<p><a id="markdown-functional-requirement" name="functional-requirement"></a></p>
+<p>500 million tweets are posted every day.</p>
+<h2 id="service">Service</h2>
+<p><a id="markdown-service" name="service"></a></p>
+<ul>
+<li>Index Service</li>
+<li>Search Service</li>
+<li>Ranking Service</li>
+</ul>
+<h2 id="storage-system-in-twitter">Storage system in Twitter</h2>
+<p><a id="markdown-storage-system-in-twitter" name="storage-system-in-twitter"></a></p>
+<ol>
+<li>use <code>Redis Cluster</code> for caching</li>
+<li>use <code>Blobstore</code> for large file such as image, video</li>
+<li>Hadoop cluster for backend data, analyzing Server Logs</li>
+<li>MySQL for persistent data</li>
+</ol>
+<h3 id="database-system">database system</h3>
+<p><a id="markdown-database-system" name="database-system"></a></p>
+<ul>
+<li>Sharding</li>
+<li>Cold and hot data separation</li>
+<li>read-write separation</li>
+</ul>
+<h2 id="searching-database-involvement">searching database involvement</h2>
+<p><a id="markdown-searching-database-involvement" name="searching-database-involvement"></a></p>
+<ol>
+<li>MySQL database</li>
+</ol>
+<p>In the MySQL database, twitter is indexed based on time, which is divided into multiple Timeslice table. Only support 3 days data search.</p>
+<p>However, due to the huge number of tweets, each search only supports three days of all data searches.</p>
+<p>The search methods supported by MySQL search are very limited and difficult to scale</p>
+<p>Searching for a single keyword, does not support searching for multiple keyword combinations, 
+filter, fuzzy query, range search</p>
+<p>When the amount of data is too large, the query speed is very slow.</p>
+<ol start="2">
+<li>earlybird &ndash;&gt; Index server</li>
+</ol>
+<p>MySQL is only used in Synchronizing , disseminating data, and saving serialized documents</p>
+<h3 id="index-file-storage">Index file storage</h3>
+<p><a id="markdown-index-file-storage" name="index-file-storage"></a></p>
+<blockquote>
+<p>where is index file store? MySQL , Redis, or HDFS?</p>
+</blockquote>
+<p>HDFS: Build an index on the query content in advance, put it in the index library, and then query from the index library when querying.</p>
+<h4 id="search-engine">search engine</h4>
+<p><a id="markdown-search-engine" name="search-engine"></a></p>
+<p>divide the file into multiple Blocks</p>
+<h4 id="inverted-index">Inverted Index</h4>
+<p><a id="markdown-inverted-index" name="inverted-index"></a></p>
+<p>an inverted index is a database index storing a mapping from content, such as words or numbers, cons: Large storage overhead and high maintenance costs on update, delete and insert.</p>
+<p><code>Tokenizer</code> is used in inverted index</p>
+<h3 id="ranking-search-result">Ranking search result</h3>
+<p><a id="markdown-ranking-search-result" name="ranking-search-result"></a></p>
+<ul>
+<li>Interactions (Likes, comments, retweets, saved, read)</li>
+<li>connection (Author Credibility, followed or not)</li>
+<li>popularity (realtime + connection + Interactions)</li>
+</ul>
+<h2 id="schema-design">Schema design</h2>
+<p><a id="markdown-schema-design" name="schema-design"></a></p>
+<p><strong>Tweet Table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">id</span><span class="w">                  </span><span class="nb">varchar</span><span class="w">
+</span><span class="w"></span><span class="n">user_id</span><span class="w">     </span><span class="n">id</span><span class="w">      </span><span class="nb">varchar</span><span class="w">
+</span><span class="w"></span><span class="n">content</span><span class="w">             </span><span class="nb">text</span><span class="w">
+</span><span class="w"></span><span class="n">create_time</span><span class="w">         </span><span class="k">timestamp</span><span class="w">
+</span><span class="w"></span><span class="k">like</span><span class="w">                </span><span class="n">long</span><span class="w">
+</span><span class="w"></span><span class="n">forwarding_times</span><span class="w">    </span><span class="n">long</span><span class="w">
+</span><span class="w"></span><span class="k">comment</span><span class="w">             </span><span class="n">long</span><span class="w">
+</span></code></pre></div><p><strong>User Table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">user_id</span><span class="w">     </span><span class="n">id</span><span class="w">      </span><span class="nb">varchar</span><span class="w">
+</span><span class="w"></span><span class="n">user_name</span><span class="w">   
+</span><span class="w"></span><span class="n">email</span><span class="w">       
+</span><span class="w"></span><span class="n">is_superstart</span><span class="w">       </span><span class="nb">boolean</span><span class="w">
+</span></code></pre></div><blockquote>
+<p>how to optimize query performance</p>
+</blockquote>
+<p>real_time index</p>
+<p>Store the latest tweets in the last 1 week to build an index library in memory.
+Querying an index from memory is much faster than from disk</p>
+<h3 id="create-real_time-index">create real_time index</h3>
+<p><a id="markdown-create-real_time-index" name="create-real_time-index"></a></p>
+<ol>
+<li>New tweets posted by users will be sent to the word segmentation server. Here the text of the tweets is tokenized</li>
+<li>According to hash segmentation, tweets are distributed to each Earlybird (index server), and each Earlybird (index server) is responsible for a part data, indexing tweets in real time</li>
+<li>At the same time, there is another update service, which pushes the dynamic change information of tweets (for example: the number of likes, the number of retweets), and dynamically updated index</li>
+</ol>
+<p><code>tweet</code> &ndash;&gt; <code>MQ</code></p>
+<p><code>MQ</code> &ndash;&gt; Tokenizer &ndash;hash&ndash;&gt; EarlyBird(index servers)</p>
+<p><code>MQ</code> &ndash;&gt; tweet updates&ndash;&gt; <code>Updatas server</code></p>
+<h4 id="query-process">query process</h4>
+<p><a id="markdown-query-process" name="query-process"></a></p>
+<ol>
+<li>query request
+User search request reach Blender (Search front-end server), Blender parses the request</li>
+<li>execute calculation
+Earlybird Service executive calculation,and sorted tweet lists, return to Blender</li>
+<li>return result
+Blender merges each lists returned by Earlybird table, and perform some heavy sorting, like Reranking, then return to the user</li>
+</ol>
+<blockquote>
+<p>How to optimize Query Performance to the next level</p>
+</blockquote>
+<p>Twitter saves not only the last 1 week tweets and also the 2% most popular and most likely to be queryed
+Search tweets in memory and save 16% of tweets on SSD hard drive.</p>
+<h3 id="batch-index-creation-process">Batch index creation process</h3>
+<p><a id="markdown-batch-index-creation-process" name="batch-index-creation-process"></a></p>
+<ul>
+<li><strong>Aggregation</strong>: Join multiple data sources together based on Tweet ID</li>
+<li><strong>Scoring</strong>: according to the feature extraction of Twitter (number of retweets, number of likes, number of comments, etc.) to score, the higher the score</li>
+<li><strong>Partitioned storage</strong>: divide data into small blocks and store them in HDFS</li>
+</ul>
+<h2 id="tweet-search-vs-e-commerce-search">tweet search vs e-commerce search</h2>
+<p><a id="markdown-tweet-search-vs-e-commerce-search" name="tweet-search-vs-e-commerce-search"></a></p>
+<p>e-commerce search:</p>
+<ol>
+<li>
+<p>Supports all kinds of sorting, including popularity, sales, credit, price or other attributes such as grid, origin, etc.</p>
+</li>
+<li>
+<p>Support range query &ndash;price range search</p>
+</li>
+<li>
+<p>Support using Attribute to search and filter products</p>
+</li>
+<li>
+<p>Real time accurate information on inventory and price</p>
+</li>
+<li>
+<p>Having Accurate Product Data</p>
+</li>
+</ol>
+<p>Elasticsearch(ES): At present, most search engines used in e-commerce are based on distributed real-time engines</p>
+<h2 id="scale">Scale</h2>
+<p><a id="markdown-scale" name="scale"></a></p>
+<p>Twitter Trending</p>
+<p>Twitter&rsquo;s high-concurrency real-time Calculated Trending board, 
+cache but not db is the one used to realize this function.</p>
+<p><strong>Redis Sorted Set</strong>  has a weight score to sort from large to small.</p>
+<h3 id="fault-tolerance---replication-mechanism">Fault Tolerance - Replication Mechanism</h3>
+<p><a id="markdown-fault-tolerance---replication-mechanism" name="fault-tolerance---replication-mechanism"></a></p>
+<ul>
+<li>
+<p><strong>primary shard</strong></p>
+</li>
+<li>
+<p><strong>replica shard</strong></p>
+</li>
+<li>
+<p>When data is stored on the primary shard server, it will be synchronized to the backup shard server in real time.</p>
+</li>
+<li>
+<p>When querying, all (primary and standby) are queried</p>
+</li>
+<li>
+<p>Improve the fault tolerance of the system. When a node of a node is damaged or lost, it can recover from the replica, and the node with the primary shard hangs.</p>
+</li>
+</ul>
+<p>A replica shard will be promoted to primary shard</p>
+<ul>
+<li>Improve query efficiency: Replica shards also provide query capabilities and automatically load balance search requests.</li>
+</ul>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/sde/">SDE</a><a class="tag" href="/tags/search-system/">Search System</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

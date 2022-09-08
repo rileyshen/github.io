@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Video Streaming System on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/video-streaming-system/</link>
+    <description>Recent content in Video Streaming System on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 01 Apr 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/video-streaming-system/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>learning System design as a landscape architect 10</title>
+      <link>https://rileyshen.github.io/post/sys10/</link>
+      <pubDate>Fri, 01 Apr 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/sys10/</guid>
+      
+        <description>&lt;p&gt;Rethink system design in a much fun way, as a former urban planner/landscape planner. Take Youtube as example&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#design-youtube&#34; &gt;Design Youtube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#scenario-analysis&#34; &gt;Scenario analysis&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#funct-ional-requirement&#34; &gt;Funct ional Requirement&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#data&#34; &gt;data&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#service&#34; &gt;Service&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#storage&#34; &gt;Storage&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#upload-service&#34; &gt;Upload Service&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#video-upload-process&#34; &gt;video upload process&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#transcoding-and-thumbnail-generation&#34; &gt;Transcoding and Thumbnail generation&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#file-upload-flow&#34; &gt;file upload flow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#optimize-the-file-upload-process&#34; &gt;Optimize the file upload process&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#video-and-thumbnail-image-storage&#34; &gt;Video and Thumbnail image storage&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#metadata&#34; &gt;metadata&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#storage&#34; &gt;storage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#complete-video-upload-process&#34; &gt;complete video upload process&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#video-and-thumbnail-load&#34; &gt;Video and thumbnail load&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#scale&#34; &gt;Scale&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#how-to-optimize-reads-with-a-cdn&#34; &gt;How to optimize reads with a CDN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#how-to-sharding-the-database&#34; &gt;How to sharding the database&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;design-youtube&#34;&gt;Design Youtube&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-design-youtube&#34; name=&#34;design-youtube&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;scenario-analysis&#34;&gt;Scenario analysis&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-scenario-analysis&#34; name=&#34;scenario-analysis&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;funct-ional-requirement&#34;&gt;Funct ional Requirement&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-funct-ional-requirement&#34; name=&#34;funct-ional-requirement&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;upload video&lt;/li&gt;
+&lt;li&gt;watch and share&lt;/li&gt;
+&lt;li&gt;generate thumbnail&lt;/li&gt;
+&lt;li&gt;like and comment&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;other function:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;high availability&lt;/li&gt;
+&lt;li&gt;Fluency&lt;/li&gt;
+&lt;li&gt;real time recommendation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;data&#34;&gt;data&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-data&#34; name=&#34;data&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MAU: 20B&lt;/li&gt;
+&lt;li&gt;DAU: 1.5B&lt;/li&gt;
+&lt;li&gt;video watched daily: 50B&lt;/li&gt;
+&lt;li&gt;more than 500 hours of video were uploaded to YouTube every minute&lt;/li&gt;
+&lt;li&gt;People Spend An Average Of 40 Minutes On YouTube&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Calculation&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;How many videos are watched per second: 50B/ 86400s ~ 60000 video/ second&lt;/li&gt;
+&lt;li&gt;assume upload vs watch : 1 : 500, 60000 / 500 = 120 video/second&lt;/li&gt;
+&lt;li&gt;assume every video is 5 minutes long : 120 * 5 = 600 mins / second&lt;/li&gt;
+&lt;li&gt;storage calculation: 1 minute video need 50 MB: 600 * 50 = 30000 MB / S = 30 GB /S&lt;/li&gt;
+&lt;li&gt;bandwidth acculation: assume every upload take up 166KB /s bandwidth &amp;ndash;
+600 * 60 * 166 ~ 5 G /s&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;service&#34;&gt;Service&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-service&#34; name=&#34;service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;User Service&lt;/li&gt;
+&lt;li&gt;Upload Service&lt;/li&gt;
+&lt;li&gt;Encode Service&lt;/li&gt;
+&lt;li&gt;ThumbService&lt;/li&gt;
+&lt;li&gt;Video Service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;storage&#34;&gt;Storage&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-storage&#34; name=&#34;storage&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;upload-service&#34;&gt;Upload Service&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-upload-service&#34; name=&#34;upload-service&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;video-upload-process&#34;&gt;video upload process&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-video-upload-process&#34; name=&#34;video-upload-process&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; &amp;ndash;1.choose videos and upload&amp;ndash;&amp;gt; &lt;code&gt;Web Server&lt;/code&gt; &amp;ndash;2. save the processed videos into File System&amp;ndash;&amp;gt; &lt;code&gt;Cloud Storage Server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Web Server: user login, encode, thumb generate.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to avoid big data project failures?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;video sharding
+&lt;ul&gt;
+&lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Continue execution after breakpoint
+&lt;ul&gt;
+&lt;li&gt;After the video is sharded, use hash to generate the chunk_id.&lt;/li&gt;
+&lt;li&gt;Client initiates an upload request, send chunk_ids to the server&lt;/li&gt;
+&lt;li&gt;Server generates video_id &amp;amp; saves the directory and returns it to client&lt;/li&gt;
+&lt;li&gt;Client starts uploading chunks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;When uploading, if the user stops uploading, what to do with the uploaded part?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It will be stored for a period of time, and tge uploaded part will be deleted after expiration.&lt;/p&gt;
+&lt;h3 id=&#34;transcoding-and-thumbnail-generation&#34;&gt;Transcoding and Thumbnail generation&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-transcoding-and-thumbnail-generation&#34; name=&#34;transcoding-and-thumbnail-generation&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Transcoding: format and quality inorder to play in Youtube website&lt;/p&gt;
+&lt;p&gt;Thumbnail: preview thumbnails over progress bar and cover thumbnail generated by Encode Serve.&lt;/p&gt;
+&lt;h4 id=&#34;file-upload-flow&#34;&gt;file upload flow&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-file-upload-flow&#34; name=&#34;file-upload-flow&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;Web Server&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;Encode Server&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;Cloud Storage Server&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;optimize-the-file-upload-process&#34;&gt;Optimize the file upload process&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-optimize-the-file-upload-process&#34; name=&#34;optimize-the-file-upload-process&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; &amp;ndash;1. send file upload request &amp;ndash;&amp;gt; &lt;code&gt;Web Server&lt;/code&gt; &amp;ndash;2. return Encode server address &amp;ndash;&amp;gt; &lt;code&gt;Client&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; &amp;ndash;3. upload file into Encode Server&amp;ndash;&amp;gt; &lt;code&gt;Encode Server&lt;/code&gt; &amp;ndash;4. storage&amp;ndash;&amp;gt; &lt;code&gt;Cloud Storage Server&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;video-and-thumbnail-image-storage&#34;&gt;Video and Thumbnail image storage&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-video-and-thumbnail-image-storage&#34; name=&#34;video-and-thumbnail-image-storage&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;metadata&#34;&gt;metadata&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-metadata&#34; name=&#34;metadata&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how to display video&amp;rsquo;s title, author, create_time such infomation?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;metadata is saved in Video Table&lt;/p&gt;
+&lt;h4 id=&#34;storage-1&#34;&gt;storage&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-storage&#34; name=&#34;storage&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Video Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;explain&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;video_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;V0001&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hash_code&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                           &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;a8Lxxaaa0c9zqq&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resolution&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                               &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;1080P&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;               &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KB&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;545259520&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;duration&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;second&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;450&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;BLOB&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                                        &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;                                                        language:xxx
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;                                                        tags:xxx
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;                                                        category:xxx
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;                                                        }&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;why need hash_code here?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;avoid uploading duplicate video files.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Chunk Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;explain&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;chunk_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;d9908ljhoihj oih&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;video_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;V0001&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;start_time&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                  &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end_time&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;           &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                  &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;folder&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                               &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/1000/&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resolution&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                               &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;1080P&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Thumbnail Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;explain&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;thunb_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;T000&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;video_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;V0001&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;folder&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                               &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;/aaaa/10/&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;               &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KB&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                 &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;               &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                               &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;progress bar&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;moment&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;40&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;User Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;explain&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Primary&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;U001&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user_name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                               &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;aa&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gender&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;INTEGER&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;female&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;User Video Table&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;k&#34;&gt;column&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;              &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;explain&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;example&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;user_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;U001&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;video_id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Foreign&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;Key&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;V001&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;create_time&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;         &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DATETIME&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                            &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1988&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;03&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;             &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;BLOB&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                 &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{}&amp;#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;complete-video-upload-process&#34;&gt;complete video upload process&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-complete-video-upload-process&#34; name=&#34;complete-video-upload-process&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; &amp;ndash;1. send file upload request &amp;ndash;&amp;gt; &lt;code&gt;Web Server&lt;/code&gt; &amp;ndash;2. return Encode server address &amp;ndash;&amp;gt; &lt;code&gt;Client&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Client&lt;/code&gt; &amp;ndash;3. upload file into Encode Server&amp;ndash;&amp;gt; &lt;code&gt;Encode Server&lt;/code&gt; &amp;ndash;4. store metadata&amp;ndash;&amp;gt; &lt;code&gt;Database&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Encode Server&lt;/code&gt; &amp;ndash;5. store file&amp;ndash;&amp;gt; &lt;code&gt;Cloud Storage Server&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Web Server&lt;/code&gt; &amp;ndash;6. insert data into User Video Table &amp;ndash;&amp;gt; &lt;code&gt;Database&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What is the difference between small file storage and normal file storage&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Chunks and images size is small&lt;/li&gt;
+&lt;li&gt;The reading frequency is high&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;video-and-thumbnail-load&#34;&gt;Video and thumbnail load&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-video-and-thumbnail-load&#34; name=&#34;video-and-thumbnail-load&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to Play Video Smoothly&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;loading and playing videos at the same time&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;preload&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;How to load thumbnail&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;cover thumbnail&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;read from file server when frontend load video list&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;process bar thumbnail&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;When the user moves the mouse over the progress bar, the thumbnail is loaded into the local cache.&lt;/li&gt;
+&lt;li&gt;When the user clicks on a video, load all the thumbnails of the video into the local cache.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The front-end and back-end cooperate, and the front-end passes the loaded progress bar position data, which is processed by the back-end and abbreviated from the cache.
+data, returns the current progress thumbnail&lt;/p&gt;
+&lt;h2 id=&#34;scale&#34;&gt;Scale&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-scale&#34; name=&#34;scale&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;how-to-optimize-reads-with-a-cdn&#34;&gt;How to optimize reads with a CDN&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-how-to-optimize-reads-with-a-cdn&#34; name=&#34;how-to-optimize-reads-with-a-cdn&#34;&gt;&lt;/a&gt;
+share the most popular videos to the CDN, then users can watch those video in their closest servers.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;how to find the CND server&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;client &amp;ndash;&amp;gt; webserver (video centent, client IP, find closest CND) &amp;ndash; repost CDN&amp;ndash;&amp;gt; video &amp;ndash;&amp;gt; client&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;what about the user data growing exponentially?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;sharding the database&lt;/p&gt;
+&lt;h3 id=&#34;how-to-sharding-the-database&#34;&gt;How to sharding the database&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-how-to-sharding-the-database&#34; name=&#34;how-to-sharding-the-database&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;user id when querying user data&lt;/li&gt;
+&lt;li&gt;video id when querying video data&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

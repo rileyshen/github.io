@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | learning System design as a landscape architect 11 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/sys11/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="learning System design as a landscape architect 11"/>
+<meta name="twitter:description" content="Rethink Location Based Service system design in a much fun way, as a former urban planner/landscape planner."/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>learning System design as a landscape architect 11</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Fri, Apr 1, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">5-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>Rethink Location Based Service system design in a much fun way, as a former urban planner/landscape planner. Take Uber as example</p>
+<!-- more -->
+<!-- TOC -->
+<ul>
+<li><a href="#design-uber" >Design UBER</a></li>
+<li><a href="#scenario-analysis" >Scenario analysis</a>
+<ul>
+<li><a href="#functional-requirement" >Functional Requirement</a></li>
+<li><a href="#data" >data</a></li>
+</ul>
+</li>
+<li><a href="#service" >Service</a></li>
+<li><a href="#storage" >Storage</a>
+<ul>
+<li><a href="#schema" >Schema</a>
+<ul>
+<li><a href="#trip-class" >Trip Class</a></li>
+<li><a href="#location-class" >Location Class</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#save-and-query-location-info" >save and query location info</a>
+<ul>
+<li><a href="#search-for-vehicles-within-a-2km-radius-use-geohash-in-database" >Search for vehicles within a 2km radius use geohash in database</a></li>
+</ul>
+</li>
+<li><a href="#storage-geohash" >Storage geohash</a>
+<ul>
+<li><a href="#sql" >SQL</a></li>
+<li><a href="#nosql-cassandra" >NoSQL Cassandra</a></li>
+<li><a href="#nosql-redis" >NoSQL Redis</a></li>
+<li><a href="#nosql-redis-as-database" >NoSQL Redis as database</a></li>
+<li><a href="#data-flow-between-riders-and-drivers" >data flow between riders and drivers</a>
+<ul>
+<li><a href="#riders-request-for-drivers" >Riders&#39; request for drivers</a></li>
+<li><a href="#drivers-data-from-in-database" >Drivers data from in database</a></li>
+<li><a href="#data-flow" >data flow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#scale" >Scale</a>
+<ul>
+<li><a href="#db-sharding" >DB Sharding</a></li>
+<li><a href="#how-to-shard" >how to shard</a></li>
+<li><a href="#method-1-redis-master-slave" >method 1: Redis Master Slave</a></li>
+<li><a href="#method-2-better-nosql-database-choice" >method 2: better NoSQL database choice</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<hr>
+<p>System Design = Logic Design(why) + Infrastructure Design(how)</p>
+<h2 id="design-uber">Design UBER</h2>
+<p><a id="markdown-design-uber" name="design-uber"></a></p>
+<h2 id="scenario-analysis">Scenario analysis</h2>
+<p><a id="markdown-scenario-analysis" name="scenario-analysis"></a></p>
+<h3 id="functional-requirement">Functional Requirement</h3>
+<p><a id="markdown-functional-requirement" name="functional-requirement"></a>
+First step:</p>
+<ul>
+<li>Driver report location</li>
+<li>Rider request Uber, match a driver with rider</li>
+</ul>
+<p>Second step:</p>
+<ul>
+<li>Rider cancel a request</li>
+<li>Driver deny / accept a request</li>
+<li>Driver cancel a request</li>
+<li>Driver pick up a rider</li>
+<li>Driver drop off a rider</li>
+</ul>
+<h3 id="data">data</h3>
+<p><a id="markdown-data" name="data"></a></p>
+<p>2022 2 million drivers in Uber (google)</p>
+<p>assume Peak Driver QPS = 300 k</p>
+<p>Storage acculation</p>
+<ul>
+<li>
+<p>assume every location data: 600 k * 86400 / 4 * 100 bytes ~ 1.3 T
+(Driver report locations by every 4 seconds)</p>
+</li>
+<li>
+<p>assume only store current location data: 600 k * 100 bytes = 60 M 
+1 M = 10^6 bites</p>
+</li>
+</ul>
+<h2 id="service">Service</h2>
+<p><a id="markdown-service" name="service"></a></p>
+<ul>
+<li>GeoServer (record locations)</li>
+<li>DispatchServer</li>
+</ul>
+<figure><img src="/images/system13.png"
+         alt="image"/><figcaption>
+            <h4>Geo/Dispatch Service</h4>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>How Drivers receive Riders' request</p>
+</blockquote>
+<p><strong>Report location, at the same time, the Service return matched request</strong></p>
+<figure><img src="/images/system14.png"
+         alt="image"/><figcaption>
+            <h4>Geo/Dispatch Service</h4>
+        </figcaption>
+</figure>
+
+<h2 id="storage">Storage</h2>
+<p><a id="markdown-storage" name="storage"></a></p>
+<p><code>Dispatch Web Server</code> &ndash;&gt; <code>Trip Table</code></p>
+<p><code>Geo Web Server</code> &ndash;&gt; <code>Location Table</code></p>
+<blockquote>
+<p>Consider read/write frequency on a database table?</p>
+</blockquote>
+<h3 id="schema">Schema</h3>
+<p><a id="markdown-schema" name="schema"></a></p>
+<h4 id="trip-class">Trip Class</h4>
+<p><a id="markdown-trip-class" name="trip-class"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Trip</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="n">tripId</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="n">driverId</span><span class="o">,</span> <span class="n">riderId</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Double</span> <span class="n">startLatitude</span><span class="o">,</span> <span class="n">startLongitude</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Double</span> <span class="n">endLatitude</span><span class="o">,</span> <span class="n">endLongitude</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="n">status</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Datetime</span> <span class="n">createAt</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">Trip</span><span class="w"> </span><span class="k">Table</span><span class="w">            </span><span class="k">type</span><span class="w">            </span><span class="n">comments</span><span class="w">
+</span><span class="w"></span><span class="o">//</span><span class="w">
+</span><span class="w"></span><span class="n">status</span><span class="w">                 </span><span class="nb">int</span><span class="w">            </span><span class="k">New</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">waiting</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">driver</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">way</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">pick</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">trip</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cancelled</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ended</span><span class="w">
+</span></code></pre></div><h4 id="location-class">Location Class</h4>
+<p><a id="markdown-location-class" name="location-class"></a></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Location</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Integer</span> <span class="n">driverId</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Double</span> <span class="n">Latitude</span><span class="o">,</span> <span class="n">Longitude</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="n">Datetime</span> <span class="n">updateAt</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">Location</span><span class="w"> </span><span class="k">Table</span><span class="w">          </span><span class="k">type</span><span class="w">            </span><span class="n">comments</span><span class="w">
+</span><span class="w"></span><span class="n">driver_id</span><span class="w">               </span><span class="n">fk</span><span class="w">              </span><span class="k">Primary</span><span class="w"> </span><span class="k">key</span><span class="w">
+</span><span class="w"></span><span class="n">lat</span><span class="w">                     </span><span class="nb">float</span><span class="w">
+</span><span class="w"></span><span class="n">lng</span><span class="w">                     </span><span class="nb">float</span><span class="w">
+</span><span class="w"></span><span class="n">updated_at</span><span class="w">              </span><span class="k">timestamp</span><span class="w">
+</span></code></pre></div><p><strong>Trip Class is a heavily read database, and Location class is the opposite</strong></p>
+<h2 id="save-and-query-location-info">save and query location info</h2>
+<p><a id="markdown-save-and-query-location-info" name="save-and-query-location-info"></a></p>
+<blockquote>
+<p>how to search nearby drivers</p>
+</blockquote>
+<p>query the lat and lng from Location table, inorder to improve the query process, The <code>lat</code> and <code>lng</code>  statement are used to create indexes in tables.</p>
+<p>create composite index <code>lat_lng_idx</code> on <code>location_table</code> ?</p>
+<p>actually, composite index can only be used in <code>accurate lat value and certain range of lng</code>.</p>
+<p>[111, 300] ~ [111, 400]</p>
+<p><strong>The index of the database can only solve one dimension Range Query.</strong></p>
+<p><strong>Range Query with multiple dimensions cannot be efficiently queried.</strong></p>
+<h3 id="search-for-vehicles-within-a-2km-radius-use-geohash-in-database">Search for vehicles within a 2km radius use geohash in database</h3>
+<p><a id="markdown-search-for-vehicles-within-a-2km-radius-use-geohash-in-database" name="search-for-vehicles-within-a-2km-radius-use-geohash-in-database"></a></p>
+<p>according to the geohash length, eg: find all vehicles start with <code>9q9jv</code></p>
+<h2 id="storage-geohash">Storage (geohash)</h2>
+<p><a id="markdown-storage-geohash" name="storage-geohash"></a></p>
+<h3 id="sql">SQL</h3>
+<p><a id="markdown-sql" name="sql"></a></p>
+<ul>
+<li>CREATE INDEX on geohash</li>
+<li>SELECT * FROM location WHERE geohash LIKE<code> 9q9hv%</code></li>
+</ul>
+<h3 id="nosql-cassandra">NoSQL (Cassandra)</h3>
+<p><a id="markdown-nosql-cassandra" name="nosql-cassandra"></a></p>
+<ul>
+<li>set geohash as column key</li>
+<li>range query (9q9hv0, 9q9hvz)</li>
+</ul>
+<h3 id="nosql-redis">NoSQL (Redis)</h3>
+<p><a id="markdown-nosql-redis" name="nosql-redis"></a></p>
+<ul>
+<li>
+<p>storing Driver Location data hierarchy in redis</p>
+<ul>
+<li>Driver locatoin is <code>9q9hvt</code>, then store it in <code>9q9hvt</code>, <code>9q9hv</code>, <code>9q9h</code></li>
+<li>geohash of length <code>6</code> produces cells that cover less than a square <code>1 kilometer</code> of land, which is enough for Uber</li>
+<li>geohash of length <code>4</code> produces cells that cover more than a square <code>20 kilometer</code> of land</li>
+</ul>
+</li>
+<li>
+<p>key = 9q9hvt, value = set of drivers in this location</p>
+</li>
+</ul>
+<h3 id="nosql-redis-as-database">NoSQL (Redis) as database</h3>
+<p><a id="markdown-nosql-redis-as-database" name="nosql-redis-as-database"></a></p>
+<p>support list, set, remove in set is O(1).</p>
+<p>Read and write speed close to memory access speed &gt;100k QPS.</p>
+<h3 id="data-flow-between-riders-and-drivers">data flow between riders and drivers</h3>
+<p><a id="markdown-data-flow-between-riders-and-drivers" name="data-flow-between-riders-and-drivers"></a></p>
+<h4 id="riders-request-for-drivers">Riders' request for drivers</h4>
+<p><a id="markdown-riders'-request-for-drivers" name="riders'-request-for-drivers"></a></p>
+<ol>
+<li>User makes a taxi request to find drivers around a given location
+<ul>
+<li>(lat,lng) → geohash → [driver1, driver2,&hellip;]</li>
+<li>Check the 6-digit geohash to find the one within 0.6 km</li>
+<li>If there is no reply, then check the 5th geohash to find the one within 2.4 km</li>
+<li>If there is no reply, then check the 4-digit geohash ༌ to find the one within 20 kilometers</li>
+</ul>
+</li>
+</ol>
+<p><strong>Location Table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">key</span><span class="w">         </span><span class="n">geohash</span><span class="w">
+</span><span class="w"></span><span class="n">value</span><span class="w">       </span><span class="err">{</span><span class="n">driver1_id</span><span class="p">,</span><span class="w"> </span><span class="n">driver2_id</span><span class="p">,</span><span class="w"> </span><span class="n">driver3_id</span><span class="p">..</span><span class="err">}</span><span class="w">
+</span></code></pre></div><ol start="2">
+<li>The driver is successfully matched, and the user queries the location of the driver</li>
+</ol>
+<p><strong>Driver Table</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">key</span><span class="w">         </span><span class="n">driver_id</span><span class="w">
+</span><span class="w"></span><span class="n">value</span><span class="w">       </span><span class="p">(</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">lng</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="n">updated_at</span><span class="p">,</span><span class="w"> </span><span class="n">trip_id</span><span class="p">)</span><span class="w">
+</span></code></pre></div><h4 id="drivers-data-from-in-database">Drivers data from in database</h4>
+<p><a id="markdown-drivers-data-from-in-database" name="drivers-data-from-in-database"></a></p>
+<ol>
+<li>
+<p>Drivers report their location</p>
+<ul>
+<li>Calculate the geohash of the current location lat, lng
+<ul>
+<li>geohash4, geohash5, geohash6</li>
+</ul>
+</li>
+<li>query old location</li>
+<li><strong>updates in the Redis</strong></li>
+<li>updates their latest active time in Driver Table</li>
+</ul>
+</li>
+<li>
+<p>Drivers accepty the riders request</p>
+<ul>
+<li>edit the Trip status
+<ul>
+<li>when a riders sends request, Trip Table creates a trip and matches the closest driver.</li>
+</ul>
+</li>
+<li>update their status as nonavailable in Driver Table</li>
+</ul>
+</li>
+<li>
+<p>Driver complete the trip</p>
+<ul>
+<li>edit the Trip status</li>
+<li>update their status as available in Driver Table</li>
+</ul>
+</li>
+</ol>
+<h4 id="data-flow">data flow</h4>
+<p><a id="markdown-data-flow" name="data-flow"></a></p>
+<ol>
+<li>
+<p>Rider make requests, server create a trip</p>
+<ul>
+<li>return <code>trip_id</code> to rider</li>
+<li>send requests every few seconds to the server to check the match</li>
+</ul>
+</li>
+<li>
+<p>server find the matched driver, write to the trip, waiting for the driver&rsquo;s response</p>
+<ul>
+<li>update the <code>driver's status</code> as nonavailable, save in the related trip_id</li>
+</ul>
+</li>
+<li>
+<p>drivers report their location</p>
+<ul>
+<li>find the <code>trip_id</code> in <code>Driver table</code></li>
+<li>query the trip in <code>trip table</code>, return to the driver</li>
+</ul>
+</li>
+<li>
+<p>driver accept the request</p>
+<ul>
+<li>update the status info in <code>Driver Table</code>, <code>Trip table</code></li>
+<li>rider finds the match, get driver&rsquo;s info</li>
+</ul>
+</li>
+<li>
+<p>driver rejuect the request</p>
+<ul>
+<li>update the status info in <code>Driver Table</code>, <code>Trip table</code></li>
+<li>server rematch a new driver, repeat step 2</li>
+</ul>
+</li>
+</ol>
+<figure><img src="/images/system15.png"
+         alt="image"/><figcaption>
+            <h4>Geo/Dispatch Service</h4>
+        </figcaption>
+</figure>
+
+<h2 id="scale">Scale</h2>
+<p><a id="markdown-scale" name="scale"></a></p>
+<p>demand: 300 QPS</p>
+<p>Redis is good choice for &gt; 100 QPS. So we need 3-4 Redis server?</p>
+<blockquote>
+<p>Interviewer: one Redis server is crash?</p>
+</blockquote>
+<h3 id="db-sharding">DB Sharding</h3>
+<p><a id="markdown-db-sharding" name="db-sharding"></a></p>
+<ol>
+<li>Distributing incoming network traffic</li>
+<li>Avoiding Single Point Failure</li>
+</ol>
+<h3 id="how-to-shard">how to shard</h3>
+<p><a id="markdown-how-to-shard" name="how-to-shard"></a></p>
+<ul>
+<li>sharding is based on the first 4 length Geohash</li>
+<li>query is based on the 4-6 length geohash numbers</li>
+</ul>
+<p>or sharding by cities (geo fence)</p>
+<blockquote>
+<p>Interviewer: How to check rider is in Airport</p>
+</blockquote>
+<p>create a geofence around a city then create a geofence arround airport.</p>
+<blockquote>
+<p>Interviewer: How to reduce impact on db crash?</p>
+</blockquote>
+<h3 id="method-1-redis-master-slave">method 1: Redis Master Slave</h3>
+<p><a id="markdown-method-1%3A-redis-master-slave" name="method-1%3A-redis-master-slave"></a></p>
+<p>write to the Master server, but slave server the reduce the read traffic.</p>
+<h3 id="method-2-better-nosql-database-choice">method 2: better NoSQL database choice</h3>
+<p><a id="markdown-method-2%3A-better-nosql-database-choice" name="method-2%3A-better-nosql-database-choice"></a></p>
+<p>ig: 300k QPS, use 1000 Cassandra &ndash;the average QPS of 300 per unit.</p>
+<p>It will help you better deal with Replica and recovery after a crash.</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/system-design/">System design</a><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/interview/">interview</a><a class="tag" href="/tags/sde/">SDE</a><a class="tag" href="/tags/design-uber/">Design Uber</a><a class="tag" href="/tags/design-facebook-nearby/">Design Facebook Nearby</a><a class="tag" href="/tags/design-yelp/">Design Yelp</a><a class="tag" href="/tags/design-pokemon-go/">Design Pokemon Go</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>
