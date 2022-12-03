@@ -4478,7 +4478,62 @@ The above diagram represents the input graph.
       <guid>https://rileyshen.github.io/post/dp/</guid>
       
         <description>&lt;p&gt;about Dynamic Programming learing note&lt;/p&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#steps-to-solve-a-dynamic-programming-problems&#34; &gt;steps to solve a dynamic programming problems&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#sp1-dp-table-and-index-meaning&#34; &gt;sp1. dp table and index meaning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sp2-recurrence-formula&#34; &gt;sp2. recurrence formula&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sp3-initial-values&#34; &gt;sp3. initial values&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sp4-literacy-directions&#34; &gt;sp4. literacy directions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#sp5-cases&#34; &gt;sp5. cases&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#q1-climbing-stairs&#34; &gt;Q.1: Climbing Stairs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q2-min-cost-climbing-stairs&#34; &gt;Q.2: Min Cost Climbing Stairs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q3-unique-paths&#34; &gt;Q.3: Unique Paths&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q4unique-paths-ii&#34; &gt;Q.4:Unique Paths II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q5integer-break&#34; &gt;Q.5:Integer Break&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q6backpack&#34; &gt;Q.6:BackPack&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q7partition-equal-subset-sum&#34; &gt;Q.7:Partition Equal Subset Sum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q8last-stone-weight-ii&#34; &gt;Q.8:Last Stone Weight II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q9target-sum&#34; &gt;Q.9:Target Sum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q10last-stone-weight-ii&#34; &gt;Q.10:Last Stone Weight II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q11coin-change-2&#34; &gt;Q.11:Coin Change 2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q12combination-sum-iv&#34; &gt;Q.12:Combination Sum IV&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q13climbing-stairs-improve&#34; &gt;Q.13:Climbing Stairs improve&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q14coin-change&#34; &gt;Q.14:Coin Change&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q15perfect-squares&#34; &gt;Q.15:Perfect Squares&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q16word-break&#34; &gt;Q.16:Word Break&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q17house-robber&#34; &gt;Q.17:House Robber&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q18house-robber-ii&#34; &gt;Q.18:House Robber II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q20-best-time-to-buy-and-sell-stock&#34; &gt;Q.20: Best Time to Buy and Sell Stock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q19-house-robber-iii&#34; &gt;Q.19: House Robber III&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q20-best-time-to-buy-and-sell-stock&#34; &gt;Q.20: Best Time to Buy and Sell Stock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q21-best-time-to-buy-and-sell-stock-ii&#34; &gt;Q.21: Best Time to Buy and Sell Stock II&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q22-best-time-to-buy-and-sell-stock-iii&#34; &gt;Q.22: Best Time to Buy and Sell Stock III&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q23-best-time-to-buy-and-sell-stock-iii&#34; &gt;Q.23: Best Time to Buy and Sell Stock III&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q24-best-time-to-buy-and-sell-stock-with-cooldown&#34; &gt;Q.24: Best Time to Buy and Sell Stock with Cooldown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q25-maximum-length-of-repeated-subarray&#34; &gt;Q.25: Maximum Length of Repeated Subarray&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q26-longest-common-subsequence&#34; &gt;Q.26: Longest Common Subsequence&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q27--uncrossed-lines&#34; &gt;Q.27:  Uncrossed Lines&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q28-is-subsequence&#34; &gt;Q.28: Is Subsequence&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q29-distinct-subsequences&#34; &gt;Q.29: Distinct Subsequences&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q30--delete-operation-for-two-strings&#34; &gt;Q.30:  Delete Operation for Two Strings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q31---edit-distance&#34; &gt;Q.31:   Edit Distance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q32--palindromic-substrings&#34; &gt;Q.32:  Palindromic Substrings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q33--palindromic-subsequence&#34; &gt;Q.33:  Palindromic Subsequence&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q34--triangle&#34; &gt;Q.34:  Triangle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q35--minimum-falling-path-sum&#34; &gt;Q.35:  Minimum Falling Path Sum&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q36---count-all-possible-routes&#34; &gt;Q.36:   Count All Possible Routes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#q37--minimum-falling-path-sum-ii&#34; &gt;Q.37:  Minimum Falling Path Sum II&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
 &lt;h2 id=&#34;steps-to-solve-a-dynamic-programming-problems&#34;&gt;steps to solve a dynamic programming problems&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-steps-to-solve-a-dynamic-programming-problems&#34; name=&#34;steps-to-solve-a-dynamic-programming-problems&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;sp1-dp-table-and-index-meaning&#34;&gt;sp1. dp table and index meaning&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-sp1.-dp-table-and-index-meaning&#34; name=&#34;sp1.-dp-table-and-index-meaning&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;sp2-recurrence-formula&#34;&gt;sp2. recurrence formula&lt;/h3&gt;
@@ -4490,7 +4545,7 @@ The above diagram represents the input graph.
 &lt;h3 id=&#34;sp5-cases&#34;&gt;sp5. cases&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-sp5.-cases&#34; name=&#34;sp5.-cases&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&#34;q1-climbing-stairs&#34;&gt;Q.1: Climbing Stairs&lt;/h4&gt;
-&lt;p&gt;&lt;a id=&#34;markdown-q.1%3A-climbing-stairs&#34; name=&#34;q.1%3A-climbing-stairs&#34;&gt;&lt;/a&gt; 
+&lt;p&gt;&lt;a id=&#34;markdown-q.1%3A-climbing-stairs&#34; name=&#34;q.1%3A-climbing-stairs&#34;&gt;&lt;/a&gt;
 &lt;a href=&#34;https://leetcode-cn.com/problems/climbing-stairs/&#34;&gt;https://leetcode-cn.com/problems/climbing-stairs/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are climbing a staircase. It takes n steps to reach the top.
 
@@ -4536,6 +4591,7 @@ Each &lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt; you can either climb &lt;s
 dp[i]: 1   2   3   5   8&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&#34;q2-min-cost-climbing-stairs&#34;&gt;Q.2: Min Cost Climbing Stairs&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.2%3A-min-cost-climbing-stairs&#34; name=&#34;q.2%3A-min-cost-climbing-stairs&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/min-cost-climbing-stairs/&#34;&gt;https://leetcode-cn.com/problems/min-cost-climbing-stairs/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an integer array cost where cost&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
 
@@ -4580,6 +4636,7 @@ Return the minimum cost to reach the top of the floor.
 dp[i]: 1   100  2   3   3  103  4   5  104   6&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&#34;q3-unique-paths&#34;&gt;Q.3: Unique Paths&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.3%3A-unique-paths&#34; name=&#34;q.3%3A-unique-paths&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/unique-paths/&#34;&gt;https://leetcode-cn.com/problems/unique-paths/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;A robot is located at the top-left corner of a m x n grid &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;marked &lt;span class=&#34;s1&#34;&gt;&amp;#39;Start&amp;#39;&lt;/span&gt; in the diagram below&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;.
 
@@ -4719,6 +4776,7 @@ dp[i][j] = dp[i - 1][j] + dp[i][j -1]
 &lt;/figure&gt;
 
 &lt;h4 id=&#34;q5integer-break&#34;&gt;Q.5:Integer Break&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.5%3Ainteger-break&#34; name=&#34;q.5%3Ainteger-break&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/integer-break/&#34;&gt;https://leetcode-cn.com/problems/integer-break/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer n, &lt;span class=&#34;nb&#34;&gt;break&lt;/span&gt; it into the sum of k positive integers, where k &amp;gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2, and maximize the product of those integers.
 
@@ -4764,6 +4822,22 @@ Return the maximum product you can get.
 &lt;blockquote&gt;
 &lt;p&gt;dp[i] :   1   2   4   6&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;large left, small right&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;dp[2] = 1&lt;/p&gt;
+&lt;p&gt;dp[3]: 2&lt;/p&gt;
+&lt;p&gt;case 1: max(2, dp[2]) * 1&lt;/p&gt;
+&lt;p&gt;dp[4]: 4&lt;/p&gt;
+&lt;p&gt;case 1: max(3, dp[3]) * 1&lt;/p&gt;
+&lt;p&gt;case 2: max(2, dp[2]) * 2&lt;/p&gt;
+&lt;p&gt;dp[5]: 6&lt;/p&gt;
+&lt;p&gt;case 1: max(4, dp[4]) * 1&lt;/p&gt;
+&lt;p&gt;case 2: max(3, dp[3]) * 2&lt;/p&gt;
+&lt;p&gt;case 3: max(2, dp[2]) * 3&lt;/p&gt;
+&lt;p&gt;dp[6]: 9&lt;/p&gt;
+&lt;p&gt;case 1: max(5, dp[5]) * 1&lt;/p&gt;
+&lt;p&gt;case 1: max(4, dp[4]) * 2&lt;/p&gt;
+&lt;p&gt;case 2: max(3, dp[3]) * 3&lt;/p&gt;
+&lt;p&gt;case 3: max(2, dp[2]) * 4&lt;/p&gt;
 &lt;h4 id=&#34;q6backpack&#34;&gt;Q.6:BackPack&lt;/h4&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-q.6%3Abackpack&#34; name=&#34;q.6%3Abackpack&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;return the max value of the backpack&lt;/p&gt;
@@ -4864,6 +4938,9 @@ item2:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34
 &lt;blockquote&gt;
 &lt;p&gt;dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;dp[i] = max(dp[i -1][j], dp[i - 1][j - weight[i] + value[i]]);&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;weight&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;};&lt;/span&gt;
         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;};&lt;/span&gt;
@@ -4878,7 +4955,8 @@ item2:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34
        
         &lt;span class=&#34;c1&#34;&gt;//遍历顺序：先遍历物品，再遍历背包容量
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wLen&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++){&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bagSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--){&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// need reverse iterate
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bagSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--){&lt;/span&gt;
                     &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;weight&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]);&lt;/span&gt;
                 &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
@@ -4889,8 +4967,29 @@ item2:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34
                 &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34; &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
             &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;
+&lt;span class=&#34;nv&#34;&gt;maxweight&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+
+items:    weight   value
+item0:       &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;
+item1:       &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;
+item2:       &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;      &lt;span class=&#34;m&#34;&gt;30&lt;/span&gt;
+
+
+        &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   
+item0:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;       
+item1:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;35&lt;/span&gt;   
+item2:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;35&lt;/span&gt; 
+
+
+
+        &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   
+item0:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;15&lt;/span&gt; 
+
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;h4 id=&#34;q7partition-equal-subset-sum&#34;&gt;Q.7:Partition Equal Subset Sum&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.7%3Apartition-equal-subset-sum&#34; name=&#34;q.7%3Apartition-equal-subset-sum&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/partition-equal-subset-sum/&#34;&gt;https://leetcode-cn.com/problems/partition-equal-subset-sum/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a non-empty array nums containing only positive integers, find &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
@@ -4930,7 +5029,20 @@ dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
 &lt;blockquote&gt;
 &lt;p&gt;[1, 5, 11, 5], target = 11&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;
+nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; 1:   &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;
+Pint:   &amp;lt;--  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;                                   &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+
+nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt; :  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;
+Pint:   &amp;lt;--  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;                 &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;
+
+nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; 11:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;
+Pint:   &amp;lt;--  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;
+
+nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;3&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;  5:  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;    &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;
+Pint:   &amp;lt;--  &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;     &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;              &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt;                &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;   &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;nums[0] - 1             {0, 1}&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
@@ -4974,6 +5086,7 @@ dp[j] = max(dp[j], dp[j - nums[i]] + nums[i]);
 &lt;p&gt;time：O(n^2)
 space：O(n)&lt;/p&gt;
 &lt;h4 id=&#34;q8last-stone-weight-ii&#34;&gt;Q.8:Last Stone Weight II&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.8%3Alast-stone-weight-ii&#34; name=&#34;q.8%3Alast-stone-weight-ii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/last-stone-weight-ii/&#34;&gt;https://leetcode-cn.com/problems/last-stone-weight-ii/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an array of integers stones where stones&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the weight of the ith stone.
 
@@ -5035,7 +5148,9 @@ dp[j] = max(dp[j], dp[j - stones[i]] + stones[i]);
 &lt;blockquote&gt;
 &lt;p&gt;1     :   0   1   2   3   4&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;result = sum - 2 * dp[target]&lt;/p&gt;
 &lt;h4 id=&#34;q9target-sum&#34;&gt;Q.9:Target Sum&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.9%3Atarget-sum&#34; name=&#34;q.9%3Atarget-sum&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/target-sum/&#34;&gt;https://leetcode-cn.com/problems/target-sum/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an integer array nums and an integer target.
 
@@ -5571,8 +5686,8 @@ Note that the same word in the dictionary may be reused multiple &lt;span class=
 &lt;p&gt;dp[i]     :    1   0   0   0   1&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&#34;q17house-robber&#34;&gt;Q.17:House Robber&lt;/h4&gt;
-&lt;p&gt;&lt;a id=&#34;markdown-q.17%3Ahouse-robber&#34; name=&#34;q.17%3Ahouse-robber&#34;&gt;&lt;/a&gt;
-&lt;a href=&#34;https://leetcode-cn.com/problems/house-robber/&#34;&gt;https://leetcode-cn.com/problems/house-robber/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.17%3Ahouse-robber&#34; name=&#34;q.17%3Ahouse-robber&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/house-robber/&#34;&gt;https://leetcode-cn.com/problems/house-robber/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; two adjacent houses were broken into on the same night.
 
 Given an integer array nums representing the amount of money of each house, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the maximum amount of money you can rob tonight without alerting the police.
@@ -5651,8 +5766,8 @@ Given an integer array nums representing the amount of money of each house, &lt;
 &lt;p&gt;dp[i]     :&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h4 id=&#34;q20-best-time-to-buy-and-sell-stock&#34;&gt;Q.20: Best Time to Buy and Sell Stock&lt;/h4&gt;
-&lt;p&gt;&lt;a id=&#34;markdown-q.20%3A-best-time-to-buy-and-sell-stock&#34; name=&#34;q.20%3A-best-time-to-buy-and-sell-stock&#34;&gt;&lt;/a&gt;
-&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.20%3A-best-time-to-buy-and-sell-stock&#34; name=&#34;q.20%3A-best-time-to-buy-and-sell-stock&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an array prices where prices&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the price of a given stock on the ith day.
 
 You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
@@ -5717,6 +5832,7 @@ return {val2, val1};&lt;/p&gt;
         &lt;span class=&#34;err&#34;&gt;\&lt;/span&gt;           &lt;span class=&#34;err&#34;&gt;\&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q20-best-time-to-buy-and-sell-stock-1&#34;&gt;Q.20: Best Time to Buy and Sell Stock&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.20%3A-best-time-to-buy-and-sell-stock&#34; name=&#34;q.20%3A-best-time-to-buy-and-sell-stock&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an array prices where prices&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the price of a given stock on the ith day.
 
@@ -5778,6 +5894,7 @@ dp[i][0]:&lt;/p&gt;
         &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;          &lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;          &lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q21-best-time-to-buy-and-sell-stock-ii&#34;&gt;Q.21: Best Time to Buy and Sell Stock II&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.21%3A-best-time-to-buy-and-sell-stock-ii&#34; name=&#34;q.21%3A-best-time-to-buy-and-sell-stock-ii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an integer array prices where prices&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the price of a given stock on the ith day.
 
@@ -5830,6 +5947,7 @@ Find and &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the maximum profit yo
        &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
     
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q22-best-time-to-buy-and-sell-stock-iii&#34;&gt;Q.22: Best Time to Buy and Sell Stock III&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.22%3A-best-time-to-buy-and-sell-stock-iii&#34; name=&#34;q.22%3A-best-time-to-buy-and-sell-stock-iii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an array prices where prices&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the price of a given stock on the ith day.
 
@@ -5939,6 +6057,7 @@ Note: You may not engage in multiple transactions simultaneously &lt;span class=
 &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;          &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q23-best-time-to-buy-and-sell-stock-iii&#34;&gt;Q.23: Best Time to Buy and Sell Stock III&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.23%3A-best-time-to-buy-and-sell-stock-iii&#34; name=&#34;q.23%3A-best-time-to-buy-and-sell-stock-iii&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an integer array prices where prices&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the price of a given stock on the ith day, and an integer k.
 
@@ -6057,6 +6176,7 @@ Note: You may not engage in multiple transactions simultaneously &lt;span class=
 &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;          &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q24-best-time-to-buy-and-sell-stock-with-cooldown&#34;&gt;Q.24: Best Time to Buy and Sell Stock with Cooldown&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.24%3A-best-time-to-buy-and-sell-stock-with-cooldown&#34; name=&#34;q.24%3A-best-time-to-buy-and-sell-stock-with-cooldown&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/&#34;&gt;https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an array prices where prices&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; is the price of a given stock on the ith day.
 
@@ -6155,6 +6275,7 @@ Note: You may not engage in multiple transactions simultaneously &lt;span class=
 &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;           &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;  
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q25-maximum-length-of-repeated-subarray&#34;&gt;Q.25: Maximum Length of Repeated Subarray&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.25%3A-maximum-length-of-repeated-subarray&#34; name=&#34;q.25%3A-maximum-length-of-repeated-subarray&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/&#34;&gt;https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two integer arrays nums1 and nums2, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the maximum length of a subarray that appears in both arrays.
 
@@ -6200,6 +6321,7 @@ Note: You may not engage in multiple transactions simultaneously &lt;span class=
 &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;      
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q26-longest-common-subsequence&#34;&gt;Q.26: Longest Common Subsequence&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.26%3A-longest-common-subsequence&#34; name=&#34;q.26%3A-longest-common-subsequence&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/longest-common-subsequence/&#34;&gt;https://leetcode-cn.com/problems/longest-common-subsequence/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings text1 and text2, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the length of their longest common subsequence. If there is no common subsequence, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; 0.
 
@@ -6258,6 +6380,7 @@ A common subsequence of two strings is a subsequence that is common to both stri
 &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;       
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q27--uncrossed-lines&#34;&gt;Q.27:  Uncrossed Lines&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.27%3A--uncrossed-lines&#34; name=&#34;q.27%3A--uncrossed-lines&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/uncrossed-lines/&#34;&gt;https://leetcode-cn.com/problems/uncrossed-lines/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given two integer arrays nums1 and nums2. We write the integers of nums1 and nums2 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;in the order they are given&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; on two separate horizontal lines.
 
@@ -6320,6 +6443,7 @@ Return the maximum number of connecting lines we can draw in this way.
 &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;       
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q28-is-subsequence&#34;&gt;Q.28: Is Subsequence&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.28%3A-is-subsequence&#34; name=&#34;q.28%3A-is-subsequence&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/is-subsequence/&#34;&gt;https://leetcode-cn.com/problems/is-subsequence/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings s and t, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; s is a subsequence of t, or &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt; otherwise.
 
@@ -6374,6 +6498,7 @@ A subsequence of a string is a new string that is formed from the original strin
     
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q29-distinct-subsequences&#34;&gt;Q.29: Distinct Subsequences&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.29%3A-distinct-subsequences&#34; name=&#34;q.29%3A-distinct-subsequences&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/distinct-subsequences/&#34;&gt;https://leetcode-cn.com/problems/distinct-subsequences/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings s and t, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the number of distinct subsequences of s which equals t.
 
@@ -6420,6 +6545,7 @@ The &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; cases are generated so that
     
        
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q30--delete-operation-for-two-strings&#34;&gt;Q.30:  Delete Operation for Two Strings&lt;/h4&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.30%3A--delete-operation-for-two-strings&#34; name=&#34;q.30%3A--delete-operation-for-two-strings&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/delete-operation-for-two-strings/&#34;&gt;https://leetcode-cn.com/problems/delete-operation-for-two-strings/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings word1 and word2, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the minimum number of steps required to make word1 and word2 the same.
 
@@ -6465,7 +6591,8 @@ In one step, you can delete exactly one character in either string.
 &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;   
 &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;       
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q31---edit-distance&#34;&gt;Q.31:   Edit Distance&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/edit-distance/&#34;&gt;https://leetcode-cn.com/problems/edit-distance/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.31%3A---edit-distance&#34; name=&#34;q.31%3A---edit-distance&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/edit-distance/&#34;&gt;https://leetcode-cn.com/problems/edit-distance/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given two strings word1 and word2, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the minimum number of operations required to convert word1 to word2.
 
 You have the following three operations permitted on a word:
@@ -6516,7 +6643,8 @@ Replace a character
 &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;  
 &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;5&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;               
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q32--palindromic-substrings&#34;&gt;Q.32:  Palindromic Substrings&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/palindromic-substrings/&#34;&gt;https://leetcode-cn.com/problems/palindromic-substrings/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.32%3A--palindromic-substrings&#34; name=&#34;q.32%3A--palindromic-substrings&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/palindromic-substrings/&#34;&gt;https://leetcode-cn.com/problems/palindromic-substrings/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a string s, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the number of palindromic substrings in it.
 
 A string is a palindrome when it reads the same backward as forward.
@@ -6557,7 +6685,8 @@ A substring is a contiguous sequence of characters within the string.
         &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;      
               
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q33--palindromic-subsequence&#34;&gt;Q.33:  Palindromic Subsequence&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&#34;&gt;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.33%3A--palindromic-subsequence&#34; name=&#34;q.33%3A--palindromic-subsequence&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&#34;&gt;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a string s, find the longest palindromic subsequence&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;s length in s.
 
 A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
@@ -6596,7 +6725,8 @@ A subsequence is a sequence that can be derived from another sequence by deletin
    &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;  
    &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;   
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q34--triangle&#34;&gt;Q.34:  Triangle&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&#34;&gt;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.34%3A--triangle&#34; name=&#34;q.34%3A--triangle&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&#34;&gt;https://leetcode-cn.com/problems/longest-palindromic-subsequence/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a triangle array, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the minimum path sum from top to bottom.
 
 For each step, you may move to an adjacent number of the row below. More formally, &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; you are on index i on the current row, you may move to either index i or index i + &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; on the next row.
@@ -6766,7 +6896,8 @@ dp: 11   10   10  3    0&lt;/p&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q35--minimum-falling-path-sum&#34;&gt;Q.35:  Minimum Falling Path Sum&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/minimum-falling-path-sum/&#34;&gt;https://leetcode-cn.com/problems/minimum-falling-path-sum/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.35%3A--minimum-falling-path-sum&#34; name=&#34;q.35%3A--minimum-falling-path-sum&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/minimum-falling-path-sum/&#34;&gt;https://leetcode-cn.com/problems/minimum-falling-path-sum/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an n x n array of integers matrix, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the minimum sum of any falling path through matrix.
 
 A falling path starts at any element in the first row and chooses the element in the next row that is either directly below or diagonally left/right. Specifically, the next element from position &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;row, col&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; will be &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;row + 1, col - 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;row + 1, col&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, or &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;row + 1, col + 1&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;.
@@ -6820,7 +6951,8 @@ A falling path starts at any element in the first row and chooses the element in
 &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q36---count-all-possible-routes&#34;&gt;Q.36:   Count All Possible Routes&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/count-all-possible-routes/&#34;&gt;https://leetcode-cn.com/problems/count-all-possible-routes/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.36%3A---count-all-possible-routes&#34; name=&#34;q.36%3A---count-all-possible-routes&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/count-all-possible-routes/&#34;&gt;https://leetcode-cn.com/problems/count-all-possible-routes/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an array of distinct positive integers locations where locations&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; represents the position of city i. You are also given integers start, finish and fuel representing the starting city, ending city, and the initial amount of fuel you have, respectively.
 
 At each step, &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; you are at city i, you can pick any city j such that j !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; i and &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; j &amp;lt; locations.length and move to city j. Moving from city i to city j reduces the amount of fuel you have by &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;locations&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; - locations&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;. Please notice that &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;x&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; denotes the absolute value of x.
@@ -6968,7 +7100,8 @@ cache[i][j]: start form i, before running out of fuel, the path number to reach 
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
         
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;q37--minimum-falling-path-sum-ii&#34;&gt;Q.37:  Minimum Falling Path Sum II&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/&#34;&gt;https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-q.37%3A--minimum-falling-path-sum-ii&#34; name=&#34;q.37%3A--minimum-falling-path-sum-ii&#34;&gt;&lt;/a&gt;
+&lt;a href=&#34;https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/&#34;&gt;https://leetcode-cn.com/problems/minimum-falling-path-sum-ii/&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an n x n integer matrix grid, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the minimum sum of a falling path with non-zero shifts.
 
 A falling path with non-zero shifts is a choice of exactly one element from each row of grid such that no two elements chosen in adjacent rows are in the same column.

@@ -29,11 +29,11 @@
 &lt;li&gt;&lt;a href=&#34;#service&#34; &gt;Service&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#url-service&#34; &gt;URL Service&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#storage&#34; &gt;storage&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#select&#34; &gt;select&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#scale&#34; &gt;Scale&lt;/a&gt;
@@ -204,20 +204,23 @@ get max_id from request
 &lt;h3 id=&#34;select&#34;&gt;select&lt;/h3&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-select&#34; name=&#34;select&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;SQL VS NoSQL&lt;/p&gt;
-&lt;p&gt;need transcation? &amp;ndash;No, NoSQL + 1
-need complex SQL Query? &amp;ndash;No, NoSQL + 1
-code is not complex &amp;ndash; NoSQL + 1
-QPS, 2 K QPS &amp;ndash; SQL + 1
-Scalability, consider the storage and QPS &amp;ndash; SQL + 1
-&lt;strong&gt;need Sequential ID&lt;/strong&gt; ? &amp;ndash;depend the algorithm choose here&lt;/p&gt;
+&lt;p&gt;need transcation? &amp;ndash;No, NoSQL + 1&lt;/p&gt;
+&lt;p&gt;need complex SQL Query? &amp;ndash;No, NoSQL + 1&lt;/p&gt;
+&lt;p&gt;code is not complex &amp;ndash; NoSQL + 1&lt;/p&gt;
+&lt;p&gt;QPS, 2 K QPS &amp;ndash; SQL + 1&lt;/p&gt;
+&lt;p&gt;Scalability, consider the storage and QPS &amp;ndash; SQL + 1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;need Sequential ID&lt;/strong&gt; ? &amp;ndash;depend the algorithm choose here&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;SQL provide auto-increment Sequential ID&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;how to shorten that long URL into a tiny URL (6 characters)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;method 1:
-random generate shortUrl, put into database&lt;/p&gt;
+&lt;h2 id=&#34;short-to-long&#34;&gt;short to long&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;method 1: hashtable, key:short URL, value:long URL&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;int, long input  into byte array, encode byte array into string&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Converting number to Hex (base 16)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;random generate shortUrl, put into database&lt;/p&gt;
 &lt;p&gt;simple, but would become very slow as data grows&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;shortKey&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a9exBl&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -226,7 +229,7 @@ random generate shortUrl, put into database&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;row_key=longURL, column_key=ShortURL, value=null or timestamp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;table 2 : query Long by  Short&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;row_key=shortURL, column_key=longURL, value=null or timestamp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;method 2: Base62&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;method 2: Base62&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;effient, but require Sequential ID&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;shortURLtoID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;

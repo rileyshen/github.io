@@ -459,6 +459,7 @@ Advantage</p>
 <p>10P needs 10G</p>
 <h3 id="how-to-write-a-file">how to write a file</h3>
 <p><a id="markdown-how-to-write-a-file" name="how-to-write-a-file"></a></p>
+<p>It is not easy to keep all those replicas consistent.</p>
 <p>client &ndash;&gt; write File_name=/xxxx.mp4, Chunk index=1 &ndash;&gt; master</p>
 <p>master &ndash;&gt; Assign Chunkserver_locations=US, CS1 &mdash;&gt; client</p>
 <p>client &ndash;&gt; transfer data=/xxxx.mp4, Chunk index=1 &ndash;&gt; chunkServer1</p>
@@ -512,6 +513,15 @@ Split a file into multiple chunks to read</p>
 <h3 id="how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down">How to avoid chunk data loss when a ChunkServer is down</h3>
 <p><a id="markdown-how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down" name="how-to-avoid-chunk-data-loss-when-a-chunkserver-is-down"></a></p>
 <p><strong>Repica</strong></p>
+<hr>
+<blockquote>
+<p>Repica</p>
+</blockquote>
+<p>3 replicas by default</p>
+<p><strong>Reliability: tolerate 2 failures</strong></p>
+<p><strong>HDFS</strong></p>
+<p>The Namenode actively monitors the numbers of replicas of each block. When a replica of a block is lost due to DataNode failure or disk failure, the NameNode creates another replica of the block.</p>
+<hr>
 <hr>
 <p>Master-Slave</p>
 <ul>

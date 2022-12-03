@@ -165,11 +165,11 @@ it means you didn&#39;t understand it well enough&#34;.
 <li><a href="#service" >Service</a>
 <ul>
 <li><a href="#url-service" >URL Service</a></li>
+</ul>
+</li>
 <li><a href="#storage" >storage</a>
 <ul>
 <li><a href="#select" >select</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><a href="#scale" >Scale</a>
@@ -340,20 +340,23 @@ get max_id from request
 <h3 id="select">select</h3>
 <p><a id="markdown-select" name="select"></a></p>
 <p>SQL VS NoSQL</p>
-<p>need transcation? &ndash;No, NoSQL + 1
-need complex SQL Query? &ndash;No, NoSQL + 1
-code is not complex &ndash; NoSQL + 1
-QPS, 2 K QPS &ndash; SQL + 1
-Scalability, consider the storage and QPS &ndash; SQL + 1
-<strong>need Sequential ID</strong> ? &ndash;depend the algorithm choose here</p>
+<p>need transcation? &ndash;No, NoSQL + 1</p>
+<p>need complex SQL Query? &ndash;No, NoSQL + 1</p>
+<p>code is not complex &ndash; NoSQL + 1</p>
+<p>QPS, 2 K QPS &ndash; SQL + 1</p>
+<p>Scalability, consider the storage and QPS &ndash; SQL + 1</p>
+<p><strong>need Sequential ID</strong> ? &ndash;depend the algorithm choose here</p>
 <ul>
 <li>SQL provide auto-increment Sequential ID</li>
 </ul>
 <blockquote>
 <p>how to shorten that long URL into a tiny URL (6 characters)</p>
 </blockquote>
-<p>method 1:
-random generate shortUrl, put into database</p>
+<h2 id="short-to-long">short to long</h2>
+<p><strong>method 1: hashtable, key:short URL, value:long URL</strong></p>
+<p><strong>int, long input  into byte array, encode byte array into string</strong></p>
+<p><strong>Converting number to Hex (base 16)</strong></p>
+<p>random generate shortUrl, put into database</p>
 <p>simple, but would become very slow as data grows</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">shortKey</span><span class="w">                </span><span class="n">longUrl</span><span class="w">
 </span><span class="w"></span><span class="n">a9exBl</span><span class="w">                  </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">wwww</span><span class="p">.</span><span class="n">rileyshen</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="w">
@@ -362,7 +365,7 @@ random generate shortUrl, put into database</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">row_key=longURL, column_key=ShortURL, value=null or timestamp
 </code></pre></div><p>table 2 : query Long by  Short</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">row_key=shortURL, column_key=longURL, value=null or timestamp
-</code></pre></div><p>method 2: Base62</p>
+</code></pre></div><p><strong>method 2: Base62</strong></p>
 <p>effient, but require Sequential ID</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="nf">shortURLtoID</span><span class="o">(</span><span class="n">String</span> <span class="n">shortURL</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
