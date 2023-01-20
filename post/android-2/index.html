@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen |  非常容易学的 android 笔记 2 </title>
+    <title> Riley Shen | 非常容易学的android笔记2 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -53,7 +53,7 @@ it means you didn&#39;t understand it well enough&#34;.
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content=" 非常容易学的 android 笔记 2"/>
+<meta name="twitter:title" content="非常容易学的android笔记2"/>
 <meta name="twitter:description" content="ConstraintLayout2.0 版本下面的菜单等控件设置"/>
 
 
@@ -137,7 +137,7 @@ it means you didn&#39;t understand it well enough&#34;.
     <div class="post-content">
         
         <div class="post-title">
-            <h2> 非常容易学的 android 笔记 2</h2>
+            <h2>非常容易学的android笔记2</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
@@ -296,12 +296,7 @@ it means you didn&#39;t understand it well enough&#34;.
 <p>这节就是扯，都是旧信息了，我没兴趣学老知识。</p>
 <p>ConstraintLayout</p>
 <ul>
-<li>
-<p>在开头加入<strong>android:onClick=&ldquo;onCreateOptionsMenu&rdquo;</strong></p>
-</li>
-<li>
-<p>右键 resouce fold，选 menu， 新建menu文件</p>
-</li>
+<li>右键 resouce fold，选 menu， 新建menu文件</li>
 </ul>
 <p>android:title 就是新输入的文件后续再提取的，android:orderInCategory是加权项，
 越小越靠前。android:icon就是加入图标，app:showAsAction=&ldquo;always&quot;这个意思就是一直显示， app:showAsAction=&ldquo;ifRoom&rdquo;，就是屏幕大才显示，否则给我压缩到3个点里面。</p>
@@ -376,7 +371,41 @@ it means you didn&#39;t understand it well enough&#34;.
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
     <span class="c1">// ... code for other cases
 </span><span class="c1"></span><span class="o">}</span>
-</code></pre></div></div>
+</code></pre></div><p>如果还不明白的话，意思就是这个ConstraintLayout2.0非常方便了菜单项，下面这个正文中的的菜单编辑，几乎是一样的逻辑</p>
+<h3 id="coding-challenge-context-menu">Coding challenge Context Menu</h3>
+<ul>
+<li>
+<ol>
+<li>定义菜单文件Menu resource file， menu_context</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>注册 View 在这个菜单中，  registerForContextMenu() 在onCreate()中</li>
+</ol>
+</li>
+</ul>
+<p>和标题的下拉菜单不一样， 那个不需要这一步，这里需要注册是哪个正文，我用了甜甜圈的那个文字实验</p>
+<pre><code>```java
+TextView article_text = findViewById(R.id.donut_description);
+registerForContextMenu(article_text);
+
+```
+</code></pre>
+<ul>
+<li>
+<ol start="3">
+<li>Implement the onCreateContextMenu()</li>
+</ol>
+<p>这里有MenuInflater inflater</p>
+</li>
+<li>
+<ol start="4">
+<li>onContextItemSelected()， 菜单中的选项选择</li>
+</ol>
+</li>
+</ul>
+<p>这么简单，搞定菜单</p></div>
     <div class="post-footer">
         <div class="info">
             

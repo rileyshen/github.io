@@ -8,7 +8,7 @@
     <language>en</language>
     <lastBuildDate>Wed, 07 Dec 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/options-menu/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title> 非常容易学的 android 笔记 2</title>
+      <title>非常容易学的android笔记2</title>
       <link>https://rileyshen.github.io/post/android-2/</link>
       <pubDate>Wed, 07 Dec 2022 15:56:39 +0800</pubDate>
       
@@ -160,12 +160,7 @@
 &lt;p&gt;这节就是扯，都是旧信息了，我没兴趣学老知识。&lt;/p&gt;
 &lt;p&gt;ConstraintLayout&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;在开头加入&lt;strong&gt;android:onClick=&amp;ldquo;onCreateOptionsMenu&amp;rdquo;&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;右键 resouce fold，选 menu， 新建menu文件&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;右键 resouce fold，选 menu， 新建menu文件&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;android:title 就是新输入的文件后续再提取的，android:orderInCategory是加权项，
 越小越靠前。android:icon就是加入图标，app:showAsAction=&amp;ldquo;always&amp;quot;这个意思就是一直显示， app:showAsAction=&amp;ldquo;ifRoom&amp;rdquo;，就是屏幕大才显示，否则给我压缩到3个点里面。&lt;/p&gt;
@@ -240,7 +235,41 @@
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;c1&#34;&gt;// ... code for other cases
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果还不明白的话，意思就是这个ConstraintLayout2.0非常方便了菜单项，下面这个正文中的的菜单编辑，几乎是一样的逻辑&lt;/p&gt;
+&lt;h3 id=&#34;coding-challenge-context-menu&#34;&gt;Coding challenge Context Menu&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;定义菜单文件Menu resource file， menu_context&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;注册 View 在这个菜单中，  registerForContextMenu() 在onCreate()中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;和标题的下拉菜单不一样， 那个不需要这一步，这里需要注册是哪个正文，我用了甜甜圈的那个文字实验&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;```java
+TextView article_text = findViewById(R.id.donut_description);
+registerForContextMenu(article_text);
+
+```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Implement the onCreateContextMenu()&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这里有MenuInflater inflater&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;onContextItemSelected()， 菜单中的选项选择&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这么简单，搞定菜单&lt;/p&gt;</description>
       
     </item>
     
