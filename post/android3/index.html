@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> Riley Shen </title>
+    <title> Riley Shen | 非常容易学的android笔记3 </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -53,8 +53,8 @@ it means you didn&#39;t understand it well enough&#34;.
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
 
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="非常容易学的android笔记3"/>
+<meta name="twitter:description" content="RecyclerView, nav menu, 滑动窗口， 以及nav drawer菜单, PagerAdapter新版中应用"/>
 
 
     
@@ -137,24 +137,198 @@ it means you didn&#39;t understand it well enough&#34;.
     <div class="post-content">
         
         <div class="post-title">
-            <h2></h2>
+            <h2>非常容易学的android笔记3</h2>
             
             <div class="info">
                 <em class="fas fa-calendar-day"></em>
                 <span class="date">
-                    Mon, Jan 1, 0001
+                    Tue, Dec 20, 2022
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">0-minute read</span>
+                <span class="reading-time">2-minute read</span>
             </div>
             
         </div>
 
-        </div>
+        <p>RecyclerView, nav menu, 滑动窗口， 以及nav drawer菜单, PagerAdapter新版中应用</p>
+<h3 id="up-button">up button</h3>
+<p><a href="https://developer.android.com/codelabs/android-training-provide-user-navigation?index=..%2F..%2Fandroid-training#2"  target="_blank" >回退选项</a></p>
+<figure><img src="/images/andr12.png"
+         alt="TextView"/><figcaption>
+            <h4>up button</h4>
+        </figcaption>
+</figure>
+
+<p>就是在Order Activity中加个父类，就是回退回倒哪个activity</p>
+<blockquote>
+<p>AndroidManifest.xml</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">activity</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;com.example.android.droidcafeinput.OrderActivity&#34;</span>
+    <span class="n">android</span><span class="o">:</span><span class="n">label</span><span class="o">=</span><span class="s">&#34;Order Activity&#34;</span>
+    <span class="n">android</span><span class="o">:</span><span class="n">parentActivityName</span><span class="o">=</span><span class="s">&#34;.MainActivity&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">meta</span><span class="o">-</span><span class="n">data</span> <span class="n">android</span><span class="o">:</span><span class="n">name</span><span class="o">=</span><span class="s">&#34;android.support.PARENT_ACTIVITY&#34;</span>
+        <span class="n">android</span><span class="o">:</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;.MainActivity&#34;</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">activity</span><span class="o">&gt;</span>
+</code></pre></div><h2 id="heading">☕☕</h2>
+<h3 id="滑动窗口">滑动窗口</h3>
+<p>超级无语，又是一个改变很多的，就安卓官网的教程，还不更新？</p>
+<p><a href="https://developer.android.com/codelabs/android-training-provide-user-navigation?index=..%2F..%2Fandroid-training#3"  target="_blank" >滑动窗口</a></p>
+<figure><img src="/images/andr13.png"
+         alt="TextView"/><figcaption>
+            <h4>TabLayout</h4>
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>activity_main.xml</p>
+</blockquote>
+<h4 id="4个元素-就是这样滑动窗口主要靠tablayout-和-viewpages2-实现">4个元素 就是这样，滑动窗口主要靠TabLayout 和 ViewPages2 实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">RelationLayout</span>
+
+    <span class="o">&lt;</span><span class="n">androidx</span><span class="o">.</span><span class="na">appcompat</span><span class="o">.</span><span class="na">widget</span><span class="o">.</span><span class="na">Toolbar</span>
+
+     <span class="o">&lt;</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">material</span><span class="o">.</span><span class="na">tabs</span><span class="o">.</span><span class="na">TabLayout</span>
+
+    <span class="o">&lt;</span><span class="n">androidx</span><span class="o">.</span><span class="na">viewpager2</span><span class="o">.</span><span class="na">widget</span><span class="o">.</span><span class="na">ViewPager2</span>
+
+<span class="o">&lt;/</span><span class="n">RelativeLayout</span><span class="o">&gt;</span>
+</code></pre></div><h4 id="layout中加入三个fragment页面其实就是滑动的3个窗口">layout中加入三个fragment页面，其实就是滑动的3个窗口</h4>
+<blockquote>
+<p>右键，new 一个 Fragment</p>
+</blockquote>
+<p>在layout下面，加入一些 TextView，区分三个不同文字。</p>
+<p>对应的就是三个相关的Fragment class</p>
+<p>删掉乱起八糟的，就剩一个 onCreateView 就好</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">public class TabFragment1 extends Fragment {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+}
+</code></pre></div><h4 id="滑动窗口的适配器-用-fragmentstateadapter">滑动窗口的适配器, 用 FragmentStateAdapter</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PagerAdapter</span> <span class="kd">extends</span> <span class="n">FragmentStateAdapter</span> <span class="o">{</span>
+
+
+
+
+<span class="c1">// FragmentManager 后面主程序中有用， 
+</span><span class="c1"></span>
+    <span class="kd">public</span> <span class="nf">PagerAdapter</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">FragmentManager</span> <span class="n">fragmentManager</span><span class="o">,</span> <span class="nd">@NonNull</span> <span class="n">Lifecycle</span> <span class="n">lifecycle</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">fragmentManager</span><span class="o">,</span> <span class="n">lifecycle</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+<span class="c1">// 表示几个窗口
+</span><span class="c1"></span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getItemCount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">3</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="c1">// 对应的位置
+</span><span class="c1"></span>    <span class="nd">@NonNull</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Fragment</span> <span class="nf">createFragment</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">1</span><span class="o">:</span> <span class="k">return</span> <span class="k">new</span> <span class="n">TabFragment2</span><span class="o">();</span>
+            <span class="k">case</span> <span class="n">2</span><span class="o">:</span> <span class="k">return</span> <span class="k">new</span> <span class="n">TabFragment3</span><span class="o">();</span>
+<span class="nl">
+</span><span class="nl">            default:</span> <span class="k">return</span> <span class="k">new</span> <span class="n">TabFragment1</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><h4 id="主程序">主程序</h4>
+<ul>
+<li>
+<p>置入三元素：ViewPager2， TabLayout， PagerAdapter</p>
+</li>
+<li>
+<p>findViewById(layout, viewpages2)</p>
+</li>
+<li>
+<p>用FragmentManager链接PagerAdapter</p>
+</li>
+<li>
+<p>viewPage2.setAdapter()</p>
+</li>
+<li>
+<p>tablayout，把按标题倒哪个窗口的功能实现好&ndash;tabs.addTab(tabs.newTab().setText(R.string.tab_label1));</p>
+</li>
+<li>
+<p>tablayout的互动功能，主要是改下下面的方法</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+    <span class="n">tabs</span><span class="o">.</span><span class="na">addOnTabSelectedListener</span><span class="o">(</span><span class="k">new</span> <span class="n">TabLayout</span><span class="o">.</span><span class="na">OnTabSelectedListener</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabSelected</span><span class="o">(</span><span class="n">TabLayout</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">viewPager</span><span class="o">.</span><span class="na">setCurrentItem</span><span class="o">(</span><span class="n">tab</span><span class="o">.</span><span class="na">getPosition</span><span class="o">());</span>
+        <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>链接 ViewPager2滑动监听viewPager.registerOnPageChangeCallback()</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+
+    <span class="c1">// 置入三元素
+</span><span class="c1"></span>    <span class="n">ViewPager2</span> <span class="n">viewPager</span><span class="o">;</span>
+    <span class="n">TabLayout</span> <span class="n">tabs</span><span class="o">;</span>
+    <span class="n">PagerAdapter</span> <span class="n">adapter</span><span class="o">;</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="n">TabLayout</span> <span class="n">tabs</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">tab_layout</span><span class="o">);</span>
+        <span class="n">viewPager</span> <span class="o">=</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">view_pager</span><span class="o">);</span>
+
+
+
+
+        <span class="n">FragmentManager</span> <span class="n">fragmentManager</span> <span class="o">=</span> <span class="n">getSupportFragmentManager</span><span class="o">();</span>
+        <span class="n">adapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PagerAdapter</span><span class="o">(</span><span class="n">fragmentManager</span><span class="o">,</span><span class="n">getLifecycle</span><span class="o">());</span>
+        <span class="n">viewPager</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">adapter</span><span class="o">);</span>
+
+        <span class="n">tabs</span><span class="o">.</span><span class="na">addTab</span><span class="o">(</span><span class="n">tabs</span><span class="o">.</span><span class="na">newTab</span><span class="o">().</span><span class="na">setText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">tab_label1</span><span class="o">));</span>
+        <span class="n">tabs</span><span class="o">.</span><span class="na">addTab</span><span class="o">(</span><span class="n">tabs</span><span class="o">.</span><span class="na">newTab</span><span class="o">().</span><span class="na">setText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">tab_label2</span><span class="o">));</span>
+        <span class="n">tabs</span><span class="o">.</span><span class="na">addTab</span><span class="o">(</span><span class="n">tabs</span><span class="o">.</span><span class="na">newTab</span><span class="o">().</span><span class="na">setText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">tab_label3</span><span class="o">));</span>
+
+        <span class="n">tabs</span><span class="o">.</span><span class="na">addOnTabSelectedListener</span><span class="o">(</span><span class="k">new</span> <span class="n">TabLayout</span><span class="o">.</span><span class="na">OnTabSelectedListener</span><span class="o">()</span> <span class="o">{</span>
+
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabSelected</span><span class="o">(</span><span class="n">TabLayout</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">viewPager</span><span class="o">.</span><span class="na">setCurrentItem</span><span class="o">(</span><span class="n">tab</span><span class="o">.</span><span class="na">getPosition</span><span class="o">());</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabUnselected</span><span class="o">(</span><span class="n">TabLayout</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onTabReselected</span><span class="o">(</span><span class="n">TabLayout</span><span class="o">.</span><span class="na">Tab</span> <span class="n">tab</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="n">viewPager</span><span class="o">.</span><span class="na">registerOnPageChangeCallback</span><span class="o">(</span><span class="k">new</span> <span class="n">ViewPager2</span><span class="o">.</span><span class="na">OnPageChangeCallback</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageSelected</span><span class="o">(</span><span class="kt">int</span> <span class="n">position</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">tabs</span><span class="o">.</span><span class="na">selectTab</span><span class="o">(</span><span class="n">tabs</span><span class="o">.</span><span class="na">getTabAt</span><span class="o">(</span><span class="n">position</span><span class="o">));</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><p>完成</p></div>
     <div class="post-footer">
         <div class="info">
             
-            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/sde/">SDE</a><a class="tag" href="/tags/tool/">tool</a><a class="tag" href="/tags/android/">Android</a><a class="tag" href="/tags/recyclerview/">RecyclerView</a><a class="tag" href="/tags/constraintlayout2%2e0/">ConstraintLayout2.0</a><a class="tag" href="/tags/navigation/">navigation</a><a class="tag" href="/tags/drawer-menu/">drawer menu</a></span>
         </div>
     </div>
 

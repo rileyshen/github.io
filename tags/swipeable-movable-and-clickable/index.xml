@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>swipeable, movable, and clickable on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/swipeable-movable-and-clickable/</link>
+    <description>Recent content in swipeable, movable, and clickable on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 20 Dec 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/swipeable-movable-and-clickable/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>非常容易学的android笔记7</title>
+      <link>https://rileyshen.github.io/post/android7/</link>
+      <pubDate>Tue, 20 Dec 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/android7/</guid>
+      
+        <description>&lt;p&gt;Drawables, styles, and themes 功能, OnClick功能&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://developer.android.com/codelabs/android-training-cards-and-colors?index=..%2F..%2Fandroid-training#0&#34;  target=&#34;_blank&#34; &gt;Cards and colors教程&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;把基本的layout和元素都弄好, 因为是可以滑动的，所以是RecyclerView。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;activity_main.xml&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;strings.xml&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sport.class&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;title&lt;/li&gt;
+&lt;li&gt;info&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SportsAdapter.class&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ArrayList&lt;Sport&gt; mSportData&lt;/li&gt;
+&lt;li&gt;Context mContext&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MainActivity.class&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;效果如图&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr29.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;before style&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;main_activityxml&#34;&gt;main_activity.xml&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;RelativeLayout&lt;/li&gt;
+&lt;li&gt;RecyclerView&lt;/li&gt;
+&lt;li&gt;FloatingActionButtun&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;list_itemxml-加入cardview边框&#34;&gt;list_item.xml 加入CardView边框&lt;/h3&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr31.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;CardView&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;android:adjustViewBounds 这个时为了保持比例&lt;/p&gt;
+&lt;h3 id=&#34;stringxml&#34;&gt;string.xml&lt;/h3&gt;
+&lt;p&gt;这里有播放的新闻标题，内容和图片&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr43.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;string-array&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;sportclass修改&#34;&gt;sport.class修改&lt;/h3&gt;
+&lt;p&gt;加入int imageResource&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;heading&#34;&gt;☕&lt;/h2&gt;
+&lt;h3 id=&#34;glide使用&#34;&gt;Glide使用&lt;/h3&gt;
+&lt;p&gt;大量加载图片的时候要用&lt;code&gt;Glide&lt;/code&gt;这样的第三方&lt;/p&gt;
+&lt;h4 id=&#34;buildgradle-module-app&#34;&gt;build.gradle (Module: app)&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;implementation &amp;lsquo;com.github.bumptech.glide:glide:x.x.x&amp;rsquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;sportadapterclass&#34;&gt;SportAdapter.class&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;private ArrayList&lt;Sport&gt; mSportsData;&lt;/li&gt;
+&lt;li&gt;private Context mContext;&lt;/li&gt;
+&lt;li&gt;private ImageView mSportsImage;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;adaptergetitemcount得到列表中包含多少个待展示的视图&#34;&gt;Adapter.getItemCount()得到列表中包含多少个待展示的视图&lt;/h4&gt;
+&lt;h4 id=&#34;oncreateviewholder&#34;&gt;onCreateViewHolder&lt;/h4&gt;
+&lt;p&gt;创建ViewHolder&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false));&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;onbindviewholdernonnull-viewholder-holder-int-position&#34;&gt;onBindViewHolder(@NonNull ViewHolder holder, int position)&lt;/h4&gt;
+&lt;p&gt;Adapter会找到目标位置的数据并将其绑定到ViewHolder的视图上。&lt;/p&gt;
+&lt;p&gt;onCreateViewHolder()方法调用并不频繁。一旦有了够用的ViewHolder，RecyclerView就会停止调用onCreateViewHolder()方法。随后，它会回收利用旧的ViewHolder以节约时间和内存&lt;/p&gt;
+&lt;p&gt;这里因为是大量图片，所以用了Clide, 加了一个bindTo() 方法，to get the image resource from the Sport object and load it into the ImageView using Glide:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Glide.with(mContext).load(currentSport.getImageResource()).into(mSportsImage);&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;onBindViewHolder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;@NonNull&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ViewHolder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;holder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;position&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Sport&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mSportsData&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;position&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;n&#34;&gt;holder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;bindTo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;class-viewholder-extends-recyclerviewviewholder-implements-viewonclicklistener&#34;&gt;class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;private TextView mTitleText;&lt;/li&gt;
+&lt;li&gt;private TextView mInfoText;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;public-viewholdernonnull-view-itemview&#34;&gt;public ViewHolder(@NonNull View itemView)&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;  &lt;span class=&#34;kd&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itemView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+  &lt;span class=&#34;n&#34;&gt;mTitleText&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;itemView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;findViewById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;R&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;mInfoText&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;itemView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;findViewById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;R&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;subTitle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;mSportsImage&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;itemView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;findViewById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;R&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sportsImage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+  &lt;span class=&#34;n&#34;&gt;itemView&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setOnClickListener&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;void-bindtosport-currentsport-&#34;&gt;void bindTo(Sport currentSport) {&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;n&#34;&gt;mTitleText&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setText&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTitle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;mInfoText&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setText&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getInfo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Glide&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;with&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;load&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getImageResource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mSportsImage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;void-onclickview-v&#34;&gt;void onClick(View v)&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;  &lt;span class=&#34;n&#34;&gt;Sport&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mSportsData&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getAdapterPosition&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+
+  &lt;span class=&#34;n&#34;&gt;Intent&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detailIntent&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Intent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DetailActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;detailIntent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putExtra&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;title&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getTitle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;detailIntent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;putExtra&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;image_resource&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentSport&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getImageResource&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+
+  &lt;span class=&#34;n&#34;&gt;mContext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;startActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;detailIntent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr44.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;SportAdapter&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr45.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;SportAdapter&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;h2 id=&#34;heading-1&#34;&gt;☕&lt;/h2&gt;
+&lt;h3 id=&#34;onclick-方法&#34;&gt;onClick() 方法&lt;/h3&gt;
+&lt;h4 id=&#34;过时的layout中设置的androidonclick&#34;&gt;过时的layout中设置的&lt;code&gt;android:onClick&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;用这个会化线，应该被启用了，方法就是在activity中写这个方法&lt;/p&gt;
+&lt;h3 id=&#34;button和imageview中控件结合的&#34;&gt;Button和ImageView中控件结合的&lt;/h3&gt;
+&lt;p&gt;activity中申明变量后，onCreate方法中根据id, 设置&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;setOnClickListener(new View.OnClickListener() {)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;也可以用lambda&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;myButton.setOnClickListener(v -&amp;gt; Log.d(&amp;ldquo;Click&amp;rdquo;, &amp;ldquo;Button clicked&amp;rdquo;); );&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;textview中的onclick&#34;&gt;TextView中的onClick()&lt;/h3&gt;
+&lt;p&gt;在ViewHolder中使用&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;实现onClick(View v)方法&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;滑动图片&#34;&gt;滑动图片&lt;/h3&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr46.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;swipe&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr47.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;swipe&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;这里划掉的才是这个版本的。所以gridColumnCount也是为了后面的内容&lt;/p&gt;
+&lt;h3 id=&#34;mainactivity&#34;&gt;MainActivity&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;private RecyclerView mRecyclerView;&lt;/li&gt;
+&lt;li&gt;private ArrayList&lt;Sport&gt; mSportsData;&lt;/li&gt;
+&lt;li&gt;private SportAdapter mAdapter;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;用itemtouchhelper&#34;&gt;用ItemTouchHelper&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;helper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SimpleCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;0 for the supported move directions and ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT for the supported swipe directions&lt;/p&gt;
+&lt;p&gt;Change the first argument of the SimpleCallback from 0 to include every direction, since we want to be able to drag and drop anywhere:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;helper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SimpleCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; 
+&lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;DOWN&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;UP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;initializedate&#34;&gt;initializeDate()&lt;/h4&gt;
+&lt;p&gt;这里注意下要回收 sportsImageResources.recycle();&lt;/p&gt;
+&lt;hr&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
