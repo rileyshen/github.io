@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kotlin on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/kotlin/</link>
+    <description>Recent content in kotlin on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 25 Dec 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>非常容易学的android笔记9--总结</title>
+      <link>https://rileyshen.github.io/post/android9/</link>
+      <pubDate>Sun, 25 Dec 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/android9/</guid>
+      
+        <description>&lt;p&gt;我做了一个android的项目，commit的第一次是java版本，后面改到kotlin，重新梳理了安卓的知识点&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://developer.android.com/codelabs/android-training-adaptive-layouts?index=..%2F..%2Fandroid-training#2&#34;  target=&#34;_blank&#34; &gt;Support landscape orientation教程&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;android-mvvm&#34;&gt;Android MVVM&lt;/h3&gt;
+&lt;p&gt;&lt;integer name=&#34;grid_column_count&#34;&gt;1&lt;/integer&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr48.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;屏幕数值设置&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;可以变2， 横向可以是2，3格式&lt;/p&gt;
+&lt;h3 id=&#34;gridlayoutmanager&#34;&gt;GridLayoutManager&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gridColumnCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里是说，如果有大于1格的，那swipeDirs功能其实就去掉了，不然可以左右滑动给删掉&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr35.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;2 grid landscape&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr36.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;3 grid landscape&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;所以这边也改下，swipeDirs&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;  &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;helper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SimpleCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;DOWN&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;UP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr37.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;2 portait&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr38.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;detailActivity&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

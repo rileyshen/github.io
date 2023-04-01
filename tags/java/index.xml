@@ -6,7 +6,306 @@
     <description>Recent content in java on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 25 Dec 2022 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Mar 2023 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DDD in real project 1</title>
+      <link>https://rileyshen.github.io/post/ddd/</link>
+      <pubDate>Wed, 01 Mar 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/ddd/</guid>
+      
+        <description>&lt;p&gt;DDD in real project&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DDD structure&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-application&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-common&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-infrastructure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-interfaces&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-rpc&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step1-use-prc-to-test-first&#34;&gt;STEP1: use PRC to test first&lt;/h2&gt;
+&lt;h3 id=&#34;rpc&#34;&gt;RPC&lt;/h3&gt;
+&lt;p&gt;Dubbo &amp;ndash; implements Serializable&lt;/p&gt;
+&lt;p&gt;Create a table first to test CRUD operation.&lt;/p&gt;
+&lt;h4 id=&#34;1-create-a-activity-table&#34;&gt;1. Create a activity table&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CREATE TABLE &lt;code&gt;activity&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;2-pom-file-configuration&#34;&gt;2. POM file configuration&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-application，应用层，引用：domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-common，通用包，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-domain，领域层，引用：infrastructure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-infrastructure，基础层，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-interfaces，接口层，引用：application、rpc,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-rpc，RPC接口定义层，引用：common&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;interface的package 是 war， 还需要用 starter-web , 别的都是 jar&lt;/p&gt;
+&lt;h4 id=&#34;3-mybatis&#34;&gt;3. Mybatis&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;put related dependencie in lottery-interfaces pom.xml&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;yml file&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;4-dubbo&#34;&gt;4. Dubbo&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;put related dependencie in lottery-interfaces pom.xml&lt;/li&gt;
+&lt;li&gt;yml file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;5-define-and-develop-rpc-interface&#34;&gt;5. Define and develop RPC interface&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;lottery/rpc structure&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dto
+&lt;ul&gt;
+&lt;li&gt;ActivityDto implements Serializable
+&lt;ul&gt;
+&lt;li&gt;mapping to mybatis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;req
+&lt;ul&gt;
+&lt;li&gt;ActivityReq implements Serializable&lt;/li&gt;
+&lt;li&gt;(use activityId as example): get set&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;res
+&lt;ul&gt;
+&lt;li&gt;ActivityRes implements Serializable&lt;/li&gt;
+&lt;li&gt;Field (Result, ActivityDto) : Result from common package, including String 200 code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IActivityBooth.java
+&lt;ul&gt;
+&lt;li&gt;interface&lt;/li&gt;
+&lt;li&gt;method: return ActivityRes; pemerater(ActivityReq req)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ActivityBooth&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nd&#34;&gt;@Service&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;java&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;nd&#34;&gt;@Resource&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityDao&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityDao&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityRes&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;queryActivityById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityRes&lt;/span&gt;
+
+ &lt;span class=&#34;nd&#34;&gt;@Service&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;comimg&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;org&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;apache&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;dubbo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;annotation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Service&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;it&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;means&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;would&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;be&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;managed&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;by&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Dubbo&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;6-build-a-test-project-and-call-rpc&#34;&gt;6. Build a test project and call RPC&lt;/h4&gt;
+&lt;h3 id=&#34;test-rpc&#34;&gt;Test RPC&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;install first, the root and rpc module Lifecycle need install first&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ApiTest&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@RunWith&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SpringRunner&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nd&#34;&gt;@SpringBootTest&lt;/span&gt;
+ 
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ApiTest&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Logger&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;logger&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLogger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ApiTest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;interfaceClass&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;dubbo://127.0.0.1:20880&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityBooth&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Test&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;test_rpc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ActivityReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityReq&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setActivityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;100001L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ActivityRes&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;queryActivityById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;logger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;result：{}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;JSON&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJSONString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;a href=&#34;https://pic2.zhimg.com/v2-93a7e4f3d3bda78cf8ba33411a5d3e2d_r.jpg&#34;  target=&#34;_blank&#34; &gt;DTO DO, Entity&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data Object, only used to map to the table&lt;/li&gt;
+&lt;li&gt;Entity, dont need serialize and persistent&lt;/li&gt;
+&lt;li&gt;DTO, lies in the input and output parameters that adapt to different business scenarios&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ddd-model-another-structure&#34;&gt;DDD model another structure&lt;/h2&gt;
+&lt;p&gt;lottery-common：公共包
+lottery-interfaces：接口层，依赖公共包lottery-common
+lottery-domain：领域层，不依赖其他任何模块
+lottery-infrastructure：基础设施层，依赖领域层lottery-domain
+lottery-application：应用层，向上依赖接口层lottery-interfaces、向下依赖领域层lottery-domain和基础设施层lottery-infrastructure
+lottery-bootstrap: 启动（打包），只依赖应用层lottery-application（因为应用层会整合掉其他所有的模块包）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-application，应用层，引用：domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-common，通用包，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-domain，领域层，引用：infrastructure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-infrastructure，基础层，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-interfaces，接口层，引用：application、rpc,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-rpc，RPC接口定义层，引用：common&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step2-design-database-and-tables&#34;&gt;STEP2: design database and tables&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;in business level; the lottery system, as a link in the marketing activity platform, takes over the link of the activity playing method, bonus consumption, prize distribution and other systems to help the entire business complete user activity.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;as a part of strategic design, need consider segregation principle; activities, algorithms, rules, policies, users, orders and other fields.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Introduce table design; according to the definition of each module in the domain driver, design the database table, which corresponds to the activity table, lottery policy configuration table, access rule engine table, user lottery ticket record table, and the data structure of these tables Other tables that run, such as: record the number of user participation, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;a-lottery-drawing-process&#34;&gt;A lottery drawing process&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;run a customer lottery
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;query activity bill&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;query activity info  &amp;ndash;&amp;gt; SQL &lt;code&gt;Activity&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;query user take activity account &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivityCount&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;encapsulation  &amp;ndash;&amp;gt; &lt;code&gt;ActivityBillVO&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;auth info&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;verify info status&lt;/li&gt;
+&lt;li&gt;verify info time&lt;/li&gt;
+&lt;li&gt;verify info product quentity stock&lt;/li&gt;
+&lt;li&gt;verify users&amp;rsquo;s remaining participation times&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Product Quantity Stock decrease &amp;ndash;&amp;gt; SQL &lt;code&gt;Activity&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;record users activity info &amp;ndash;&amp;gt; partition, declarative transaction management&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;reduce users&#39; participate time&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;user first time participate &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivityCount&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;user non-first time participate &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivityCount&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;insert redeem award info &amp;ndash;&amp;gt; use &lt;code&gt;UUID&lt;/code&gt; as the only index, to provent redeem the award repeatly &lt;code&gt;uuid = uid + &amp;quot;_&amp;quot; + acvitityId + &amp;quot;_&amp;quot; + userTakeActivity.getTakeCount() &lt;/code&gt; &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivity&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sql encapsulation &amp;ndash;&amp;gt; strategy id , activity id&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lotterysql&#34;&gt;lottery.sql&lt;/h3&gt;
+&lt;h4 id=&#34;database-lottery&#34;&gt;&lt;strong&gt;database lottery&lt;/strong&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;tables&#34;&gt;tables&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;activity&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;award&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;strategy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;strategy_detail&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;database-lottery_01&#34;&gt;&lt;strong&gt;database lottery_01&lt;/strong&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;tables-1&#34;&gt;tables&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity (分库不分表)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity_count (分库不分表)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_001 (分库分表)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_002&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;h4 id=&#34;database-lottery_02&#34;&gt;&lt;strong&gt;database lottery_02&lt;/strong&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;tables-2&#34;&gt;tables&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity_count&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_001&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_002&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;database and tables design thinking:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Access frequency: For frequently accessed data, Data size: For a large amount of data, Data type, different types of data, Data range, it can be stored in a separate database or table to improve read and write performance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The main purpose of partition is: data sharing, improving QPS/TPS, sharing pressure, and improving scalability.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example, if the read and write performance of the database is degraded, or the amount of data in a single table is too large, then you need to consider partition.&lt;/p&gt;
+&lt;p&gt;avoiding the performance bottleneck of a single database and improving the performance and scalability of the system.  can also solve the limitation of database storage capacity and improve the storage capacity of the database.&lt;/p&gt;
+&lt;h2 id=&#34;in-addition-the-cost-of-database-management-and-maintenance-will-also-increase-therefore-when-considering-partition-you-need-to-carefully-weigh-the-pros-and-cons-to-determine-whether-it-is-really-necessary-to-perform-partition-operations&#34;&gt;In addition, the cost of database management and maintenance will also increase. Therefore, when considering partition, you need to carefully weigh the pros and cons to determine whether it is really necessary to perform partition operations&lt;/h2&gt;
+&lt;h2 id=&#34;step3-lottery-strategy-module&#34;&gt;STEP3: lottery strategy module&lt;/h2&gt;</description>
+      
+    </item>
+    
     <item>
       <title>非常容易学的android笔记8--Support landscape orientation</title>
       <link>https://rileyshen.github.io/post/android8/</link>
@@ -17,6 +316,61 @@
         <description>&lt;p&gt;滑动图片功能&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://developer.android.com/codelabs/android-training-adaptive-layouts?index=..%2F..%2Fandroid-training#2&#34;  target=&#34;_blank&#34; &gt;Support landscape orientation教程&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;integersxml&#34;&gt;integers.xml&lt;/h3&gt;
+&lt;p&gt;&lt;integer name=&#34;grid_column_count&#34;&gt;1&lt;/integer&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr48.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;屏幕数值设置&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;可以变2， 横向可以是2，3格式&lt;/p&gt;
+&lt;h3 id=&#34;gridlayoutmanager&#34;&gt;GridLayoutManager&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gridColumnCount&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里是说，如果有大于1格的，那swipeDirs功能其实就去掉了，不然可以左右滑动给删掉&lt;/p&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr35.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;2 grid landscape&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr36.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;3 grid landscape&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;所以这边也改下，swipeDirs&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;  &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;helper&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;SimpleCallback&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;RIGHT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;DOWN&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ItemTouchHelper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;UP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;swipeDirs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;){&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr37.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;2 portait&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr38.png&#34;
+         alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;detailActivity&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>非常容易学的android笔记9--总结</title>
+      <link>https://rileyshen.github.io/post/android9/</link>
+      <pubDate>Sun, 25 Dec 2022 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/android9/</guid>
+      
+        <description>&lt;p&gt;我做了一个android的项目，commit的第一次是java版本，后面改到kotlin，重新梳理了安卓的知识点&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://developer.android.com/codelabs/android-training-adaptive-layouts?index=..%2F..%2Fandroid-training#2&#34;  target=&#34;_blank&#34; &gt;Support landscape orientation教程&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;android-mvvm&#34;&gt;Android MVVM&lt;/h3&gt;
 &lt;p&gt;&lt;integer name=&#34;grid_column_count&#34;&gt;1&lt;/integer&gt;&lt;/p&gt;
 &lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/andr48.png&#34;
          alt=&#34;TextView&#34;/&gt;&lt;figcaption&gt;
