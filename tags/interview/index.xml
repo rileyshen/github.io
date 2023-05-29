@@ -2116,12 +2116,19 @@ shops:&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#select&#34; &gt;select&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#short-to-long&#34; &gt;short to long&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#scale&#34; &gt;Scale&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#use-cache-aside-to-reduce-response-time&#34; &gt;use Cache Aside to reduce response time&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#use-geolocation-to-reduce-response-time&#34; &gt;use geolocation to reduce response time&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#sharding-key&#34; &gt;Sharding Key&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#multi-region&#34; &gt;multi region&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#&#34; &gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#why&#34; &gt;why&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#how-to-choose-sql-and-nosql&#34; &gt;how to choose sql and nosql&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#identify-core-features&#34; &gt;identify core features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#interview-guide&#34; &gt;interview guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#review&#34; &gt;review&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -2203,12 +2210,18 @@ get max_id from request
 &lt;p&gt;&lt;a id=&#34;markdown-what&#39;s-is-the-**scenario**-planning-of-this-project&#34; name=&#34;what&#39;s-is-the-**scenario**-planning-of-this-project&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;transfer Long URL into Short URL&lt;/p&gt;
 &lt;p&gt;click Short URL will redirect to the original one.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;用户访问短链生成页面，输入长链字符串，短链服务返回生成的短链。&lt;/p&gt;
+&lt;h2 id=&#34;用户访问短链短链服务返回-302-响应用户浏览器跳转到长链地址&#34;&gt;用户访问短链，短链服务返回 302 响应，用户浏览器跳转到长链地址。&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Q: shall we need a one to one mapping to get shorten URL&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Q: short URLs expire after a period&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;如何根据长链生成唯一短链？&lt;/p&gt;
+&lt;h2 id=&#34;如何保存短链与长链的映射关系&#34;&gt;如何保存短链与长链的映射关系？&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;DAO (weibo as example) 100M&lt;/p&gt;
@@ -2297,6 +2310,7 @@ get max_id from request
 &lt;p&gt;how to shorten that long URL into a tiny URL (6 characters)&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;short-to-long&#34;&gt;short to long&lt;/h2&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-short-to-long&#34; name=&#34;short-to-long&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;method 1: hashtable, key:short URL, value:long URL&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;int, long input  into byte array, encode byte array into string&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Converting number to Hex (base 16)&lt;/strong&gt;&lt;/p&gt;
@@ -2309,8 +2323,19 @@ get max_id from request
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;row_key=longURL, column_key=ShortURL, value=null or timestamp
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;table 2 : query Long by  Short&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;row_key=shortURL, column_key=longURL, value=null or timestamp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;method 2: Base62&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;哈希冲突----我们在原有长链后面加上固定的特殊字符增加了长度&#34;&gt;哈希冲突 &amp;ndash;&amp;gt; 我们在原有长链后面加上固定的特殊字符，增加了长度&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;method 2: Base62&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;effient, but require Sequential ID&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;生成hash后，用 base62得到短的
+将 181338494 除以 62，得到结果为 2924814，余数为 26，此时余数 26 对应字符为 q。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;将 2924814 除以 62，得到结果为 47174，余数为 26，此时余数 26 对应字符为 q。&lt;/p&gt;
+&lt;p&gt;将 47174 除以 62，得到结果为 760，余数为 54，此时余数 54 对应字符为 S。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;省略剩余步骤&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;shortURLtoID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shortURL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
@@ -2334,7 +2359,8 @@ get max_id from request
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sql&#34; data-lang=&#34;sql&#34;&gt;&lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;longUrl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;wwww&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rileyshen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;scale&#34;&gt;Scale&lt;/h2&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;method 3 distribute ids&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;scale&#34;&gt;Scale&lt;/h2&gt;
 &lt;p&gt;&lt;a id=&#34;markdown-scale&#34; name=&#34;scale&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;how to reduce response time&lt;/p&gt;
@@ -2485,6 +2511,199 @@ get max_id from request
 &lt;ul&gt;
 &lt;li&gt;Solved the problem of slow access for Chinese users to US servers&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h3 id=&#34;heading&#34;&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Interviewer is not looking for solution where you take longer url, generate shorter url, store in map, and return longer url fron the map&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Interviewer is likely asking you this to test your knowledge on durability and scalability&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;why&#34;&gt;why&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-why&#34; name=&#34;why&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;save space&lt;/li&gt;
+&lt;li&gt;less likely to mistype&lt;/li&gt;
+&lt;li&gt;optimize links across devices, tracking individual links to analyze performance, and hiding affiliated original URLs. when your website is requested by millions of users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;how-to-choose-sql-and-nosql&#34;&gt;how to choose sql and nosql&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-how-to-choose-sql-and-nosql&#34; name=&#34;how-to-choose-sql-and-nosql&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;sql is good for systems where you expect to make lots of complex queries involving joins and look at the relationships between things&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;nosql is faster for writes and simple key-value reads&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;identify-core-features&#34;&gt;identify core features&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-identify-core-features&#34; name=&#34;identify-core-features&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;interview-guide&#34;&gt;interview guide&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-interview-guide&#34; name=&#34;interview-guide&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;a good candidate will design a solution that utilizes a cluster of id generators that reserve chunks of the id space
+from a central coordinator and independently allocate IDS frim their chunk, refreshing as necessary.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;review&#34;&gt;review&lt;/h3&gt;
+&lt;p&gt;&lt;a id=&#34;markdown-review&#34; name=&#34;review&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;How to design TinyURL&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;What is TinyURL?
+System requirements and goals
+Capacity estimation and constraints
+System APIs
+Database design
+Basic system design and algorithm
+Data partitioning and replication
+Cache
+Load balancing&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;Why Would You Need To Shorten The URL?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;saves space.&lt;/li&gt;
+&lt;li&gt;more likely to share short URLs.&lt;/li&gt;
+&lt;li&gt;less likely mistype.&lt;/li&gt;
+&lt;li&gt;You might want to mask original affiliate links through short URLs.&lt;/li&gt;
+&lt;li&gt;offer additional useful features for sharing and viewing short URLs.&lt;/li&gt;
+&lt;li&gt;allow you to track click data to analyze the audience, which can help upgrade marketing strategies.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Requirements Of The Design&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;An interview for a system designer position is an opportunity to discuss your experience and abilities and to showcase your skills at creating complex systems. You can prepare for your job interview by studying basic design principles and preparing answers to possible questions about them. In this article, we review common questions and answers for a system design interview to help you prepare.&lt;/p&gt;
+&lt;p&gt;Video: Top Common Interview Questions and Answers&lt;/p&gt;
+&lt;p&gt;Jenn, an Indeed Career Coach, breaks down the intentions behind employer&amp;rsquo;s questions and shares strategies for crafting strong responses.&lt;/p&gt;
+&lt;p&gt;Related jobs on Indeed
+Part-time jobs
+Full-time jobs
+Remote jobs
+Urgently hiring jobs
+View more jobs on Indeed
+What is a system design interview?
+A system design interview is conducted to allow candidates—like programmers, designers, developers and software engineers—sufficient opportunity to prove expertise in the field through the tangible application of knowledge to solve a real problem that a company might be facing.&lt;/p&gt;
+&lt;p&gt;The system design interview is typically conducted later in the interview process. It is a trial intended to see how well you work on a team and your approach to problem solving using open-ended questions to arrive at the best possible solutions. A system design interview analyzes your process in solving problems and creating designing systems to help clients. It is an opportunity for you to show the hiring manager and potential team that you are a valuable asset and display your skills and expertise in a concrete way.&lt;/p&gt;
+&lt;p&gt;Related: Learn About Being a Computer Engineer&lt;/p&gt;
+&lt;p&gt;System design interview questions and answers
+System design questions are typically ambiguous to allow you the opportunity to demonstrate your qualifications. You can ask questions before you respond to help you narrow the scope, give you direction and clarify any expectations.&lt;/p&gt;
+&lt;p&gt;Here are six common questions you may be asked during your system design interview:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;How would you design a tinyURL system?
+A tinyURL is an URL service that allows users to enter a long URL, and then it returns a shorter, unique URL. A hiring manager might ask this to allow you the opportunity to show your solid foundation in design. You can focus on other basics not listed in the example response, like how you create a unique ID for each URL, how you handle redirects and how you delete expired URLs.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example: &amp;ldquo;When I was working for a public instant messaging site, I was charged with creating a simple system where every message was limited to 140 characters. It also necessitated shortened URLs of about 30 characters. This tinyURL system is also useful when entering hyperlinks in e-mails or on a smartphone, where there is room for error. TinyURL is a perfect example of the hashtag table. This data structure associates keys with values and is a simple connections code. By using this basic 16-bit hash table, I was able to optimize usability and meet the needs of the system.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;Related: How to Prepare for 5 Common jQuery Interview Questions&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;How would you design a search engine?
+Sometimes search engines are needed within a specific department of a company to systematically locate an item or important employee information. Hiring managers want to see that you can tailor designs to the needs of the company. You can detail some of the overall architecture and explain it, using the foundation below. You can also consider discussing any other relevant issues such as website front-end performance, testing search engine improvements and integrating previous search data and trends in indexing.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example: &amp;ldquo;Before I relocated here, I was working on a project similar to this one. The search engine I had been enlisted to create needed to work with keyword searches. I began by building an indexer, which is a piece of software that crawls and produces results in a data structure. The crawler would put web page links together and group them or dump them into sets. Then the indexer ran as part of a reduce job to single things out. For each website, the number of links was calculated and analyzed for presentation. I had the crawl set for H1 and H2, rather than H3s. Then I checked outbound links to avoid spammers. Lastly, I checked the serving results to verify that the design was working at optimal capacity and relevancy.&amp;rdquo;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;How do you design a web crawler, and when should it be used?
+A crawler is a program designed to visit other sites and read them for information. This information is then used to create entries for a search engine index. It is typically called a &amp;lsquo;bot&amp;quot; or &amp;ldquo;spider.&amp;rdquo; Be certain to show within your explanation that you know the intricacies of web crawling.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example: &amp;ldquo;Although crawling the web is a challenging task, I have managed to build one for a previous project. The crawler scrapes data from a specific sector, in this case, the fashion industry. I needed to integrate a URL dispatcher, which is a server whose responsibility is to distribute seed URL to a multitude of servers. Next, the crawl supervisor passed the URL to bots using the designed messaging queue. The spider, the basis for any crawler, extracted the data from the web page and loaded it into my file system. Next, the extract, transform and load (ETL) cleaned up the content and reformatted it to store it into the database. In such a way, I was able to crawl the web looking for and organizing the information needed.&amp;rdquo;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;How do you design a shared drive?
+Hiring managers ask this to explore algorithm basics and backgrounds. Before you begin, make sure you understand the purpose of the task. Knowing if the changes will be registered in real time, if locking will be necessary and if it needs to be naturally convergent will help you give a complete answer.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example: &amp;ldquo;This system works on differential synchronization. It is keeping two or more copies of the same document synchronized with each other in real time, so if a change is made on one version, the same alteration happens on all the others. It is a complex challenge, but differential synchronization is scalable and fault tolerant. The three common approaches are ownership, event passing and three way merges. I last had to do this to support in-house document sharing for one of our clients. They wanted real-time collaboration, so three-way merging was not a good option since changes are lost and cannot take effect, as major collisions are common. I used event-passing to allow for real-time collaboration as the locking or ownership approach would only allow the first one opening the document to make any adjustment. This served our client well, as its employees were able to work collaboratively even when out of office or on different schedules.&amp;rdquo;&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;What is required to design a garbage collection system?
+Garbage collection ensures a Java system is running appropriately and frees a programmer from having to do it manually. Hiring managers look to see if you know how to truly design the ins and outs of various systems. A GC makes systems memory efficient.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example: &amp;ldquo;One of my recent clients needed a way to have more memory, but there was an issue with always having to go in and deal with memory deallocation. The nature behind garbage collection is to make a system appear as if it has a seemingly endless amount of memory. What is really happening is that the system is re-purposing the memory. When a system is running slowly, a garbage collector goes in and collects what is no longer being used. I set up their system so that if an object is referenced or recursive in nature, it remains. Next, it goes through methodically and marks whatever has not been referenced and sweeps only that. Using the mark and sweep method with the void command helps to repurpose and open up memory no longer being used. With this in place, my client had a faster system with less maintenance required.&amp;rdquo;&lt;/p&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;How do you design a recommendation system?
+Recommendation systems help users find what they want more efficiently. They help clients and customers by offering alternatives and allowing for choice. Hiring managers inquire about this to see if you are able to create systems that are user-friendly and focused.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example: &amp;ldquo;One of my first and most loyal clients had a problem where their customers were struggling to find options on their website. Their search had to be exact in order to find the product. I suggested we implement a recommendation system to help with customer satisfaction and possibly sales. Using the most prominent approach of collaborative filtering, I designed the system to weave a sort of information tapestry to give our client&amp;rsquo;s customers suggestions based on user similarity. The system became more user-friendly and produced a 10% increase in sales for my client.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;Related: Top 7 WCF Interview Questions and Answers&lt;/p&gt;
+&lt;p&gt;See how your salary compares
+Get personalized salary insights with the Indeed Salary Calculator
+System design interview tips
+As you consider your own responses to the standard system design interview questions above, try using the following tips to help you feel more confident and prepared for your interview:&lt;/p&gt;
+&lt;p&gt;Use the STAR response technique
+Formatting your responses using the STAR interview response technique is a strategy to help you craft answers that illustrate your knowledge and qualifications through specific experiences. STAR is an acronym for Situation, Task, Action and Result. Using the STAR method, discuss an applicable situation, identify the task you needed to complete, outline the actions you took and reveal the results of your efforts to demonstrate your skills to the interviewer.&lt;/p&gt;
+&lt;p&gt;Understand the goals
+Ask clarifying questions to help you understand who the users will be, what they need and what the inputs and outputs of the system will be. Inquiring about these basics will help your focus and show your product sensibility and teamwork.&lt;/p&gt;
+&lt;p&gt;Use your background as an advantage
+You bring a unique set of values and knowledge that no one else can. Rather than trying to cater to what you think is wanted, exhibit your own expertise and show you are valuable and irreplaceable because of your skills and ability.&lt;/p&gt;
+&lt;p&gt;Practice is essential
+The opportunity to go through the design interview process over and over again while applying these tips will help you project confidence, and the familiarity you have with the topic will reveal your qualifications. Spend time practicing interview question answers with a friend, family member or in front of a mirror.&lt;/p&gt;
+&lt;p&gt;错误答案
+这个实现的思路真的是天花乱坠，此处总结几种错误的实现方式来避坑。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;实现一个算法，可以直接把一百个字符左右的长网址缩短到10位以内，并可以原样还原，即可逆
+不可能的。为所有可能存在的长链接实现一一对应,本身是不可能的,会出现碰撞,多个长链接对应一个短链接，所以不会可逆。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;实现算法将长地址转短地址,不实现逆运算,将短长对应关系存数据库中
+不可能的。没有改变本质(长链接数量远多于长链接),只要长链接够多,必然会碰撞&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用一个hash算法,生成的短链接碰撞后,在短链接后面加1,2,3
+物理逻辑上可行，生产应用不可行。效率会不可控的降低，通过算法算出来短url之后,hash碰撞后生成多个xx1,xx2,xx3&amp;hellip;.xx20&amp;hellip;的短url，长短对应数量不可控，查找效率会降低。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;随机生成一个短地址,去数据库查找是否用过,用过就再随机,直到随机到一个没用过的短地址,存数据库
+物理逻辑上可行，生产应用不可行。每次生成都有必要的全量查询操作，肯定是不OK的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;维护一个超级大的全量数据，预先生成超越实际生产使用的短url，接口调用直接颁发，同步修改短url使用状态。
+物理逻辑上可行，生产应用低可用。具体是在redis还是db里批量生成其实是截然不同的两种实现。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;若是redis, 那么里面要放入全量的短url么？否则怎么知道这个短url到底是不是唯一的？如果全量，那对redis的可用性就要严格保证，为了高可用，就需要多节点同步维持全量数据，这个过程要做好不是那么的容易； 若是db, 那么就要有大量的并发锁定，意味着大量读写，这个对数据库也是个考验。&lt;/p&gt;
+&lt;p&gt;正确答案
+建立一个发号器,每次有一个新的长URL进来,我们就增加一,并且将新的数值返回.第一个来的url返回&amp;quot;www.x.cn/0&amp;quot;,第二个返回&amp;quot;www.x.cn/1&amp;quot;.&lt;/p&gt;
+&lt;p&gt;细节问题
+短url的还原跳转用301还是302？
+301是永久重定向，302是临时重定向。&lt;/p&gt;
+&lt;p&gt;短地址一经生成就不会变化，所以用301是符合http语义的。同时浏览器会对301请求保存一个比较长期的缓存，这样就减轻对服务器的压力；而且301对于网址的SEO有一定的提升。但是很多情况下我们需要对接口点击或者用户行为进行一些业务监控处理的时候，301明显就不合适了（浏览器直接按照缓存数据跳转了）, 所以很多业务场景下还是采用302比较合适。&lt;/p&gt;
+&lt;p&gt;字符超长问题
+即使到了10亿(Billion)转换而成的62进制也无非是6位字符，所以长度基本不在考虑范围内，这个范围足够使用了。&lt;/p&gt;
+&lt;p&gt;对应关系如何存储?
+这个对应数据肯定是要落盘的,不能每次系统重启就重新排号,所以可以采用mysql等数据库来存储.而且如果数据量小且qps低,直接使用数据库的自增主键就可以实现.&lt;/p&gt;
+&lt;p&gt;如何保证长短链接一一对应?
+按照上面的发号器策略,是不能保证长短链接的一一对应的,你连续用同一个URL请求两次,结果值都是不一样的.&lt;/p&gt;
+&lt;p&gt;为了实现长短链接一一对应,我们需要付出很大的空间代价,尤其是为了快速响应,我们可以需要在内存中做一层缓存,这样子太浪费了.&lt;/p&gt;
+&lt;p&gt;但是可以实现一些变种的,来实现部分的一一对应, 比如将最近/最热门的对应关系存储在K-V数据库中,这样子可以节省空间的同时,加快响应速度.&lt;/p&gt;
+&lt;p&gt;短URL的存储
+我们返回的短URL一般是将数字转换成62进制,这样子可以更加有效的缩短URL长度,那么62进制的数字对计算机来说只是字符串,怎么存储呢?直接存储字符串对等值查找好找,对范围查找等太不友好了.&lt;/p&gt;
+&lt;p&gt;其实可以直接存储10进制的数字,这样不仅占用空间少,对查找的支持较好,同时还可以更加方便的转换到更多/更少的进制来进一步缩短URL.&lt;/p&gt;
+&lt;p&gt;短码安全问题
+按照算法从0-61都是1位字符，然后2位、3位&amp;hellip;这样的话很容易被人发现规律并进行攻击，当然防御手段很多，请求签名之类的安全验证手段不在本文讨论范围内。&lt;/p&gt;
+&lt;p&gt;首先计数器可以从一个比较大的随机中间值开始，比如从10000开始计数，他的62进制是 2Bi 3位的字符串；&lt;/p&gt;
+&lt;p&gt;然后采用一些校验位算法(比如Luhn改进一下)，计算出1位校验位拼接起来，4位短码，这样可以排除一定的安全风险；&lt;/p&gt;
+&lt;p&gt;再加点安全料的话，可以在62进制的转换过程中把排序好的62个字母数字随机打乱，比如ABCD1234打乱成1BC43A2D, 转换的62进制也就更难hack了；&lt;/p&gt;
+&lt;p&gt;最后如果仍不放心，还可以在某些位置（比如1，3，5）插入随机数，让人无法看出规律来也可以达到良好的效果。&lt;/p&gt;
+&lt;p&gt;同一长网址短url是否应该相同问题
+发号策略中,是不判断长地址是否已转过,所以造成结果就是一长对多短,有人说浪费空间,建立一个长对短的map存储即可,但是用map存储本身就是浪费大量空间,甚至是用大空间换小空间,这就要考虑是否真有必要做一一对应,不能一对多;&lt;/p&gt;
+&lt;p&gt;最简单方案:建一个长对短的map,空间换空间,&lt;/p&gt;
+&lt;p&gt;更好的方案:用map存储&amp;quot;最近&amp;quot;生成的长对短关系,一小时过期机制实现LRU淘汰&lt;/p&gt;
+&lt;p&gt;长对短流程:&lt;/p&gt;
+&lt;p&gt;这个“最近”表中查看一下，看长地址有没有对应的短地址
+有就直接返回，并且将这个key-value对的过期时间重置为一小时
+如果没有，就通过发号器生成一个短地址，并且将这个“最近”表中，过期时间为1小时
+当一个地址被频繁使用，那么它会一直在这个key-value表中，总能返回当初生成那个短地址，不会出现重复的问题。如果它使用并不频繁，那么长对短的key会过期，LRU机制自动就会淘汰掉它。&lt;/p&gt;
+&lt;p&gt;这样在空间和发号数量之间取得了一个平衡，此处也应该看具体的业务需求来，是否会存在一对多的情况。比如下单未支付，给用户发短信召回，短信内的短url里面存在用户昵称，订单号等个性化信息，即不需要增加这一逻辑环节了。&lt;/p&gt;
+&lt;p&gt;高并发
+如果直接存储在MySQL中,当并发请求增大,对数据库的压力太大,可能会造成瓶颈,这时候是可以有一些优化的.&lt;/p&gt;
+&lt;p&gt;缓存&lt;/p&gt;
+&lt;p&gt;上面保证长短链接一一对应中也提到过缓存,这里我们是为了加快程序处理速度.&lt;/p&gt;
+&lt;p&gt;可以将热门的长链接(需要对长链接进来的次数进行计数),最近的长链接(可以使用redis保存最近一个小时的)等等进行一个缓存,保存在内存中或者类似redis的内存数据库中,如果请求的长URL命中了缓存,那么直接获取对应的短URL进行返回,不需要再进行生成操作.&lt;/p&gt;
+&lt;p&gt;批量发号&lt;/p&gt;
+&lt;p&gt;每一次发号都需要访问一次MySQL来获取当前的最大号码,并且在获取之后更新最大号码,这个压力是比较大的.&lt;/p&gt;
+&lt;p&gt;我们可以每次从数据库获取10000个号码,然后在内存中进行发放,当剩余的号码不足1000时,重新向MySQL请求下10000个号码.在上一批号码发放完了之后,批量进行写入.&lt;/p&gt;
+&lt;p&gt;这样可以将对数据库持续的操作移到代码中进行,并且异步进行获取和写入操作,保证服务的持续高并发.&lt;/p&gt;
+&lt;p&gt;分布式
+上面设计的系统是有单点的,那就是发号器是个单点,容易挂掉.&lt;/p&gt;
+&lt;p&gt;可以采用分布式服务,分布式的话,如果每一个发号器进行发号之后都需要同步给其他发号器,那未必也太麻烦了.&lt;/p&gt;
+&lt;p&gt;换一种思路,可以有两个发号器,一个发单号,一个发双号,发号之后不再是递增1,而是递增2.&lt;/p&gt;
+&lt;p&gt;类比可得,我们可以用1000个服务,分别发放0-999尾号的数字,每次发号之后递增1000.这样做很简单,服务互相之间基本都不用通信,做好自己的事情就好了.&lt;/p&gt;
 </description>
       
     </item>

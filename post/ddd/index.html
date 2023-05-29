@@ -145,12 +145,20 @@ it means you didn&#39;t understand it well enough&#34;.
                     Wed, Mar 1, 2023
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">4-minute read</span>
+                <span class="reading-time">7-minute read</span>
             </div>
             
         </div>
 
         <p>DDD in real project</p>
+<h2 id="understand-ddd">understand DDD</h2>
+<p>Data Model in data layer，Domain Model in domain layer, Repository is the one connect6 these two。</p>
+<p><code>Adapter(controller scheduler consumer)</code>&mdash;&mdash;&ndash; &gt; <code>VO(View Object)</code> <br>
+|
+<code>App(service executor)</code> &mdash;&mdash;&mdash;&mdash;-&gt; <code>DTO(Data Transfer Object)</code>
+|   |
+|   <code>Domain(gateway model ability)</code>&mdash;&mdash;&mdash;&mdash;-&gt; <code>Entiry</code>
+|   <code>Infratructure(gateway impl , mapper, config)</code>&mdash;&mdash;&mdash;&mdash;-&gt; <code>DO</code></p>
 <ul>
 <li>DDD structure</li>
 </ul>
@@ -297,13 +305,41 @@ it means you didn&#39;t understand it well enough&#34;.
 <li>DTO, lies in the input and output parameters that adapt to different business scenarios</li>
 </ul>
 <h2 id="ddd-model-another-structure">DDD model another structure</h2>
-<p>lottery-common：公共包
-lottery-interfaces：接口层，依赖公共包lottery-common
-lottery-domain：领域层，不依赖其他任何模块
-lottery-infrastructure：基础设施层，依赖领域层lottery-domain
-lottery-application：应用层，向上依赖接口层lottery-interfaces、向下依赖领域层lottery-domain和基础设施层lottery-infrastructure
-lottery-bootstrap: 启动（打包），只依赖应用层lottery-application（因为应用层会整合掉其他所有的模块包）</p>
 <ul>
+<li>
+<p>lottery-common：公共包</p>
+</li>
+<li>
+<p>lottery-interfaces：接口层，依赖公共包lottery-common</p>
+<ul>
+<li>功能 ： 处理用户发送的restful请求或者解析用户输入的配置文件，将信息传递给应用层</li>
+<li>服务组成 ： 接口服务</li>
+</ul>
+</li>
+<li>
+<p>lottery-domain：领域层，不依赖其他任何模块</p>
+<ul>
+<li>功能 ：操作转换领域中的跨实体或者值对象</li>
+<li>服务组成 ： 领域服务 - &ndash;1）封装核心业务逻辑</li>
+</ul>
+</li>
+<li>
+<p>lottery-infrastructure：基础设施层，依赖领域层lottery-domain</p>
+<ul>
+<li>功能 ： 提供资源服务，数据库，缓存邓，降低外部资源对系统业务逻辑的影响，为系统解耦</li>
+<li>服务组成 ： 基础服务 &ndash; 仓储服务 &ndash;1）实现方式IOC 2）功能： 领域服务和应用服务通过调用仓储服务，实现持久化数据对象或者直接访问资源</li>
+</ul>
+</li>
+<li>
+<p>lottery-application：应用层，向上依赖接口层lottery-interfaces、向下依赖领域层lottery-domain和基础设施层lottery-infrastructure</p>
+<ul>
+<li>功能 ：1. 应用和用户行为 2. 负责服务的组合编排转发 3.处理业务用例的执行顺序和结果的拼装</li>
+<li>服务组成 ： 1. 应用服务 ： 对基础层的缓存，文件等数据直接出操作。2. 领域事件服务 ： 领域事件发布和订阅，通过事务总线和消息队列进行异步数据传输，实现服务直接解耦</li>
+</ul>
+</li>
+<li>
+<p>lottery-bootstrap: 启动（打包），只依赖应用层lottery-application（因为应用层会整合掉其他所有的模块包）</p>
+</li>
 <li>
 <p>xxx-application，应用层，引用：domain</p>
 </li>
@@ -438,7 +474,406 @@ lottery-bootstrap: 启动（打包），只依赖应用层lottery-application（
 <p>For example, if the read and write performance of the database is degraded, or the amount of data in a single table is too large, then you need to consider partition.</p>
 <p>avoiding the performance bottleneck of a single database and improving the performance and scalability of the system.  can also solve the limitation of database storage capacity and improve the storage capacity of the database.</p>
 <h2 id="in-addition-the-cost-of-database-management-and-maintenance-will-also-increase-therefore-when-considering-partition-you-need-to-carefully-weigh-the-pros-and-cons-to-determine-whether-it-is-really-necessary-to-perform-partition-operations">In addition, the cost of database management and maintenance will also increase. Therefore, when considering partition, you need to carefully weigh the pros and cons to determine whether it is really necessary to perform partition operations</h2>
-<h2 id="step3-lottery-strategy-module">STEP3: lottery strategy module</h2></div>
+<h2 id="step3-lottery-strategy-module">STEP3: lottery strategy module</h2>
+<hr>
+<p>主要是奖品的发放流程</p>
+<ul>
+<li>award
+<ul>
+<li>model
+<ul>
+<li>req
+<ul>
+<li>GoodsReq</li>
+<li>奖品发货信息</li>
+<li>award id，  award name, award content, orderId, user id, shippingaddress, String extInfo</li>
+</ul>
+</li>
+<li>res
+<ul>
+<li>DistributionRes</li>
+<li>商品配送结果</li>
+<li>user id, 编码, 描述, 结算单ID</li>
+</ul>
+</li>
+<li>vo
+<ul>
+<li>ShippingAddress</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>repository
+<ul>
+<li>impl</li>
+<li>IAwardRepository</li>
+<li>对分库分表中的用户中奖纪录操作
+<ul>
+<li>AwardRepository</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>service
+<ul>
+<li>
+<p>factory</p>
+<ul>
+<li>
+<p>factory</p>
+<ul>
+<li>GoodsConfig
+<ul>
+<li>各类发奖奖品配置类</li>
+<li>为了工厂发配做准备， 所以这个类要放入3个分配方法</li>
+<li>@Resource</li>
+<li>private DescGoods descGoods</li>
+<li>&hellip;</li>
+<li>把几个分配方式放入map里面调用</li>
+<li>Map&lt;Integer, IDistributionGoods&gt; goodsMap = new ConcurrentHashMap&lt;&gt;()</li>
+<li>goodsMap.put(Constants.AwardType.DESC.getCode(), descGoods);</li>
+</ul>
+</li>
+<li>DistributionGoodsFactory
+<ul>
+<li>IDistributionGoods getDistributionGoodsService(Integer awardType)</li>
+<li>return goodsMap.get(awardType)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>goods</p>
+<ul>
+<li>impl
+<ul>
+<li>CouponGoods
+<ul>
+<li>// 更新用户领奖结果</li>
+<li>getDistributionGoodsName()
+<ul>
+<li>return Constants.AwardType.PhysicalGoods.getCode()</li>
+<li>return Constants.AwardType.RedeemCodeGoods.getCode()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DesGoods</li>
+<li>PhysicalGoods</li>
+<li>RedeemGoods</li>
+</ul>
+</li>
+<li>IDistributionGoods
+<ul>
+<li>DistributionRes doDistribution(GoodsReq req)</li>
+<li>getDistributionGoodsName();</li>
+</ul>
+</li>
+<li>DistributionBase
+<ul>
+<li>更新分库分表中，用户个人的抽奖记录表中奖品发奖状态</li>
+<li>void updateUserAwardState(String uId, String orderId, String awardId, Integer awardState, String awardStateInfo)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="step4-modify-ddd">STEP4: modify DDD</h2>
+<ul>
+<li>
+<p>domain</p>
+<ul>
+<li>activity
+<ul>
+<li>model</li>
+<li>repository</li>
+<li>service</li>
+</ul>
+</li>
+<li>award
+<ul>
+<li>model</li>
+<li>repository
+<ul>
+<li>IAwardRepository</li>
+</ul>
+</li>
+<li>service</li>
+</ul>
+</li>
+<li>strategy
+<ul>
+<li>model</li>
+<li>repository
+<ul>
+<li>IStrategyRepository</li>
+</ul>
+</li>
+<li>service</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>infrastruture</p>
+<ul>
+<li>
+<p>dao</p>
+<ul>
+<li>IStrategyDao.java</li>
+<li>IStrategyDetail.java</li>
+<li>IAwardDao.java</li>
+</ul>
+</li>
+<li>
+<p>po</p>
+<ul>
+<li>Award.java</li>
+<li>StrategyDetail.java</li>
+<li>Strategy.java</li>
+</ul>
+</li>
+<li>
+<p>repository</p>
+<ul>
+<li>AwardRepository</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">cn.itedus.lottery.domain.award.repository.IAwardRepository</span><span class="o">;</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AwardRepository</span> <span class="kd">implements</span> <span class="n">IAwardRepository</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>StrategyRepository</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StrategyRepository</span> <span class="kd">implements</span> <span class="n">IStrategyRepository</span> <span class="o">{</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h2 id="step5-activity">STEP5: activity</h2>
+<p>the domain layer domain defines the storage interface, and the base layer infrastructure implements the respository interface.</p>
+<p>The functions that the activity domain layer needs to provide include: activity creation, activity status processing, and user claim activity operation.</p>
+<p>The operation of event creation mainly uses transactions, because when the event system provides the operation background to create an event, it needs to include: event information, prize information, policy information, policy details, and other additional extended content, all of which need to be under one transaction Carry out storage.</p>
+<p>Review of activity status, [1 Edit, 2 Review, 3 Cancel review, 4 Pass, 5 Run (worker scan status after review passed), 6 Reject, 7 Close, 8 Open], here we will use the state in the design mode mode is processed.</p>
+<ul>
+<li>domain
+<ul>
+<li>
+<p>activity</p>
+<ul>
+<li>
+<p>repository</p>
+<ul>
+<li>IActivityRepository</li>
+</ul>
+</li>
+<li>
+<p>service</p>
+<ul>
+<li>deploy
+<ul>
+<li>
+<p>impl</p>
+<ul>
+<li>ActivityDeployImpl</li>
+</ul>
+<p>// 这个类需要引入.activity.model 中vo， aggregates的类</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActivityDeployImpl</span> <span class="kd">implements</span> <span class="n">IActivityDeploy</span> <span class="o">{</span>
+
+<span class="nd">@Resource</span>
+<span class="kd">private</span> <span class="n">IActivityRepository</span> <span class="n">activityRepository</span><span class="o">;</span>
+
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">rollbackFor</span> <span class="o">=</span> <span class="n">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">createActivity</span><span class="o">(</span><span class="n">ActivityConfigReq</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateActivity</span><span class="o">(</span><span class="n">ActivityConfigReq</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// TODD
+</span><span class="c1"></span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>IActivityDeploy</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IActivityDeploy</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">createActivity</span><span class="o">(</span><span class="n">ActivityConfigReq</span> <span class="n">req</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">updateActivity</span><span class="o">(</span><span class="n">ActivityConfigReq</span> <span class="n">req</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>partake</li>
+<li>stateflow</li>
+</ul>
+</li>
+<li>
+<p>model</p>
+<ul>
+<li>vo
+<ul>
+<li>ActivityVO
+<ul>
+<li>private Integer state</li>
+</ul>
+</li>
+<li>AlterStateVO
+<ul>
+<li>/** 活动ID */</li>
+<li>private Long activityId;</li>
+<li>/** 更新前状态 */</li>
+<li>private Integer beforeState;</li>
+<li>/** 更新后状态 */</li>
+<li>private Integer afterState;</li>
+</ul>
+</li>
+<li>AwardVO</li>
+<li>StrategyDetailVO</li>
+<li>StrategyVO</li>
+</ul>
+</li>
+<li>aggregates
+<ul>
+<li>ActivityConfigRich</li>
+<li>import model.vo.ActivityVO</li>
+<li>import model.vo.AwardVO;</li>
+<li>import model.vo.StrategyVO;</li>
+<li>construction (ActivityVO activity, StrategyVO strategy, List<AwardVO> awardList)</li>
+</ul>
+</li>
+<li>req
+<ul>
+<li>ActivityConfigReq
+<ul>
+<li>Long activityId</li>
+<li>ActivityConfigRich ctivityConfigRich</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>ActivityDeployImpl</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActivityDeployImpl</span> <span class="kd">implements</span> <span class="n">IActivityDeploy</span> <span class="o">{</span>
+
+<span class="nd">@Resource</span>
+<span class="kd">private</span> <span class="n">IActivityRepository</span> <span class="n">activityRepository</span><span class="o">;</span>
+
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">rollbackFor</span> <span class="o">=</span> <span class="n">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">createActivity</span><span class="o">(</span><span class="n">ActivityConfigReq</span> <span class="n">req</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ActivityConfigRich</span> <span class="n">activityConfigRich</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getActivityConfigRich</span><span class="o">();</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="c1">// 添加活动配置
+</span><span class="c1"></span>        <span class="n">ActivityVO</span> <span class="n">activity</span> <span class="o">=</span> <span class="n">activityConfigRich</span><span class="o">.</span><span class="na">getActivity</span><span class="o">();</span>
+        <span class="n">activityRepository</span><span class="o">.</span><span class="na">addActivity</span><span class="o">(</span><span class="n">activity</span><span class="o">);</span>
+
+        <span class="c1">// 添加奖品配置
+</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">AwardVO</span><span class="o">&gt;</span> <span class="n">awardList</span> <span class="o">=</span> <span class="n">activityConfigRich</span><span class="o">.</span><span class="na">getAwardList</span><span class="o">();</span>
+        <span class="n">activityRepository</span><span class="o">.</span><span class="na">addAward</span><span class="o">(</span><span class="n">awardList</span><span class="o">);</span>
+
+        <span class="c1">// 添加策略配置
+</span><span class="c1"></span>        <span class="c1">// 添加策略详细配置
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div><h3 id="-stateflow逻辑解释">+ stateflow逻辑解释</h3>
+<p>arraignment, checkPass, checkRefuse, checkRevoke, close, open, doing</p>
+<ul>
+<li>stateflow
+<ul>
+<li>IStateHandler : provide outer service</li>
+<li>AbstractState</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractState</span> <span class="o">{</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">protected</span> <span class="n">IActivityRepository</span> <span class="n">activityRepository</span><span class="o">;</span>
+
+    <span class="c1">//活动提审
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">arraignment</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+
+    <span class="c1">//审核通过
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">checkPass</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+
+    <span class="c1">// 审核拒绝
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">checkRefuse</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+
+    
+    <span class="c1">// 撤审撤销
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">checkRevoke</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+
+    <span class="c1">// 活动关闭
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">close</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+
+    
+    <span class="c1">// 活动开启
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">open</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+
+
+    <span class="c1">// 活动执行
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Result</span> <span class="nf">doing</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentState</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>状态接口，因为比如拒绝了后后面的状态不同，所以就需要有不同的状态的类</p>
+<ul>
+<li>stateflow
+<ul>
+<li>IStateHandler : provide outer service</li>
+<li>AbstractState</li>
+<li>event
+<ul>
+<li>CloseState extend AbstractState</li>
+<li>7个状态</li>
+<li>优化掉原本需要在各个流程节点中的转换使用 ifelse 的场景，这样操作以后也可以更加方便你进行扩展。当然其实这里还可以使用如工作流的方式进行处理</li>
+</ul>
+</li>
+<li>StateConfig : 把状态放入map里面，状态流转配置抽象类</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Resource</span>
+<span class="kd">private</span> <span class="n">ArraignmentState</span> <span class="n">arraignmentState</span><span class="o">;</span>
+
+<span class="o">....</span>
+<span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;,</span> <span class="n">AbstractState</span><span class="o">&gt;</span> <span class="n">stateGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+
+<span class="n">PostConstruct</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">stateGroup</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">.</span><span class="na">ARRAIGNMENT</span><span class="o">,</span> <span class="n">arraignmentState</span><span class="o">);</span>
+    <span class="n">stateGroup</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">.</span><span class="na">CLOSE</span><span class="o">,</span> <span class="n">closeState</span><span class="o">);</span>
+
+</code></pre></div><ul>
+<li>impl
+<ul>
+<li>StateHandlerImpl extends StateConfig implements IStateHandler</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="n">Result</span> <span class="nf">arraignment</span><span class="o">(</span><span class="n">Long</span> <span class="n">activityId</span><span class="o">,</span> <span class="n">Enum</span><span class="o">&lt;</span><span class="n">Constants</span><span class="o">.</span><span class="na">ActivityState</span><span class="o">&gt;</span> <span class="n">currentStatus</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">return</span> <span class="n">stateGroup</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">currentStatus</span><span class="o">).</span><span class="na">arraignment</span><span class="o">(</span><span class="n">activityId</span><span class="o">,</span> <span class="n">currentStatus</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+<h3 id="activity-test">activity test</h3>
+<p>用一个 init() 方法里面，new 一个 ActivityVO activity,. StrategyVO , StrategyDetailVO strategyDetail_01 ,  StrategyDetailVO strategyDetail_02 设置好相关信息</p>
+<p>用test_createActivity()， activityDeploy.createActivity(new ActivityConfigReq(activityId, activityConfigRich));</p></div>
     <div class="post-footer">
         <div class="info">
             
