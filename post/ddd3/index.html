@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | DDD in real project 2.5 database router </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/ddd3/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="DDD in real project 2.5 database router"/>
+<meta name="twitter:description" content="DDD in real project"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2023 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>DDD in real project 2.5 database router</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Mar 1, 2023
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">2-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>DDD in real project</p>
+<h2 id="understand-database-router">understand database router</h2>
+<h3 id="hash">hash</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">tableSizeFor</span><span class="o">(</span><span class="kt">int</span> <span class="n">cap</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cap</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">1</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">2</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">4</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">8</span><span class="o">;</span>
+        <span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">;</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">?</span> <span class="n">1</span> <span class="o">:</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">?</span> <span class="n">MAXIMUM_CAPACITY</span> <span class="o">:</span> <span class="n">n</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="o">}</span>
+
+
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cap</span> <span class="o">-</span> <span class="n">1</span>
+
+<span class="n">给定的cap减1</span><span class="err">，</span><span class="n">是为了避免参数cap本来就是2的幂次方</span><span class="err">，</span><span class="n">这样一来</span><span class="err">，</span><span class="n">经过后续的未操作的</span><span class="err">，</span><span class="n">cap将会变成2</span> <span class="o">*</span> <span class="n">cap</span><span class="o">,</span><span class="n">是不符合我们预期的</span><span class="err">。</span>
+
+
+<span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">1</span> 
+
+<span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">1</span><span class="err">，</span><span class="n">n无符号右移1位</span><span class="err">，</span><span class="n">即n二进制最高位的1右移一位</span><span class="err">；</span>
+<span class="n">n</span> <span class="o">|</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">1</span><span class="o">)</span><span class="err">，</span><span class="n">导致的结果是n二进制的高2位值为1</span><span class="o">;</span>
+<span class="n">目前n的高1</span><span class="o">~</span><span class="n">2位均为1</span><span class="err">。</span>
+
+
+
+<span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">2</span> 
+
+<span class="n">n继续无符号右移2位</span><span class="err">。</span>
+<span class="n">n</span> <span class="o">|</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">2</span><span class="o">)</span><span class="err">，</span><span class="n">导致n二进制表示高3</span><span class="o">~</span><span class="n">4位经过运算值均为1</span><span class="err">；</span>
+<span class="n">目前n的高1</span><span class="o">~</span><span class="n">4位均为1</span><span class="err">。</span>
+
+
+
+<span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">4</span> 
+
+<span class="n">n继续无符号右移4位</span><span class="err">。</span>
+<span class="n">n</span> <span class="o">|</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">4</span><span class="o">)</span><span class="err">，</span><span class="n">导致n二进制表示高5</span><span class="o">~</span><span class="n">8位经过运算值均为1</span><span class="err">；</span>
+<span class="n">目前n的高1</span><span class="o">~</span><span class="n">8位均为1</span><span class="err">。</span>
+
+
+
+<span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">8</span> 
+
+<span class="n">n继续无符号右移8位</span><span class="err">。</span>
+<span class="n">n</span> <span class="o">|</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">8</span><span class="o">)</span><span class="err">，</span><span class="n">导致n二进制表示高9</span><span class="o">~</span><span class="n">16位经过运算值均为1</span><span class="err">；</span>
+<span class="n">目前n的高1</span><span class="o">~</span><span class="n">16位均为1</span><span class="err">。</span>
+
+
+
+<span class="n">n</span> <span class="o">|=</span> <span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span> 
+
+<span class="n">n继续无符号右移16位</span><span class="err">。</span>
+<span class="n">n</span> <span class="o">|</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">)</span><span class="err">，</span><span class="n">导致n二进制表示高17</span><span class="o">~</span><span class="n">32位经过运算值均为1</span><span class="err">；</span>
+<span class="n">目前n的高1</span><span class="o">~</span><span class="n">32位均为1</span><span class="err">。</span>
+
+
+
+
+<span class="n">可以看出</span><span class="err">，</span><span class="n">无论给定cap</span><span class="o">(</span><span class="n">cap</span> <span class="o">&lt;</span> <span class="n">MAXIMUM_CAPACITY</span> <span class="o">)</span><span class="n">的值是多少</span><span class="err">，</span><span class="n">经过以上运算</span><span class="err">，</span><span class="n">其值的二进制所有位都会是1</span><span class="err">。</span><span class="n">再将其加1</span><span class="err">，</span><span class="n">这时候这个值一定是2的幂次方</span><span class="err">。</span><span class="n">当然如果经过运算值大于MAXIMUM_CAPACITY</span><span class="err">，</span><span class="n">直接选用MAXIMUM_CAPACITY</span><span class="err">。</span>
+
+</code></pre></div><h3 id="为什么cap要保持为2的幂次方">为什么cap要保持为2的幂次方</h3>
+<p>HashMap中存储数据table的index是由key的Hash值决定的。在HashMap存储数据的时候，我们期望数据能够均匀分布，以避免哈希冲突。自然而然我们就会想到去用%取余的操作来实现我们这一构想。
+这里要了解到一个知识：取余(%)操作中如果除数是2的幂次方则等同于与其除数减一的与(&amp;)操作。
+这也就解释了为啥一定要求cap要为2的幂次方。再来看看table的index的计算规则：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">index</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">hash</span> <span class="o">&amp;</span> <span class="o">(</span><span class="n">newCap</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> 
+
+ <span class="n">等同于</span><span class="err">：</span>
+
+ <span class="n">index</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">hash</span> <span class="o">%</span> <span class="n">newCap</span>
+</code></pre></div><h3 id="hashmap-中-hash问题">hashmap 中 hash问题</h3>
+<p>hash(K,V) 方法</p>
+<p>HashMap中table的index是由Key的哈希值决定的。HashMap并没有直接使用key的hashcode()，而是经过如下的运算</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">h</span><span class="o">;</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></div><p>而上面我们提到index的运算规则是e.hash &amp; (newCap - 1)。由于newCap是2的幂次方，那么newCap - 1的高位应该全部为0。如果e.hash值只用自身的hashcode的话，那么index只会和e.hash低位做&amp;操作。这样一来，index的值就只有低位参与运算，高位毫无存在感，从而会带来哈希冲突的风险。所以在计算key的哈希值的时候，用其自身hashcode值与其低16位做异或操作。这也就让高位参与到index的计算中来了，即降低了哈希冲突的风险又不会带来太大的性能问题。</p>
+<hr>
+<p>按位异或运算（^）：两个数转为二进制，然后从高位开始比较，如果相同则为0，不相同则为1。</p>
+<pre><code>      扰动函数————(h = key.hashCode()) ^ (h &gt;&gt;&gt; 16) 表示：
+          将key的哈希code一分为二。其中：
+         【高半区16位】数据不变。
+           【低半区16位】数据与高半区16位数据进行异或操作，以此来加大低位的随机性。
+      注意：如果key的哈希code小于等于16位，那么是没有任何影响的。只有大于16位，才会触发扰动函数的执行效果。
+   
+    // egx: 110100100110^000000000000=110100100110，由于k1的hashCode都是在低16位，所以原样返回3366
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);
+
+    
+      case1:
+       h=高16位(全是0) and 低16位(有1)
+       h &gt;&gt;&gt; 16 = 低16位全部消失，那么变成了32位(全是0)
+       h ^ (h &gt;&gt;&gt; 16) = 原样输出
+       
+      case2：
+       h=高16位(有1) and 低16位(有1)
+       h &gt;&gt;&gt; 16 = 低16位全部消失，那么变成了高16位(全是0)and低16位(有1)
+       h ^ (h &gt;&gt;&gt; 16) = 不是原样输出  将原高16位于原低16位进行扰动。
+     
+}
+</code></pre>
+<hr></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/ddd/">DDD</a><a class="tag" href="/tags/project/">project</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

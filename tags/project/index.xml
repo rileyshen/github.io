@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>project on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/project/</link>
+    <description>Recent content in project on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DDD in real project 1</title>
+      <link>https://rileyshen.github.io/post/ddd/</link>
+      <pubDate>Wed, 01 Mar 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/ddd/</guid>
+      
+        <description>&lt;p&gt;DDD in real project&lt;/p&gt;
+&lt;h2 id=&#34;understand-ddd&#34;&gt;understand DDD&lt;/h2&gt;
+&lt;p&gt;Data Model in data layer，Domain Model in domain layer, Repository is the one connect6 these two。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Adapter(controller scheduler consumer)&lt;/code&gt;&amp;mdash;&amp;mdash;&amp;ndash; &amp;gt; &lt;code&gt;VO(View Object)&lt;/code&gt; &lt;br&gt;
+|
+&lt;code&gt;App(service executor)&lt;/code&gt; &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-&amp;gt; &lt;code&gt;DTO(Data Transfer Object)&lt;/code&gt;
+|   |
+|   &lt;code&gt;Domain(gateway model ability)&lt;/code&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-&amp;gt; &lt;code&gt;Entiry&lt;/code&gt;
+|   &lt;code&gt;Infratructure(gateway impl , mapper, config)&lt;/code&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;-&amp;gt; &lt;code&gt;DO&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DDD structure&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-application&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-common&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-infrastructure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-interfaces&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-rpc&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step1-use-prc-to-test-first&#34;&gt;STEP1: use PRC to test first&lt;/h2&gt;
+&lt;h3 id=&#34;rpc&#34;&gt;RPC&lt;/h3&gt;
+&lt;p&gt;Dubbo &amp;ndash; implements Serializable&lt;/p&gt;
+&lt;p&gt;Create a table first to test CRUD operation.&lt;/p&gt;
+&lt;h4 id=&#34;1-create-a-activity-table&#34;&gt;1. Create a activity table&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CREATE TABLE &lt;code&gt;activity&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;2-pom-file-configuration&#34;&gt;2. POM file configuration&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-application，应用层，引用：domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-common，通用包，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-domain，领域层，引用：infrastructure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-infrastructure，基础层，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-interfaces，接口层，引用：application、rpc,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-rpc，RPC接口定义层，引用：common&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;interface的package 是 war， 还需要用 starter-web , 别的都是 jar&lt;/p&gt;
+&lt;h4 id=&#34;3-mybatis&#34;&gt;3. Mybatis&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;put related dependencie in lottery-interfaces pom.xml&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;yml file&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;4-dubbo&#34;&gt;4. Dubbo&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;put related dependencie in lottery-interfaces pom.xml&lt;/li&gt;
+&lt;li&gt;yml file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;5-define-and-develop-rpc-interface&#34;&gt;5. Define and develop RPC interface&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;lottery/rpc structure&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dto
+&lt;ul&gt;
+&lt;li&gt;ActivityDto implements Serializable
+&lt;ul&gt;
+&lt;li&gt;mapping to mybatis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;req
+&lt;ul&gt;
+&lt;li&gt;ActivityReq implements Serializable&lt;/li&gt;
+&lt;li&gt;(use activityId as example): get set&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;res
+&lt;ul&gt;
+&lt;li&gt;ActivityRes implements Serializable&lt;/li&gt;
+&lt;li&gt;Field (Result, ActivityDto) : Result from common package, including String 200 code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IActivityBooth.java
+&lt;ul&gt;
+&lt;li&gt;interface&lt;/li&gt;
+&lt;li&gt;method: return ActivityRes; pemerater(ActivityReq req)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ActivityBooth&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nd&#34;&gt;@Service&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;java&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;nd&#34;&gt;@Resource&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityDao&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityDao&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityRes&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;queryActivityById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityRes&lt;/span&gt;
+
+ &lt;span class=&#34;nd&#34;&gt;@Service&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;comimg&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;org&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;apache&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;dubbo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;annotation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Service&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;it&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;means&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;would&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;be&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;managed&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;by&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Dubbo&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;6-build-a-test-project-and-call-rpc&#34;&gt;6. Build a test project and call RPC&lt;/h4&gt;
+&lt;h3 id=&#34;test-rpc&#34;&gt;Test RPC&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;install first, the root and rpc module Lifecycle need install first&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ApiTest&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@RunWith&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SpringRunner&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nd&#34;&gt;@SpringBootTest&lt;/span&gt;
+ 
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ApiTest&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Logger&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;logger&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getLogger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ApiTest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;interfaceClass&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;dubbo://127.0.0.1:20880&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityBooth&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Test&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;test_rpc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ActivityReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ActivityReq&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;setActivityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;100001L&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;ActivityRes&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityBooth&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;queryActivityById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;logger&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;info&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;result：{}&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;JSON&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toJSONString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;a href=&#34;https://pic2.zhimg.com/v2-93a7e4f3d3bda78cf8ba33411a5d3e2d_r.jpg&#34;  target=&#34;_blank&#34; &gt;DTO DO, Entity&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data Object, only used to map to the table&lt;/li&gt;
+&lt;li&gt;Entity, dont need serialize and persistent&lt;/li&gt;
+&lt;li&gt;DTO, lies in the input and output parameters that adapt to different business scenarios&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ddd-model-another-structure&#34;&gt;DDD model another structure&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;lottery-common：公共包&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;lottery-interfaces：接口层，依赖公共包lottery-common&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;功能 ： 处理用户发送的restful请求或者解析用户输入的配置文件，将信息传递给应用层&lt;/li&gt;
+&lt;li&gt;服务组成 ： 接口服务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;lottery-domain：领域层，不依赖其他任何模块&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;功能 ：操作转换领域中的跨实体或者值对象&lt;/li&gt;
+&lt;li&gt;服务组成 ： 领域服务 - &amp;ndash;1）封装核心业务逻辑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;lottery-infrastructure：基础设施层，依赖领域层lottery-domain&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;功能 ： 提供资源服务，数据库，缓存邓，降低外部资源对系统业务逻辑的影响，为系统解耦&lt;/li&gt;
+&lt;li&gt;服务组成 ： 基础服务 &amp;ndash; 仓储服务 &amp;ndash;1）实现方式IOC 2）功能： 领域服务和应用服务通过调用仓储服务，实现持久化数据对象或者直接访问资源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;lottery-application：应用层，向上依赖接口层lottery-interfaces、向下依赖领域层lottery-domain和基础设施层lottery-infrastructure&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;功能 ：1. 应用和用户行为 2. 负责服务的组合编排转发 3.处理业务用例的执行顺序和结果的拼装&lt;/li&gt;
+&lt;li&gt;服务组成 ： 1. 应用服务 ： 对基础层的缓存，文件等数据直接出操作。2. 领域事件服务 ： 领域事件发布和订阅，通过事务总线和消息队列进行异步数据传输，实现服务直接解耦&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;lottery-bootstrap: 启动（打包），只依赖应用层lottery-application（因为应用层会整合掉其他所有的模块包）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-application，应用层，引用：domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-common，通用包，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-domain，领域层，引用：infrastructure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-infrastructure，基础层，引用：无&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-interfaces，接口层，引用：application、rpc,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;xxx-rpc，RPC接口定义层，引用：common&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step2-design-database-and-tables&#34;&gt;STEP2: design database and tables&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;in business level; the lottery system, as a link in the marketing activity platform, takes over the link of the activity playing method, bonus consumption, prize distribution and other systems to help the entire business complete user activity.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;as a part of strategic design, need consider segregation principle; activities, algorithms, rules, policies, users, orders and other fields.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Introduce table design; according to the definition of each module in the domain driver, design the database table, which corresponds to the activity table, lottery policy configuration table, access rule engine table, user lottery ticket record table, and the data structure of these tables Other tables that run, such as: record the number of user participation, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;a-lottery-drawing-process&#34;&gt;A lottery drawing process&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;run a customer lottery
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;query activity bill&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;query activity info  &amp;ndash;&amp;gt; SQL &lt;code&gt;Activity&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;query user take activity account &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivityCount&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;encapsulation  &amp;ndash;&amp;gt; &lt;code&gt;ActivityBillVO&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;auth info&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;verify info status&lt;/li&gt;
+&lt;li&gt;verify info time&lt;/li&gt;
+&lt;li&gt;verify info product quentity stock&lt;/li&gt;
+&lt;li&gt;verify users&amp;rsquo;s remaining participation times&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Product Quantity Stock decrease &amp;ndash;&amp;gt; SQL &lt;code&gt;Activity&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;record users activity info &amp;ndash;&amp;gt; partition, declarative transaction management&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;reduce users&#39; participate time&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;user first time participate &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivityCount&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;user non-first time participate &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivityCount&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;insert redeem award info &amp;ndash;&amp;gt; use &lt;code&gt;UUID&lt;/code&gt; as the only index, to provent redeem the award repeatly &lt;code&gt;uuid = uid + &amp;quot;_&amp;quot; + acvitityId + &amp;quot;_&amp;quot; + userTakeActivity.getTakeCount() &lt;/code&gt; &amp;ndash;&amp;gt; SQL &lt;code&gt;UserTakeActivity&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;sql encapsulation &amp;ndash;&amp;gt; strategy id , activity id&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;lotterysql&#34;&gt;lottery.sql&lt;/h3&gt;
+&lt;h4 id=&#34;database-lottery&#34;&gt;&lt;strong&gt;database lottery&lt;/strong&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;tables&#34;&gt;tables&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;activity&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;award&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;strategy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;strategy_detail&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;database-lottery_01&#34;&gt;&lt;strong&gt;database lottery_01&lt;/strong&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;tables-1&#34;&gt;tables&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity (分库不分表)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity_count (分库不分表)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_001 (分库分表)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_002&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;h4 id=&#34;database-lottery_02&#34;&gt;&lt;strong&gt;database lottery_02&lt;/strong&gt;&lt;/h4&gt;
+&lt;h5 id=&#34;tables-2&#34;&gt;tables&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_take_activity_count&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_001&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;user_strategy_export_002&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;database and tables design thinking:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Access frequency: For frequently accessed data, Data size: For a large amount of data, Data type, different types of data, Data range, it can be stored in a separate database or table to improve read and write performance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The main purpose of partition is: data sharing, improving QPS/TPS, sharing pressure, and improving scalability.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example, if the read and write performance of the database is degraded, or the amount of data in a single table is too large, then you need to consider partition.&lt;/p&gt;
+&lt;p&gt;avoiding the performance bottleneck of a single database and improving the performance and scalability of the system.  can also solve the limitation of database storage capacity and improve the storage capacity of the database.&lt;/p&gt;
+&lt;h2 id=&#34;in-addition-the-cost-of-database-management-and-maintenance-will-also-increase-therefore-when-considering-partition-you-need-to-carefully-weigh-the-pros-and-cons-to-determine-whether-it-is-really-necessary-to-perform-partition-operations&#34;&gt;In addition, the cost of database management and maintenance will also increase. Therefore, when considering partition, you need to carefully weigh the pros and cons to determine whether it is really necessary to perform partition operations&lt;/h2&gt;
+&lt;h2 id=&#34;step3-lottery-strategy-module&#34;&gt;STEP3: lottery strategy module&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;主要是奖品的发放流程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;award
+&lt;ul&gt;
+&lt;li&gt;model
+&lt;ul&gt;
+&lt;li&gt;req
+&lt;ul&gt;
+&lt;li&gt;GoodsReq&lt;/li&gt;
+&lt;li&gt;奖品发货信息&lt;/li&gt;
+&lt;li&gt;award id，  award name, award content, orderId, user id, shippingaddress, String extInfo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;res
+&lt;ul&gt;
+&lt;li&gt;DistributionRes&lt;/li&gt;
+&lt;li&gt;商品配送结果&lt;/li&gt;
+&lt;li&gt;user id, 编码, 描述, 结算单ID&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;vo
+&lt;ul&gt;
+&lt;li&gt;ShippingAddress&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;repository
+&lt;ul&gt;
+&lt;li&gt;impl&lt;/li&gt;
+&lt;li&gt;IAwardRepository&lt;/li&gt;
+&lt;li&gt;对分库分表中的用户中奖纪录操作
+&lt;ul&gt;
+&lt;li&gt;AwardRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;service
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;factory&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;factory&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GoodsConfig
+&lt;ul&gt;
+&lt;li&gt;各类发奖奖品配置类&lt;/li&gt;
+&lt;li&gt;为了工厂发配做准备， 所以这个类要放入3个分配方法&lt;/li&gt;
+&lt;li&gt;@Resource&lt;/li&gt;
+&lt;li&gt;private DescGoods descGoods&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;li&gt;把几个分配方式放入map里面调用&lt;/li&gt;
+&lt;li&gt;Map&amp;lt;Integer, IDistributionGoods&amp;gt; goodsMap = new ConcurrentHashMap&amp;lt;&amp;gt;()&lt;/li&gt;
+&lt;li&gt;goodsMap.put(Constants.AwardType.DESC.getCode(), descGoods);&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DistributionGoodsFactory
+&lt;ul&gt;
+&lt;li&gt;IDistributionGoods getDistributionGoodsService(Integer awardType)&lt;/li&gt;
+&lt;li&gt;return goodsMap.get(awardType)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;goods&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;impl
+&lt;ul&gt;
+&lt;li&gt;CouponGoods
+&lt;ul&gt;
+&lt;li&gt;// 更新用户领奖结果&lt;/li&gt;
+&lt;li&gt;getDistributionGoodsName()
+&lt;ul&gt;
+&lt;li&gt;return Constants.AwardType.PhysicalGoods.getCode()&lt;/li&gt;
+&lt;li&gt;return Constants.AwardType.RedeemCodeGoods.getCode()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DesGoods&lt;/li&gt;
+&lt;li&gt;PhysicalGoods&lt;/li&gt;
+&lt;li&gt;RedeemGoods&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IDistributionGoods
+&lt;ul&gt;
+&lt;li&gt;DistributionRes doDistribution(GoodsReq req)&lt;/li&gt;
+&lt;li&gt;getDistributionGoodsName();&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DistributionBase
+&lt;ul&gt;
+&lt;li&gt;更新分库分表中，用户个人的抽奖记录表中奖品发奖状态&lt;/li&gt;
+&lt;li&gt;void updateUserAwardState(String uId, String orderId, String awardId, Integer awardState, String awardStateInfo)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step4-modify-ddd&#34;&gt;STEP4: modify DDD&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;domain&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;activity
+&lt;ul&gt;
+&lt;li&gt;model&lt;/li&gt;
+&lt;li&gt;repository&lt;/li&gt;
+&lt;li&gt;service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;award
+&lt;ul&gt;
+&lt;li&gt;model&lt;/li&gt;
+&lt;li&gt;repository
+&lt;ul&gt;
+&lt;li&gt;IAwardRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;strategy
+&lt;ul&gt;
+&lt;li&gt;model&lt;/li&gt;
+&lt;li&gt;repository
+&lt;ul&gt;
+&lt;li&gt;IStrategyRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;service&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;infrastruture&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;dao&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IStrategyDao.java&lt;/li&gt;
+&lt;li&gt;IStrategyDetail.java&lt;/li&gt;
+&lt;li&gt;IAwardDao.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;po&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Award.java&lt;/li&gt;
+&lt;li&gt;StrategyDetail.java&lt;/li&gt;
+&lt;li&gt;Strategy.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;repository&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;AwardRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;cn.itedus.lottery.domain.award.repository.IAwardRepository&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;nd&#34;&gt;@Component&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;AwardRepository&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IAwardRepository&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;StrategyRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Component&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;StrategyRepository&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IStrategyRepository&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;step5-activity&#34;&gt;STEP5: activity&lt;/h2&gt;
+&lt;p&gt;the domain layer domain defines the storage interface, and the base layer infrastructure implements the respository interface.&lt;/p&gt;
+&lt;p&gt;The functions that the activity domain layer needs to provide include: activity creation, activity status processing, and user claim activity operation.&lt;/p&gt;
+&lt;p&gt;The operation of event creation mainly uses transactions, because when the event system provides the operation background to create an event, it needs to include: event information, prize information, policy information, policy details, and other additional extended content, all of which need to be under one transaction Carry out storage.&lt;/p&gt;
+&lt;p&gt;Review of activity status, [1 Edit, 2 Review, 3 Cancel review, 4 Pass, 5 Run (worker scan status after review passed), 6 Reject, 7 Close, 8 Open], here we will use the state in the design mode mode is processed.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;domain
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;activity&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;repository&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IActivityRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;service&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;deploy
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;impl&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ActivityDeployImpl&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;// 这个类需要引入.activity.model 中vo， aggregates的类&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ActivityDeployImpl&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityDeploy&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+&lt;span class=&#34;nd&#34;&gt;@Resource&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityRepository&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityRepository&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;nd&#34;&gt;@Transactional&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rollbackFor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityConfigReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;updateActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityConfigReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;// TODD
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IActivityDeploy&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;IActivityDeploy&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityConfigReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;updateActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityConfigReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;partake&lt;/li&gt;
+&lt;li&gt;stateflow&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;model&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vo
+&lt;ul&gt;
+&lt;li&gt;ActivityVO
+&lt;ul&gt;
+&lt;li&gt;private Integer state&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;AlterStateVO
+&lt;ul&gt;
+&lt;li&gt;/** 活动ID */&lt;/li&gt;
+&lt;li&gt;private Long activityId;&lt;/li&gt;
+&lt;li&gt;/** 更新前状态 */&lt;/li&gt;
+&lt;li&gt;private Integer beforeState;&lt;/li&gt;
+&lt;li&gt;/** 更新后状态 */&lt;/li&gt;
+&lt;li&gt;private Integer afterState;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;AwardVO&lt;/li&gt;
+&lt;li&gt;StrategyDetailVO&lt;/li&gt;
+&lt;li&gt;StrategyVO&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;aggregates
+&lt;ul&gt;
+&lt;li&gt;ActivityConfigRich&lt;/li&gt;
+&lt;li&gt;import model.vo.ActivityVO&lt;/li&gt;
+&lt;li&gt;import model.vo.AwardVO;&lt;/li&gt;
+&lt;li&gt;import model.vo.StrategyVO;&lt;/li&gt;
+&lt;li&gt;construction (ActivityVO activity, StrategyVO strategy, List&lt;AwardVO&gt; awardList)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;req
+&lt;ul&gt;
+&lt;li&gt;ActivityConfigReq
+&lt;ul&gt;
+&lt;li&gt;Long activityId&lt;/li&gt;
+&lt;li&gt;ActivityConfigRich ctivityConfigRich&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;ActivityDeployImpl&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ActivityDeployImpl&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityDeploy&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+&lt;span class=&#34;nd&#34;&gt;@Resource&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityRepository&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityRepository&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;nd&#34;&gt;@Transactional&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rollbackFor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Exception&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActivityConfigReq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ActivityConfigRich&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityConfigRich&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getActivityConfigRich&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// 添加活动配置
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;ActivityVO&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activity&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityConfigRich&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;activityRepository&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addActivity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;activity&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;// 添加奖品配置
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AwardVO&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;awardList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityConfigRich&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getAwardList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;activityRepository&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;addAward&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;awardList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;// 添加策略配置
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;// 添加策略详细配置
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;-stateflow逻辑解释&#34;&gt;+ stateflow逻辑解释&lt;/h3&gt;
+&lt;p&gt;arraignment, checkPass, checkRefuse, checkRevoke, close, open, doing&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;stateflow
+&lt;ul&gt;
+&lt;li&gt;IStateHandler : provide outer service&lt;/li&gt;
+&lt;li&gt;AbstractState&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;AbstractState&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+
+    &lt;span class=&#34;nd&#34;&gt;@Resource&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IActivityRepository&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityRepository&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;//活动提审
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;arraignment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;//审核通过
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;checkPass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// 审核拒绝
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;checkRefuse&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    
+    &lt;span class=&#34;c1&#34;&gt;// 撤审撤销
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;checkRevoke&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;// 活动关闭
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+    
+    &lt;span class=&#34;c1&#34;&gt;// 活动开启
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;open&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+
+    &lt;span class=&#34;c1&#34;&gt;// 活动执行
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;doing&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;状态接口，因为比如拒绝了后后面的状态不同，所以就需要有不同的状态的类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;stateflow
+&lt;ul&gt;
+&lt;li&gt;IStateHandler : provide outer service&lt;/li&gt;
+&lt;li&gt;AbstractState&lt;/li&gt;
+&lt;li&gt;event
+&lt;ul&gt;
+&lt;li&gt;CloseState extend AbstractState&lt;/li&gt;
+&lt;li&gt;7个状态&lt;/li&gt;
+&lt;li&gt;优化掉原本需要在各个流程节点中的转换使用 ifelse 的场景，这样操作以后也可以更加方便你进行扩展。当然其实这里还可以使用如工作流的方式进行处理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;StateConfig : 把状态放入map里面，状态流转配置抽象类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Resource&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArraignmentState&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arraignmentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;....&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AbstractState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stateGroup&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ConcurrentHashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;PostConstruct&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;stateGroup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ARRAIGNMENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arraignmentState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;stateGroup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;CLOSE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;closeState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;impl
+&lt;ul&gt;
+&lt;li&gt;StateHandlerImpl extends StateConfig implements IStateHandler&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Override&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Result&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;arraignment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Constants&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ActivityState&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentStatus&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stateGroup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentStatus&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;arraignment&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;activityId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentStatus&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;activity-test&#34;&gt;activity test&lt;/h3&gt;
+&lt;p&gt;用一个 init() 方法里面，new 一个 ActivityVO activity,. StrategyVO , StrategyDetailVO strategyDetail_01 ,  StrategyDetailVO strategyDetail_02 设置好相关信息&lt;/p&gt;
+&lt;p&gt;用test_createActivity()， activityDeploy.createActivity(new ActivityConfigReq(activityId, activityConfigRich));&lt;/p&gt;
+&lt;h3 id=&#34;模板抽奖流程&#34;&gt;模板抽奖流程&lt;/h3&gt;
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/ddd1.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;通用业务结构&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>DDD in real project 2</title>
+      <link>https://rileyshen.github.io/post/ddd2/</link>
+      <pubDate>Wed, 01 Mar 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/ddd2/</guid>
+      
+        <description>&lt;p&gt;DDD in real project&lt;/p&gt;
+&lt;p&gt;State Pattern vs. Strategy Pattern&lt;/p&gt;
+&lt;p&gt;we use State Pattern in activity, but Strategy Pattern in ID generation, what&amp;rsquo;s the difference between them?&lt;/p&gt;
+&lt;p&gt;The State controls the entire object’s behavior, and it’s reasonable to think that the state will be changed at some point, either by the Context or by the States themselves.&lt;/p&gt;
+&lt;p&gt;The Strategy helps us to provide a custom behavior to some actions, which might or might not require being changed during the object’s lifetime.&lt;/p&gt;
+&lt;h2 id=&#34;id-generate&#34;&gt;ID generate&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ids
+&lt;ul&gt;
+&lt;li&gt;IdContext, provide the service&lt;/li&gt;
+&lt;li&gt;IIDGenerator, interface for id generate
+&lt;ul&gt;
+&lt;li&gt;long nextId();&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;policy
+&lt;ul&gt;
+&lt;li&gt;@Component&lt;/li&gt;
+&lt;li&gt;RandomNumberic
+&lt;ul&gt;
+&lt;li&gt;implements IIdGenerator&lt;/li&gt;
+&lt;li&gt;org.apache.commons.lang3.RandomStringUtils&lt;/li&gt;
+&lt;li&gt;//生成随机数字字符串 11&lt;/li&gt;
+&lt;li&gt;return Long.parseLong(RandomStringUtils.randsomNumeric(11))&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ShortCode
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;02d&amp;rdquo;, 十进制，不足补 0&lt;/li&gt;
+&lt;li&gt;sb.append(String.format(&amp;quot;%02d&amp;quot;, week));&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;SnowFlake
+&lt;ul&gt;
+&lt;li&gt;synchronized long nextId() -&amp;gt; return snowflake.nextId();&lt;/li&gt;
+&lt;li&gt;@PostConstruct&lt;/li&gt;
+&lt;li&gt;init()&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;database-router&#34;&gt;database router&lt;/h2&gt;
+&lt;h2 id=&#34;为什么分库分表&#34;&gt;为什么分库分表&lt;/h2&gt;
+&lt;p&gt;减少数据库压力，提高效率，缩短查询时间&lt;/p&gt;
+&lt;p&gt;通常数据存量200万-300万，增量再单表50万就考虑拆表，拆分库大部分都是虚拟机上，不会造成服务器资源浪费，后续数量增多再迁移物理机&lt;/p&gt;
+&lt;h2 id=&#34;为什么分库&#34;&gt;为什么分库&lt;/h2&gt;
+&lt;p&gt;在这里，用户参与活动记录次数，是否中奖等等属于高频操作，如果业务量剧增，会造成数据库瓶颈。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;磁盘存储&lt;/strong&gt;： 业务量剧增，mysql单机磁盘容量会撑爆，拆成多个数据库，磁盘使用率大大提升&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;并发连接支持&lt;/strong&gt;： 数据库连接是有限的，高并发下，大量请求访问数据库，mysql单机无法承受，因为本项目采用微服务，通过将订单，用户，商品拆成不同domain，将单个数据库拆成多个相同或不同功能的数据库，放在多个库里，同时采用缓存来降低访问。&lt;/p&gt;
+&lt;h2 id=&#34;为什么分表&#34;&gt;为什么分表&lt;/h2&gt;
+&lt;p&gt;数据太大，sql查询效率变慢，如果一个查询sql没有命中索引，前百万数据量的表会拖累一个库； 命中了索引，千万级别的表 B+ TREE 树高度会增高，。所以一般单表50万采用分表。&lt;/p&gt;
+&lt;p&gt;B+ tree高度计算： InnoDB存储最小单位是页，一页16kb，叶子节点储存的是索引和数据，内部节点是键值和指针。&lt;/p&gt;
+&lt;h2 id=&#34;分库分表问题&#34;&gt;分库分表问题&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;事务问题， 相关的表在不同数据库中，本地事务不能保证原子性，需要分布式事务&lt;/li&gt;
+&lt;li&gt;跨库关联， FEDERATED引擎，数据库分库后跨库join解决方案两次查询&lt;/li&gt;
+&lt;li&gt;排序问题， 跨界点的count， order by, groud by以及聚合函数等问题，可以分表在各个节点上得到结果后在应用程序端进行合并&lt;/li&gt;
+&lt;li&gt;分页问题, 在个节点查到对于结果后，在代码端汇聚再分页；或者把分页分到前端，然后在各个数据库节点执行分页，再汇聚总数量前端，但是这样容易造成空查&lt;/li&gt;
+&lt;li&gt;解决方法： 分布式ID, 数据库划分后，不再依赖数据库自身的主键生成机制，最简单的可以用UUID，或者雪花算法生成分布式ID. &lt;code&gt;uuid = uId + &amp;quot;_&amp;quot; + activityId + &amp;quot;_&amp;quot; + userTakeActivity.getTackCount();&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>DDD in real project 2.5 database router</title>
+      <link>https://rileyshen.github.io/post/ddd3/</link>
+      <pubDate>Wed, 01 Mar 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/ddd3/</guid>
+      
+        <description>&lt;p&gt;DDD in real project&lt;/p&gt;
+&lt;h2 id=&#34;understand-database-router&#34;&gt;understand database router&lt;/h2&gt;
+&lt;h3 id=&#34;hash&#34;&gt;hash&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;tableSizeFor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAXIMUM_CAPACITY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAXIMUM_CAPACITY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;给定的cap减1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;是为了避免参数cap本来就是2的幂次方&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;这样一来&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;经过后续的未操作的&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cap将会变成2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;是不符合我们预期的&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt; 
+
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n无符号右移1位&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;即n二进制最高位的1右移一位&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;导致的结果是n二进制的高2位值为1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;目前n的高1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2位均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+
+
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt; 
+
+&lt;span class=&#34;n&#34;&gt;n继续无符号右移2位&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;导致n二进制表示高3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;4位经过运算值均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;目前n的高1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;4位均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+
+
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt; 
+
+&lt;span class=&#34;n&#34;&gt;n继续无符号右移4位&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;导致n二进制表示高5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;8位经过运算值均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;目前n的高1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;8位均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+
+
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;8&lt;/span&gt; 
+
+&lt;span class=&#34;n&#34;&gt;n继续无符号右移8位&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;导致n二进制表示高9&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;16位经过运算值均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;目前n的高1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;16位均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+
+
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;16&lt;/span&gt; 
+
+&lt;span class=&#34;n&#34;&gt;n继续无符号右移16位&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;导致n二进制表示高17&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;32位经过运算值均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;；&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;目前n的高1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;32位均为1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+
+
+
+&lt;span class=&#34;n&#34;&gt;可以看出&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;无论给定cap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAXIMUM_CAPACITY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;的值是多少&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;经过以上运算&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;其值的二进制所有位都会是1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;再将其加1&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;这时候这个值一定是2的幂次方&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;当然如果经过运算值大于MAXIMUM_CAPACITY&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;直接选用MAXIMUM_CAPACITY&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;。&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;为什么cap要保持为2的幂次方&#34;&gt;为什么cap要保持为2的幂次方&lt;/h3&gt;
+&lt;p&gt;HashMap中存储数据table的index是由key的Hash值决定的。在HashMap存储数据的时候，我们期望数据能够均匀分布，以避免哈希冲突。自然而然我们就会想到去用%取余的操作来实现我们这一构想。
+这里要了解到一个知识：取余(%)操作中如果除数是2的幂次方则等同于与其除数减一的与(&amp;amp;)操作。
+这也就解释了为啥一定要求cap要为2的幂次方。再来看看table的index的计算规则：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newCap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; 
+
+ &lt;span class=&#34;n&#34;&gt;等同于&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;：&lt;/span&gt;
+
+ &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;newCap&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;hashmap-中-hash问题&#34;&gt;hashmap 中 hash问题&lt;/h3&gt;
+&lt;p&gt;hash(K,V) 方法&lt;/p&gt;
+&lt;p&gt;HashMap中table的index是由Key的哈希值决定的。HashMap并没有直接使用key的hashcode()，而是经过如下的运算&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;hashCode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而上面我们提到index的运算规则是e.hash &amp;amp; (newCap - 1)。由于newCap是2的幂次方，那么newCap - 1的高位应该全部为0。如果e.hash值只用自身的hashcode的话，那么index只会和e.hash低位做&amp;amp;操作。这样一来，index的值就只有低位参与运算，高位毫无存在感，从而会带来哈希冲突的风险。所以在计算key的哈希值的时候，用其自身hashcode值与其低16位做异或操作。这也就让高位参与到index的计算中来了，即降低了哈希冲突的风险又不会带来太大的性能问题。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;按位异或运算（^）：两个数转为二进制，然后从高位开始比较，如果相同则为0，不相同则为1。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;      扰动函数————(h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16) 表示：
+          将key的哈希code一分为二。其中：
+         【高半区16位】数据不变。
+           【低半区16位】数据与高半区16位数据进行异或操作，以此来加大低位的随机性。
+      注意：如果key的哈希code小于等于16位，那么是没有任何影响的。只有大于16位，才会触发扰动函数的执行效果。
+   
+    // egx: 110100100110^000000000000=110100100110，由于k1的hashCode都是在低16位，所以原样返回3366
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &amp;gt;&amp;gt;&amp;gt; 16);
+
+    
+      case1:
+       h=高16位(全是0) and 低16位(有1)
+       h &amp;gt;&amp;gt;&amp;gt; 16 = 低16位全部消失，那么变成了32位(全是0)
+       h ^ (h &amp;gt;&amp;gt;&amp;gt; 16) = 原样输出
+       
+      case2：
+       h=高16位(有1) and 低16位(有1)
+       h &amp;gt;&amp;gt;&amp;gt; 16 = 低16位全部消失，那么变成了高16位(全是0)and低16位(有1)
+       h ^ (h &amp;gt;&amp;gt;&amp;gt; 16) = 不是原样输出  将原高16位于原低16位进行扰动。
+     
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
