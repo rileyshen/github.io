@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | MyBatis-Plus for Beginners 4 DDD model </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="MyBatis-Plus 简易教程">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/mybatis4/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="MyBatis-Plus for Beginners 4 DDD model"/>
+<meta name="twitter:description" content="MyBatis-Plus 简易教程"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2023 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>MyBatis-Plus for Beginners 4 DDD model</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Sat, Jul 15, 2023
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">2-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>mybatis in DDD</p>
+<p>App中的tech部分的设置属于标配</p>
+<ul>
+<li>app
+<ul>
+<li>main
+<ul>
+<li>tech
+<ul>
+<li>config // 加密，事业相关的configuration</li>
+<li>plug // 加密等拦截器的具体实现</li>
+<li>Application // SringBootApplication 启动</li>
+</ul>
+</li>
+<li>resource // matis 配置相关的yml，mapper，config等</li>
+</ul>
+</li>
+<li>test
+<ul>
+<li>// 调薪</li>
+<li>// 查询</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>domain</p>
+</li>
+<li>
+<p>infrusture</p>
+</li>
+</ul>
+<hr>
+<p>domain部分， 主要是雇员和薪水类, 记得ddd模式特色</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">+</span> <span class="n">app</span>
+    <span class="o">+</span> <span class="n">main</span>
+        <span class="o">+</span> <span class="n">tech</span>
+            <span class="o">+</span> <span class="n">config</span> <span class="c1">// 加密，事业相关的configuration
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">plug</span> <span class="c1">// 加密等拦截器的具体实现
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">Application</span> <span class="c1">// SringBootApplication 启动
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">resource</span> <span class="c1">// matis 配置相关的yml，mapper，config等
+</span><span class="c1"></span>    <span class="o">+</span> <span class="n">test</span>
+        <span class="o">+</span> <span class="c1">// 调薪
+</span><span class="c1"></span>        <span class="o">+</span> <span class="c1">// 查询
+</span></code></pre></div><ul>
+<li>
+<p>domain</p>
+<ul>
+<li>
+<p>employee</p>
+<ul>
+<li>model
+<ul>
+<li>EmployeeInfoEntity</li>
+</ul>
+</li>
+<li>reposity
+<ul>
+<li>IEmployeeRepository
+<ul>
+<li>insertEmployInfo插入雇员</li>
+<li>queryEmployInfo查询雇员信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>service
+<ul>
+<li>IEmployeeService
+<ul>
+<li>insertEmployInfo插入雇员</li>
+<li>queryEmployInfo查询雇员信息</li>
+</ul>
+</li>
+<li>EmployeeService // 引入 <code>@Resource IEmployeeRepository employeeRepository</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>salary</p>
+<ul>
+<li>model
+<ul>
+<li>entity
+<ul>
+<li>EmployeeEntity //这里只需要和薪水挂钩的雇员级别和岗位tatle信息就够了</li>
+<li>EmployeeSalaryAdjustEntity //需要和调薪相关的信息</li>
+</ul>
+</li>
+<li>valobj
+<ul>
+<li>EmployeePostVO // 雇员级别区间，比如T1到T8， code， des等</li>
+</ul>
+</li>
+<li>aggreate
+<ul>
+<li>AdjustSalaryApplyOrderAggregate // 罗列了雇员编号，调薪单号，雇员实体，雇员调薪实体，融合model中2个类</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>reposity
+<ul>
+<li>adjustSalary(AdjustSalaryApplyOrderAggregate adjustSalaryApplyOrderAggregate) // 调节薪水</li>
+</ul>
+</li>
+<li>service
+<ul>
+<li>ISalaryAdjustApplyService
+<ul>
+<li>execSalaryAdjust(AdjustSalaryApplyOrderAggregate adjustSalaryApplyOrderAggregate)</li>
+</ul>
+</li>
+<li>SalaryAdjustApplyService</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>infruster</p>
+</li>
+</ul>
+<hr>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">+</span> <span class="n">app</span>
+    <span class="o">+</span> <span class="n">main</span>
+        <span class="o">+</span> <span class="n">tech</span>
+            <span class="o">+</span> <span class="n">config</span> <span class="c1">// 加密，事业相关的configuration
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">plug</span> <span class="c1">// 加密等拦截器的具体实现
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">Application</span> <span class="c1">// SringBootApplication 启动
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">resource</span> <span class="c1">// matis 配置相关的yml，mapper，config等
+</span><span class="c1"></span>    <span class="o">+</span> <span class="n">test</span>
+        <span class="o">+</span> <span class="c1">// 调薪
+</span><span class="c1"></span>        <span class="o">+</span> <span class="c1">// 查询
+</span><span class="c1"></span>
+<span class="o">-</span> <span class="n">domain</span>
+    <span class="o">+</span> <span class="n">employee</span>
+        <span class="o">+</span> <span class="n">model</span>
+            <span class="o">+</span> <span class="n">EmployeeInfoEntity</span>
+        <span class="o">+</span> <span class="n">reposity</span>
+            <span class="o">+</span> <span class="n">IEmployeeRepository</span>
+                <span class="o">+</span> <span class="n">insertEmployInfo插入雇员</span>
+                <span class="o">+</span> <span class="n">queryEmployInfo查询雇员信息</span> 
+        <span class="o">+</span> <span class="n">service</span>
+            <span class="o">+</span> <span class="n">IEmployeeService</span>
+                <span class="o">+</span> <span class="n">insertEmployInfo插入雇员</span>
+                <span class="o">+</span> <span class="n">queryEmployInfo查询雇员信息</span>
+            <span class="o">+</span> <span class="n">EmployeeService</span> <span class="c1">// 引入 `@Resource IEmployeeRepository employeeRepository`
+</span><span class="c1"></span>
+ 
+
+    <span class="o">+</span> <span class="n">salary</span>
+        <span class="o">+</span> <span class="n">model</span>
+            <span class="o">+</span> <span class="n">entity</span>
+                <span class="o">+</span> <span class="n">EmployeeEntity</span> <span class="c1">//这里只需要和薪水挂钩的雇员级别和岗位tatle信息就够了
+</span><span class="c1"></span>                <span class="o">+</span> <span class="n">EmployeeSalaryAdjustEntity</span> <span class="c1">//需要和调薪相关的信息
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">valobj</span>
+                <span class="o">+</span> <span class="n">EmployeePostVO</span> <span class="c1">// 雇员级别区间，比如T1到T8， code， des等
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">aggreate</span>
+                <span class="o">+</span>  <span class="n">AdjustSalaryApplyOrderAggregate</span> <span class="c1">// 罗列了雇员编号，调薪单号，雇员实体，雇员调薪实体，融合model中2个类
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">reposity</span>
+            <span class="o">+</span> <span class="n">adjustSalary</span><span class="o">(</span><span class="n">AdjustSalaryApplyOrderAggregate</span> <span class="n">adjustSalaryApplyOrderAggregate</span><span class="o">)</span> <span class="c1">// 调节薪水
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">service</span>
+            <span class="o">+</span> <span class="n">ISalaryAdjustApplyService</span> 
+                <span class="o">+</span> <span class="n">execSalaryAdjust</span><span class="o">(</span><span class="n">AdjustSalaryApplyOrderAggregate</span> <span class="n">adjustSalaryApplyOrderAggregate</span><span class="o">)</span>
+            <span class="o">+</span> <span class="n">SalaryAdjustApplyService</span>
+</code></pre></div><p>功能实现在这里， 导入domain模块</p>
+<ul>
+<li>
+<p>infrustruture</p>
+<ul>
+<li>
+<p>dao</p>
+<ul>
+<li>IEmployeeDAO</li>
+<li>IEmployeesalaryAdustDAO</li>
+<li>IEmployeesalaryDAO</li>
+</ul>
+</li>
+<li>
+<p>repository</p>
+<ul>
+<li>//这里做了对数据库表的操作，事业相关的，比如更新岗位，更新薪酬，写入流水， 查询雇员和薪酬</li>
+<li>EmployeeRespsitory</li>
+<li>SalaryAdustRepository</li>
+</ul>
+</li>
+<li>
+<p>po</p>
+<ul>
+<li>// 这里几个类和数据库表是对应的，一表一类</li>
+<li>EmployeePO //跟domain 里面的 EmployeeEntity相比，多了自增id，去掉了薪水相关</li>
+<li>EmployeeSalaryAdjustPO</li>
+<li>EmployeeSalaryPO</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>上面写完了后想domain里面的类干嘛用，</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">+</span> <span class="n">app</span>
+    <span class="o">+</span> <span class="n">main</span>
+        <span class="o">+</span> <span class="n">tech</span>
+            <span class="o">+</span> <span class="n">config</span> <span class="c1">// 加密，事业相关的configuration
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">plug</span> <span class="c1">// 加密等拦截器的具体实现
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">Application</span> <span class="c1">// SringBootApplication 启动
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">resource</span> <span class="c1">// matis 配置相关的yml，mapper，config等
+</span></code></pre></div><ul>
+<li>app
+<ul>
+<li>test
+<ul>
+<li>domain
+<ul>
+<li>// 这里是直接ISalaryAdjustApplyService 对 .model下面的类操作，测试薪水调整和查询雇员</li>
+<li>IEmployeeServiceTest</li>
+<li>ISalaryAdjustApplyServiceTest</li>
+</ul>
+</li>
+<li>infrastructure
+<ul>
+<li>//这里是直接IEmployeeSalaryDAO 对  EmployeeSalaryPO操作，只需要用到infrastructure.dao和po下面的类</li>
+<li>IEmployeeDAOTest</li>
+<li>IEmployeeSalaryAdjustDAOTest</li>
+<li>IEmployeeSalaryDAOTest</li>
+</ul>
+</li>
+<li>ApiTest</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">-</span> <span class="n">domain</span>
+    <span class="o">+</span> <span class="n">employee</span>
+        <span class="o">+</span> <span class="n">model</span>
+            <span class="o">+</span> <span class="n">EmployeeInfoEntity</span>
+        <span class="o">+</span> <span class="n">reposity</span>
+            <span class="o">+</span> <span class="n">IEmployeeRepository</span>
+                <span class="o">+</span> <span class="n">insertEmployInfo插入雇员</span>
+                <span class="o">+</span> <span class="n">queryEmployInfo查询雇员信息</span> 
+        <span class="o">+</span> <span class="n">service</span>
+            <span class="o">+</span> <span class="n">IEmployeeService</span>
+                <span class="o">+</span> <span class="n">insertEmployInfo插入雇员</span>
+                <span class="o">+</span> <span class="n">queryEmployInfo查询雇员信息</span>
+            <span class="o">+</span> <span class="n">EmployeeService</span> <span class="c1">// 引入 `@Resource IEmployeeRepository employeeRepository`
+</span><span class="c1"></span>
+ 
+
+    <span class="o">+</span> <span class="n">salary</span>
+        <span class="o">+</span> <span class="n">model</span>
+            <span class="o">+</span> <span class="n">entity</span>
+                <span class="o">+</span> <span class="n">EmployeeEntity</span> <span class="c1">//这里只需要和薪水挂钩的雇员级别和岗位tatle信息就够了
+</span><span class="c1"></span>                <span class="o">+</span> <span class="n">EmployeeSalaryAdjustEntity</span> <span class="c1">//需要和调薪相关的信息
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">valobj</span>
+                <span class="o">+</span> <span class="n">EmployeePostVO</span> <span class="c1">// 雇员级别区间，比如T1到T8， code， des等
+</span><span class="c1"></span>            <span class="o">+</span> <span class="n">aggreate</span>
+                <span class="o">+</span>  <span class="n">AdjustSalaryApplyOrderAggregate</span> <span class="c1">// 罗列了雇员编号，调薪单号，雇员实体，雇员调薪实体，融合model中2个类
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">reposity</span>
+            <span class="o">+</span> <span class="n">adjustSalary</span><span class="o">(</span><span class="n">AdjustSalaryApplyOrderAggregate</span> <span class="n">adjustSalaryApplyOrderAggregate</span><span class="o">)</span> <span class="c1">// 调节薪水
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">service</span>
+            <span class="o">+</span> <span class="n">ISalaryAdjustApplyService</span> 
+                <span class="o">+</span> <span class="n">execSalaryAdjust</span><span class="o">(</span><span class="n">AdjustSalaryApplyOrderAggregate</span> <span class="n">adjustSalaryApplyOrderAggregate</span><span class="o">)</span>
+            <span class="o">+</span> <span class="n">SalaryAdjustApplyService</span>
+
+<span class="o">+</span> <span class="n">infrustruture</span>
+
+    <span class="o">+</span> <span class="n">dao</span>
+        <span class="o">+</span> <span class="n">IEmployeeDAO</span>
+        <span class="o">+</span> <span class="n">IEmployeesalaryAdustDAO</span>
+        <span class="o">+</span> <span class="n">IEmployeesalaryDAO</span>
+</code></pre></div><p>.    + repository
++ //这里做了对数据库表的操作，事业相关的，比如更新岗位，更新薪酬，写入流水， 查询雇员和薪酬
++ EmployeeRespsitory</p>
+<p><strong>这里实现了两个方法，就是domain中IEmployeeRepository的插入和查询雇员的两个方法employeeInfoEntity这个enployeePO来源就是domain里面的employeeInfoEntity，就是domain里面的IEmployeeRepository的实现在这里</strong></p>
+<pre><code>        ```java
+        ry {
+                EmployeePO employeePO = EmployeePO.builder()
+                        .employeeNumber(employeeInfoEntity.getEmployeeNumber())
+                        .employeeName(employeeInfoEntity.getEmployeeName())
+                        .employeeLevel(employeeInfoEntity.getEmployeeLevel())
+                        .employeeTitle(employeeInfoEntity.getEmployeeTitle())
+                        .build();
+
+                employeeDAO.insert(employeePO);
+
+        ```
+    + SalaryAdustRepository
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">    <span class="o">+</span> <span class="n">po</span>
+        <span class="o">+</span> <span class="c1">// 这里几个类和数据库表是对应的，一表一类
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">EmployeePO</span> <span class="c1">//跟domain 里面的 EmployeeEntity相比，多了自增id，去掉了薪水相关
+</span><span class="c1"></span>        <span class="o">+</span> <span class="n">EmployeeSalaryAdjustPO</span> 
+        <span class="o">+</span> <span class="n">EmployeeSalaryPO</span>
+</code></pre></div><hr></div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/mybatis-plus/">MyBatis-Plus</a><a class="tag" href="/tags/plusinterceptor/">PlusInterceptor</a><a class="tag" href="/tags/optimisticlockerinnerinterceptor/">OptimisticLockerInnerInterceptor</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

@@ -6,7 +6,317 @@
     <description>Recent content in MyBatis-Plus on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 15 Jul 2020 13:04:19 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/mybatis-plus/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Jul 2023 13:04:19 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/mybatis-plus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MyBatis-Plus for Beginners 4 DDD model</title>
+      <link>https://rileyshen.github.io/post/mybatis4/</link>
+      <pubDate>Sat, 15 Jul 2023 13:04:19 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/mybatis4/</guid>
+      
+        <description>&lt;p&gt;mybatis in DDD&lt;/p&gt;
+&lt;p&gt;App中的tech部分的设置属于标配&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;app
+&lt;ul&gt;
+&lt;li&gt;main
+&lt;ul&gt;
+&lt;li&gt;tech
+&lt;ul&gt;
+&lt;li&gt;config // 加密，事业相关的configuration&lt;/li&gt;
+&lt;li&gt;plug // 加密等拦截器的具体实现&lt;/li&gt;
+&lt;li&gt;Application // SringBootApplication 启动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;resource // matis 配置相关的yml，mapper，config等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;test
+&lt;ul&gt;
+&lt;li&gt;// 调薪&lt;/li&gt;
+&lt;li&gt;// 查询&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;domain&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;infrusture&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;domain部分， 主要是雇员和薪水类, 记得ddd模式特色&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;app&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tech&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 加密，事业相关的configuration
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;plug&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 加密等拦截器的具体实现
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Application&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// SringBootApplication 启动
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// matis 配置相关的yml，mapper，config等
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 调薪
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 查询
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;domain&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;employee&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;model
+&lt;ul&gt;
+&lt;li&gt;EmployeeInfoEntity&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;reposity
+&lt;ul&gt;
+&lt;li&gt;IEmployeeRepository
+&lt;ul&gt;
+&lt;li&gt;insertEmployInfo插入雇员&lt;/li&gt;
+&lt;li&gt;queryEmployInfo查询雇员信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;service
+&lt;ul&gt;
+&lt;li&gt;IEmployeeService
+&lt;ul&gt;
+&lt;li&gt;insertEmployInfo插入雇员&lt;/li&gt;
+&lt;li&gt;queryEmployInfo查询雇员信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;EmployeeService // 引入 &lt;code&gt;@Resource IEmployeeRepository employeeRepository&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;salary&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;model
+&lt;ul&gt;
+&lt;li&gt;entity
+&lt;ul&gt;
+&lt;li&gt;EmployeeEntity //这里只需要和薪水挂钩的雇员级别和岗位tatle信息就够了&lt;/li&gt;
+&lt;li&gt;EmployeeSalaryAdjustEntity //需要和调薪相关的信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;valobj
+&lt;ul&gt;
+&lt;li&gt;EmployeePostVO // 雇员级别区间，比如T1到T8， code， des等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;aggreate
+&lt;ul&gt;
+&lt;li&gt;AdjustSalaryApplyOrderAggregate // 罗列了雇员编号，调薪单号，雇员实体，雇员调薪实体，融合model中2个类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;reposity
+&lt;ul&gt;
+&lt;li&gt;adjustSalary(AdjustSalaryApplyOrderAggregate adjustSalaryApplyOrderAggregate) // 调节薪水&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;service
+&lt;ul&gt;
+&lt;li&gt;ISalaryAdjustApplyService
+&lt;ul&gt;
+&lt;li&gt;execSalaryAdjust(AdjustSalaryApplyOrderAggregate adjustSalaryApplyOrderAggregate)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;SalaryAdjustApplyService&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;infruster&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;app&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tech&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 加密，事业相关的configuration
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;plug&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 加密等拦截器的具体实现
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Application&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// SringBootApplication 启动
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// matis 配置相关的yml，mapper，config等
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 调薪
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 查询
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeInfoEntity&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reposity&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeeRepository&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;insertEmployInfo插入雇员&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;queryEmployInfo查询雇员信息&lt;/span&gt; 
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;service&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeeService&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;insertEmployInfo插入雇员&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;queryEmployInfo查询雇员信息&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeService&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 引入 `@Resource IEmployeeRepository employeeRepository`
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+ 
+
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;salary&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;entity&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeEntity&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//这里只需要和薪水挂钩的雇员级别和岗位tatle信息就够了
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeSalaryAdjustEntity&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//需要和调薪相关的信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;valobj&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeePostVO&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 雇员级别区间，比如T1到T8， code， des等
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;aggreate&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;AdjustSalaryApplyOrderAggregate&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 罗列了雇员编号，调薪单号，雇员实体，雇员调薪实体，融合model中2个类
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reposity&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;adjustSalary&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AdjustSalaryApplyOrderAggregate&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;adjustSalaryApplyOrderAggregate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 调节薪水
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;service&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ISalaryAdjustApplyService&lt;/span&gt; 
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;execSalaryAdjust&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AdjustSalaryApplyOrderAggregate&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;adjustSalaryApplyOrderAggregate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SalaryAdjustApplyService&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;功能实现在这里， 导入domain模块&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;infrustruture&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;dao&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IEmployeeDAO&lt;/li&gt;
+&lt;li&gt;IEmployeesalaryAdustDAO&lt;/li&gt;
+&lt;li&gt;IEmployeesalaryDAO&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;repository&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;//这里做了对数据库表的操作，事业相关的，比如更新岗位，更新薪酬，写入流水， 查询雇员和薪酬&lt;/li&gt;
+&lt;li&gt;EmployeeRespsitory&lt;/li&gt;
+&lt;li&gt;SalaryAdustRepository&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;po&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;// 这里几个类和数据库表是对应的，一表一类&lt;/li&gt;
+&lt;li&gt;EmployeePO //跟domain 里面的 EmployeeEntity相比，多了自增id，去掉了薪水相关&lt;/li&gt;
+&lt;li&gt;EmployeeSalaryAdjustPO&lt;/li&gt;
+&lt;li&gt;EmployeeSalaryPO&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;上面写完了后想domain里面的类干嘛用，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;app&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tech&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 加密，事业相关的configuration
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;plug&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 加密等拦截器的具体实现
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Application&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// SringBootApplication 启动
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// matis 配置相关的yml，mapper，config等
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;app
+&lt;ul&gt;
+&lt;li&gt;test
+&lt;ul&gt;
+&lt;li&gt;domain
+&lt;ul&gt;
+&lt;li&gt;// 这里是直接ISalaryAdjustApplyService 对 .model下面的类操作，测试薪水调整和查询雇员&lt;/li&gt;
+&lt;li&gt;IEmployeeServiceTest&lt;/li&gt;
+&lt;li&gt;ISalaryAdjustApplyServiceTest&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;infrastructure
+&lt;ul&gt;
+&lt;li&gt;//这里是直接IEmployeeSalaryDAO 对  EmployeeSalaryPO操作，只需要用到infrastructure.dao和po下面的类&lt;/li&gt;
+&lt;li&gt;IEmployeeDAOTest&lt;/li&gt;
+&lt;li&gt;IEmployeeSalaryAdjustDAOTest&lt;/li&gt;
+&lt;li&gt;IEmployeeSalaryDAOTest&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ApiTest&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;employee&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeInfoEntity&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reposity&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeeRepository&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;insertEmployInfo插入雇员&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;queryEmployInfo查询雇员信息&lt;/span&gt; 
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;service&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeeService&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;insertEmployInfo插入雇员&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;queryEmployInfo查询雇员信息&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeService&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 引入 `@Resource IEmployeeRepository employeeRepository`
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+ 
+
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;salary&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;entity&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeEntity&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//这里只需要和薪水挂钩的雇员级别和岗位tatle信息就够了
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeSalaryAdjustEntity&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//需要和调薪相关的信息
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;valobj&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeePostVO&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 雇员级别区间，比如T1到T8， code， des等
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;aggreate&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;AdjustSalaryApplyOrderAggregate&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 罗列了雇员编号，调薪单号，雇员实体，雇员调薪实体，融合model中2个类
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reposity&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;adjustSalary&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AdjustSalaryApplyOrderAggregate&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;adjustSalaryApplyOrderAggregate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 调节薪水
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;service&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ISalaryAdjustApplyService&lt;/span&gt; 
+                &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;execSalaryAdjust&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;AdjustSalaryApplyOrderAggregate&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;adjustSalaryApplyOrderAggregate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SalaryAdjustApplyService&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;infrustruture&lt;/span&gt;
+
+    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dao&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeeDAO&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeesalaryAdustDAO&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IEmployeesalaryDAO&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;.    + repository
++ //这里做了对数据库表的操作，事业相关的，比如更新岗位，更新薪酬，写入流水， 查询雇员和薪酬
++ EmployeeRespsitory&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这里实现了两个方法，就是domain中IEmployeeRepository的插入和查询雇员的两个方法employeeInfoEntity这个enployeePO来源就是domain里面的employeeInfoEntity，就是domain里面的IEmployeeRepository的实现在这里&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;        ```java
+        ry {
+                EmployeePO employeePO = EmployeePO.builder()
+                        .employeeNumber(employeeInfoEntity.getEmployeeNumber())
+                        .employeeName(employeeInfoEntity.getEmployeeName())
+                        .employeeLevel(employeeInfoEntity.getEmployeeLevel())
+                        .employeeTitle(employeeInfoEntity.getEmployeeTitle())
+                        .build();
+
+                employeeDAO.insert(employeePO);
+
+        ```
+    + SalaryAdustRepository
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;    &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;po&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 这里几个类和数据库表是对应的，一表一类
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeePO&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//跟domain 里面的 EmployeeEntity相比，多了自增id，去掉了薪水相关
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeSalaryAdjustPO&lt;/span&gt; 
+        &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;EmployeeSalaryPO&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description>
+      
+    </item>
+    
     <item>
       <title>MyBatis-Plus for Beginners 2</title>
       <link>https://rileyshen.github.io/post/mybatis2/</link>

@@ -145,13 +145,27 @@ it means you didn&#39;t understand it well enough&#34;.
                     Wed, Mar 1, 2023
                     </span>
                 <em class="fas fa-stopwatch"></em>
-                <span class="reading-time">2-minute read</span>
+                <span class="reading-time">4-minute read</span>
             </div>
             
         </div>
 
         <p>DDD in real project</p>
 <h2 id="understand-database-router">understand database router</h2>
+<p>The starting point for considering self-developed database routing components is that the existing technical solutions cannot meet (unsuitable and inconvenient) personalized business needs.</p>
+<p>And the self-developed components are small and refined, easy to iteratively maintain, and new functions can also be added later (For example, transaction support) Sub-database and sub-table are two different things. It may only sub-database without sub-table, may sub-table without sub-database, or may sub-database sub-table</p>
+<h3 id="what-need-to-consider">what need to consider</h3>
+<ul>
+<li>Dynamic switching of data sources</li>
+<li>hasing algorithm</li>
+<li>Cut point setting and data interception and repalce sql</li>
+</ul>
+<figure><img src="/images/router1.png"
+         alt="image"/><figcaption>
+            <h4>DDD ROUTER</h4>
+        </figcaption>
+</figure>
+
 <h3 id="hash">hash</h3>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">tableSizeFor</span><span class="o">(</span><span class="kt">int</span> <span class="n">cap</span><span class="o">)</span> <span class="o">{</span>
         <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">cap</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
@@ -253,7 +267,181 @@ it means you didn&#39;t understand it well enough&#34;.
      
 }
 </code></pre>
-<hr></div>
+<hr>
+<h3 id="tech-point">tech point</h3>
+<ul>
+<li>AOP aspect interception: Intercept methods that need to use DB routing, here use custom annotations</li>
+</ul>
+<ul>
+<li>Database connection pool configuration: sub-database and sub-table need to configure database connection sources on demand, and perform dynamic data source switching in the collection of these connection pools</li>
+<li>AbstractRoutingDataSource: is a Spring service class for dynamic data source switching, providing an abstract method determineCurrentLookupKey for data source switching</li>
+<li>Routing hash algorithm design: During routing design, it is necessary to perform routing calculations based on the sub-database and sub-table fields, so that data can be evenly distributed to each database table.</li>
+<li>MyBatis interceptor: implement sql dynamic interception and modification</li>
+</ul>
+<ul>
+<li><strong>router</strong>
+<ul>
+<li><strong>anotation</strong>
+<ul>
+<li>DBRouter</li>
+</ul>
+</li>
+</ul>
+<!-- Provide a cut point for the aspect, and at the same time obtain the routing field in the annotated method input parameter attribute -->
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span> <span class="c1">// ;ife circle
+</span><span class="c1"></span><span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">DBRouter</span> <span class="o">{</span>
+  <span class="cm">/**
+</span><span class="cm">   * router key
+</span><span class="cm">   * @return
+</span><span class="cm">   */</span>
+  <span class="n">String</span> <span class="nf">key</span><span class="o">()</span> <span class="k">default</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>DBRouterStrategy</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">DBRouterStrategy</span> <span class="o">{</span>
+  <span class="cm">/**
+</span><span class="cm">   *split table or not
+</span><span class="cm">   * @return
+</span><span class="cm">   */</span>
+  <span class="kt">boolean</span> <span class="nf">splitTable</span><span class="o">()</span> <span class="k">default</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li><strong>config</strong>
+<ul>
+<li>DataSourceAutoConfig</li>
+</ul>
+</li>
+<li><strong>dynamic</strong>
+<ul>
+<li>DynamicDataSource</li>
+</ul>
+<!-- Inherit the abstract class AbstractRoutingDataSource, implement its determineCurrentLookupKey method, obtain the DB key from DBContextHolder, and use it to dynamically switch data sources -->
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DynamicDataSource</span> <span class="kd">extends</span> <span class="n">AbstractRoutingDataSource</span> <span class="o">{</span>
+<span class="cm">/**
+</span><span class="cm"> * 返回 db 路由
+</span><span class="cm"> * @return aka db01, db02, ...
+</span><span class="cm"> */</span>
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">determineCurrentLookupKey</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">&#34;db&#34;</span> <span class="o">+</span> <span class="n">DBContextHolder</span><span class="o">.</span><span class="na">getDbKey</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>DynamicMybatisPlugin</li>
+</ul>
+<!-- crreate datasource, put in map -->
+</li>
+<li><strong>strategy</strong>
+<ul>
+<li>impl
+<ul>
+<li>DBRouterStratedyHashCode</li>
+</ul>
+</li>
+<li>IDRouterStrategy</li>
+</ul>
+<!-- - doRouter
+- dbCount
+- setTBKey
+- setDBKey
+- tbCount
+- clear -->
+</li>
+<li><strong>util</strong>
+<ul>
+<li>DBContextHoler</li>
+<li>DBRouterBase</li>
+<li>DBRouterConfig</li>
+<li>DBRouterJoinPoint</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="modify-sql">modify SQL</h3>
+<blockquote>
+<p>SQL：SELECT * FROM tb_user WHERE id = 123;</p>
+</blockquote>
+<p>TO</p>
+<blockquote>
+<p>SQL：SELECT * FROM tb_user_01 WHERE id = 123;</p>
+</blockquote>
+<h4 id="statementhandler">StatementHandler</h4>
+<ul>
+<li>prepare: used to create a concrete Statement object implementation class or Statement object</li>
+<li>parametersize: used to initialize Statement objects and assign values ​​to sql placeholders</li>
+<li>update: used to notify the Statement object to push insert, update, delete operations to the database</li>
+<li>query: used to notify the Statement object to push the select operation to the database and return the corresponding query result</li>
+</ul>
+<ul>
+<li>The prepare method of StatementHandler intercepts sql statements</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">  <span class="nd">@Intercepts</span><span class="o">(</span>
+        <span class="nd">@Signature</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">StatementHandler</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&#34;prepare&#34;</span><span class="o">,</span> <span class="n">args</span> <span class="o">=</span> <span class="o">{</span><span class="n">Connection</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+  <span class="o">)</span>
+</code></pre></div><ul>
+<li>intercept method here is the method we want to implement, where invocation is the intercepted object</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Interceptor</span> <span class="o">{</span>
+  <span class="n">Object</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">Invocation</span> <span class="n">invocation</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span><span class="o">;</span>
+  <span class="k">default</span> <span class="n">Object</span> <span class="nf">plugin</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Plugin</span><span class="o">.</span><span class="na">wrap</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="k">default</span> <span class="kt">void</span> <span class="nf">setProperties</span><span class="o">(</span><span class="n">Properties</span> <span class="n">properties</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// NOP
+</span><span class="c1"></span>  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ul>
+<li>How to get the SQL statement in MyBatis? Based on StatementHandler, then get its BoundSql</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 获取 StatementHandler
+</span><span class="c1"></span><span class="n">StatementHandler</span> <span class="n">statementHandler</span> <span class="o">=</span> <span class="o">(</span><span class="n">StatementHandler</span><span class="o">)</span> <span class="n">invocation</span><span class="o">.</span><span class="na">getTarget</span><span class="o">();</span>
+<span class="n">MetaObject</span> <span class="n">metaObject</span> <span class="o">=</span> <span class="n">MetaObject</span><span class="o">.</span><span class="na">forObject</span><span class="o">(</span><span class="n">statementHandler</span><span class="o">,</span> <span class="n">SystemMetaObject</span><span class="o">.</span><span class="na">DEFAULT_OBJECT_FACTORY</span><span class="o">,</span>
+		<span class="n">SystemMetaObject</span><span class="o">.</span><span class="na">DEFAULT_OBJECT_WRAPPER_FACTORY</span><span class="o">,</span> <span class="k">new</span> <span class="n">DefaultReflectorFactory</span><span class="o">());</span>
+<span class="n">MappedStatement</span> <span class="n">mappedStatement</span> <span class="o">=</span> <span class="o">(</span><span class="n">MappedStatement</span><span class="o">)</span> <span class="n">metaObject</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="s">&#34;delegate.mappedStatement&#34;</span><span class="o">);</span>
+
+<span class="c1">// 获取 MyBatis 原始 SQL
+</span><span class="c1"></span><span class="n">BoundSql</span> <span class="n">boundSql</span> <span class="o">=</span> <span class="n">statementHandler</span><span class="o">.</span><span class="na">getBoundSql</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">originalSql</span> <span class="o">=</span> <span class="n">boundSql</span><span class="o">.</span><span class="na">getSql</span><span class="o">();</span>
+</code></pre></div><ul>
+<li>How to identify table names in SQL? Use regular expressions to match: from, into, update these three keywords, followed by the table name</li>
+</ul>
+<blockquote>
+<p>private Pattern pattern = Pattern.compile(&quot;(from|into|update)[\s]{1,}(\w{1,})&quot;, Pattern.CASE_INSENSITIVE);</p>
+</blockquote>
+<ul>
+<li>How to replace after identification? Use reflection to directly modify the BoundSql#sql field</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">/</span> <span class="n">通过反射修改</span> <span class="n">sql</span> <span class="n">语句</span>
+<span class="c1">// getDeclaredField：可以获取所有已声明字段（无视访问限定符）; getField：只能获取public 字段
+</span><span class="c1"></span><span class="n">Field</span> <span class="n">field</span> <span class="o">=</span> <span class="n">boundSql</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;sql&#34;</span><span class="o">);</span>
+<span class="n">field</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">field</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">boundSql</span><span class="o">,</span> <span class="n">replacedSql</span><span class="o">);</span>
+<span class="n">field</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</code></pre></div><h3 id="aop-aspect-interception">AOP aspect interception</h3>
+<ul>
+<li>Pointcut</li>
+</ul>
+<h3 id="encapsulate">encapsulate</h3>
+<p>Finally, encapsulate the project into a SpringBoot starter dependency, write a configuration class, and then use the automatic assembly mechanism</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceAutoConfigure</span> <span class="kd">implements</span> <span class="n">EnvironmentAware</span> <span class="o">{</span>
+</code></pre></div><hr>
+<p>about test
+need resources- &gt; mybatis -&gt; mapper</p>
+<ul>
+<li>UserStrategyExport_mapper.xml
+&hellip; or this xml ro test</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="nd">@Resource</span>
+ <span class="kd">private</span> <span class="n">IUserStrategyExportDao</span> <span class="n">UserStrategyExportDao</span><span class="o">;</span>
+</code></pre></div><hr></div>
     <div class="post-footer">
         <div class="info">
             
