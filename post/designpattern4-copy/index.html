@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | Chain of Responsibility, Command and Iterator, Mediator, Memento </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="
+Riley likes to push her limits 
+and always keep learning new things. 
+She shares her weekly learnings 
+because &#34;if you can&#39;t explain it simply,
+it means you didn&#39;t understand it well enough&#34;.
+">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/designpattern4-copy/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Chain of Responsibility, Command and Iterator, Mediator, Memento"/>
+<meta name="twitter:description" content="1. Chain of Responsibility 当程序需要使用不同方式处理不同种类请求， 而且请求类型和顺序预先未知时， 可以使用责任链模式。当必须按顺序执行多个处理者时， 可以使用该模式。如果所需处理者及其顺序必须在运行时进行改变， 可以使用责任链模式。
+ AuthService   AuthController  重写后"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2023 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>Chain of Responsibility, Command and Iterator, Mediator, Memento</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Sun, Apr 10, 2022
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">One-minute read</span>
+            </div>
+            
+        </div>
+
+        <h3 id="1-chain-of-responsibility">1. Chain of Responsibility</h3>
+<p>当程序需要使用不同方式处理不同种类请求， 而且请求类型和顺序预先未知时， 可以使用责任链模式。当必须按顺序执行多个处理者时， 可以使用该模式。如果所需处理者及其顺序必须在运行时进行改变， 可以使用责任链模式。</p>
+<ul>
+<li>AuthService</li>
+</ul>
+<!-- 提供了两个接⼝⼀个是查询审核结果( queryAuthInfo )、另外⼀个是处理审核( auth )。
+这部分是把由谁审核的和审核的单⼦ID作为唯⼀key值记录到内存Map结构中。 -->
+<ul>
+<li>AuthController</li>
+</ul>
+<!-- if一级审批，如果二级，一坨if else -->
+<p>重写后</p>
+<ul>
+<li>imp
+<ul>
+<li>Level1AuthLink.jav</li>
+<li>Level2AuthLink.jav</li>
+<li>Level3AuthLink.java</li>
+</ul>
+</li>
+<li>AuthInfo.java</li>
+</ul>
+<!-- 责任链处理过程中返回结果的类，⽅⾯处理每个责任链的返回信息 -->
+<ul>
+<li>AuthLink.java</li>
+</ul>
+<!-- 这部分是责任链，链接起来的核⼼部分。 AuthLink next ，᯿点在于可以通过 next ⽅式获取下
+⼀个链路需要处理的节点。
+levelUserId 、 levelUserName ，是责任链中的公⽤信息，标记每⼀个审核节点的⼈员信息。
+抽象类中定义了⼀个抽象⽅法， abstract AuthInfo doAuth ，这是每⼀个实现者必须实现的
+类，不同的审核级别处理不同的业务。 -->
+<p>⼀般在使⽤责任链时候如果是场景⽐较固定，可以通过写死到代码中进⾏初始化。但如果业务场景
+经常变化可以做成xml配置的⽅式进⾏处理，也可以落到库⾥进⾏初始化操作</p>
+<p>测试类</p>
+<p>AuthLink new 一个新类，里面包含了三级人员信息</p>
+<p>AuthService.auth模拟审批</p>
+<h3 id="2-command">2. Command</h3>
+<p>通过操作来参数化对象,将操作放入队列中、 操作的执行或者远程执行操作， 可使用命令模式,实现操作回滚功</p>
+<p>比如点菜，根据客户不同需求服务员传递给厨师。</p>
+<p>避免一堆的if else</p>
+<ul>
+<li>result
+<ul>
+<li>impl
+<ul>
+<li>A</li>
+<li>B</li>
+<li>C</li>
+</ul>
+</li>
+<li>IRes</li>
+</ul>
+</li>
+<li>require
+<ul>
+<li>impl
+<ul>
+<li>AReq</li>
+</ul>
+  <!-- private IRes res -->
+<ul>
+<li>BReq</li>
+<li>CReq</li>
+</ul>
+</li>
+<li>IRequire</li>
+</ul>
+</li>
+<li>Commander</li>
+</ul>
+<h3 id="3--iterator">3.  Iterator</h3>
+<p>当集合背后为复杂的数据结构， 且你希望对客户端隐藏其复杂性时 （出于使用便利性或安全性的考虑）， 可以使用迭代器模式,</p>
+<ul>
+<li>group
+<ul>
+<li>Employee.java</li>
+<li>GroupStructure.java</li>
+</ul>
+  <!-- s GroupStructure implements Collection<Employee, Link>  -->
+<ul>
+<li>Link.java</li>
+</ul>
+  <!-- 这个类⽤于描述结构树中的各个节点之间的关系链，也就是 A to B 、 B to C 、 B to D ，以此描述出⼀套完整的树组织结构 -->
+</li>
+<li>lang
+<ul>
+<li>Collection.java</li>
+</ul>
+  <!-- interface Collection<E, L> extends Iterable<E> -->
+<ul>
+<li>Iterable.java</li>
+</ul>
+  <!-- Iterator<E> iterator(); 置入 -->
+<ul>
+<li>Iterator.java</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-mediator">4. Mediator</h3>
+<p>当一些对象和其他对象紧密耦合以致难以对其进行修改时， 可使用中介者模式, 当组件因过于依赖其他组件而无法在不同应用中复用时，如果为了能在不同情景下复用一些基本行为， 导致你需要被迫创建大量组件子类时， 可使用中介者模式。</p>
+<p>Mysql和Oracle都是数据库层， ORM框架就是中介，再到不同的应用</p>
+<p>比如只用了一个JDBCUtil时候，直接操作数据库，用中介模式开发ORM</p>
+<ul>
+<li>
+<p>dao</p>
+<ul>
+<li>ISchool.java</li>
+<li>IUserDao.java</li>
+</ul>
+</li>
+<li>
+<p>mediator</p>
+<ul>
+<li>
+<p>Configuration.java</p>
+</li>
+<li>
+<p>SqlSession.java</p>
+</li>
+</ul>
+  <!-- 定义了对数据库操作的查询接⼝ <T> T selectOne(String statement)-->
+<ul>
+<li>DefaultSqlSession.java</li>
+</ul>
+  <!-- 接⼝定义的⽅法实现，也就是包装了jdbc层-->
+<ul>
+<li>SqlSessionFactory.java</li>
+</ul>
+  <!-- interface SqlSession openSession(); -->
+  <!--  开启⼀个 SqlSession ， 这⼏乎是⼤家在平时的使⽤中都需要进⾏操作的内容。虽然你看不⻅，但是当你有数据库操作的时候都会获取每⼀次执⾏的 SqlSession-->
+<ul>
+<li>DefaultSqlSessionFactory.java</li>
+</ul>
+  <!-- 当开启 SqlSession 时会进⾏返回⼀个 DefaultSqlSession -->
+<ul>
+<li>SqlSessionFactoryBuilder.java</li>
+</ul>
+</li>
+</ul>
+<!-- build(构建实例化元素) parseConfiguration(解析配置) 、
+dataSource(获取数据库配置) 、 connection(Map<String, String> dataSource) (链接数据
+库) 、 mapperElement (解析sql语句)-->
+<pre><code>- Resources.java
+</code></pre>
+<p>通过中介者模式的设计思想⼿写⼀个ORM框架，隐去了对数据库操作的复杂度，让外
+部的调⽤⽅可以⾮常简单的进⾏操作数据库。这也是平常使⽤的 Mybatis 的原型，在⽇
+常的开发使⽤中，只需要按照配置即可⾮常简单的操作数据库。</p>
+<p>还有服务接⼝的包装也可以使⽤中介者模式来实现。可以把这些奖品接⼝统⼀收到中台开发⼀个奖品
+中⼼，对外提供服务。</p>
+<ul>
+<li>po
+<ul>
+<li>School.java</li>
+<li>User.java</li>
+</ul>
+</li>
+</ul>
+<p>中介者模式模型结构 
+以上是对ORM框架实现的核⼼类，包括了；加载配置⽂件、对xml解析、获取数据库session、操
+作数据库以及结果返回。
+左上是对数据库的定义和处理，基本包括我们常⽤的⽅法； <T> T selectOne 、 <T> List<T>
+selectList 等。
+右侧蓝⾊部分是对数据库配置的开启session的⼯⼚处理类，这⾥的⼯⼚会操
+作 DefaultSqlSession
+之后是红⾊地⽅的 SqlSessionFactoryBuilder ，这个类是对数据库操作的核⼼类；处理⼯⼚、
+解析⽂件、拿到session等。
+接下来我们就分别介绍各个类的功能实现过程。
+2. 代码实现
+2.1 定义SqlSession接⼝
+$ !&quot;&quot; resources
+$ #&quot;&quot; mapper
+$ $ #&quot;&quot; School_Mapper.xml
+$ $ !&quot;&quot; User_Mapper.xml
+$ !&quot;&quot; mybatis-config-datasource.xml</p>
+<h3 id="5-memento">5. Memento</h3>
+<p>对象快照，数据安全性</p>
+<p>old：</p>
+<ul>
+<li>Admin</li>
+<li>ConfigFile
+  <!-- 版本号  内容  时间 操作⼈ -->
+</li>
+<li>ConfigMemento : 备忘录类，相当于是对原有配置类的扩展</li>
+</ul>
+<!-- field为configfile，然后get set方法 -->
+<ul>
+<li>ConfigOriginator :记录者类，获取和返回备忘录类对象信息</li>
+</ul>
+<!-- field为configfile，然后get set方法， 多了个 新建 ConfigMemento，和得到ConfigMemento的方法-->
+<p>admin逻辑：
+new一个admin，ConfigOriginator记录着</p>
+<blockquote>
+<p>configOriginator.setConfigFile，记录一个版本号
+admin.append(ConfigOriginator.saveMemento())</p>
+</blockquote>
+<p>回滚
+configOriginator.getMemento(admin.undo())</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/design-pattern/">design pattern</a><a class="tag" href="/tags/chain-of-responsibility/">Chain of Responsibility</a><a class="tag" href="/tags/prototype/">Prototype&#34;</a><a class="tag" href="/tags/ood-design/">OOD design</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

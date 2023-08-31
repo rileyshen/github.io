@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bridge on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/bridge/</link>
+    <description>Recent content in Bridge on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 10 Apr 2023 15:23:47 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/bridge/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bridge, adapter and combination, decorator pattern</title>
+      <link>https://rileyshen.github.io/post/designpattern3-copy/</link>
+      <pubDate>Mon, 10 Apr 2023 15:23:47 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/designpattern3-copy/</guid>
+      
+        <description>&lt;h3 id=&#34;1-adapter&#34;&gt;1. Adapter&lt;/h3&gt;
+&lt;!-- [check my final code](https://github.com/rileyshen/DesignPattern/tree/main/adapter/src/main/java/translator)
+
+&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/adapter1.png&#34;
+         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
+            &lt;h4&gt;Adapter&lt;/h4&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+ --&gt;
+&lt;p&gt;系统需要复用现有类，而该类的接口不符合系统的需求，可以使用适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作&lt;/p&gt;
+&lt;p&gt;多个组件功能类似，但接口不统一且可能会经常切换时，可使用适配器模式，使得客户端可以以统一的接口使用它们&lt;/p&gt;
+&lt;p&gt;以下业务提供两个不同类型服务，一个是直接下单，一个是第三方下单，比如饿了吗&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;mp
+&lt;ul&gt;
+&lt;li&gt;create_account.java&lt;/li&gt;
+&lt;li&gt;OrderMq.java&lt;/li&gt;
+&lt;li&gt;POPOrderDelievered.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;service
+&lt;ul&gt;
+&lt;li&gt;OrderService.java&lt;/li&gt;
+&lt;li&gt;POPOrderService.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;问题是消息越来越多，我们调用几个service来发消息吗？&lt;/p&gt;
+&lt;p&gt;用一个通用的mq消息&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;MessageInfo&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MQAdapter: 把不同类型的mq都通过filter放入通用中， 只要我们需要的， 通常用hashmap，比如userid和uid， bizid和orderid搭配&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MessageInfo filter(String strJson, Map&amp;lt;String, String&amp;gt; map) -&amp;gt; return to 第二个方法&lt;/li&gt;
+&lt;li&gt;// return filter(JSONObject.parseObject(strJson, Map.class), map)
+// 把string 转给 map，变成一个方法&lt;/li&gt;
+&lt;li&gt;MessageInfo filter(Map obj, Map&amp;lt;String, String&amp;gt; map)
+&lt;ul&gt;
+&lt;li&gt;MessageInfo mess = new MessageInfo();
+//getMethod().invoke()方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;String to Map&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Map info = JSONObject.parseObject(info, Map.class)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;String to json&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JSONObject ob = JSONObject.parseObject(data)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;String to class&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;contractInfo = JSONObject.parseObject(contractStr, ContractInfo.class)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;map to object&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ClassOne one = JSONObject.parseObject(JSON.toJSONString(map), ClassOne.class)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;适配接口发消息service问题&lt;/p&gt;
+&lt;p&gt;统一适配接口：&lt;/p&gt;
+&lt;!-- + OrderService.java ： queryUserOrderCount
+    + POPOrderService.java ： isFirstOrder --&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;interface OrderAdapterService&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;boolean isFirst(String uId); 把前面两个服务找到一些共同点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;impl&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;InsideOrderService implments  OrderAdapterService&lt;/li&gt;
+&lt;li&gt;POPOrderAdapterServiceImpl implments  OrderAdapterService&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-bridge&#34;&gt;2. Bridge&lt;/h3&gt;
+&lt;p&gt;一个支付系统，用什么方式付和安全保证是两个系统，用bridge串联起来&lt;/p&gt;
+&lt;p&gt;payMethod
++ CreditPay
++ WXPay
++ ZFBPay&lt;/p&gt;
+&lt;p&gt;SecMethod
++ PayCypher
++ PayFaceMode
++ PayFinger&lt;/p&gt;
+&lt;p&gt;用桥接模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ApiTest&lt;/li&gt;
+&lt;li&gt;Pay(IPaySec)
+&lt;ul&gt;
+&lt;li&gt;CreditPay&lt;/li&gt;
+&lt;li&gt;WXPay&lt;/li&gt;
+&lt;li&gt;ZFBPay&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IPaySec
+&lt;ul&gt;
+&lt;li&gt;PayCypher&lt;/li&gt;
+&lt;li&gt;PayFaceMode&lt;/li&gt;
+&lt;li&gt;PayFinger&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;太简单了，没什么好说的。&lt;/p&gt;
+&lt;h3 id=&#34;3combination&#34;&gt;3.combination&lt;/h3&gt;
+&lt;p&gt;问卷中根据人群性别年龄发生不同广告，就是和广告模式，组合&lt;/p&gt;
+&lt;p&gt;性别
+年龄
+广告&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;model&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;aggregates
+&lt;ul&gt;
+&lt;li&gt;TreeRich&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;vo
+&lt;ul&gt;
+&lt;li&gt;TreeRoot&lt;/li&gt;
+&lt;li&gt;TreeNodeLink&lt;/li&gt;
+&lt;li&gt;TreeNode&lt;/li&gt;
+&lt;li&gt;EngineResult&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;LogicFilter(interface)&lt;/p&gt;
+&lt;p&gt;/**
+*@return 下一个节点ID
+*/&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Long filter(String matterValue, List&lt;TreeNodeLink&gt; treeNodeLineInfoList)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;/**
+*@return n 决策值
+*/&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;String matterValue(Long treeId, String userId, Map&amp;lt;String, String&amp;gt; decisionMatter)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;abstract class &lt;code&gt;BaseLogic&lt;/code&gt; implements &lt;code&gt;LogicFilter&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同时定义了抽象⽅法，让每⼀个实现接⼝的类都必须按照规则提供 决策值 ，这个决策值⽤于做逻
+辑⽐对。
+\&lt;/p&gt;
+&lt;p&gt;年龄和性别分层&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;UserAgeFilter&lt;/code&gt; extends &lt;code&gt;BaseLogic&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;UserGenderFilter&lt;/code&gt; extends &lt;code&gt;BaseLogic&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;interface &lt;code&gt;IEngine&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于使⽤⽅来说也同样需要定义统⼀的接⼝操作，这样的好处⾮常⽅便后续拓展出不同类型的决策
+引擎，也就是可以建造不同的决策⼯⼚&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EngineConfig&lt;/li&gt;
+&lt;li&gt;abstract class &lt;code&gt;EngineBase&lt;/code&gt; extends &lt;code&gt;EngineConfig&lt;/code&gt; implements &lt;code&gt;IEngine&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TreeEngineHandle&lt;/code&gt; extends &lt;code&gt;EngineBase&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;1 节点1： 性别
+1-》 11 连接是男性， 1-》12 连接是女性
+11  12 是年龄筛选
+11-》111 112是年龄连接
+111 112 121 122 几个广告结果，&lt;/p&gt;
+&lt;p&gt;重要，这⼀部分是组合模式⾮常᯿要的使⽤，在我们已经建造好的决策树关系下，可以创建出树的
+各个节点，以及对节点间使⽤链路进⾏串联。
+及时后续你需要做任何业务的扩展都可以在⾥⾯添加相应的节点，并做动态化的配置。
+关于这部分⼿动组合的⽅式可以提取到数据库中，那么也就可以扩展到图形界⾯的进⾏配置操作&lt;/p&gt;
+&lt;h3 id=&#34;4-decorator&#34;&gt;4. decorator&lt;/h3&gt;
+&lt;p&gt;发通知，可以发到手机，微信，qq，邮箱上，还可以只发其中几个做组合，这就可以用到decorator 模式，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;interface -&amp;gt; execute()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Component -&amp;gt;被封装对象所属的类，定义了基础行为，但是装饰类可以改变这些行为&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Base Decorator&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Decorators&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体的理一下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;interface&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DataSource
+&lt;ul&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Component -&amp;gt;被封装对象所属的类，定义了基础行为，但是装饰类可以改变这些行为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FileDataSource-&amp;gt; implements &lt;code&gt;DataSource&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;FileDataSource&lt;/li&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Base Decorator&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DataSourceDecorrator -&amp;gt; implements &lt;code&gt;DataSource&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;DataSourceDecorrator&lt;/li&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Decorators&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Encryption
+&lt;ul&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Compression&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不用装饰器的时候&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HandlerInterceptor (interface)&lt;/li&gt;
+&lt;li&gt;SsoInterceptor implements HandlerInterceptor&lt;/li&gt;
+&lt;li&gt;LoginSsoDecorator extends SsoInterceptor&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;直接继承下因功能的不断横向扩展导致⼦类膨胀的问题，⽽是⽤装饰器模式后就会
+⽐直接继承显得更加灵活同时这样也就不再需要考虑⼦类的维护&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;interface (&lt;code&gt;HandlerInterceptor&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Concrete Component -&amp;gt;(&lt;code&gt;SsoInterceptor&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Base Decorator -&amp;gt; &lt;code&gt;SsoDecorator&lt;/code&gt; implements &lt;code&gt;HandlerInterceptor&lt;/code&gt;
+在装饰类中有两个᯿点的地⽅是；1)继承了处理接⼝、2)提供了构造函数、3)覆盖了⽅法
+preHandle 。
+以上三个点是装饰器模式的核⼼处理部分，这样可以踢掉对⼦类继承的⽅式实现逻辑功能扩展&lt;/li&gt;
+&lt;li&gt;Concrete Decorators -&amp;gt; &lt;code&gt;LoginSsoDecorator&lt;/code&gt; extends &lt;code&gt;SsoDecorator&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在具体的装饰类实现中，继承了装饰类 SsoDecorator ，那么现在就可以扩展⽅法； preHandle
+在 preHandle 的实现中可以看到，这⾥只关⼼扩展部分的功能，同时不会影响原有类的核⼼服
+务，也不会因为使⽤继承⽅式⽽导致的多余⼦类，增加了整体的灵活性.&lt;/p&gt;
+&lt;p&gt;装饰类似于组合， 但其只有一个子组件。 此外还有一个明显不同： 装饰为被封装对象添加了额外的职责， 组合仅对其子节点的结果进行了 “求和”。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

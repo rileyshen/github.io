@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | Bridge, adapter and combination, decorator pattern </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="design small projects(Decoration Package system, fast food ordering system, game actors ) to better understand design patterns">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/designpattern3-copy/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="Bridge, adapter and combination, decorator pattern"/>
+<meta name="twitter:description" content="design small projects(Decoration Package system, fast food ordering system, game actors ) to better understand design patterns"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2023 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>Bridge, adapter and combination, decorator pattern</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Mon, Apr 10, 2023
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">2-minute read</span>
+            </div>
+            
+        </div>
+
+        <h3 id="1-adapter">1. Adapter</h3>
+<!-- [check my final code](https://github.com/rileyshen/DesignPattern/tree/main/adapter/src/main/java/translator)
+
+<figure><img src="/images/adapter1.png"
+         alt="image"/><figcaption>
+            <h4>Adapter</h4>
+        </figcaption>
+</figure>
+ -->
+<p>系统需要复用现有类，而该类的接口不符合系统的需求，可以使用适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作</p>
+<p>多个组件功能类似，但接口不统一且可能会经常切换时，可使用适配器模式，使得客户端可以以统一的接口使用它们</p>
+<p>以下业务提供两个不同类型服务，一个是直接下单，一个是第三方下单，比如饿了吗</p>
+<ul>
+<li>mp
+<ul>
+<li>create_account.java</li>
+<li>OrderMq.java</li>
+<li>POPOrderDelievered.java</li>
+</ul>
+</li>
+<li>service
+<ul>
+<li>OrderService.java</li>
+<li>POPOrderService.java</li>
+</ul>
+</li>
+</ul>
+<p>问题是消息越来越多，我们调用几个service来发消息吗？</p>
+<p>用一个通用的mq消息</p>
+<ul>
+<li>
+<p>MessageInfo</p>
+</li>
+<li>
+<p>MQAdapter: 把不同类型的mq都通过filter放入通用中， 只要我们需要的， 通常用hashmap，比如userid和uid， bizid和orderid搭配</p>
+<ul>
+<li>MessageInfo filter(String strJson, Map&lt;String, String&gt; map) -&gt; return to 第二个方法</li>
+<li>// return filter(JSONObject.parseObject(strJson, Map.class), map)
+// 把string 转给 map，变成一个方法</li>
+<li>MessageInfo filter(Map obj, Map&lt;String, String&gt; map)
+<ul>
+<li>MessageInfo mess = new MessageInfo();
+//getMethod().invoke()方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>String to Map</p>
+<blockquote>
+<p>Map info = JSONObject.parseObject(info, Map.class)</p>
+</blockquote>
+<p>String to json</p>
+<blockquote>
+<p>JSONObject ob = JSONObject.parseObject(data)</p>
+</blockquote>
+<p>String to class</p>
+<blockquote>
+<p>contractInfo = JSONObject.parseObject(contractStr, ContractInfo.class)</p>
+</blockquote>
+<p>map to object</p>
+<blockquote>
+<p>ClassOne one = JSONObject.parseObject(JSON.toJSONString(map), ClassOne.class)</p>
+</blockquote>
+<hr>
+<p>适配接口发消息service问题</p>
+<p>统一适配接口：</p>
+<!-- + OrderService.java ： queryUserOrderCount
+    + POPOrderService.java ： isFirstOrder -->
+<ul>
+<li>
+<p>interface OrderAdapterService</p>
+<ul>
+<li>boolean isFirst(String uId); 把前面两个服务找到一些共同点</li>
+</ul>
+</li>
+<li>
+<p>impl</p>
+<ul>
+<li>InsideOrderService implments  OrderAdapterService</li>
+<li>POPOrderAdapterServiceImpl implments  OrderAdapterService</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-bridge">2. Bridge</h3>
+<p>一个支付系统，用什么方式付和安全保证是两个系统，用bridge串联起来</p>
+<p>payMethod
++ CreditPay
++ WXPay
++ ZFBPay</p>
+<p>SecMethod
++ PayCypher
++ PayFaceMode
++ PayFinger</p>
+<p>用桥接模式</p>
+<ul>
+<li>ApiTest</li>
+<li>Pay(IPaySec)
+<ul>
+<li>CreditPay</li>
+<li>WXPay</li>
+<li>ZFBPay</li>
+</ul>
+</li>
+<li>IPaySec
+<ul>
+<li>PayCypher</li>
+<li>PayFaceMode</li>
+<li>PayFinger</li>
+</ul>
+</li>
+</ul>
+<p>太简单了，没什么好说的。</p>
+<h3 id="3combination">3.combination</h3>
+<p>问卷中根据人群性别年龄发生不同广告，就是和广告模式，组合</p>
+<p>性别
+年龄
+广告</p>
+<ul>
+<li>
+<p>model</p>
+<ul>
+<li>aggregates
+<ul>
+<li>TreeRich</li>
+</ul>
+</li>
+<li>vo
+<ul>
+<li>TreeRoot</li>
+<li>TreeNodeLink</li>
+<li>TreeNode</li>
+<li>EngineResult</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>LogicFilter(interface)</p>
+<p>/**
+*@return 下一个节点ID
+*/</p>
+<ul>
+<li>Long filter(String matterValue, List<TreeNodeLink> treeNodeLineInfoList)</li>
+</ul>
+<p>/**
+*@return n 决策值
+*/</p>
+<ul>
+<li>String matterValue(Long treeId, String userId, Map&lt;String, String&gt; decisionMatter)</li>
+</ul>
+</li>
+<li>
+<p>abstract class <code>BaseLogic</code> implements <code>LogicFilter</code></p>
+</li>
+</ul>
+<p>同时定义了抽象⽅法，让每⼀个实现接⼝的类都必须按照规则提供 决策值 ，这个决策值⽤于做逻
+辑⽐对。
+\</p>
+<p>年龄和性别分层</p>
+<ul>
+<li>
+<p><code>UserAgeFilter</code> extends <code>BaseLogic</code></p>
+</li>
+<li>
+<p><code>UserGenderFilter</code> extends <code>BaseLogic</code></p>
+</li>
+<li>
+<p>interface <code>IEngine</code></p>
+</li>
+</ul>
+<p>对于使⽤⽅来说也同样需要定义统⼀的接⼝操作，这样的好处⾮常⽅便后续拓展出不同类型的决策
+引擎，也就是可以建造不同的决策⼯⼚</p>
+<ul>
+<li>EngineConfig</li>
+<li>abstract class <code>EngineBase</code> extends <code>EngineConfig</code> implements <code>IEngine</code></li>
+<li><code>TreeEngineHandle</code> extends <code>EngineBase</code></li>
+</ul>
+<p>1 节点1： 性别
+1-》 11 连接是男性， 1-》12 连接是女性
+11  12 是年龄筛选
+11-》111 112是年龄连接
+111 112 121 122 几个广告结果，</p>
+<p>重要，这⼀部分是组合模式⾮常᯿要的使⽤，在我们已经建造好的决策树关系下，可以创建出树的
+各个节点，以及对节点间使⽤链路进⾏串联。
+及时后续你需要做任何业务的扩展都可以在⾥⾯添加相应的节点，并做动态化的配置。
+关于这部分⼿动组合的⽅式可以提取到数据库中，那么也就可以扩展到图形界⾯的进⾏配置操作</p>
+<h3 id="4-decorator">4. decorator</h3>
+<p>发通知，可以发到手机，微信，qq，邮箱上，还可以只发其中几个做组合，这就可以用到decorator 模式，</p>
+<ul>
+<li>
+<p>interface -&gt; execute()</p>
+</li>
+<li>
+<p>Concrete Component -&gt;被封装对象所属的类，定义了基础行为，但是装饰类可以改变这些行为</p>
+</li>
+<li>
+<p>Base Decorator</p>
+</li>
+<li>
+<p>Concrete Decorators</p>
+</li>
+</ul>
+<p>具体的理一下</p>
+<ul>
+<li>
+<p>interface</p>
+<ul>
+<li>DataSource
+<ul>
+<li>writeData</li>
+<li>readDate</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Concrete Component -&gt;被封装对象所属的类，定义了基础行为，但是装饰类可以改变这些行为</p>
+<ul>
+<li>FileDataSource-&gt; implements <code>DataSource</code>
+<ul>
+<li>FileDataSource</li>
+<li>writeData</li>
+<li>readDate</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Base Decorator</p>
+<ul>
+<li>DataSourceDecorrator -&gt; implements <code>DataSource</code>
+<ul>
+<li>DataSourceDecorrator</li>
+<li>writeData</li>
+<li>readDate</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Concrete Decorators</p>
+<ul>
+<li>Encryption
+<ul>
+<li>writeData</li>
+<li>readDate</li>
+</ul>
+</li>
+<li>Compression</li>
+</ul>
+</li>
+</ul>
+<p>不用装饰器的时候</p>
+<ul>
+<li>HandlerInterceptor (interface)</li>
+<li>SsoInterceptor implements HandlerInterceptor</li>
+<li>LoginSsoDecorator extends SsoInterceptor</li>
+</ul>
+<p>直接继承下因功能的不断横向扩展导致⼦类膨胀的问题，⽽是⽤装饰器模式后就会
+⽐直接继承显得更加灵活同时这样也就不再需要考虑⼦类的维护</p>
+<ul>
+<li>interface (<code>HandlerInterceptor</code>)</li>
+<li>Concrete Component -&gt;(<code>SsoInterceptor</code>)</li>
+<li>Base Decorator -&gt; <code>SsoDecorator</code> implements <code>HandlerInterceptor</code>
+在装饰类中有两个᯿点的地⽅是；1)继承了处理接⼝、2)提供了构造函数、3)覆盖了⽅法
+preHandle 。
+以上三个点是装饰器模式的核⼼处理部分，这样可以踢掉对⼦类继承的⽅式实现逻辑功能扩展</li>
+<li>Concrete Decorators -&gt; <code>LoginSsoDecorator</code> extends <code>SsoDecorator</code></li>
+</ul>
+<p>在具体的装饰类实现中，继承了装饰类 SsoDecorator ，那么现在就可以扩展⽅法； preHandle
+在 preHandle 的实现中可以看到，这⾥只关⼼扩展部分的功能，同时不会影响原有类的核⼼服
+务，也不会因为使⽤继承⽅式⽽导致的多余⼦类，增加了整体的灵活性.</p>
+<p>装饰类似于组合， 但其只有一个子组件。 此外还有一个明显不同： 装饰为被封装对象添加了额外的职责， 组合仅对其子节点的结果进行了 “求和”。</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/design-pattern/">design pattern</a><a class="tag" href="/tags/adapter/">Adapter</a><a class="tag" href="/tags/bridge/">Bridge</a><a class="tag" href="/tags/ood-design/">OOD design</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

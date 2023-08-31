@@ -6,584 +6,626 @@
     <description>Recent content in design pattern on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 10 Apr 2022 15:23:47 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/design-pattern/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Apr 2023 15:23:47 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/design-pattern/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Bridge, adapter and </title>
-      <link>https://rileyshen.github.io/post/designpattern3/</link>
-      <pubDate>Sun, 10 Apr 2022 15:23:47 +0800</pubDate>
+      <title>Bridge, adapter and combination, decorator pattern</title>
+      <link>https://rileyshen.github.io/post/designpattern3-copy/</link>
+      <pubDate>Mon, 10 Apr 2023 15:23:47 +0800</pubDate>
       
-      <guid>https://rileyshen.github.io/post/designpattern3/</guid>
+      <guid>https://rileyshen.github.io/post/designpattern3-copy/</guid>
       
-        <description>&lt;h3 id=&#34;1-builder-design-a-decorationpackage&#34;&gt;1. Builder： design a DecorationPackage&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/adapter/src/main/java/translator&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
+        <description>&lt;h3 id=&#34;1-adapter&#34;&gt;1. Adapter&lt;/h3&gt;
+&lt;!-- [check my final code](https://github.com/rileyshen/DesignPattern/tree/main/adapter/src/main/java/translator)
+
 &lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/adapter1.png&#34;
          alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
             &lt;h4&gt;Adapter&lt;/h4&gt;
         &lt;/figcaption&gt;
 &lt;/figure&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;appendCeiling&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;appendFloor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;Imenu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;appendTile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;matter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-   &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getDetail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Matter&lt;/strong&gt; =&amp;gt; (interface)&lt;/p&gt;
+ --&gt;
+&lt;p&gt;系统需要复用现有类，而该类的接口不符合系统的需求，可以使用适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作&lt;/p&gt;
+&lt;p&gt;多个组件功能类似，但接口不统一且可能会经常切换时，可使用适配器模式，使得客户端可以以统一的接口使用它们&lt;/p&gt;
+&lt;p&gt;以下业务提供两个不同类型服务，一个是直接下单，一个是第三方下单，比如饿了吗&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;ceiling&lt;/strong&gt;
+&lt;li&gt;mp
 &lt;ul&gt;
-&lt;li&gt;LevelOneCeiling&lt;/li&gt;
-&lt;li&gt;LevelTwoCeiling&lt;/li&gt;
+&lt;li&gt;create_account.java&lt;/li&gt;
+&lt;li&gt;OrderMq.java&lt;/li&gt;
+&lt;li&gt;POPOrderDelievered.java&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;floor&lt;/strong&gt;
+&lt;li&gt;service
 &lt;ul&gt;
-&lt;li&gt;LevelOneFloor&lt;/li&gt;
-&lt;li&gt;LevelTwoFloor&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;tile&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;LevelOneTile&lt;/li&gt;
-&lt;li&gt;LevelTwoTile&lt;/li&gt;
+&lt;li&gt;OrderService.java&lt;/li&gt;
+&lt;li&gt;POPOrderService.java&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;IMenu&lt;/strong&gt; =&amp;gt; IMenu method(Matter matter)&lt;/p&gt;
+&lt;p&gt;问题是消息越来越多，我们调用几个service来发消息吗？&lt;/p&gt;
+&lt;p&gt;用一个通用的mq消息&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Imenu appendCeiling(Matter matter);&lt;/p&gt;
+&lt;p&gt;MessageInfo&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Imenu appendFloor(Matter matter);&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Imenu appendTile(Matter matter);&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;String getDetail();&lt;/p&gt;
+&lt;p&gt;MQAdapter: 把不同类型的mq都通过filter放入通用中， 只要我们需要的， 通常用hashmap，比如userid和uid， bizid和orderid搭配&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MessageInfo filter(String strJson, Map&amp;lt;String, String&amp;gt; map) -&amp;gt; return to 第二个方法&lt;/li&gt;
+&lt;li&gt;// return filter(JSONObject.parseObject(strJson, Map.class), map)
+// 把string 转给 map，变成一个方法&lt;/li&gt;
+&lt;li&gt;MessageInfo filter(Map obj, Map&amp;lt;String, String&amp;gt; map)
+&lt;ul&gt;
+&lt;li&gt;MessageInfo mess = new MessageInfo();
+//getMethod().invoke()方法&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;IMenuImpl&lt;/strong&gt; =&amp;gt; &lt;strong&gt;Deco&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/decopackage3.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Builder&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;Builder&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;String to Map&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Map info = JSONObject.parseObject(info, Map.class)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;String to json&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JSONObject ob = JSONObject.parseObject(data)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;String to class&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;contractInfo = JSONObject.parseObject(contractStr, ContractInfo.class)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;map to object&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ClassOne one = JSONObject.parseObject(JSON.toJSONString(map), ClassOne.class)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;适配接口发消息service问题&lt;/p&gt;
+&lt;p&gt;统一适配接口：&lt;/p&gt;
+&lt;!-- + OrderService.java ： queryUserOrderCount
+    + POPOrderService.java ： isFirstOrder --&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;public &lt;strong&gt;Imenu&lt;/strong&gt; packageOne (Double area) {
-&lt;strong&gt;return&lt;/strong&gt; new &lt;strong&gt;Deco&lt;/strong&gt;(area, &amp;ldquo;CLASSIC&amp;rdquo;)
-.appendCeiling(new LevelOneCeiling())
-.appendFloor(new LevelOneFloor())
-.appendTile(new LevelOneTile());
+&lt;p&gt;interface OrderAdapterService&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;boolean isFirst(String uId); 把前面两个服务找到一些共同点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;impl&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;InsideOrderService implments  OrderAdapterService&lt;/li&gt;
+&lt;li&gt;POPOrderAdapterServiceImpl implments  OrderAdapterService&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-bridge&#34;&gt;2. Bridge&lt;/h3&gt;
+&lt;p&gt;一个支付系统，用什么方式付和安全保证是两个系统，用bridge串联起来&lt;/p&gt;
+&lt;p&gt;payMethod
++ CreditPay
++ WXPay
++ ZFBPay&lt;/p&gt;
+&lt;p&gt;SecMethod
++ PayCypher
++ PayFaceMode
++ PayFinger&lt;/p&gt;
+&lt;p&gt;用桥接模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ApiTest&lt;/li&gt;
+&lt;li&gt;Pay(IPaySec)
+&lt;ul&gt;
+&lt;li&gt;CreditPay&lt;/li&gt;
+&lt;li&gt;WXPay&lt;/li&gt;
+&lt;li&gt;ZFBPay&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IPaySec
+&lt;ul&gt;
+&lt;li&gt;PayCypher&lt;/li&gt;
+&lt;li&gt;PayFaceMode&lt;/li&gt;
+&lt;li&gt;PayFinger&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;太简单了，没什么好说的。&lt;/p&gt;
+&lt;h3 id=&#34;3combination&#34;&gt;3.combination&lt;/h3&gt;
+&lt;p&gt;问卷中根据人群性别年龄发生不同广告，就是和广告模式，组合&lt;/p&gt;
+&lt;p&gt;性别
+年龄
+广告&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;model&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;aggregates
+&lt;ul&gt;
+&lt;li&gt;TreeRich&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;vo
+&lt;ul&gt;
+&lt;li&gt;TreeRoot&lt;/li&gt;
+&lt;li&gt;TreeNodeLink&lt;/li&gt;
+&lt;li&gt;TreeNode&lt;/li&gt;
+&lt;li&gt;EngineResult&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;LogicFilter(interface)&lt;/p&gt;
+&lt;p&gt;/**
+*@return 下一个节点ID
+*/&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Long filter(String matterValue, List&lt;TreeNodeLink&gt; treeNodeLineInfoList)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;/**
+*@return n 决策值
+*/&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;String matterValue(Long treeId, String userId, Map&amp;lt;String, String&amp;gt; decisionMatter)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;abstract class &lt;code&gt;BaseLogic&lt;/code&gt; implements &lt;code&gt;LogicFilter&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同时定义了抽象⽅法，让每⼀个实现接⼝的类都必须按照规则提供 决策值 ，这个决策值⽤于做逻
+辑⽐对。
+\&lt;/p&gt;
+&lt;p&gt;年龄和性别分层&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;UserAgeFilter&lt;/code&gt; extends &lt;code&gt;BaseLogic&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;UserGenderFilter&lt;/code&gt; extends &lt;code&gt;BaseLogic&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;interface &lt;code&gt;IEngine&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于使⽤⽅来说也同样需要定义统⼀的接⼝操作，这样的好处⾮常⽅便后续拓展出不同类型的决策
+引擎，也就是可以建造不同的决策⼯⼚&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EngineConfig&lt;/li&gt;
+&lt;li&gt;abstract class &lt;code&gt;EngineBase&lt;/code&gt; extends &lt;code&gt;EngineConfig&lt;/code&gt; implements &lt;code&gt;IEngine&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TreeEngineHandle&lt;/code&gt; extends &lt;code&gt;EngineBase&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;1 节点1： 性别
+1-》 11 连接是男性， 1-》12 连接是女性
+11  12 是年龄筛选
+11-》111 112是年龄连接
+111 112 121 122 几个广告结果，&lt;/p&gt;
+&lt;p&gt;重要，这⼀部分是组合模式⾮常᯿要的使⽤，在我们已经建造好的决策树关系下，可以创建出树的
+各个节点，以及对节点间使⽤链路进⾏串联。
+及时后续你需要做任何业务的扩展都可以在⾥⾯添加相应的节点，并做动态化的配置。
+关于这部分⼿动组合的⽅式可以提取到数据库中，那么也就可以扩展到图形界⾯的进⾏配置操作&lt;/p&gt;
+&lt;h3 id=&#34;4-decorator&#34;&gt;4. decorator&lt;/h3&gt;
+&lt;p&gt;发通知，可以发到手机，微信，qq，邮箱上，还可以只发其中几个做组合，这就可以用到decorator 模式，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;interface -&amp;gt; execute()&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Component -&amp;gt;被封装对象所属的类，定义了基础行为，但是装饰类可以改变这些行为&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Base Decorator&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Decorators&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;具体的理一下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;interface&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DataSource
+&lt;ul&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Component -&amp;gt;被封装对象所属的类，定义了基础行为，但是装饰类可以改变这些行为&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FileDataSource-&amp;gt; implements &lt;code&gt;DataSource&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;FileDataSource&lt;/li&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Base Decorator&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DataSourceDecorrator -&amp;gt; implements &lt;code&gt;DataSource&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;DataSourceDecorrator&lt;/li&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concrete Decorators&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Encryption
+&lt;ul&gt;
+&lt;li&gt;writeData&lt;/li&gt;
+&lt;li&gt;readDate&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Compression&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不用装饰器的时候&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HandlerInterceptor (interface)&lt;/li&gt;
+&lt;li&gt;SsoInterceptor implements HandlerInterceptor&lt;/li&gt;
+&lt;li&gt;LoginSsoDecorator extends SsoInterceptor&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;直接继承下因功能的不断横向扩展导致⼦类膨胀的问题，⽽是⽤装饰器模式后就会
+⽐直接继承显得更加灵活同时这样也就不再需要考虑⼦类的维护&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;interface (&lt;code&gt;HandlerInterceptor&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Concrete Component -&amp;gt;(&lt;code&gt;SsoInterceptor&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Base Decorator -&amp;gt; &lt;code&gt;SsoDecorator&lt;/code&gt; implements &lt;code&gt;HandlerInterceptor&lt;/code&gt;
+在装饰类中有两个᯿点的地⽅是；1)继承了处理接⼝、2)提供了构造函数、3)覆盖了⽅法
+preHandle 。
+以上三个点是装饰器模式的核⼼处理部分，这样可以踢掉对⼦类继承的⽅式实现逻辑功能扩展&lt;/li&gt;
+&lt;li&gt;Concrete Decorators -&amp;gt; &lt;code&gt;LoginSsoDecorator&lt;/code&gt; extends &lt;code&gt;SsoDecorator&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在具体的装饰类实现中，继承了装饰类 SsoDecorator ，那么现在就可以扩展⽅法； preHandle
+在 preHandle 的实现中可以看到，这⾥只关⼼扩展部分的功能，同时不会影响原有类的核⼼服
+务，也不会因为使⽤继承⽅式⽽导致的多余⼦类，增加了整体的灵活性.&lt;/p&gt;
+&lt;p&gt;装饰类似于组合， 但其只有一个子组件。 此外还有一个明显不同： 装饰为被封装对象添加了额外的职责， 组合仅对其子节点的结果进行了 “求和”。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Chain of Responsibility, Command and Iterator, Mediator, Memento</title>
+      <link>https://rileyshen.github.io/post/designpattern4-copy/</link>
+      <pubDate>Sun, 10 Apr 2022 15:23:47 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/designpattern4-copy/</guid>
+      
+        <description>&lt;h3 id=&#34;1-chain-of-responsibility&#34;&gt;1. Chain of Responsibility&lt;/h3&gt;
+&lt;p&gt;当程序需要使用不同方式处理不同种类请求， 而且请求类型和顺序预先未知时， 可以使用责任链模式。当必须按顺序执行多个处理者时， 可以使用该模式。如果所需处理者及其顺序必须在运行时进行改变， 可以使用责任链模式。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;AuthService&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 提供了两个接⼝⼀个是查询审核结果( queryAuthInfo )、另外⼀个是处理审核( auth )。
+这部分是把由谁审核的和审核的单⼦ID作为唯⼀key值记录到内存Map结构中。 --&gt;
+&lt;ul&gt;
+&lt;li&gt;AuthController&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- if一级审批，如果二级，一坨if else --&gt;
+&lt;p&gt;重写后&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;imp
+&lt;ul&gt;
+&lt;li&gt;Level1AuthLink.jav&lt;/li&gt;
+&lt;li&gt;Level2AuthLink.jav&lt;/li&gt;
+&lt;li&gt;Level3AuthLink.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;AuthInfo.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 责任链处理过程中返回结果的类，⽅⾯处理每个责任链的返回信息 --&gt;
+&lt;ul&gt;
+&lt;li&gt;AuthLink.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 这部分是责任链，链接起来的核⼼部分。 AuthLink next ，᯿点在于可以通过 next ⽅式获取下
+⼀个链路需要处理的节点。
+levelUserId 、 levelUserName ，是责任链中的公⽤信息，标记每⼀个审核节点的⼈员信息。
+抽象类中定义了⼀个抽象⽅法， abstract AuthInfo doAuth ，这是每⼀个实现者必须实现的
+类，不同的审核级别处理不同的业务。 --&gt;
+&lt;p&gt;⼀般在使⽤责任链时候如果是场景⽐较固定，可以通过写死到代码中进⾏初始化。但如果业务场景
+经常变化可以做成xml配置的⽅式进⾏处理，也可以落到库⾥进⾏初始化操作&lt;/p&gt;
+&lt;p&gt;测试类&lt;/p&gt;
+&lt;p&gt;AuthLink new 一个新类，里面包含了三级人员信息&lt;/p&gt;
+&lt;p&gt;AuthService.auth模拟审批&lt;/p&gt;
+&lt;h3 id=&#34;2-command&#34;&gt;2. Command&lt;/h3&gt;
+&lt;p&gt;通过操作来参数化对象,将操作放入队列中、 操作的执行或者远程执行操作， 可使用命令模式,实现操作回滚功&lt;/p&gt;
+&lt;p&gt;比如点菜，根据客户不同需求服务员传递给厨师。&lt;/p&gt;
+&lt;p&gt;避免一堆的if else&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;result
+&lt;ul&gt;
+&lt;li&gt;impl
+&lt;ul&gt;
+&lt;li&gt;A&lt;/li&gt;
+&lt;li&gt;B&lt;/li&gt;
+&lt;li&gt;C&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IRes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;require
+&lt;ul&gt;
+&lt;li&gt;impl
+&lt;ul&gt;
+&lt;li&gt;AReq&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- private IRes res --&gt;
+&lt;ul&gt;
+&lt;li&gt;BReq&lt;/li&gt;
+&lt;li&gt;CReq&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IRequire&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Commander&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3--iterator&#34;&gt;3.  Iterator&lt;/h3&gt;
+&lt;p&gt;当集合背后为复杂的数据结构， 且你希望对客户端隐藏其复杂性时 （出于使用便利性或安全性的考虑）， 可以使用迭代器模式,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;group
+&lt;ul&gt;
+&lt;li&gt;Employee.java&lt;/li&gt;
+&lt;li&gt;GroupStructure.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- s GroupStructure implements Collection&lt;Employee, Link&gt;  --&gt;
+&lt;ul&gt;
+&lt;li&gt;Link.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- 这个类⽤于描述结构树中的各个节点之间的关系链，也就是 A to B 、 B to C 、 B to D ，以此描述出⼀套完整的树组织结构 --&gt;
+&lt;/li&gt;
+&lt;li&gt;lang
+&lt;ul&gt;
+&lt;li&gt;Collection.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- interface Collection&lt;E, L&gt; extends Iterable&lt;E&gt; --&gt;
+&lt;ul&gt;
+&lt;li&gt;Iterable.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- Iterator&lt;E&gt; iterator(); 置入 --&gt;
+&lt;ul&gt;
+&lt;li&gt;Iterator.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-mediator&#34;&gt;4. Mediator&lt;/h3&gt;
+&lt;p&gt;当一些对象和其他对象紧密耦合以致难以对其进行修改时， 可使用中介者模式, 当组件因过于依赖其他组件而无法在不同应用中复用时，如果为了能在不同情景下复用一些基本行为， 导致你需要被迫创建大量组件子类时， 可使用中介者模式。&lt;/p&gt;
+&lt;p&gt;Mysql和Oracle都是数据库层， ORM框架就是中介，再到不同的应用&lt;/p&gt;
+&lt;p&gt;比如只用了一个JDBCUtil时候，直接操作数据库，用中介模式开发ORM&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;dao&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ISchool.java&lt;/li&gt;
+&lt;li&gt;IUserDao.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mediator&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Configuration.java&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SqlSession.java&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- 定义了对数据库操作的查询接⼝ &lt;T&gt; T selectOne(String statement)--&gt;
+&lt;ul&gt;
+&lt;li&gt;DefaultSqlSession.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- 接⼝定义的⽅法实现，也就是包装了jdbc层--&gt;
+&lt;ul&gt;
+&lt;li&gt;SqlSessionFactory.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- interface SqlSession openSession(); --&gt;
+  &lt;!--  开启⼀个 SqlSession ， 这⼏乎是⼤家在平时的使⽤中都需要进⾏操作的内容。虽然你看不⻅，但是当你有数据库操作的时候都会获取每⼀次执⾏的 SqlSession--&gt;
+&lt;ul&gt;
+&lt;li&gt;DefaultSqlSessionFactory.java&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- 当开启 SqlSession 时会进⾏返回⼀个 DefaultSqlSession --&gt;
+&lt;ul&gt;
+&lt;li&gt;SqlSessionFactoryBuilder.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- build(构建实例化元素) parseConfiguration(解析配置) 、
+dataSource(获取数据库配置) 、 connection(Map&lt;String, String&gt; dataSource) (链接数据
+库) 、 mapperElement (解析sql语句)--&gt;
+&lt;pre&gt;&lt;code&gt;- Resources.java
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过中介者模式的设计思想⼿写⼀个ORM框架，隐去了对数据库操作的复杂度，让外
+部的调⽤⽅可以⾮常简单的进⾏操作数据库。这也是平常使⽤的 Mybatis 的原型，在⽇
+常的开发使⽤中，只需要按照配置即可⾮常简单的操作数据库。&lt;/p&gt;
+&lt;p&gt;还有服务接⼝的包装也可以使⽤中介者模式来实现。可以把这些奖品接⼝统⼀收到中台开发⼀个奖品
+中⼼，对外提供服务。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;po
+&lt;ul&gt;
+&lt;li&gt;School.java&lt;/li&gt;
+&lt;li&gt;User.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;中介者模式模型结构 
+以上是对ORM框架实现的核⼼类，包括了；加载配置⽂件、对xml解析、获取数据库session、操
+作数据库以及结果返回。
+左上是对数据库的定义和处理，基本包括我们常⽤的⽅法； &lt;T&gt; T selectOne 、 &lt;T&gt; List&lt;T&gt;
+selectList 等。
+右侧蓝⾊部分是对数据库配置的开启session的⼯⼚处理类，这⾥的⼯⼚会操
+作 DefaultSqlSession
+之后是红⾊地⽅的 SqlSessionFactoryBuilder ，这个类是对数据库操作的核⼼类；处理⼯⼚、
+解析⽂件、拿到session等。
+接下来我们就分别介绍各个类的功能实现过程。
+2. 代码实现
+2.1 定义SqlSession接⼝
+$ !&amp;quot;&amp;quot; resources
+$ #&amp;quot;&amp;quot; mapper
+$ $ #&amp;quot;&amp;quot; School_Mapper.xml
+$ $ !&amp;quot;&amp;quot; User_Mapper.xml
+$ !&amp;quot;&amp;quot; mybatis-config-datasource.xml&lt;/p&gt;
+&lt;h3 id=&#34;5-memento&#34;&gt;5. Memento&lt;/h3&gt;
+&lt;p&gt;对象快照，数据安全性&lt;/p&gt;
+&lt;p&gt;old：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Admin&lt;/li&gt;
+&lt;li&gt;ConfigFile
+  &lt;!-- 版本号  内容  时间 操作⼈ --&gt;
+&lt;/li&gt;
+&lt;li&gt;ConfigMemento : 备忘录类，相当于是对原有配置类的扩展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- field为configfile，然后get set方法 --&gt;
+&lt;ul&gt;
+&lt;li&gt;ConfigOriginator :记录者类，获取和返回备忘录类对象信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- field为configfile，然后get set方法， 多了个 新建 ConfigMemento，和得到ConfigMemento的方法--&gt;
+&lt;p&gt;admin逻辑：
+new一个admin，ConfigOriginator记录着&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;configOriginator.setConfigFile，记录一个版本号
+admin.append(ConfigOriginator.saveMemento())&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;回滚
+configOriginator.getMemento(admin.undo())&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>Facade Pattern, Flyweight Pattern and Proxy Pattern</title>
+      <link>https://rileyshen.github.io/post/designpattern4/</link>
+      <pubDate>Sun, 10 Apr 2022 15:23:47 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/designpattern4/</guid>
+      
+        <description>&lt;h3 id=&#34;1-facade&#34;&gt;1. Facade&lt;/h3&gt;
+&lt;p&gt;外观类为包含许多活动部件的复杂子系统提供一个简单的接口。 与直接调用子系统相比， 外观提供的功能可能比较有限， 但它却包含了客户端真正关心的功能。&lt;/p&gt;
+&lt;p&gt;如果你的程序需要与包含几十种功能的复杂库整合， 但只需使用其中非常少的功能， 那么使用外观模式会非常方便.
+&lt;br&gt;
+如果你需要一个指向复杂子系统的直接接口， 且该接口的功能有限， 则可以使用外观模式。&lt;/p&gt;
+&lt;p&gt;如果要充分发挥这一模式的优势， 你必须确保所有客户端代码仅通过外观来与子系统进行交互。 此后客户端代码将不会受到任何由子系统代码修改而造成的影响， 比如子系统升级后， 你只需修改外观中的代码即可。&lt;/p&gt;
+&lt;p&gt;外观模式为现有对象定义了一个新接口， 适配器模式则会试图运用已有的接口。 适配器通常只封装一个对象， 外观通常会作用于整个对象子系统上。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;domain
+&lt;ul&gt;
+&lt;li&gt;UserInfo&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;web
+&lt;ul&gt;
+&lt;li&gt;Controller&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- // 这⾥提供了⼀个基本的查询服务，通过⼊参 userId ，查询⽤户信息。后续就需要在这⾥扩展⽩名
+单，只有指定⽤户才可以查询，其他⽤户不能查询。 --&gt;
+&lt;!-- 然后在这里方面里面用userlist加入好几个用户名，说不是此用户名就不行，但是后面白名单要改，会带来非常多问题 --&gt;
+&lt;ul&gt;
+&lt;li&gt;Application&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码重构后&lt;/p&gt;
+&lt;p&gt;外观 （Facade） 提供了一种访问特定子系统功能的便捷方式， 其了解如何重定向客户端请求， 知晓如何操作一切活动部件。&lt;/p&gt;
+&lt;p&gt;创建附加外观 （Additional Facade） 类可以避免多种不相关的功能污染单一外观， 使其变成又一个复杂结构。 客户端和其他外观都可使用附加外观。&lt;/p&gt;
+&lt;p&gt;复杂子系统 （Complex Subsystem） 由数十个不同对象构成。 如果要用这些对象完成有意义的工作， 你必须深入了解子系统的实现细节， 比如按照正确顺序初始化对象和为其提供正确格式的数据。&lt;/p&gt;
+&lt;p&gt;子系统类不会意识到外观的存在， 它们在系统内运作并且相互之间可直接进行交互。&lt;/p&gt;
+&lt;p&gt;客户端 （Client） 使用外观代替对子系统对象的直接调用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;@interface DoDoor {
+String key() default &amp;ldquo;&amp;quot;;
+String returnJson() default &amp;ldquo;&amp;quot;;
 }&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Imenu packageTwo (Double area)&lt;/strong&gt; =&amp;gt; &lt;strong&gt;new Deco(area, &amp;ldquo;MODERN&amp;rdquo;)&lt;/strong&gt;;&lt;/p&gt;
+&lt;p&gt;DoJoinPoint&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 具体如何从一坨复杂子系统中提供要的信息 --&gt;
+&lt;p&gt;庞大子系统，这里是复杂配置服务类&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;StarterService&lt;/li&gt;
+&lt;li&gt;StarterServiceProperties&lt;/li&gt;
+&lt;li&gt;StarterAutoConfigure&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-flyweight&#34;&gt;2. Flyweight&lt;/h3&gt;
+&lt;p&gt;享元模式建议不在对象中存储外在状态， 而是将其传递给依赖于它的一个特殊方法。 程序只在对象中保存内在状态， 以方便在不同情景下重用。 这些对象的区别仅在于其内在状态 （与外在状态相比， 内在状态的变体要少很多）， 因此你所需的对象数量会大大削减。&lt;/p&gt;
+&lt;p&gt;将这样一个仅存储内在状态的对象称为享元.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ActivityController&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 也就是从数据库中获取所有的商品信息和库存。有点像
+最开始写的商品销售系统，数据库就可以抗住购物量。
+当后续因为业务的发展需要扩展代码将库存部分交给redis处理，那么就需要从redis中获取活动的
+库存，⽽不是从库中，否则将造成数据不统⼀的问题 --&gt;
+&lt;p&gt;代码重构后&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;util
+&lt;ul&gt;
+&lt;li&gt;RedisUtils.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Activity.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--  的对象类⽐较简单，只是⼀个活动的基础信息；id、名称、描述、时间和库存--&gt;
+&lt;ul&gt;
+&lt;li&gt;ActivityController.java&lt;/li&gt;
+&lt;li&gt;ActivityFactory.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 这⾥提供的是⼀个享元⼯⼚
+*
+，通过 map 结构存放已经从库表或者接⼝中查询到的数据，存放到
+内存中，⽤于下次可以直接获取 --&gt;
+&lt;ul&gt;
+&lt;li&gt;Stock.java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 的对象类⽐较简单，只是⼀个活动的基础信息；id、名称、描述、时间和库存 --&gt;
+&lt;p&gt;再看剩余几个类的功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;util&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RedisUtils.java
+&lt;ul&gt;
+&lt;li&gt;AtomicInteger stock&lt;/li&gt;
+&lt;li&gt;ScheduledExecutorService&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;!-- 处理模拟 redis 的操作⼯具类外，还提供了⼀个定时任务⽤于模拟库存的使⽤ --&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Imenu packageThree (Double area)&lt;/strong&gt; =&amp;gt; &lt;strong&gt;new Deco(area, &amp;ldquo;ART&amp;rdquo;)&lt;/strong&gt;;&lt;/p&gt;
-&lt;/li&gt;
+&lt;p&gt;ActivityController.java&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Activity activity = ActivityFactory.getActivity(id);&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;2-builder-design-a-fast-food-ordering-system&#34;&gt;2. Builder： design a fast food ordering system&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/builder/src/main/java/faststore&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. food&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;// step 1 : Create an interface Item representing food item and packing.&lt;/p&gt;
+  &lt;!--  模拟从Redis中获取库存变化信息 --&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Item&lt;/strong&gt; (Interface) =&amp;gt; &lt;strong&gt;name(), Packing packing(), price()&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Burger (abstract class) =&amp;gt; &lt;strong&gt;Packing packing() =&amp;gt; new Wrapper()&lt;/strong&gt;, &lt;strong&gt;abstract float price()&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;ChickenBurger&lt;/li&gt;
-&lt;li&gt;VegBurger&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;ColdDrink (abstract class) =&amp;gt; &lt;strong&gt;Packing packing() =&amp;gt; new Bottle()&lt;/strong&gt;, &lt;strong&gt;abstract float price()&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;Coke&lt;/li&gt;
-&lt;li&gt;Pepsi&lt;/li&gt;
+&lt;li&gt;Stock stock = new Stock(1000, redisUtils.getStockUsed());&lt;/li&gt;
+&lt;li&gt;activity.setStock(stock);&lt;/li&gt;
+&lt;li&gt;return activity;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;2. packing&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Packing&lt;/strong&gt; (Interface) =&amp;gt; &lt;strong&gt;pack()&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Bottle  =&amp;gt; &lt;strong&gt;pack() =&amp;gt; &amp;ldquo;Bottle&amp;rdquo;&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Wrapper  =&amp;gt; &lt;strong&gt;pack() =&amp;gt; &amp;ldquo;Wrapper&amp;rdquo;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Meal&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/decopackage4.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Builder&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;MealBuilder&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;public &lt;strong&gt;Meal&lt;/strong&gt; prepareMeal () {
-Meal meal = new Meal();
-meal.addItem(new VegBurger());
-meal.addItem(new Coke());    &lt;br&gt;
-&lt;strong&gt;return&lt;/strong&gt; new &lt;strong&gt;meal&lt;/strong&gt;;
-}&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;3-builder-design-a-game-actors-system&#34;&gt;3. Builder： design a game actors system&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/rileyshen/DesignPattern/tree/main/builder/src/main/java/game&#34;  target=&#34;_blank&#34; &gt;check my final code&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Actor&lt;/strong&gt;  =&amp;gt; &lt;strong&gt;type, sex, face, costume, hairstyle&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-  &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildSex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildFace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildCostume&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildHairstyle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;createdActor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;AngleBuilder&lt;/strong&gt;  =&amp;gt; extend &lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;  =&amp;gt; void buildType() =&amp;gt; actor.setType(&amp;ldquo;Angle&amp;rdquo;);&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;DevilBuilder&lt;/strong&gt;  =&amp;gt; extend &lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;HeroBuilder&lt;/strong&gt;  =&amp;gt; extend &lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;ActorController&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;**&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;constructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActorBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;createActor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Client&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ActorBuilder actorBuilder = new HeroBuilder();&lt;/li&gt;
-&lt;li&gt;ActorController actorController = new ActorController();&lt;/li&gt;
-&lt;li&gt;Actor construct = actorController.construct(actorBuilder);&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;conbine ActorBuilder and ActorController&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;abstract ActorBuilder&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;protected&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-  &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildSex&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildFace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildCostume&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;abstract&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;buildHairstyle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-    &lt;span class=&#34;c1&#34;&gt;// public Actor createdActor() {
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//     return actor;
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// }
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
-    &lt;span class=&#34;c1&#34;&gt;// hooked method
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;isBareHeaded&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;constructor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ActorBuilder&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Actor&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
-
-    
-    &lt;span class=&#34;c1&#34;&gt;// hooked method
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;isBareHeaded&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;ab&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildHairstyle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Client&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Actor construct = ActorBuilder.construct(new HeroBuilder());&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;1prototype-pattern-design-a-weeklyreport&#34;&gt;1.Prototype pattern： design a WeeklyReport&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/Prototype/&#34;  target=&#34;_blank&#34; &gt;see more details&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;In Prototype pattern, there are three roles&lt;/p&gt;
-&lt;h4 id=&#34;1-prototypeparent-for-concreteprototype&#34;&gt;1. Prototype(parent for ConcretePrototype)&lt;/h4&gt;
-&lt;h4 id=&#34;2-concreteprototypeimplement-the-method-in-protype-parent-return-a-cloned-object&#34;&gt;2. ConcretePrototype(implement the method in Protype parent, return a cloned object)&lt;/h4&gt;
-&lt;h4 id=&#34;3-clientobjectify-directly-or-use-factory-method-to-create-a-prototype-object-invoke-the-clone-method-get-multiple-objects&#34;&gt;3. Client(objectify directly or use factory method to create a prototype object, invoke the clone method get multiple objects)&lt;/h4&gt;
-&lt;h5 id=&#34;shallowclone&#34;&gt;shallowClone&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Attachment&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Attachement&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;download&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;the file name is : &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Log&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Log&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Cloneable&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-    &lt;span class=&#34;c1&#34;&gt;// shallowClone
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Attachement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attachement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;c1&#34;&gt;// shallowClone
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setAttachement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attachement&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attachement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachement&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attachement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;c1&#34;&gt;// shallowClone
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Attachement&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getAttachement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;attachement&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setDate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;date&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getContent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setContent&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;content&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-   
-    &lt;span class=&#34;c1&#34;&gt;// Clone()
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Log&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-       &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-           &lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-           &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;obj&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-       &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CloneNotSupportedException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-           &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;not support to chone this object: &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-           &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-       &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;deepclone&#34;&gt;deepClone&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;Attachment&lt;/strong&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype1.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Log&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype2.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;   
-   &lt;span class=&#34;c1&#34;&gt;//Serialization : put object into stream
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;ByteArrayOutputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bao&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteArrayOutputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-   &lt;span class=&#34;n&#34;&gt;ObjectOutputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;oos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ObjectOutputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bao&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-   &lt;span class=&#34;n&#34;&gt;oos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;writeObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-        &lt;span class=&#34;c1&#34;&gt;// read object from strom
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;ByteArrayInputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bis&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ByteArrayInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bao&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toByteArray&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;ObjectInputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ois&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ObjectInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Log&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ois&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;readObject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h5 id=&#34;prototype-manager-store-prototype-objects-in-a-set-is-a-factory-inchange-of-choning&#34;&gt;Prototype Manager :store prototype objects in a set, is a factory inchange of choning&lt;/h5&gt;
-&lt;p&gt;&lt;strong&gt;OfficialDocument&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;OfficialDocument&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;Cloneable&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Feasibility Analysis Report&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FAR&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
-
-      &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-              &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;far&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-              &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-                     &lt;span class=&#34;n&#34;&gt;far&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-              &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CloneNotSupportedException&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-                      &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;not support...！&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-              &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;far&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-       &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-      
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
-
-       &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-              &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Feasibility Analysis Report&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-       &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Software Requirements Specification&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SRS&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
-
-      &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-              &lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;srs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-              &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-                      &lt;span class=&#34;n&#34;&gt;srs&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OfficialDocument&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-              &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CloneNotSupportedException&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-                      &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;not support...！&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-              &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-              &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;srs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-       &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-      
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
-
-       &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-              &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Software Requirements Specification&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-       &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;PrototypeManager&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;PrototypeManager&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-   &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashMap&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-   &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PrototypeManager&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pm&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PrototypeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-   &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PrototypeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;hashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;far&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FAR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-       &lt;span class=&#34;n&#34;&gt;hashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;far&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SRS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-   &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;addOfficialDocu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OfficialDocu&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-       &lt;span class=&#34;n&#34;&gt;hashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-   &lt;span class=&#34;c1&#34;&gt;//shallowClone
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OfficialDocu&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getOffDocu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-       &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OfficialDocu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)).&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-   &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PrototypeManager&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getPrototypeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-       &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Client&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Client1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;PrototypeManager&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pm&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PrototypeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getPrototypeManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;OfficialDocu&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc4&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;doc1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOffDocu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;far&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-       &lt;span class=&#34;n&#34;&gt;doc1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;doc2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getOffDocu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;far&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-       &lt;span class=&#34;n&#34;&gt;doc2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-       &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;doc1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;doc2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-
-
-
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Prototype(OfficialDocument)&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Prototype&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;Prototype&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-       &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;  &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;display&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;PrototypeManager2&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;PrototypeManager&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-
-  &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ProtoType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mProtos&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-
- &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PrototyManager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-     
- &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
- &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;setProtoType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-     
- &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-   &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ProtoType&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getProto&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;extends&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ProtoType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-       &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mProtos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getClass&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSimpleName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-               &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                   &lt;span class=&#34;n&#34;&gt;mProtos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSimpleName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newInstance&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-               &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InstantiationException&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;IllegalAccessException&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                   &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;printStackTrace&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-               &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-           &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-       &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mProtos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getSimpleName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
-   &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;prototype-design-a-testbank&#34;&gt;Prototype :design a testbank&lt;/h4&gt;
-&lt;p&gt;before:
-&lt;strong&gt;AnswerQuest&lt;/strong&gt;
-contains all the questions and answers in this class&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;ChoiceQuest&lt;/strong&gt;
-contains all the questions and answers in this class&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;QuestBankController&lt;/strong&gt;
-conbine answerQuest and choiceQuest in this class&lt;/p&gt;
-&lt;p&gt;after:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;utils&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;&lt;strong&gt;Topic&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype3.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;&lt;strong&gt;TopicRandom&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TopicRandom&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;random&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;option&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;answer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;Set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keySet&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;option&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;keySet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keyList&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;keySet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;Collections&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;shuffle&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;keyList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;optionNew&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-
-        &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ansNew&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;next&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keySet&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ranomKey&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keyList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++);&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;answer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;equals&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;ansNew&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;randomKey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;optionNew&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;randomKey&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;option&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Topic&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;optionNew&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ansNew&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;AnswerQuestion&lt;/strong&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype4.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;ChoiceQuestion&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype5.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;ItemBank&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype6.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype7.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;BankController&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype8.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-
-&lt;h2 id=&#34;hahahugoshortcode-s11-hbhb&#34;&gt;&lt;figure&gt;&lt;img src=&#34;https://rileyshen.github.io/images/Prototype9.png&#34;
-         alt=&#34;image&#34;/&gt;&lt;figcaption&gt;
-            &lt;h4&gt;Prototype&lt;/h4&gt;
-        &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;/h2&gt;
-&lt;h4 id=&#34;go-back-to-dp1hahahugoshortcode-s12-hbhb&#34;&gt;go back to &lt;a href=&#34;https://rileyshen.github.io/post/designpattern1/&#34; &gt;dp1&lt;/a&gt;&lt;/h4&gt;
+&lt;!-- 在活动控制类中使⽤了享元⼯⼚获取活动信息，查询后将库存信息在补充上。因为库存信息是变化
+的，⽽活动信息是固定不变的。 --&gt;
+&lt;h3 id=&#34;3-proxy&#34;&gt;3. Proxy&lt;/h3&gt;
+&lt;p&gt;外观模式与代理的相似之处在于它们都缓存了一个复杂实体并自行对其进行初始化。 代理与其服务对象遵循同一接口， 使得自己和服务对象可以互换， 在这一点上它与外观不同&lt;/p&gt;
+&lt;p&gt;用spring代理mybatis&lt;/p&gt;
+&lt;p&gt;服务接口 （Service Interface） 声明了服务接口。 代理必须遵循该接口才能伪装成服务对象。&lt;/p&gt;
+&lt;p&gt;服务 （Service） 类提供了一些实用的业务逻辑。&lt;/p&gt;
+&lt;p&gt;代理 （Proxy） 类包含一个指向服务对象的引用成员变量。 代理完成其任务 （例如延迟初始化、 记录日志、 访问控制和缓存等） 后会将请求传递给服务对象。&lt;/p&gt;
+&lt;p&gt;通常情况下， 代理会对其服务对象的整个生命周期进行管理。&lt;/p&gt;
+&lt;p&gt;客户端 （Client） 能通过同一接口与服务或代理进行交互， 所以你可在一切需要服务对象的代码中使用代理。&lt;/p&gt;
 </description>
       
     </item>
