@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database locking strategies on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/database-locking-strategies/</link>
+    <description>Recent content in Database locking strategies on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/database-locking-strategies/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>about row-level locking</title>
+      <link>https://rileyshen.github.io/post/lock/</link>
+      <pubDate>Wed, 01 Mar 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/lock/</guid>
+      
+        <description>&lt;p&gt;介绍下Database locking strategies&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;代码加锁，一段代码中有人要a物品，有人要b物品，相互之间不冲突但是也只能串行执行，访问会变得很慢。&lt;/p&gt;
+&lt;p&gt;而且只支持单点（单机、服务器环境），无法做到水平扩展，现在基本都是集群部署的，仅能一台机器生效。&lt;/p&gt;
+&lt;p&gt;所以需要数据库锁住库存。&lt;/p&gt;
+&lt;p&gt;行级锁（锁定一行）： InnoDB 支持事务；采用了行级锁。也就是你需要修改哪行，就可以只锁定哪行。&lt;/p&gt;
+&lt;p&gt;row-level lock 行级锁分为共享锁 和 排他锁。&lt;/p&gt;
+&lt;p&gt;其实和InnoDB的悲观锁挺像的。悲观锁是由数据库自己实现了的，要用的时候，我们直接调用数据库的相关语句就可以了。悲观锁实际使用了排他锁来实现（select **** for update）。innodb加行锁的前提是：必须是通过索引条件来检索数据，否则会切换为表锁。因此，悲观锁在未通过索引条件检索数据时，会锁定整张表。导致其他程序不允许“加锁的查询操作”，影响吞吐。故如果在查询居多的情况下，推荐使用乐观&lt;/p&gt;
+&lt;h3 id=&#34;悲观锁pessimistic-lock&#34;&gt;悲观锁Pessimistic Lock&lt;/h3&gt;
+&lt;p&gt;要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。set autocommit=0;&lt;/p&gt;
+&lt;p&gt;一直锁住data，等到这个锁释放了，才能有新操作。这就是悲观。&lt;/p&gt;
+&lt;p&gt;如果Oracle中用&lt;code&gt;select * for update &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;for update&lt;/code&gt;就可以锁&lt;/p&gt;
+&lt;p&gt;明确指定主键，并且查询的数据存在，行锁（row lock）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SELECT * FROM products WHERE id=&amp;lsquo;3&amp;rsquo; FOR UPDATE;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;3 无主键，表锁（table lock）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SELECT * FROM products WHERE name=&amp;lsquo;Mouse&amp;rsquo; FOR UPDATE;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但是 FOR UPDATE仅适用于InnoDB，且必须在交易区块(BEGIN/COMMIT)中才能生效。如果不在事务中，则查询加锁是无效的。&lt;/p&gt;
+&lt;p&gt;还有问题就是实际中主键那个key如果不明确开启事务查询，则会表锁（table rock）&lt;/p&gt;
+&lt;p&gt;当执行 select &amp;hellip; for update时，将会把数据锁住，因此，我们需要注意一下锁的级别。MySQL InnoDB 默认为行级锁。当查询语句指定了主键时，MySQL会执行「行级锁」，否则MySQL会执行「表锁」。&lt;/p&gt;
+&lt;p&gt;好了这就是悲观锁。&lt;/p&gt;
+&lt;h3 id=&#34;乐观锁optimistic-lock&#34;&gt;乐观锁Optimistic Lock&lt;/h3&gt;
+&lt;p&gt;增加要给 version， 一个sql要操作的是看看version和现在的version对比，一样就说明是最新的可以执行，则会成功执行本次操作,且版本号加1; 不一样就不可以。&lt;/p&gt;
+&lt;p&gt;乐观锁的实现不会使用到数据库的锁机制，乐观锁的原理使用的CAS的机制来实现的，CAS(Compare-and-Swap)即比较并替换.&lt;/p&gt;
+&lt;p&gt;我们经常看到那个 i++的例子，证明原子性， AtomicInteger是java.util.concurrent.atomic包提供的原子类，利用CPU提供的CAS操作来保证原子性。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;private static AtomicInteger value2 = new AtomicInteger(0);&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;有个问题是A拿到a，B拿到a, 改为b，再改为a, A再对比a，感觉是没问题的，但是还是有。所以在进行CAS操作时，不仅比较内存中的值，也会比较版本号，只有当二者都没有变化时，CAS才能执行成功。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;高竞争下的开销问题 在并发冲突概率大的高竞争环境下，如果CAS一直失败，会一直重试，CPU开销较大。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所以要退出机制，如重试次数超过一定阈值后失败退出。&lt;/p&gt;
+&lt;p&gt;更重要的是避免在高竞争环境下使用乐观锁。&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;乐观锁更新有可能会失败，甚至是更新几次都失败，这是有风险的。所以如果写入居多，对吞吐要求不高，可使用悲观锁。&lt;/p&gt;
+&lt;p&gt;也就是一句话：读用乐观锁，写用悲观锁。&lt;/p&gt;
+&lt;h3 id=&#34;死锁&#34;&gt;死锁&lt;/h3&gt;
+&lt;p&gt;T1 和 T2 同时达到 select，T1 对 table 加共享锁，T2 也对 table 加共享锁 。&lt;/p&gt;
+&lt;p&gt;当 T1 的 select 执行完，准备执行 update 时,根据锁机制，T1 的共享锁需要升级到排他锁才能执行接下来的 update。在升级排他锁前，必须等 table 上的其它共享锁（T2）释放，同理，T2 也在等 T1 的共享锁释放。于是死锁产生了。&lt;/p&gt;
+&lt;p&gt;当 T1 的 select 执行时，加上for update 直接对表加上了排他锁，T2 在执行 select 时，就需要等 T1 事物完全执行完才能执行。排除了死锁发生。&lt;/p&gt;
+&lt;p&gt;但当第三个 user 过来想执行一个查询(select)语句时，也因为排他锁的存在而不得不等待，第四个、第五个 user 也会因此而等待。在大并发情况下，大家都懂的。&lt;/p&gt;
+&lt;p&gt;发生死锁后，InnoDB一般都可以检测到，并使一个事务释放锁回退，另一个获取锁完成事务。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Highly concurrent on Website of Riley</title>
+    <link>https://rileyshen.github.io/tags/highly-concurrent/</link>
+    <description>Recent content in Highly concurrent on Website of Riley</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 10 May 2023 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/highly-concurrent/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>flash sale project details</title>
+      <link>https://rileyshen.github.io/post/flash-sale/</link>
+      <pubDate>Wed, 10 May 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/flash-sale/</guid>
+      
+        <description>&lt;p&gt;introduce flash sale project details&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;瞬间高并发 : short time with Highly concurre.&lt;/p&gt;
+&lt;h3 id=&#34;static-websites&#34;&gt;Static websites&lt;/h3&gt;
+&lt;p&gt;用户浏览商品等常规操作，并不会请求到服务端。只有到了秒杀时间点，并且用户主动点了秒杀按钮才允许访问服务端, 过滤大部分无效请求.&lt;/p&gt;
+&lt;h4 id=&#34;cdn&#34;&gt;&lt;code&gt;CDN&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;enable users to get access to content nearby, reduce network congestion, and improve user access response speed&lt;/p&gt;
+&lt;h3 id=&#34;heavily-read-compare-to-write&#34;&gt;heavily read compare to write&lt;/h3&gt;
+&lt;p&gt;use &lt;code&gt;cache&lt;/code&gt; redis to check the stock.&lt;/p&gt;
+&lt;h3 id=&#34;那如何保证cache-redis的安全性&#34;&gt;那如何保证&lt;code&gt;cache&lt;/code&gt; redis的安全性&lt;/h3&gt;
+&lt;h5 id=&#34;情况1当缓存没有数据时需要从数据库拿第一次数据一时间太多请求就同时访问数据库数据库挂了&#34;&gt;情况1：当缓存没有数据时，需要从数据库拿第一次数据，一时间太多请求，就同时访问数据库，数据库挂了&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;redis key 可以解决这问题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;client&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;product id&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;check from cache&lt;/code&gt; 
+|
+&amp;ndash; &lt;code&gt;if exist&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;flash sale&lt;/code&gt;
+|
+&amp;ndash;&lt;code&gt;if not exist&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;get redis key&lt;/code&gt; &amp;ndash;&amp;gt;&lt;code&gt;got key&lt;/code&gt;&amp;ndash;&lt;code&gt;get produce info from database&lt;/code&gt;&amp;hellip;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上述更好的方式当然是提前把商品信息放入缓存里面&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;那还需要加锁吗？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果缓存中设置的过期时间不对，缓存提前过期了，或者缓存被不小心删除了，如果不加速同样可能出现缓存击穿。多个锁，多个保险&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&#34;情况2-前面这个缓存和数据库都没有库存了用户请求会穿透过缓存而直接访问数据库加了锁所以即使这里的并发量很大也不会导致数据库直接挂掉但是处理性能不好&#34;&gt;情况2 前面这个缓存和数据库都没有库存了，用户请求会穿透过缓存，而直接访问数据库。加了锁，所以即使这里的并发量很大，也不会导致数据库直接挂掉。但是处理性能不好。&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Bloom Filter 过滤&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;系统根据商品id，先从布隆过滤器中查询该id是否存在，如果存在则允许从缓存中查询数据，如果不存在，则直接返回失败。&lt;/p&gt;
+&lt;p&gt;那如何保证 Bloom Filter和缓存数据一样？真解决一个问题带来新的问题&lt;/p&gt;
+&lt;p&gt;可是跨数据源频繁更新数据保证两个保持同步，挺难的，所以&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把不存在的商品id也缓存起来&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;该商品id的请求过来，则也能从缓存中查到数据，只不过该数据比较特殊，表示商品不存在。需要特别注意的是，这种特殊缓存设置的超时时间应该尽量短一点。&lt;/p&gt;
+&lt;h3 id=&#34;库存问题&#34;&gt;库存问题&lt;/h3&gt;
+&lt;p&gt;你拍到了但是钱没了，那这库存怎么办？ 回滚回去。&lt;/p&gt;
+&lt;p&gt;这短时间发生了一系列的库存不足了和超卖问题？？&lt;/p&gt;
+&lt;p&gt;普通情况&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update product set stock=stock-1 where id=111;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;还伴随着一段代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getStockById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;111&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;updateStock&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;111&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;markdown-int-count-%3D-mapper.updatestock111%3B&amp;#34;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;int-count-%3D-mapper.updatestock111%3B&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;addOrder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;123&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;非原子行，在并发场景下，会出现卖太多的情况。。&lt;/p&gt;
+&lt;p&gt;不要用&lt;code&gt;synchronized&lt;/code&gt;,性能不大好&lt;/p&gt;
+&lt;h4 id=&#34;方法1乐观锁&#34;&gt;方法1：乐观锁&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update product set stock=stock-1 where id=product and stock &amp;gt; 0;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在高并发的场景下，可能会造成系统雪崩。而且，容易出现多个请求，同时竞争行锁的情况，造成相互等待，从而出现死锁的问题.&lt;/p&gt;
+&lt;h4 id=&#34;方法2redis-扣除库存&#34;&gt;方法2：Redis 扣除库存&lt;/h4&gt;
+&lt;p&gt;先判断该用户有没有秒杀过该商品，如果已经秒杀过，则直接返回-1。&lt;/p&gt;
+&lt;p&gt;扣减库存，判断返回值是否小于0，如果小于0，则直接返回0，表示库存不足。&lt;/p&gt;
+&lt;p&gt;如果扣减库存后，返回值大于或等于0，则将本次秒杀记录保存起来。然后返回1，表示成功。&lt;/p&gt;
+&lt;p&gt;高并发下， 会让库存为负， &lt;code&gt;synchronized&lt;/code&gt;依然不是好选择。&lt;/p&gt;
+&lt;p&gt;由于这里是预减库存，如果负数值负的太多的话，后面万一要回退库存时，就会导致库存不准。&lt;/p&gt;
+&lt;h4 id=&#34;方法3lua脚本扣减库存&#34;&gt;方法3：lua脚本扣减库存&lt;/h4&gt;
+&lt;p&gt;lua脚本，是能够保证原子性的&lt;/p&gt;
+&lt;!-- 先判断该用户有没有秒杀过该商品，如果已经秒杀过，则直接返回-1。 --&gt;
+&lt;p&gt;先判断商品id是否存在，如果不存在则直接返回。&lt;/p&gt;
+&lt;p&gt;获取该商品id的库存，判断库存如果是-1，则直接返回，表示不限制库存。&lt;/p&gt;
+&lt;p&gt;如果库存大于0，则扣减库存。&lt;/p&gt;
+&lt;p&gt;如果库存等于0，是直接返回，表示库存不足。&lt;/p&gt;
+&lt;p&gt;这里就解决了扣减库存问题。&lt;/p&gt;
+&lt;h3 id=&#34;有个情况是缓存里面没有大量请求去查一个不存在的商品会直接连接数据库引发数据库挂掉redis-key-lock&#34;&gt;有个情况是，缓存里面没有，大量请求去查一个不存在的商品，会直接连接数据库，引发数据库挂掉。Redis Key lock&lt;/h3&gt;
+&lt;h4 id=&#34;redis-分布锁&#34;&gt;redis 分布锁&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;setNx&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;该命令不好，和后面的设置超时时间是分开的，并非原子操作。&lt;/p&gt;
+&lt;p&gt;假如加锁成功了，但是设置超时时间失败了，该lockKey就变成永不失效的了。在高并发场景中，该问题会导致非常严重的后果。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;set加锁&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;set加锁该命令只有一步，所以它是原子操作&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;释放锁，记录requestId&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果用userId的话，假设本次请求流程走完了，准备删除锁。此时，巧合锁到了过期时间失效了。而另外一个请求，巧合使用的相同userId加锁，会成功。而本次请求删除锁的时候，删除的其实是别人的锁了。&lt;/p&gt;
+&lt;p&gt;使用lua脚本，它能保证查询锁是否存在和删除锁是原子操作。&lt;/p&gt;
+&lt;h3 id=&#34;业务拆分-mq来了&#34;&gt;业务拆分： mq来了&lt;/h3&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 下单 &amp;ndash; &amp;gt;支付，三个流程，
+真正并发量大的是秒杀功能，下单和支付功能实际并发量很小。所以，我们在设计秒杀系统时，有必要把下单和支付功能从秒杀的主流程中拆分出来，特别是下单功能要做成mq异步处理的。而支付功能，比如支付宝支付，是业务场景本身保证的异步&lt;/p&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 发送mq消息 &amp;ndash;》 mq服务器 &amp;ndash;》 消费mq消费 &amp;ndash;》下单&lt;/p&gt;
+&lt;h4 id=&#34;网络问题mq服务端磁盘问题等这些情况都可能会造成消息丢失&#34;&gt;网络问题，mq服务端磁盘问题等。这些情况，都可能会造成消息丢失&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息发送表&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;发送mq消息 &amp;ndash;》 mq服务器 &amp;ndash;》 消费mq消费 &amp;ndash;》下单 &amp;ndash;》回调生产者的一个接口&amp;ndash;》修改消息状态为已处理&lt;/p&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;&lt;code&gt;发送mq消息 --》 mq服务器 --》 消费mq消费 --》下单&lt;/code&gt; &amp;ndash;》回调生产者的一个接口&amp;ndash;》修改消息状态为已处理&lt;/p&gt;
+&lt;p&gt;把消息写入消息发送表之后，再发送mq消息到mq服务端的过程中失败了怎么办？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用job，增加重试机制。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;job --- &amp;gt; 定期查询消息发送表待处理数据 --》 发送mq消息 --》 mq服务器 &lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;重复消费问题&#34;&gt;重复消费问题&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息处理表&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;发送mq消息 &amp;ndash;》 mq服务器 &amp;ndash;》 消费mq消费 &amp;ndash;》下单 &amp;ndash;》回调生产者的一个接口&amp;ndash;》修改消息状态为已处理&lt;/p&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;发送mq消息 &amp;ndash;》 &lt;code&gt;mq服务器 --》 消费mq消费 --》查询消息处理表 --》是否存在？ --》 否 --》 下单 --》修改消息状态为已处理&lt;/code&gt;
+|&amp;ndash;&amp;gt; 是 &amp;ndash;》 返回&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下单和写消息处理表，要放在同一个事务中，保证原子操作&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;垃圾消息问题&#34;&gt;垃圾消息问题&lt;/h4&gt;
+&lt;p&gt;每次在job重试时，需要先判断一下消息发送表中该消息的发送次数是否达到最大限制，如果达到了，则直接返回。如果没有达到，则将次数加1，然后发送消息。&lt;/p&gt;
+&lt;p&gt;这样如果出现异常，只会产生少量的垃圾消息，不会影响到正常的业务&lt;/p&gt;
+&lt;h4 id=&#34;15分钟内未完成支付订单被自动取消的功能&#34;&gt;15分钟内未完成支付，订单被自动取消的功能&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;延迟队列rocketmq&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;生成订单:此时状态为待支付 &amp;ndash;&amp;gt; 发送mq消息 &amp;ndash;&amp;gt; 延迟队列 &amp;ndash;&amp;gt; 消息mq消息 &amp;ndash;》查询订单状态是否为待支付 &amp;ndash;》if是 &amp;ndash;&amp;gt;取消状态 &amp;ndash;&amp;gt; 返回 
+查询订单状态是否为待支付 &amp;ndash;》if否  &amp;ndash;&amp;gt; 返回&lt;/p&gt;
+&lt;p&gt;用户完成支付之后，会修改订单状态为已支付&lt;/p&gt;
+&lt;h3 id=&#34;如何限制刷单&#34;&gt;如何限制刷单&lt;/h3&gt;
+&lt;p&gt;一般情况下，一秒钟只能点击一次秒杀按钮，如果是服务器，一秒钟可以请求成上千接口。&lt;/p&gt;
+&lt;h4 id=&#34;加验证码&#34;&gt;加验证码&lt;/h4&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> Riley Shen | about row-level locking </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description"
+        content="Database locking strategies">
+    <meta name="google-site-verification" content="Nac1UrFTdr1E1F48JLe7XQhIbKn2_WtF4VnJI8KOtew" />
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="/css/main.min.a7c9793b97840076bef76d2743ee1c90b13bd21c18674076a0cccd5dd54c723b.css" integrity="sha256-p8l5O5eEAHa&#43;920nQ&#43;4ckLE70hwYZ0B2oMzNXdVMcjs="
+        crossorigin="anonymous" type="text/css">
+    
+    
+    <link rel="stylesheet" href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4=" crossorigin="anonymous" type="text/css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/lock/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+    
+    
+    
+    
+    <script type="text/javascript" src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+        integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ=" crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://rileyshen.github.io/images/site-feature-image.png"/>
+
+<meta name="twitter:title" content="about row-level locking"/>
+<meta name="twitter:description" content="Database locking strategies"/>
+
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+</head><body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/images/profileS.jpg" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m Riley Shen</a></h3>
+            <div class="description">
+                <p><br>Riley likes to push her limits <br>and always keep learning new things. <br>She shares her weekly learnings <br>because "if you can't explain it simply,<br>it means you didn't understand it well enough".<br></p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="mailto:ripple.shen31@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://github.com/rileyshen" rel="me" aria-label="GitHub">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy;  Riley Shen 2023 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+            
+            <li><a 
+                   href="/"
+                        
+                   title="">Home</a></li>
+        
+            
+            <li><a 
+                   href="/post/"
+                        
+                   title="">Posts</a></li>
+        
+            
+            <li><a 
+                   href="/about/"
+                        
+                   title="">About Me</a></li>
+        
+            
+            <li><a 
+                   href="/contact/"
+                        
+                   title="">Contact</a></li>
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+<div class="post  animated fadeInDown ">
+    <div class="post-content">
+        
+        <div class="post-title">
+            <h2>about row-level locking</h2>
+            
+            <div class="info">
+                <em class="fas fa-calendar-day"></em>
+                <span class="date">
+                    Wed, Mar 1, 2023
+                    </span>
+                <em class="fas fa-stopwatch"></em>
+                <span class="reading-time">One-minute read</span>
+            </div>
+            
+        </div>
+
+        <p>介绍下Database locking strategies</p>
+<!-- more -->
+<p>代码加锁，一段代码中有人要a物品，有人要b物品，相互之间不冲突但是也只能串行执行，访问会变得很慢。</p>
+<p>而且只支持单点（单机、服务器环境），无法做到水平扩展，现在基本都是集群部署的，仅能一台机器生效。</p>
+<p>所以需要数据库锁住库存。</p>
+<p>行级锁（锁定一行）： InnoDB 支持事务；采用了行级锁。也就是你需要修改哪行，就可以只锁定哪行。</p>
+<p>row-level lock 行级锁分为共享锁 和 排他锁。</p>
+<p>其实和InnoDB的悲观锁挺像的。悲观锁是由数据库自己实现了的，要用的时候，我们直接调用数据库的相关语句就可以了。悲观锁实际使用了排他锁来实现（select **** for update）。innodb加行锁的前提是：必须是通过索引条件来检索数据，否则会切换为表锁。因此，悲观锁在未通过索引条件检索数据时，会锁定整张表。导致其他程序不允许“加锁的查询操作”，影响吞吐。故如果在查询居多的情况下，推荐使用乐观</p>
+<h3 id="悲观锁pessimistic-lock">悲观锁Pessimistic Lock</h3>
+<p>要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。set autocommit=0;</p>
+<p>一直锁住data，等到这个锁释放了，才能有新操作。这就是悲观。</p>
+<p>如果Oracle中用<code>select * for update </code></p>
+<p><code>for update</code>就可以锁</p>
+<p>明确指定主键，并且查询的数据存在，行锁（row lock）</p>
+<blockquote>
+<p>SELECT * FROM products WHERE id=&lsquo;3&rsquo; FOR UPDATE;</p>
+</blockquote>
+<p>3 无主键，表锁（table lock）</p>
+<blockquote>
+<p>SELECT * FROM products WHERE name=&lsquo;Mouse&rsquo; FOR UPDATE;</p>
+</blockquote>
+<p>但是 FOR UPDATE仅适用于InnoDB，且必须在交易区块(BEGIN/COMMIT)中才能生效。如果不在事务中，则查询加锁是无效的。</p>
+<p>还有问题就是实际中主键那个key如果不明确开启事务查询，则会表锁（table rock）</p>
+<p>当执行 select &hellip; for update时，将会把数据锁住，因此，我们需要注意一下锁的级别。MySQL InnoDB 默认为行级锁。当查询语句指定了主键时，MySQL会执行「行级锁」，否则MySQL会执行「表锁」。</p>
+<p>好了这就是悲观锁。</p>
+<h3 id="乐观锁optimistic-lock">乐观锁Optimistic Lock</h3>
+<p>增加要给 version， 一个sql要操作的是看看version和现在的version对比，一样就说明是最新的可以执行，则会成功执行本次操作,且版本号加1; 不一样就不可以。</p>
+<p>乐观锁的实现不会使用到数据库的锁机制，乐观锁的原理使用的CAS的机制来实现的，CAS(Compare-and-Swap)即比较并替换.</p>
+<p>我们经常看到那个 i++的例子，证明原子性， AtomicInteger是java.util.concurrent.atomic包提供的原子类，利用CPU提供的CAS操作来保证原子性。</p>
+<blockquote>
+<p>private static AtomicInteger value2 = new AtomicInteger(0);</p>
+</blockquote>
+<ol>
+<li>
+<p>有个问题是A拿到a，B拿到a, 改为b，再改为a, A再对比a，感觉是没问题的，但是还是有。所以在进行CAS操作时，不仅比较内存中的值，也会比较版本号，只有当二者都没有变化时，CAS才能执行成功。</p>
+</li>
+<li>
+<p>高竞争下的开销问题 在并发冲突概率大的高竞争环境下，如果CAS一直失败，会一直重试，CPU开销较大。</p>
+</li>
+</ol>
+<p>所以要退出机制，如重试次数超过一定阈值后失败退出。</p>
+<p>更重要的是避免在高竞争环境下使用乐观锁。</p>
+<ol start="3">
+<li>CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的</li>
+</ol>
+<p>乐观锁更新有可能会失败，甚至是更新几次都失败，这是有风险的。所以如果写入居多，对吞吐要求不高，可使用悲观锁。</p>
+<p>也就是一句话：读用乐观锁，写用悲观锁。</p>
+<h3 id="死锁">死锁</h3>
+<p>T1 和 T2 同时达到 select，T1 对 table 加共享锁，T2 也对 table 加共享锁 。</p>
+<p>当 T1 的 select 执行完，准备执行 update 时,根据锁机制，T1 的共享锁需要升级到排他锁才能执行接下来的 update。在升级排他锁前，必须等 table 上的其它共享锁（T2）释放，同理，T2 也在等 T1 的共享锁释放。于是死锁产生了。</p>
+<p>当 T1 的 select 执行时，加上for update 直接对表加上了排他锁，T2 在执行 select 时，就需要等 T1 事物完全执行完才能执行。排除了死锁发生。</p>
+<p>但当第三个 user 过来想执行一个查询(select)语句时，也因为排他锁的存在而不得不等待，第四个、第五个 user 也会因此而等待。在大并发情况下，大家都懂的。</p>
+<p>发生死锁后，InnoDB一般都可以检测到，并使一个事务释放锁回退，另一个获取锁完成事务。</p>
+</div>
+    <div class="post-footer">
+        <div class="info">
+            
+            <span class="separator"><a class="tag" href="/tags/java/">java</a><a class="tag" href="/tags/java-interview/">java interview</a><a class="tag" href="/tags/database-locking-strategies/">Database locking strategies</a></span>
+        </div>
+    </div>
+
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async defer src="//latest.js"></script>
+<noscript><img src="//noscript.gif" alt=""/></noscript>
+
+</body>
+
+</html>

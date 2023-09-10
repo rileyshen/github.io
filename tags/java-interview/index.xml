@@ -6,7 +6,440 @@
     <description>Recent content in java interview on Website of Riley</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 18 Feb 2022 11:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/java-interview/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 May 2023 15:56:39 +0800</lastBuildDate><atom:link href="https://rileyshen.github.io/tags/java-interview/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>flash sale project details</title>
+      <link>https://rileyshen.github.io/post/flash-sale/</link>
+      <pubDate>Wed, 10 May 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/flash-sale/</guid>
+      
+        <description>&lt;p&gt;introduce flash sale project details&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;瞬间高并发 : short time with Highly concurre.&lt;/p&gt;
+&lt;h3 id=&#34;static-websites&#34;&gt;Static websites&lt;/h3&gt;
+&lt;p&gt;用户浏览商品等常规操作，并不会请求到服务端。只有到了秒杀时间点，并且用户主动点了秒杀按钮才允许访问服务端, 过滤大部分无效请求.&lt;/p&gt;
+&lt;h4 id=&#34;cdn&#34;&gt;&lt;code&gt;CDN&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;enable users to get access to content nearby, reduce network congestion, and improve user access response speed&lt;/p&gt;
+&lt;h3 id=&#34;heavily-read-compare-to-write&#34;&gt;heavily read compare to write&lt;/h3&gt;
+&lt;p&gt;use &lt;code&gt;cache&lt;/code&gt; redis to check the stock.&lt;/p&gt;
+&lt;h3 id=&#34;那如何保证cache-redis的安全性&#34;&gt;那如何保证&lt;code&gt;cache&lt;/code&gt; redis的安全性&lt;/h3&gt;
+&lt;h5 id=&#34;情况1当缓存没有数据时需要从数据库拿第一次数据一时间太多请求就同时访问数据库数据库挂了&#34;&gt;情况1：当缓存没有数据时，需要从数据库拿第一次数据，一时间太多请求，就同时访问数据库，数据库挂了&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;redis key 可以解决这问题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;client&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;product id&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;check from cache&lt;/code&gt; 
+|
+&amp;ndash; &lt;code&gt;if exist&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;flash sale&lt;/code&gt;
+|
+&amp;ndash;&lt;code&gt;if not exist&lt;/code&gt; &amp;ndash;&amp;gt; &lt;code&gt;get redis key&lt;/code&gt; &amp;ndash;&amp;gt;&lt;code&gt;got key&lt;/code&gt;&amp;ndash;&lt;code&gt;get produce info from database&lt;/code&gt;&amp;hellip;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上述更好的方式当然是提前把商品信息放入缓存里面&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;那还需要加锁吗？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果缓存中设置的过期时间不对，缓存提前过期了，或者缓存被不小心删除了，如果不加速同样可能出现缓存击穿。多个锁，多个保险&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&#34;情况2-前面这个缓存和数据库都没有库存了用户请求会穿透过缓存而直接访问数据库加了锁所以即使这里的并发量很大也不会导致数据库直接挂掉但是处理性能不好&#34;&gt;情况2 前面这个缓存和数据库都没有库存了，用户请求会穿透过缓存，而直接访问数据库。加了锁，所以即使这里的并发量很大，也不会导致数据库直接挂掉。但是处理性能不好。&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Bloom Filter 过滤&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;系统根据商品id，先从布隆过滤器中查询该id是否存在，如果存在则允许从缓存中查询数据，如果不存在，则直接返回失败。&lt;/p&gt;
+&lt;p&gt;那如何保证 Bloom Filter和缓存数据一样？真解决一个问题带来新的问题&lt;/p&gt;
+&lt;p&gt;可是跨数据源频繁更新数据保证两个保持同步，挺难的，所以&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把不存在的商品id也缓存起来&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;该商品id的请求过来，则也能从缓存中查到数据，只不过该数据比较特殊，表示商品不存在。需要特别注意的是，这种特殊缓存设置的超时时间应该尽量短一点。&lt;/p&gt;
+&lt;h3 id=&#34;库存问题&#34;&gt;库存问题&lt;/h3&gt;
+&lt;p&gt;你拍到了但是钱没了，那这库存怎么办？ 回滚回去。&lt;/p&gt;
+&lt;p&gt;这短时间发生了一系列的库存不足了和超卖问题？？&lt;/p&gt;
+&lt;p&gt;普通情况&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update product set stock=stock-1 where id=111;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;还伴随着一段代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;getStockById&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;111&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stock&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;updateStock&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;111&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;markdown-int-count-%3D-mapper.updatestock111%3B&amp;#34;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;int-count-%3D-mapper.updatestock111%3B&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;addOrder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;123&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;非原子行，在并发场景下，会出现卖太多的情况。。&lt;/p&gt;
+&lt;p&gt;不要用&lt;code&gt;synchronized&lt;/code&gt;,性能不大好&lt;/p&gt;
+&lt;h4 id=&#34;方法1乐观锁&#34;&gt;方法1：乐观锁&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update product set stock=stock-1 where id=product and stock &amp;gt; 0;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在高并发的场景下，可能会造成系统雪崩。而且，容易出现多个请求，同时竞争行锁的情况，造成相互等待，从而出现死锁的问题.&lt;/p&gt;
+&lt;h4 id=&#34;方法2redis-扣除库存&#34;&gt;方法2：Redis 扣除库存&lt;/h4&gt;
+&lt;p&gt;先判断该用户有没有秒杀过该商品，如果已经秒杀过，则直接返回-1。&lt;/p&gt;
+&lt;p&gt;扣减库存，判断返回值是否小于0，如果小于0，则直接返回0，表示库存不足。&lt;/p&gt;
+&lt;p&gt;如果扣减库存后，返回值大于或等于0，则将本次秒杀记录保存起来。然后返回1，表示成功。&lt;/p&gt;
+&lt;p&gt;高并发下， 会让库存为负， &lt;code&gt;synchronized&lt;/code&gt;依然不是好选择。&lt;/p&gt;
+&lt;p&gt;由于这里是预减库存，如果负数值负的太多的话，后面万一要回退库存时，就会导致库存不准。&lt;/p&gt;
+&lt;h4 id=&#34;方法3lua脚本扣减库存&#34;&gt;方法3：lua脚本扣减库存&lt;/h4&gt;
+&lt;p&gt;lua脚本，是能够保证原子性的&lt;/p&gt;
+&lt;!-- 先判断该用户有没有秒杀过该商品，如果已经秒杀过，则直接返回-1。 --&gt;
+&lt;p&gt;先判断商品id是否存在，如果不存在则直接返回。&lt;/p&gt;
+&lt;p&gt;获取该商品id的库存，判断库存如果是-1，则直接返回，表示不限制库存。&lt;/p&gt;
+&lt;p&gt;如果库存大于0，则扣减库存。&lt;/p&gt;
+&lt;p&gt;如果库存等于0，是直接返回，表示库存不足。&lt;/p&gt;
+&lt;p&gt;这里就解决了扣减库存问题。&lt;/p&gt;
+&lt;h3 id=&#34;有个情况是缓存里面没有大量请求去查一个不存在的商品会直接连接数据库引发数据库挂掉redis-key-lock&#34;&gt;有个情况是，缓存里面没有，大量请求去查一个不存在的商品，会直接连接数据库，引发数据库挂掉。Redis Key lock&lt;/h3&gt;
+&lt;h4 id=&#34;redis-分布锁&#34;&gt;redis 分布锁&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;setNx&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;该命令不好，和后面的设置超时时间是分开的，并非原子操作。&lt;/p&gt;
+&lt;p&gt;假如加锁成功了，但是设置超时时间失败了，该lockKey就变成永不失效的了。在高并发场景中，该问题会导致非常严重的后果。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;set加锁&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;set加锁该命令只有一步，所以它是原子操作&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;释放锁，记录requestId&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果用userId的话，假设本次请求流程走完了，准备删除锁。此时，巧合锁到了过期时间失效了。而另外一个请求，巧合使用的相同userId加锁，会成功。而本次请求删除锁的时候，删除的其实是别人的锁了。&lt;/p&gt;
+&lt;p&gt;使用lua脚本，它能保证查询锁是否存在和删除锁是原子操作。&lt;/p&gt;
+&lt;h3 id=&#34;业务拆分-mq来了&#34;&gt;业务拆分： mq来了&lt;/h3&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 下单 &amp;ndash; &amp;gt;支付，三个流程，
+真正并发量大的是秒杀功能，下单和支付功能实际并发量很小。所以，我们在设计秒杀系统时，有必要把下单和支付功能从秒杀的主流程中拆分出来，特别是下单功能要做成mq异步处理的。而支付功能，比如支付宝支付，是业务场景本身保证的异步&lt;/p&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 发送mq消息 &amp;ndash;》 mq服务器 &amp;ndash;》 消费mq消费 &amp;ndash;》下单&lt;/p&gt;
+&lt;h4 id=&#34;网络问题mq服务端磁盘问题等这些情况都可能会造成消息丢失&#34;&gt;网络问题，mq服务端磁盘问题等。这些情况，都可能会造成消息丢失&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息发送表&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;发送mq消息 &amp;ndash;》 mq服务器 &amp;ndash;》 消费mq消费 &amp;ndash;》下单 &amp;ndash;》回调生产者的一个接口&amp;ndash;》修改消息状态为已处理&lt;/p&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;&lt;code&gt;发送mq消息 --》 mq服务器 --》 消费mq消费 --》下单&lt;/code&gt; &amp;ndash;》回调生产者的一个接口&amp;ndash;》修改消息状态为已处理&lt;/p&gt;
+&lt;p&gt;把消息写入消息发送表之后，再发送mq消息到mq服务端的过程中失败了怎么办？&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用job，增加重试机制。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;job --- &amp;gt; 定期查询消息发送表待处理数据 --》 发送mq消息 --》 mq服务器 &lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;重复消费问题&#34;&gt;重复消费问题&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;消息处理表&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;发送mq消息 &amp;ndash;》 mq服务器 &amp;ndash;》 消费mq消费 &amp;ndash;》下单 &amp;ndash;》回调生产者的一个接口&amp;ndash;》修改消息状态为已处理&lt;/p&gt;
+&lt;p&gt;秒杀 &amp;ndash;&amp;gt; 写入消息发送表， 初始状态是待处理&amp;ndash;&amp;gt;发送mq消息 &amp;ndash;》 &lt;code&gt;mq服务器 --》 消费mq消费 --》查询消息处理表 --》是否存在？ --》 否 --》 下单 --》修改消息状态为已处理&lt;/code&gt;
+|&amp;ndash;&amp;gt; 是 &amp;ndash;》 返回&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;下单和写消息处理表，要放在同一个事务中，保证原子操作&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;垃圾消息问题&#34;&gt;垃圾消息问题&lt;/h4&gt;
+&lt;p&gt;每次在job重试时，需要先判断一下消息发送表中该消息的发送次数是否达到最大限制，如果达到了，则直接返回。如果没有达到，则将次数加1，然后发送消息。&lt;/p&gt;
+&lt;p&gt;这样如果出现异常，只会产生少量的垃圾消息，不会影响到正常的业务&lt;/p&gt;
+&lt;h4 id=&#34;15分钟内未完成支付订单被自动取消的功能&#34;&gt;15分钟内未完成支付，订单被自动取消的功能&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;延迟队列rocketmq&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;生成订单:此时状态为待支付 &amp;ndash;&amp;gt; 发送mq消息 &amp;ndash;&amp;gt; 延迟队列 &amp;ndash;&amp;gt; 消息mq消息 &amp;ndash;》查询订单状态是否为待支付 &amp;ndash;》if是 &amp;ndash;&amp;gt;取消状态 &amp;ndash;&amp;gt; 返回 
+查询订单状态是否为待支付 &amp;ndash;》if否  &amp;ndash;&amp;gt; 返回&lt;/p&gt;
+&lt;p&gt;用户完成支付之后，会修改订单状态为已支付&lt;/p&gt;
+&lt;h3 id=&#34;如何限制刷单&#34;&gt;如何限制刷单&lt;/h3&gt;
+&lt;p&gt;一般情况下，一秒钟只能点击一次秒杀按钮，如果是服务器，一秒钟可以请求成上千接口。&lt;/p&gt;
+&lt;h4 id=&#34;加验证码&#34;&gt;加验证码&lt;/h4&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>about Redis Key lock</title>
+      <link>https://rileyshen.github.io/post/lock2/</link>
+      <pubDate>Mon, 10 Apr 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/lock2/</guid>
+      
+        <description>&lt;p&gt;介绍下Redis Key lock&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;乐观锁也不够用了的话，就考虑Redis Key lock。&lt;/p&gt;
+&lt;p&gt;线程A先在Redis里设置该商品的key（比如goods_1）为1，如果线程B也查到1，直到线程A释放掉这把锁，线程B才能再拿到这把锁。&lt;/p&gt;
+&lt;p&gt;可能多个线程同时进入到 &lt;code&gt;if 如果为空或者为None那么代表获取到锁&lt;/code&gt;，于是同时获取到了锁，这就使得分布式锁失效了。&lt;/p&gt;
+&lt;h3 id=&#34;保证原子性&#34;&gt;保证原子性&lt;/h3&gt;
+&lt;h3 id=&#34;锁过期时间和续租&#34;&gt;锁过期时间和续租&lt;/h3&gt;
+&lt;p&gt;互斥性：任意时刻只能有一个客户端拥有锁，不能同时多个客户端获取
+死锁：获取锁的客户端因为某些原因而宕机，而未能释放锁，其他客户端无法获取此锁，需要有机制来避免该类问题的发生
+比如代码异常，导致无法运行到release
+当前服务器网络出问题，比如该release时，突然访问不了Redis了
+服务器断电&lt;/p&gt;
+&lt;!-- TOC --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#&#34; &gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#bash&#34; &gt;bash&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#return-the-indices-of-the-two-numbers-index1-and-index2-added-by-one-as-an-integer-array-index1-index2-of-length-2&#34; &gt;Return the indices of the two numbers, index1 and index2, added by one as an integer array [index1, index2] of length 2.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#you-are-given-an-integer-array-height-of-length-n-there-are-n-vertical-lines-drawn-such-that-the-two-endpoints-of-the-ith-line-are-i-0-and-i-heighti&#34; &gt;You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are i, 0 and i, height[i].&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#while-k--j--numsj--numsj---1-j--&#34; &gt;while k &amp;amp;lt; j &amp;amp;amp;&amp;amp;amp; nums[j] == nums[j - 1] j&amp;amp;ndash;;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+&lt;!-- /TOC --&gt;
+&lt;h2 id=&#34;3-two-sum&#34;&gt;3. Two Sum&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode.com/problems/two-sum/&#34;  target=&#34;_blank&#34; &gt;leet&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&amp;lt;a &lt;span class=&#34;nv&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;markdown-bash&amp;#34;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;bash&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/a&amp;gt;
+Given an array of integers nums and an integer target, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; the answer in any order.
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0,1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: Because nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 9, we &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;0, 1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;two-sum-ii---input-array-is-sorted-167&#34;&gt;Two Sum II - Input Array Is Sorted 167&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index1&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; and numbers&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; where &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; index1 &amp;lt; index2 &amp;lt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; numbers.length.
+
+Return the indices of the two numbers, index1 and index2, added by one as an integer array &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;index1, index2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; of length 2.
+&amp;lt;a &lt;span class=&#34;nv&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;markdown-return-the-indices-of-the-two-numbers%2C-index1-and-index2%2C-added-by-one-as-an-integer-array-%5Bindex1%2C-index2%5D-of-length-2.&amp;#34;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;return-the-indices-of-the-two-numbers%2C-index1-and-index2%2C-added-by-one-as-an-integer-array-%5Bindex1%2C-index2%5D-of-length-2.&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/a&amp;gt;
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
+
+Input: &lt;span class=&#34;nv&#34;&gt;numbers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;2,7,11,15&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;9&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1,2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Explanation: The sum of &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; and &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; is 9. Therefore, &lt;span class=&#34;nv&#34;&gt;index1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 1, &lt;span class=&#34;nv&#34;&gt;index2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2. We &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;1, 2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;container-with-most-water-11&#34;&gt;Container With Most Water 11&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;i, 0&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; and &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;i, height&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt;.
+&amp;lt;a &lt;span class=&#34;nv&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;markdown-you-are-given-an-integer-array-height-of-length-n.-there-are-n-vertical-lines-drawn-such-that-the-two-endpoints-of-the-ith-line-are-i%2C-0-and-i%2C-height%5Bi%5D.&amp;#34;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;you-are-given-an-integer-array-height-of-length-n.-there-are-n-vertical-lines-drawn-such-that-the-two-endpoints-of-the-ith-line-are-i%2C-0-and-i%2C-height%5Bi%5D.&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/a&amp;gt;
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;谁小移谁&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;无论是移动短板或者长板，我们都只关注移动后的新短板会不会变长，而每次移动的木板都只有三种情况，比原短板短，比原短板长，与原短板相等；如向内移动长板，对于新的木板：1.比原短板短，则新短板更短。2.与原短板相等或者比原短板长，则新短板不变。所以，向内移动长板，一定不能使新短板变长&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;15-3sum&#34;&gt;15. 3Sum&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums, &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; all the triplets &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;k&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt; such that i !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; j, i !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k, and j !&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; k, and nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; + nums&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;k&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; 0.
+
+Notice that the solution &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; must not contain duplicate triplets.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,0,1,2,-1,-4&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+Output: &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt;-1,-1,2&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;,&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,0,1&lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;对于重复元素：跳过，避免出现重复解&lt;/strong&gt;
+&lt;strong&gt;令&lt;/strong&gt;左指针 L=i+1L=i+1，右指针 R=n-1R=n−1，当 L&amp;lt;R 时，执行循环**&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;当 nums[i]+nums[L]+nums[R]==0nums[i]+nums[L]+nums[R]==0，执行循环，判断左界和右界是否和下一位置重复，去除重复解。并同时将 L,RL,R 移到下一位置，寻找新的解&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和大于 00，说明 nums[R]nums[R] 太大，R 左移&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和小于 00，说明 nums[L]nums[L] 太小，L 右移&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1. sort:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k   i                   j&lt;/p&gt;
+&lt;p&gt;sum = -3 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 去重:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k               i       j
+sum = -2 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. 移动:&lt;/strong&gt;
+-4  -1  -1  -1  0   1   2
+k                   i    j
+sum = -1 &amp;lt; 0, i++&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. 第二轮:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.     k   i             j&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res , i++, j&amp;ndash;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.     k         i    j // 去重&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5，去重，第三轮&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-4  -1  -1  -1  0   1   2&lt;/p&gt;
+&lt;p&gt;.                k   i  j // 去重&lt;/p&gt;
+&lt;p&gt;sum = 0 == 0, 加入 res&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;threeSum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;c1&#34;&gt;// 不能大于 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             &lt;span class=&#34;c1&#34;&gt;// 去重  nums[i] == nums[i + 1] 就排斥-1， -1 ， 2，或者 0， 0， 0
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;             &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;asList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]));&lt;/span&gt;
+                    &lt;span class=&#34;c1&#34;&gt;// 去重
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;markdown-while-k-%3C-j-%26%26-nums%5Bj%5D-%3D%3D-nums%5Bj---1%5D-j--%3B&amp;#34;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;while-k-%3C-j-%26%26-nums%5Bj%5D-%3D%3D-nums%5Bj---1%5D-j--%3B&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+                     &lt;span class=&#34;nf&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+             
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;3sum-closest-16&#34;&gt;3Sum Closest 16&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
+
+Return the sum of the three integers.
+
+You may assume that each input would have exactly one solution.
+
+ 
+
+Example 1:
+
+Input: &lt;span class=&#34;nv&#34;&gt;nums&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;-1,2,1,-4&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;, &lt;span class=&#34;nv&#34;&gt;target&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+Output: &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+Explanation: The sum that is closest to the target is 2. &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;-1 + &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt; + &lt;span class=&#34;nv&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 2&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;.
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt; &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;threeSumClosest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        
+       
+        &lt;span class=&#34;n&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+         &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nums&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Math&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;abs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+                    
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    
+                  
+                     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++;&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+          &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+           
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;int res = nums[0] + nums[1] + nums[nums.length - 1], 刚开始我设置为     int res = Integer.MAX_VALUE&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但是！！！！ input 为负的时候，Math.abs(res - target))这里 res 因为是正的 max_value - (-1) 会变成 min_value, 这时候 res 就一直是 max_value, 不会变成 sum&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/2pointers2/&#34; &gt;2pointers2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/slidewindow1/&#34; &gt;slidewindow1&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/fastslow1/&#34; &gt;fastslowpoint&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://rileyshen.github.io/post/reverse/&#34; &gt;LinkedList&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/MPnaiL&lt;/p&gt;
+&lt;p&gt;感谢：她们都有题库在 github 上直接有，都是大神, 都富有详细解法，对新人特别适合了解解题思路&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&#34;&gt;https://leetcode-cn.com/problems/wtcaE1/solution/jian-dan-yi-dong-javac-pythonjshua-dong-dtang/&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;宫水三叶&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Grandyang (&lt;a href=&#34;https://www.cnblogs.com/grandyang/&#34;&gt;https://www.cnblogs.com/grandyang/&lt;/a&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;花花酱（油管频道视频）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>about row-level locking</title>
+      <link>https://rileyshen.github.io/post/lock/</link>
+      <pubDate>Wed, 01 Mar 2023 15:56:39 +0800</pubDate>
+      
+      <guid>https://rileyshen.github.io/post/lock/</guid>
+      
+        <description>&lt;p&gt;介绍下Database locking strategies&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;代码加锁，一段代码中有人要a物品，有人要b物品，相互之间不冲突但是也只能串行执行，访问会变得很慢。&lt;/p&gt;
+&lt;p&gt;而且只支持单点（单机、服务器环境），无法做到水平扩展，现在基本都是集群部署的，仅能一台机器生效。&lt;/p&gt;
+&lt;p&gt;所以需要数据库锁住库存。&lt;/p&gt;
+&lt;p&gt;行级锁（锁定一行）： InnoDB 支持事务；采用了行级锁。也就是你需要修改哪行，就可以只锁定哪行。&lt;/p&gt;
+&lt;p&gt;row-level lock 行级锁分为共享锁 和 排他锁。&lt;/p&gt;
+&lt;p&gt;其实和InnoDB的悲观锁挺像的。悲观锁是由数据库自己实现了的，要用的时候，我们直接调用数据库的相关语句就可以了。悲观锁实际使用了排他锁来实现（select **** for update）。innodb加行锁的前提是：必须是通过索引条件来检索数据，否则会切换为表锁。因此，悲观锁在未通过索引条件检索数据时，会锁定整张表。导致其他程序不允许“加锁的查询操作”，影响吞吐。故如果在查询居多的情况下，推荐使用乐观&lt;/p&gt;
+&lt;h3 id=&#34;悲观锁pessimistic-lock&#34;&gt;悲观锁Pessimistic Lock&lt;/h3&gt;
+&lt;p&gt;要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。set autocommit=0;&lt;/p&gt;
+&lt;p&gt;一直锁住data，等到这个锁释放了，才能有新操作。这就是悲观。&lt;/p&gt;
+&lt;p&gt;如果Oracle中用&lt;code&gt;select * for update &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;for update&lt;/code&gt;就可以锁&lt;/p&gt;
+&lt;p&gt;明确指定主键，并且查询的数据存在，行锁（row lock）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SELECT * FROM products WHERE id=&amp;lsquo;3&amp;rsquo; FOR UPDATE;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;3 无主键，表锁（table lock）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SELECT * FROM products WHERE name=&amp;lsquo;Mouse&amp;rsquo; FOR UPDATE;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;但是 FOR UPDATE仅适用于InnoDB，且必须在交易区块(BEGIN/COMMIT)中才能生效。如果不在事务中，则查询加锁是无效的。&lt;/p&gt;
+&lt;p&gt;还有问题就是实际中主键那个key如果不明确开启事务查询，则会表锁（table rock）&lt;/p&gt;
+&lt;p&gt;当执行 select &amp;hellip; for update时，将会把数据锁住，因此，我们需要注意一下锁的级别。MySQL InnoDB 默认为行级锁。当查询语句指定了主键时，MySQL会执行「行级锁」，否则MySQL会执行「表锁」。&lt;/p&gt;
+&lt;p&gt;好了这就是悲观锁。&lt;/p&gt;
+&lt;h3 id=&#34;乐观锁optimistic-lock&#34;&gt;乐观锁Optimistic Lock&lt;/h3&gt;
+&lt;p&gt;增加要给 version， 一个sql要操作的是看看version和现在的version对比，一样就说明是最新的可以执行，则会成功执行本次操作,且版本号加1; 不一样就不可以。&lt;/p&gt;
+&lt;p&gt;乐观锁的实现不会使用到数据库的锁机制，乐观锁的原理使用的CAS的机制来实现的，CAS(Compare-and-Swap)即比较并替换.&lt;/p&gt;
+&lt;p&gt;我们经常看到那个 i++的例子，证明原子性， AtomicInteger是java.util.concurrent.atomic包提供的原子类，利用CPU提供的CAS操作来保证原子性。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;private static AtomicInteger value2 = new AtomicInteger(0);&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;有个问题是A拿到a，B拿到a, 改为b，再改为a, A再对比a，感觉是没问题的，但是还是有。所以在进行CAS操作时，不仅比较内存中的值，也会比较版本号，只有当二者都没有变化时，CAS才能执行成功。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;高竞争下的开销问题 在并发冲突概率大的高竞争环境下，如果CAS一直失败，会一直重试，CPU开销较大。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所以要退出机制，如重试次数超过一定阈值后失败退出。&lt;/p&gt;
+&lt;p&gt;更重要的是避免在高竞争环境下使用乐观锁。&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;乐观锁更新有可能会失败，甚至是更新几次都失败，这是有风险的。所以如果写入居多，对吞吐要求不高，可使用悲观锁。&lt;/p&gt;
+&lt;p&gt;也就是一句话：读用乐观锁，写用悲观锁。&lt;/p&gt;
+&lt;h3 id=&#34;死锁&#34;&gt;死锁&lt;/h3&gt;
+&lt;p&gt;T1 和 T2 同时达到 select，T1 对 table 加共享锁，T2 也对 table 加共享锁 。&lt;/p&gt;
+&lt;p&gt;当 T1 的 select 执行完，准备执行 update 时,根据锁机制，T1 的共享锁需要升级到排他锁才能执行接下来的 update。在升级排他锁前，必须等 table 上的其它共享锁（T2）释放，同理，T2 也在等 T1 的共享锁释放。于是死锁产生了。&lt;/p&gt;
+&lt;p&gt;当 T1 的 select 执行时，加上for update 直接对表加上了排他锁，T2 在执行 select 时，就需要等 T1 事物完全执行完才能执行。排除了死锁发生。&lt;/p&gt;
+&lt;p&gt;但当第三个 user 过来想执行一个查询(select)语句时，也因为排他锁的存在而不得不等待，第四个、第五个 user 也会因此而等待。在大并发情况下，大家都懂的。&lt;/p&gt;
+&lt;p&gt;发生死锁后，InnoDB一般都可以检测到，并使一个事务释放锁回退，另一个获取锁完成事务。&lt;/p&gt;
+</description>
+      
+    </item>
+    
     <item>
       <title>JVM2</title>
       <link>https://rileyshen.github.io/post/jvm2/</link>
